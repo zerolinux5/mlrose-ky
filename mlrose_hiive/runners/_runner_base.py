@@ -74,6 +74,7 @@ class _RunnerBase(ABC):
         self._current_logged_algorithm_args = {}
         self._run_start_time = None
         self._iteration_times = []
+        self._first_curve_synthesized = False
         if replay:
             self.set_replay_mode()
         self._increment_spawn_count()
@@ -328,10 +329,18 @@ class _RunnerBase(ABC):
             run_stat.update(current_iteration_stats)
             self._raw_run_stats.append(run_stat)
 
+        if self.generate_curves and iteration == 0:
+            # capture first fitness value for iteration 0 if not already captured.
+            if curve is None or len(curve) == 0:
+                curve = [fitness]
+                self._first_curve_synthesized = True
+
         if self.generate_curves and curve is not None:  # and (done or iteration == max(self.iteration_list)):
             curve_stats_saved = len(self._fitness_curves)
             total_curve_stats = self._curve_base + len(curve)
             curve_stats_to_save = total_curve_stats - curve_stats_saved
+            if self._first_curve_synthesized:
+                curve_stats_to_save += 1
 
             fc = list(zip(range(curve_stats_saved, total_curve_stats + 1), curve[-curve_stats_to_save:]))
 

@@ -14,7 +14,9 @@ def readme():
     with open('README.md') as _file:
         return _file.read()
 
+
 VERSION=mlrose_hiive.__version__
+
 setup(name='mlrose_hiive',
       version=VERSION,
       description="MLROSe: Machine Learning, Randomized Optimization and"
