@@ -45,4 +45,4 @@ from .generators import (MaxKColorGenerator, QueensGenerator, FlipFlopGenerator,
 # Dev branch marker is: 'X.Y.dev' or 'X.Y.devN' where N is an integer.
 # 'X.Y.dev0' is the canonical version of 'X.Y.dev'
 #
-__version__ = '2.1.5'
+__version__ = '2.1.7'

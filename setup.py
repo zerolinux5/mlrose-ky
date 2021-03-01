@@ -15,7 +15,7 @@ def readme():
         return _file.read()
 
 
-VERSION=mlrose_hiive.__version__
+VERSION = mlrose_hiive.__version__
 
 setup(name='mlrose_hiive',
       version=VERSION,

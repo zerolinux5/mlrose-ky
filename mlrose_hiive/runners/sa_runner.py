@@ -38,8 +38,6 @@ class SARunner(_RunnerBase):
         self.use_raw_temp = True
         self.temperature_list = temperature_list
         if all([np.isscalar(x) for x in temperature_list]):
-            print('all numbers')
-
             if decay_list is None:
                 decay_list = [mlrose_hiive.GeomDecay]
             self.decay_list = decay_list
