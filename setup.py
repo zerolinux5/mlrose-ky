@@ -5,7 +5,6 @@
 # License: BSD 3 clause
 
 from setuptools import setup
-import mlrose_hiive
 
 def readme():
     """
@@ -14,8 +13,7 @@ def readme():
     with open('README.md') as _file:
         return _file.read()
 
-
-VERSION = mlrose_hiive.__version__
+VERSION = '2.1.7'
 
 setup(name='mlrose_hiive',
       version=VERSION,
