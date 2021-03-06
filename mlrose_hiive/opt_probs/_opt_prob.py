@@ -39,6 +39,9 @@ class _OptProb:
         self.population = []
         self.pop_fitness = []
         self.mate_probs = []
+        # fields for tracking function evaluations
+        self.fevals = {}
+        self.current_iteration = 0
 
         if maximize:
             self.maximize = 1.0
@@ -92,6 +95,8 @@ class _OptProb:
             raise Exception("state length must match problem length")
 
         fitness = self.maximize*self.fitness_fn.evaluate(state)
+        # increment fevals for the current iteration
+        self.fevals[self.current_iteration] = self.fevals.get(self.current_iteration, 0) + 1
 
         return fitness
 
