@@ -11,7 +11,7 @@ from mlrose_hiive.decorators import short_name
 
 @short_name('rhc')
 def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
-                      init_state=None, curve=False, random_state=None,
+                      init_state=None, curve=False, fevals=False, random_state=None,
                       state_fitness_callback=None, callback_user_info=None):
     """Use randomized hill climbing to find the optimum for a given
     optimization problem.
@@ -35,6 +35,11 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         If :code:`False`, then no curve is stored.
         If :code:`True`, then a history of fitness values is provided as a
         third return value.
+    fevals: bool, default: False
+        Boolean to track the number of fitness function evaluations.
+        If :code:`False`, then nothing additional is returned.
+        If :code:`True`, then a history of function evaluations per iteration
+        is provided as a fourth return value.
     random_state: int, default: None
         If random_state is a positive integer, random_state is the seed used
         by np.random.seed(); otherwise, the random seed is not set.
@@ -59,15 +64,15 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
     Recipes*. `<http://www.cleveralgorithms.com>`_.
     """
     if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) \
-       or (max_attempts < 0):
+            or (max_attempts < 0):
         raise Exception("""max_attempts must be a positive integer.""")
 
     if (not isinstance(max_iters, int) and max_iters != np.inf
-            and not max_iters.is_integer()) or (max_iters < 0):
+        and not max_iters.is_integer()) or (max_iters < 0):
         raise Exception("""max_iters must be a positive integer.""")
 
     if (not isinstance(restarts, int) and not restarts.is_integer()) \
-       or (restarts < 0):
+            or (restarts < 0):
         raise Exception("""restarts must be a positive integer.""")
 
     if init_state is not None and len(init_state) != problem.get_length():
@@ -105,6 +110,7 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         iters = 0
         while (attempts < max_attempts) and (iters < max_iters):
             iters += 1
+            problem.current_iteration += 1
 
             # Find random neighbor and evaluate fitness
             next_state = problem.random_neighbor()
@@ -150,7 +156,8 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         if problem.can_stop():
             break
     best_fitness *= problem.get_maximize()
-    if curve:
-        return best_state, best_fitness, np.asarray(best_fitness_curve)
 
-    return best_state, best_fitness, None
+    if fevals:
+        return best_state, best_fitness, np.asarray(best_fitness_curve) if curve else None, problem.fevals
+    else:
+        return best_state, best_fitness, np.asarray(best_fitness_curve) if curve else None

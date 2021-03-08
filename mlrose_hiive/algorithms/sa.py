@@ -13,7 +13,7 @@ from mlrose_hiive.decorators import short_name
 @short_name('sa')
 def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
                         max_iters=np.inf, init_state=None, curve=False,
-                        random_state=None,
+                        fevals=False, random_state=None,
                         state_fitness_callback=None, callback_user_info=None):
     """Use simulated annealing to find the optimum for a given
     optimization problem.
@@ -37,6 +37,11 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
         If :code:`False`, then no curve is stored.
         If :code:`True`, then a history of fitness values is provided as a
         third return value.
+    fevals: bool, default: False
+        Boolean to track the number of fitness function evaluations.
+        If :code:`False`, then nothing additional is returned.
+        If :code:`True`, then a history of function evaluations per iteration
+        is provided as a fourth return value.
     random_state: int, default: None
         If random_state is a positive integer, random_state is the seed used
         by np.random.seed(); otherwise, the random seed is not set.
@@ -61,11 +66,11 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
     Approach*, 3rd edition. Prentice Hall, New Jersey, USA.
     """
     if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) \
-       or (max_attempts < 0):
+            or (max_attempts < 0):
         raise Exception("""max_attempts must be a positive integer.""")
 
     if (not isinstance(max_iters, int) and max_iters != np.inf
-            and not max_iters.is_integer()) or (max_iters < 0):
+        and not max_iters.is_integer()) or (max_iters < 0):
         raise Exception("""max_iters must be a positive integer.""")
 
     if init_state is not None and len(init_state) != problem.get_length():
@@ -97,6 +102,7 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
     while (attempts < max_attempts) and (iters < max_iters):
         temp = schedule.evaluate(iters)
         iters += 1
+        problem.current_iteration += 1
 
         if temp == 0:
             break
@@ -140,7 +146,7 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
     best_fitness = problem.get_maximize()*problem.get_fitness()
     best_state = problem.get_state()
 
-    if curve:
-        return best_state, best_fitness, np.asarray(fitness_curve)
-
-    return best_state, best_fitness, None
+    if fevals:
+        return best_state, best_fitness, np.asarray(best_fitness) if curve else None, problem.fevals
+    else:
+        return best_state, best_fitness, np.asarray(best_fitness) if curve else None

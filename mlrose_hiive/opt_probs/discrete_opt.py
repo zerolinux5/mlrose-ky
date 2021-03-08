@@ -397,6 +397,8 @@ class DiscreteOpt(_OptProb):
         """
         self.state = self.random()
         self.fitness = self.eval_fitness(self.state)
+        self.fevals = {}
+        self.current_iteration = 0
 
     def sample_pop(self, sample_size):
         """Generate new sample from probability density.
