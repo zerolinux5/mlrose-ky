@@ -160,6 +160,6 @@ def mimic(problem, pop_size=200, keep_pct=0.2, max_attempts=10,
     best_state = problem.get_state().astype(int)
 
     if fevals:
-        return best_state, best_fitness, np.asarray(best_fitness) if curve else None, problem.fevals
+        return best_state, best_fitness, np.asarray(fitness_curve) if curve else None, problem.fevals
     else:
-        return best_state, best_fitness, np.asarray(best_fitness) if curve else None
+        return best_state, best_fitness, np.asarray(fitness_curve) if curve else None

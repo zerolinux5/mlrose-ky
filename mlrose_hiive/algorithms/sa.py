@@ -147,6 +147,6 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
     best_state = problem.get_state()
 
     if fevals:
-        return best_state, best_fitness, np.asarray(best_fitness) if curve else None, problem.fevals
+        return best_state, best_fitness, np.asarray(fitness_curve) if curve else None, problem.fevals
     else:
-        return best_state, best_fitness, np.asarray(best_fitness) if curve else None
+        return best_state, best_fitness, np.asarray(fitness_curve) if curve else None
