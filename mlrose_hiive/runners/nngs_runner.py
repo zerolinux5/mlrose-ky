@@ -1,6 +1,6 @@
 import sklearn.metrics as skmt
 
-from mlrose_hiive import NNClassifier
+from mlrose_hiive import NNClassifier, relu
 from mlrose_hiive.decorators import short_name
 from mlrose_hiive.runners._nn_runner_base import _NNRunnerBase
 from mlrose_hiive.decorators import get_short_name
@@ -40,7 +40,7 @@ class NNGSRunner(_NNRunnerBase):
 
     def __init__(self, x_train, y_train, x_test, y_test, experiment_name, seed, iteration_list, algorithm,
                  grid_search_parameters, grid_search_scorer_method=skmt.balanced_accuracy_score,
-                 bias=True, early_stopping=True, clip_max=1e+10,
+                 bias=True, early_stopping=True, clip_max=1e+10, activation=None,
                  max_attempts=500, n_jobs=1, cv=5, generate_curves=True, output_directory=None,
                  **kwargs):
 

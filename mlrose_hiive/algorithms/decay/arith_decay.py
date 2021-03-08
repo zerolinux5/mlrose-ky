@@ -1,5 +1,6 @@
 """ Classes for defining decay schedules for simulated annealing."""
 
+
 # Author: Genevieve Hayes
 # License: BSD 3 clause
 
@@ -70,7 +71,7 @@ class ArithDecay:
             Temperature parameter at time t.
         """
 
-        temp = self.init_temp - (self.decay*t)
+        temp = self.init_temp - (self.decay * t)
 
         if temp < self.min_temp:
             temp = self.min_temp
@@ -95,3 +96,13 @@ class ArithDecay:
     def __repr__(self):
         return f'{self.__class__.__name__}(init_temp={self.init_temp}, ' \
                f'decay={self.decay}, min_temp={self.min_temp})'
+
+    def __eq__(self, other):
+        try:
+
+            return (self.__class__.__name__ == other.__class__.__name__ and
+                    self.init_temp == other.init_temp and
+                    self.decay == other.decay and
+                    self.min_temp == other.min_temp)
+        except:
+            return False

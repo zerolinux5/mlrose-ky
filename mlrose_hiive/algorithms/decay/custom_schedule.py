@@ -67,3 +67,11 @@ class CustomSchedule:
 
     def __repr__(self):
         return f'{self.__class__.__name__}[{self.__dict__}]'
+
+    def __eq__(self, other):
+        try:
+
+            return (self.__class__.__name__ == other.__class__.__name__ and
+                    self.get_info__() == other.get_info__())
+        except:
+            return False

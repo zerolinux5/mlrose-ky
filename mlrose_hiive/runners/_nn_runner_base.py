@@ -120,6 +120,19 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         filename_root += arg_hash
         return filename_root
 
+    def _check_match(self, df_ref, df_to_check):
+        cols = [i for i in df_ref.columns]
+        found = False
+        for _, row in df_to_check.iterrows():
+            found = True
+            for col in cols:
+                if df_ref[col][0] != row[col]:
+                    found = False
+                    break
+            if found:
+                break
+        return found
+
     def _tear_down(self):
         if self.best_params is None or self.replay_mode() is None:
             super()._tear_down()
@@ -145,8 +158,9 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             with open(filename, 'rb') as pickle_file:
                 try:
                     df = pk.load(pickle_file)
-                    delete = (pd.merge(df, df_best_params, how='inner')).empty
-                    if delete:
+                    # delete = (pd.merge(df, df_best_params, how='inner')).empty
+                    found = self._check_match(df_best_params, df)
+                    if not found:
                         incorrect_files.append(filename)
                     else:
                         correct_files.append(filename)
@@ -163,8 +177,8 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             all_incorrect_files.extend([os.path.join(path, fn) for fn in os.listdir(path) if incorrect_md5 in fn])
 
         for filename in all_incorrect_files:
-            os.rename(filename, f'{filename}.del')
-            # os.remove(filename)
+            # os.rename(filename, f'{filename}.del')
+            os.remove(filename)
 
         # rename the best files by removing the md5 from the end
         all_correct_files = []
