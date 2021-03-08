@@ -14,6 +14,14 @@ class UniformCrossOver(_CrossOverBase):
         super().__init__(opt_prob)
 
     def mate(self, p1, p2):
+        n = np.random.randint(2, size=self._length)
+        x = np.vstack((p1, p2))
+        child = x[n, np.arange(self._length)]
+        return child
+    """
+    def mate(self, p1, p2):
         n = np.random.choice(a=[False, True], size=self._length)
         child = np.array([p1[i] if n[i] else p2[i] for i in range(self._length)])
         return child
+    """
+
