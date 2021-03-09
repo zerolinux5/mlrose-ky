@@ -1,6 +1,7 @@
 import time
 import hashlib
 import os
+import logging
 from abc import ABC
 
 import pandas as pd
@@ -55,7 +56,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
     def run(self):
         try:
             self._setup()
-            print(f'Running {self.dynamic_runner_name()}')
+            logging.info(f'Running {self.dynamic_runner_name()}')
             if self.replay_mode():
                 gsr_name = f"{super()._get_pickle_filename_root('grid_search_results')}.p"
                 with open(gsr_name, 'rb') as pickle_file:
@@ -70,7 +71,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
                                                n_jobs=self.n_jobs,
                                                verbose=self.verbose_grid_search)
                 run_end = time.perf_counter()
-                print(f'Run time: {run_end - run_start}')
+                logging.info(f'Run time: {run_end - run_start}')
 
             # pull the stats from the best estimator to here.
             # (as grid search will have cloned this object).

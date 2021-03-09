@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import time
 import os
+import logging
 import itertools as it
 import numpy as np
 import pandas as pd
@@ -33,9 +34,9 @@ class _RunnerBase(ABC):
 
     @staticmethod
     def _print_banner(text):
-        print('*' * len(text))
-        print(text)
-        print('*' * len(text))
+        logging.info('*' * len(text))
+        logging.info(text)
+        logging.info('*' * len(text))
 
     @staticmethod
     def _sanitize_value(value):
@@ -124,7 +125,7 @@ class _RunnerBase(ABC):
             signal.signal(signal.SIGINT, self._ctrl_c_handler)
 
     def _ctrl_c_handler(self, sig, frame):
-        print('Interrupted - saving progress so far')
+        logging.info('Interrupted - saving progress so far')
         self.__sigint_params = (sig, frame)
         self.abort()
 
@@ -147,7 +148,7 @@ class _RunnerBase(ABC):
         self.parameter_description_dict = {k: n for (k, (n, vs)) in kwargs.items() if vs is not None}
         value_sets = list(it.product(*values))
 
-        print(f'Running {self.dynamic_runner_name()}')
+        logging.info(f'Running {self.dynamic_runner_name()}')
         run_start = time.perf_counter()
         for vns in value_sets:
             total_args = dict(vns)
@@ -157,7 +158,7 @@ class _RunnerBase(ABC):
             self._run_one_experiment(algorithm, total_args)
 
         run_end = time.perf_counter()
-        print(f'Run time: {run_end - run_start}')
+        logging.info(f'Run time: {run_end - run_start}')
 
         self._create_and_save_run_data_frames(final_save=True)
         self._tear_down()
@@ -192,7 +193,7 @@ class _RunnerBase(ABC):
                                                   name=df_name)
         df.to_csv(f'{filename_root}.csv')
         if final_save:
-            print(f'Saving: [{filename_root}.csv]')
+            logging.info(f'Saving: [{filename_root}.csv]')
 
     def _get_pickle_filename_root(self, name):
         filename_root = build_data_filename(output_directory=self._output_directory,
@@ -208,7 +209,7 @@ class _RunnerBase(ABC):
 
         pk.dump(object_to_pickle, open(f'{filename_root}.p', "wb"))
         if final_save:
-            print(f'Saving: [{filename_root}.p]')
+            logging.info(f'Saving: [{filename_root}.p]')
         return filename_root
 
     def _load_pickles(self):
@@ -290,15 +291,15 @@ class _RunnerBase(ABC):
         if user_data is not None and len(user_data) > 0:
             display_data.update({n: v for (n, v) in user_data})
             data_desc = ', '.join([f'{n}:[{get_short_name(v)}]' for n, v in display_data.items()])
-            print(data_desc)
-        print(f'runner_name:[{self.dynamic_runner_name()}], experiment_name:[{self._experiment_name}], ' +
+            logging.debug(data_desc)
+        logging.debug(f'runner_name:[{self.dynamic_runner_name()}], experiment_name:[{self._experiment_name}], ' +
               ('' if attempt is None else f'attempt:[{attempt}], ') +
               f'iteration:[{iteration}], done:[{done}], '
               f'time:[{t:.2f}], fitness:[{fitness:.4f}]')
 
         state_string = str(state).replace('\n', '//')[:200]
-        print(f'\t{state_string}...')
-        print()
+        logging.debug(f'\t{state_string}...')
+        logging.debug("")
 
         gd = lambda n: n if n not in self.parameter_description_dict.keys() else self.parameter_description_dict[n]
 
@@ -344,10 +345,10 @@ class _RunnerBase(ABC):
 
             fc = list(zip(range(curve_stats_saved, total_curve_stats + 1), curve[-curve_stats_to_save:]))
 
-            curve_stats = [self._create_curve_stat(iteration=i,
+            curve_stats = [self._create_curve_stat(iteration=iteration,
                                                    curve_value=f,
                                                    curve_data=current_iteration_stats,
-                                                   t=self._iteration_times[i]) for (i, f) in fc]
+                                                   t=self._iteration_times[iteration]) for (i, f) in fc]
 
             self._fitness_curves.extend(curve_stats)
 
