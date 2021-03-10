@@ -36,6 +36,9 @@ class MaxKColor:
     ----
     The MaxKColor fitness function is suitable for use in discrete-state
     optimization problems *only*.
+
+    This is a cost minimization problem: lower scores are better than
+    high scores.
     """
 
     def __init__(self, edges):
