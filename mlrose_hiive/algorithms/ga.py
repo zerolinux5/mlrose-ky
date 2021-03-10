@@ -222,7 +222,7 @@ def genetic_alg(problem, pop_size=200, pop_breed_percent=0.75, elite_dreg_ratio=
             attempts += 1
 
         if curve:
-            fitness_curve.append(problem.get_adjusted_fitness())
+            fitness_curve.append((problem.get_adjusted_fitness(), problem.fitness_evaluations))
 
         # invoke callback
         if state_fitness_callback is not None:

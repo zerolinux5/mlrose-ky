@@ -103,7 +103,7 @@ def hill_climb(problem, max_iters=np.inf, restarts=0, init_state=None,
             next_fitness = problem.eval_fitness(next_state)
 
             if curve:
-                fitness_curve.append(problem.get_adjusted_fitness())
+                fitness_curve.append((problem.get_adjusted_fitness(), problem.fitness_evaluations))
 
             # invoke callback
             if state_fitness_callback is not None:

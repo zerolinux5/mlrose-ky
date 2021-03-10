@@ -266,10 +266,12 @@ class _RunnerBase(ABC):
 
     @staticmethod
     def _create_curve_stat(iteration, curve_value, curve_data, t=None):
+        curve_fitness_value, curve_feval_value = curve_value
         curve_stat = {
             'Iteration': iteration,
             'Time': t,
-            'Fitness': curve_value
+            'Fitness': curve_fitness_value,
+            'FEval': curve_feval_value
         }
 
         curve_stat.update(curve_data)
@@ -310,8 +312,6 @@ class _RunnerBase(ABC):
         current_iteration_stats.update({str(gd(k)): self._sanitize_value(v)
                                         for k, v in {k: v for (k, v) in user_data}.items()})
 
-        if fitness_evaluations is not None:
-            current_iteration_stats['FEvals'] = fitness_evaluations
 
         # check for additional info
         gi = lambda k, v: {} if not hasattr(v, 'get_info__') else v.get_info__(t)
@@ -328,6 +328,7 @@ class _RunnerBase(ABC):
             run_stat = {
                 'Iteration': i,
                 'Fitness': fitness,
+                'FEvals': fitness_evaluations,
                 'Time': t,
                 'State': self._sanitize_value(state)
             }
@@ -338,7 +339,7 @@ class _RunnerBase(ABC):
         if self.generate_curves and iteration == 0:
             # capture first fitness value for iteration 0 if not already captured.
             if curve is None or len(curve) == 0:
-                curve = [fitness]
+                curve = [(fitness, fitness_evaluations)]
                 self._first_curve_synthesized = True
 
         if self.generate_curves and curve is not None:  # and (done or iteration == max(self.iteration_list)):
@@ -364,6 +365,7 @@ class _RunnerBase(ABC):
 
             if self._copy_zero_curve_fitness_from_first and len(self._fitness_curves) > 1:
                 self._fitness_curves[0]['Fitness'] = self._fitness_curves[1]['Fitness']
+                # self._fitness_curves[0]['FEval'] = 0
                 self._copy_zero_curve_fitness_from_first = False
             self._create_and_save_run_data_frames()
 

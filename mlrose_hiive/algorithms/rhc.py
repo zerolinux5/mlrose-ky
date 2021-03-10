@@ -89,12 +89,15 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
     all_curves = []
 
     continue_iterating = True
+    # problem.reset()
     for current_restart in range(restarts + 1):
         # Initialize optimization problem and attempts counter
+        fevals = problem.fitness_evaluations
         if init_state is None:
             problem.reset()
         else:
             problem.set_state(init_state)
+        problem.fitness_evaluations = fevals
 
         fitness_curve = []
         callback_extra_data = None
@@ -128,8 +131,13 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
 
             if curve:
                 adjusted_fitness = problem.get_adjusted_fitness()
-                fitness_curve.append(adjusted_fitness)
-                all_curves.append({'current_restart': current_restart, 'Fitness': problem.get_adjusted_fitness()})
+                curve_value = (adjusted_fitness, problem.fitness_evaluations)
+                fitness_curve.append(curve_value)
+                all_curves.append(curve_value)
+                """
+                all_curves.append({'current_restart': current_restart, 'Fitness': problem.get_adjusted_fitness(),
+                                   'FEval': problem.fitness_evaluations})
+                """
 
             # invoke callback
             if state_fitness_callback is not None:
@@ -158,6 +166,5 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         if problem.can_stop():
             break
     best_fitness *= problem.get_maximize()
-
 
     return best_state, best_fitness, np.asarray(best_fitness_curve) if curve else None

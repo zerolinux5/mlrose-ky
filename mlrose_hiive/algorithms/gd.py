@@ -109,7 +109,7 @@ def gradient_descent(problem, max_attempts=10, max_iters=np.inf,
             attempts += 1
 
         if curve:
-            fitness_curve.append(problem.get_adjusted_fitness())
+            fitness_curve.append((problem.get_adjusted_fitness(), problem.fitness_evaluations))
 
         # invoke callback
         if state_fitness_callback is not None:
