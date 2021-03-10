@@ -2,6 +2,7 @@ import itertools as it
 from collections import defaultdict
 
 import numpy as np
+import networkx as nx
 
 from mlrose_hiive import TSPOpt
 
@@ -26,7 +27,12 @@ class TSPGenerator:
             duplicates = TSPGenerator.list_duplicates_(coords)
         distances = TSPGenerator.get_distances(coords, False)
 
-        return TSPOpt(coords=coords, distances=distances, maximize=False)
+        g = nx.Graph()
+        for a, b, distance in distances:
+
+            g.add_edge(a, b, length=int(round(distance)))
+
+        return TSPOpt(coords=coords, distances=distances, maximize=False, source_graph=g)
 
 
     @staticmethod

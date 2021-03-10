@@ -45,13 +45,13 @@ class TSPOpt(DiscreteOpt):
     """
 
     def __init__(self, length=None, fitness_fn=None, maximize=False, coords=None,
-                 distances=None):
+                 distances=None, source_graph=None):
         if (fitness_fn is None) and (coords is None) and (distances is None):
             raise Exception("""At least one of fitness_fn, coords and"""
                             + """ distances must be specified.""")
         elif fitness_fn is None:
             fitness_fn = TravellingSales(coords=coords, distances=distances)
-
+        self.distances = distances
         if length is None:
             if coords is not None:
                 length = len(coords)
@@ -64,6 +64,7 @@ class TSPOpt(DiscreteOpt):
         if self.fitness_fn.get_prob_type() != 'tsp':
             raise Exception("""fitness_fn must have problem type 'tsp'.""")
 
+        self.source_graph = source_graph
         self.prob_type = 'tsp'
 
     def adjust_probs(self, probs):
