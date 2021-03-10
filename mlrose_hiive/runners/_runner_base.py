@@ -271,7 +271,7 @@ class _RunnerBase(ABC):
             'Iteration': iteration,
             'Time': t,
             'Fitness': curve_fitness_value,
-            'FEval': curve_feval_value
+            'FEvals': curve_feval_value
         }
 
         curve_stat.update(curve_data)
@@ -365,7 +365,7 @@ class _RunnerBase(ABC):
 
             if self._copy_zero_curve_fitness_from_first and len(self._fitness_curves) > 1:
                 self._fitness_curves[0]['Fitness'] = self._fitness_curves[1]['Fitness']
-                # self._fitness_curves[0]['FEval'] = 0
+                # self._fitness_curves[0]['FEvals'] = 0
                 self._copy_zero_curve_fitness_from_first = False
             self._create_and_save_run_data_frames()
 
