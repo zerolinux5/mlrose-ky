@@ -11,7 +11,7 @@ from mlrose_hiive.decorators import short_name
 
 @short_name('rhc')
 def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
-                      init_state=None, curve=False, fevals=False, random_state=None,
+                      init_state=None, curve=False, random_state=None,
                       state_fitness_callback=None, callback_user_info=None):
     """Use randomized hill climbing to find the optimum for a given
     optimization problem.
@@ -104,6 +104,7 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
             state_fitness_callback(iteration=0,
                                    state=problem.get_state(),
                                    fitness=problem.get_adjusted_fitness(),
+                                   fitness_evaluations=problem.fitness_evaluations,
                                    user_data=callback_extra_data)
 
         attempts = 0
@@ -138,6 +139,7 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
                                                             done=max_attempts_reached,
                                                             state=problem.get_state(),
                                                             fitness=problem.get_adjusted_fitness(),
+                                                            fitness_evaluations=problem.fitness_evaluations,
                                                             curve=np.asarray(all_curves) if curve else None,
                                                             user_data=callback_extra_data)
                 # break out if requested
@@ -157,7 +159,5 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
             break
     best_fitness *= problem.get_maximize()
 
-    if fevals:
-        return best_state, best_fitness, np.asarray(best_fitness_curve) if curve else None, problem.fevals
-    else:
-        return best_state, best_fitness, np.asarray(best_fitness_curve) if curve else None
+
+    return best_state, best_fitness, np.asarray(best_fitness_curve) if curve else None

@@ -249,6 +249,7 @@ class _RunnerBase(ABC):
         args_to_pass = {k: v for k, v in total_args.items() if k in valid_args}
 
         self._start_run_timing()
+        problem.reset()
         ret = algorithm(problem=problem,
                         max_attempts=max_attempts,
                         curve=curve,
@@ -276,7 +277,8 @@ class _RunnerBase(ABC):
             curve_stat.update(curve_value)
         return curve_stat
 
-    def _save_state(self, iteration, state, fitness, user_data, attempt=0, done=False, curve=None):
+    def _save_state(self, iteration, state, fitness, user_data,
+                    attempt=0, done=False, curve=None, fitness_evaluations=None):
 
         # log iteration timing
         end = time.perf_counter()
@@ -308,10 +310,14 @@ class _RunnerBase(ABC):
         current_iteration_stats.update({str(gd(k)): self._sanitize_value(v)
                                         for k, v in {k: v for (k, v) in user_data}.items()})
 
+        if fitness_evaluations is not None:
+            current_iteration_stats['FEvals'] = fitness_evaluations
+
         # check for additional info
         gi = lambda k, v: {} if not hasattr(v, 'get_info__') else v.get_info__(t)
         ai = (gi(k, v) for k, v in current_iteration_stats.items())
         additional_info = {k: self._sanitize_value(v) for d in ai for k, v in d.items()}
+
 
         if iteration > 0:
             remaining_iterations = [i for i in self.iteration_list if i >= iteration]

@@ -65,6 +65,7 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
     Russell, S. and P. Norvig (2010). *Artificial Intelligence: A Modern
     Approach*, 3rd edition. Prentice Hall, New Jersey, USA.
     """
+
     if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) \
             or (max_attempts < 0):
         raise Exception("""max_attempts must be a positive integer.""")
@@ -91,6 +92,7 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
         state_fitness_callback(iteration=0,
                                state=problem.get_state(),
                                fitness=problem.get_adjusted_fitness(),
+                               fitness_evaluations=problem.fitness_evaluations,
                                user_data=callback_user_info)
 
     fitness_curve = []
@@ -136,6 +138,7 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
                                                         done=max_attempts_reached,
                                                         state=problem.get_state(),
                                                         fitness=problem.get_adjusted_fitness(),
+                                                        fitness_evaluations=problem.fitness_evaluations,
                                                         curve=np.asarray(fitness_curve) if curve else None,
                                                         user_data=callback_user_info)
 
@@ -146,7 +149,4 @@ def simulated_annealing(problem, schedule=GeomDecay(), max_attempts=10,
     best_fitness = problem.get_maximize()*problem.get_fitness()
     best_state = problem.get_state()
 
-    if fevals:
-        return best_state, best_fitness, np.asarray(fitness_curve) if curve else None, problem.fevals
-    else:
-        return best_state, best_fitness, np.asarray(fitness_curve) if curve else None
+    return best_state, best_fitness, np.asarray(fitness_curve) if curve else None

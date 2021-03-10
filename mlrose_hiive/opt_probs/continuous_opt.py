@@ -218,6 +218,7 @@ class ContinuousOpt(_OptProb):
         """Set the current state vector to a random value and get its fitness.
         """
         self.state = self.random()
+        self.fitness_evaluations = 0
         self.fitness = self.eval_fitness(self.state)
 
     def update_state(self, updates):

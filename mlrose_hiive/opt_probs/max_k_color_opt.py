@@ -15,7 +15,7 @@ import networkx as nx
 
 class MaxKColorOpt(DiscreteOpt):
     def __init__(self, edges=None, length=None, fitness_fn=None, maximize=False,
-                 max_colors=None, crossover=None, mutator=None):
+                 max_colors=None, crossover=None, mutator=None, source_graph=None):
 
         if (fitness_fn is None) and (edges is None):
             raise Exception("fitness_fn or edges must be specified.")
@@ -32,14 +32,19 @@ class MaxKColorOpt(DiscreteOpt):
             fitness_fn = MaxKColor(edges)
 
         # set up initial state (everything painted one color)
-        g = nx.Graph()
-        g.add_edges_from(edges)
-        fitness_fn.set_graph(g)
+        if source_graph is None:
+            g = nx.Graph()
+            g.add_edges_from(edges)
+            self.source_graph = g
+        else:
+            self.source_graph = source_graph
 
+        fitness_fn.set_graph(self.source_graph)
         # if none is provided, make a reasonable starting guess.
         # the max val is going to be the one plus the maximum number of neighbors of any one node.
         if max_colors is None:
-            max_colors = 1 + max([len([*g.neighbors(n)]) for n in range(length)])
+            total_neighbor_count = [len([*self.source_graph.neighbors(n)]) for n in range(length)]
+            max_colors = 1 + max(total_neighbor_count)
         self.max_val = max_colors
 
         crossover = UniformCrossOver(self) if crossover is None else crossover

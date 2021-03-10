@@ -41,6 +41,7 @@ class _OptProb:
         self.mate_probs = []
         # fields for tracking function evaluations
         self.fevals = {}
+        self.fitness_evaluations = 0
         self.current_iteration = 0
 
         if maximize:
@@ -96,8 +97,7 @@ class _OptProb:
 
         fitness = self.maximize*self.fitness_fn.evaluate(state)
         # increment fevals for the current iteration
-        self.fevals[self.current_iteration] = self.fevals.get(self.current_iteration, 0) + 1
-
+        self.fitness_evaluations += 1
         return fitness
 
     def eval_mate_probs(self):
@@ -115,8 +115,7 @@ class _OptProb:
             pop_fitness -= np.min(pop_fitness)
 
         if np.sum(pop_fitness) == 0:
-            self.mate_probs = np.ones(len(pop_fitness)) \
-                              / len(pop_fitness)
+            self.mate_probs = np.ones(len(pop_fitness)) / len(pop_fitness)
         else:
             self.mate_probs = pop_fitness/np.sum(pop_fitness)
 

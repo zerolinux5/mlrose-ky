@@ -39,5 +39,5 @@ class MaxKColorGenerator:
                     break
 
         edges = [(s, f) for (s, f) in g.edges()]
-        problem = MaxKColorOpt(edges=edges, length=number_of_nodes, max_colors=max_colors)
+        problem = MaxKColorOpt(edges=edges, length=number_of_nodes, max_colors=max_colors, source_graph=g)
         return problem

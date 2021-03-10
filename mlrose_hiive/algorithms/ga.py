@@ -48,7 +48,7 @@ def _genetic_alg_select_parents(pop_size, problem,
 @short_name('ga')
 def genetic_alg(problem, pop_size=200, pop_breed_percent=0.75, elite_dreg_ratio=0.99,
                 minimum_elites=0, minimum_dregs=0, mutation_prob=0.1,
-                max_attempts=10, max_iters=np.inf, curve=False, fevals=False, random_state=None,
+                max_attempts=10, max_iters=np.inf, curve=False, random_state=None,
                 state_fitness_callback=None, callback_user_info=None,
                 hamming_factor=0.0, hamming_decay_factor=None):
     """Use a standard genetic algorithm to find the optimum for a given
@@ -84,11 +84,6 @@ def genetic_alg(problem, pop_size=200, pop_breed_percent=0.75, elite_dreg_ratio=
         If :code:`False`, then no curve is stored.
         If :code:`True`, then a history of fitness values is provided as a
         third return value.
-    fevals: bool, default: False
-        Boolean to track the number of fitness function evaluations.
-        If :code:`False`, then nothing additional is returned.
-        If :code:`True`, then a history of function evaluations per iteration
-        is provided as a fourth return value.
     random_state: int, default: None
         If random_state is a positive integer, random_state is the seed used
         by np.random.seed(); otherwise, the random seed is not set.
@@ -156,6 +151,7 @@ def genetic_alg(problem, pop_size=200, pop_breed_percent=0.75, elite_dreg_ratio=
         state_fitness_callback(iteration=0,
                                state=problem.get_state(),
                                fitness=problem.get_adjusted_fitness(),
+                               fitness_evaluations=problem.fitness_evaluations,
                                user_data=callback_user_info)
     # check for hamming
     # get_hamming_distance_default_
@@ -236,6 +232,7 @@ def genetic_alg(problem, pop_size=200, pop_breed_percent=0.75, elite_dreg_ratio=
                                                         done=max_attempts_reached,
                                                         state=problem.get_state(),
                                                         fitness=problem.get_adjusted_fitness(),
+                                                        fitness_evaluations=problem.fitness_evaluations,
                                                         curve=np.asarray(fitness_curve) if curve else None,
                                                         user_data=callback_user_info)
 
@@ -250,8 +247,4 @@ def genetic_alg(problem, pop_size=200, pop_breed_percent=0.75, elite_dreg_ratio=
             break
     best_fitness = problem.get_maximize()*problem.get_fitness()
     best_state = problem.get_state()
-
-    if fevals:
-        return best_state, best_fitness, np.asarray(fitness_curve) if curve else None, problem.fevals
-    else:
-        return best_state, best_fitness, np.asarray(fitness_curve) if curve else None
+    return best_state, best_fitness, np.asarray(fitness_curve) if curve else None

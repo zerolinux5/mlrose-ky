@@ -398,6 +398,7 @@ class DiscreteOpt(_OptProb):
         self.state = self.random()
         self.fitness = self.eval_fitness(self.state)
         self.fevals = {}
+        self.fitness_evaluations = 0
         self.current_iteration = 0
 
     def sample_pop(self, sample_size):

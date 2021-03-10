@@ -13,7 +13,7 @@ def readme():
     with open('README.md') as _file:
         return _file.read()
 
-VERSION = '2.1.9'
+VERSION = '2.2.0'
 
 setup(name='mlrose_hiive',
       version=VERSION,
