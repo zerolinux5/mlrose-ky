@@ -38,9 +38,9 @@ class MaxKColor:
     optimization problems *only*.
 
     This is a cost minimization problem: lower scores are better than
-    high scores. That is, for a given graph, and a set number of colors,
-    this problem seeks to color nodes in the graph such that the number
-    of pairs of adjacent nodes of the same color is minimized.
+    higher scores. That is, for a given graph, and a given number of colors,
+    the challenge is to assign a color to each node in the graph such that
+    the number of pairs of adjacent nodes of the same color is minimized.
     """
 
     def __init__(self, edges):
