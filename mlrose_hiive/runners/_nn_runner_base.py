@@ -135,9 +135,10 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         return found
 
     def _tear_down(self):
-        if self.best_params is None or self.replay_mode() is None:
+        if self.best_params is None or self.replay_mode() is None or self._output_directory is None:
             super()._tear_down()
             return
+
         filename_root = super()._get_pickle_filename_root('')
 
         path = os.path.join(*filename_root.split('/')[:-1])

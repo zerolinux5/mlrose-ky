@@ -318,7 +318,6 @@ class _RunnerBase(ABC):
         ai = (gi(k, v) for k, v in current_iteration_stats.items())
         additional_info = {k: self._sanitize_value(v) for d in ai for k, v in d.items()}
 
-
         if iteration > 0:
             remaining_iterations = [i for i in self.iteration_list if i >= iteration]
             iterations = [min(remaining_iterations)] if not done else remaining_iterations
@@ -348,13 +347,18 @@ class _RunnerBase(ABC):
             curve_stats_to_save = total_curve_stats - curve_stats_saved
             if self._first_curve_synthesized:
                 curve_stats_to_save += 1
+            ix_end = iteration + 1
+            ix_start = ix_end - curve_stats_to_save
+            if ix_start < 0:
+                ix_start = 0
 
-            fc = list(zip(range(curve_stats_saved, total_curve_stats + 1), curve[-curve_stats_to_save:]))
+            # fc = list(zip(range(curve_stats_saved, total_curve_stats + 1), curve[-curve_stats_to_save:]))
+            fc = list(zip(range(ix_start, ix_end), curve[-curve_stats_to_save:]))
 
-            curve_stats = [self._create_curve_stat(iteration=iteration,
+            curve_stats = [self._create_curve_stat(iteration=ix,
                                                    curve_value=f,
                                                    curve_data=current_iteration_stats,
-                                                   t=self._iteration_times[iteration]) for (i, f) in fc]
+                                                   t=self._iteration_times[ix]) for (ix, f) in fc]
 
             self._fitness_curves.extend(curve_stats)
 
