@@ -52,6 +52,7 @@ class TSPOpt(DiscreteOpt):
         elif fitness_fn is None:
             fitness_fn = TravellingSales(coords=coords, distances=distances)
         self.distances = distances
+        self.coords = coords
         if length is None:
             if coords is not None:
                 length = len(coords)
