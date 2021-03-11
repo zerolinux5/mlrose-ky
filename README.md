@@ -35,7 +35,7 @@ pip install mlrose-hiive
 
 Once it is installed, simply import it like so:
 ```python
-import mlrose_hiive as mlrose
+import mlrose_hiive
 ```
 
 ## Documentation
