@@ -33,8 +33,13 @@ The latest version can be installed using `pip`:
 pip install mlrose-hiive
 ```
 
+Once it is installed, simply import it like so:
+```python
+import mlrose_hiive as mlrose
+```
+
 ## Documentation
-The official mlrose documentation can be found [here](https://mlrose.readthedocs.io/). 
+The official mlrose documentation can be found [here](https://mlrose.readthedocs.io/).
 
 A Jupyter notebook containing the examples used in the documentation is also available [here](https://github.com/gkhayes/mlrose/blob/master/tutorial_examples.ipynb).
 
