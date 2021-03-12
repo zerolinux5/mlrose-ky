@@ -449,7 +449,7 @@ class TestDiscreteOpt(unittest.TestCase):
 
         child = problem.reproduce(father, mother, mutation_prob=0)
 
-        assert (len(child) == 5 and sum(child) > 0 and sum(child) <= 5)
+        assert (len(child) == 5 and sum(child) >= 0 and sum(child) <= 5)
 
     @staticmethod
     def test_reproduce_mut1_max2():
@@ -461,7 +461,7 @@ class TestDiscreteOpt(unittest.TestCase):
 
         child = problem.reproduce(father, mother, mutation_prob=1)
 
-        assert (len(child) == 5 and sum(child) > 0 and sum(child) <= 5)
+        assert (len(child) == 5 and sum(child) >= 0 and sum(child) <= 5)
 
     @staticmethod
     def test_reproduce_mut1_max_gt2():
