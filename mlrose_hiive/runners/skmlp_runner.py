@@ -63,9 +63,9 @@ class SKMLPRunner(_NNRunnerBase):
             self._state = self.mlp.coefs_ if hasattr(self.mlp, 'coefs_') else []
             self.loss_ = self.mlp.loss_ if hasattr(self.mlp, 'loss_') else 0
             if hasattr(self.mlp, 'loss_curve_'):
-                self.curve_ = self.mlp.loss_curve_
+                self.curve_ = [(l, None) for l in self.mlp.loss_curve_]
             else:
-                self.curve_.append(self.loss_)
+                self.curve_.append((self.loss_, None))
             self._invoke_runner_callback()
             return ret
 
@@ -74,7 +74,7 @@ class SKMLPRunner(_NNRunnerBase):
                                              coef_grads, intercept_grads)
             self.loss_ = f
             self.state_ = g
-            self.curve_.append(self.loss_)
+            self.curve_.append((self.loss_, None))
             self._invoke_runner_callback()
             return f, g
 
@@ -103,7 +103,7 @@ class SKMLPRunner(_NNRunnerBase):
 
     def __init__(self, x_train, y_train, x_test, y_test, experiment_name, seed, iteration_list,
                  grid_search_parameters, grid_search_scorer_method=skmt.balanced_accuracy_score,
-                 early_stopping=True, max_attempts=500, n_jobs=1, cv=5,
+                 early_stopping=True, max_attempts=500, n_jobs=1, cv=5, override_ctrl_c_handler=True,
                  generate_curves=True, output_directory=None, replay=False, **kwargs):
 
         # take a copy of the grid search parameters
@@ -124,6 +124,7 @@ class SKMLPRunner(_NNRunnerBase):
                          grid_search_scorer_method=grid_search_scorer_method,
                          generate_curves=generate_curves,
                          output_directory=output_directory,
+                         override_ctrl_c_handler=override_ctrl_c_handler,
                          replay=replay,
                          n_jobs=n_jobs,
                          cv=cv)

@@ -25,14 +25,19 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
                  generate_curves=True,
                  output_directory=None,
                  verbose_grid_search=True,
+                 override_ctrl_c_handler=True,
                  n_jobs=1,
                  replay=False,
                  **kwargs):
         # call super on _RunnerBase
-        _RunnerBase.__init__(self, problem=None, experiment_name=experiment_name, seed=seed,
+        _RunnerBase.__init__(self, problem=None,
+                             experiment_name=experiment_name,
+                             seed=seed,
                              iteration_list=iteration_list,
-                             generate_curves=generate_curves, output_directory=output_directory,
+                             generate_curves=generate_curves,
+                             output_directory=output_directory,
                              replay=replay,
+                             override_ctrl_c_handler=override_ctrl_c_handler,
                              copy_zero_curve_fitness_from_first=True)
 
         # call super on GridSearchMixin

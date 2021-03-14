@@ -54,6 +54,7 @@ class _RunnerBase(ABC):
 
     def __init__(self, problem, experiment_name, seed, iteration_list, max_attempts=500,
                  generate_curves=True, output_directory=None, copy_zero_curve_fitness_from_first=False, replay=False,
+                 override_ctrl_c_handler=True,
                  **kwargs):
         self.problem = problem
         self.seed = seed
@@ -61,6 +62,7 @@ class _RunnerBase(ABC):
         self.max_attempts = max_attempts
         self.generate_curves = generate_curves
         self.parameter_description_dict = {}
+        self.override_ctrl_c_handler = override_ctrl_c_handler
 
         self.run_stats_df = None
         self.curves_df = None
@@ -120,9 +122,10 @@ class _RunnerBase(ABC):
                 os.makedirs(self._output_directory)
 
         # set up ctrl-c handler
-        if self.__original_sigint_handler is None:
-            self.__original_sigint_handler = signal.getsignal(signal.SIGINT)
-            signal.signal(signal.SIGINT, self._ctrl_c_handler)
+        if self.override_ctrl_c_handler:
+            if self.__original_sigint_handler is None:
+                self.__original_sigint_handler = signal.getsignal(signal.SIGINT)
+                signal.signal(signal.SIGINT, self._ctrl_c_handler)
 
     def _ctrl_c_handler(self, sig, frame):
         logging.info('Interrupted - saving progress so far')
@@ -130,13 +133,18 @@ class _RunnerBase(ABC):
         self.abort()
 
     def _tear_down(self):
-        # restore ctrl-c handler
-        self._decrement_spawn_count()
-        if self.__original_sigint_handler is not None:
-            signal.signal(signal.SIGINT, self.__original_sigint_handler)
-            if self.has_aborted() and self._get_spawn_count() == 0:
-                sig, frame = self.__sigint_params
-                self.__original_sigint_handler(sig, frame)
+        if not self.override_ctrl_c_handler:
+            return
+        try:
+            # restore ctrl-c handler
+            self._decrement_spawn_count()
+            if self.__original_sigint_handler is not None:
+                signal.signal(signal.SIGINT, self.__original_sigint_handler)
+                if self.has_aborted() and self._get_spawn_count() == 0:
+                    sig, frame = self.__sigint_params
+                    self.__original_sigint_handler(sig, frame)
+        except:
+            logging.error('Problem restoring SIGNINT handler')
 
     def _log_current_argument(self, arg_name, arg_value):
         self._current_logged_algorithm_args[arg_name] = arg_value

@@ -24,7 +24,11 @@ from .gridsearch import GridSearchMixin
 
 from .opt_probs import DiscreteOpt, ContinuousOpt, KnapsackOpt, TSPOpt, QueensOpt, FlipFlopOpt, MaxKColorOpt
 
-from .runners import GARunner, MIMICRunner, RHCRunner, SARunner, NNGSRunner
+from .runners import GARunner, MIMICRunner, RHCRunner, SARunner, NNGSRunner, SKMLPRunner
 from .runners import (build_data_filename)
 from .generators import (MaxKColorGenerator, QueensGenerator, FlipFlopGenerator, TSPGenerator, KnapsackGenerator,
                          ContinuousPeaksGenerator)
+
+from .samples import SyntheticData
+from .samples import (plot_synthetic_dataset)
+
