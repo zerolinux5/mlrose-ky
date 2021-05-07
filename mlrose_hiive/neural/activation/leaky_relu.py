@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 
 
 @short_name('leaky_relu')
-def leaky_relu(x, alpha=0.3,deriv=False):
+def leaky_relu(x, alpha=0.3, deriv=False):
     """ Leaky ReLU activation function
 
     Parameters
@@ -31,10 +31,10 @@ def leaky_relu(x, alpha=0.3,deriv=False):
         Value of activation function at x
     """
     fx = np.copy(x)
-    fx=np.where(fx < 0, fx * alpha,fx)
+    fx = np.where(fx < 0, fx * alpha, fx)
 
     if deriv:
         fx[np.where(fx > 0)] = 1
-        fx[np.where(fx<0)]=alpha
+        fx[np.where(fx < 0)] = alpha
 
     return fx
