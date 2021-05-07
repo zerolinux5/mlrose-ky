@@ -11,7 +11,7 @@ except:
 
 import unittest
 import numpy as np
-from mlrose_hiive.neural.activation import identity, sigmoid, softmax, tanh, relu
+from mlrose_hiive.neural.activation import identity, sigmoid, softmax, tanh, relu ,leaky_relu
 # The above functions are not automatically imported at initialization, so
 # must be imported explicitly from activation.py.
 
