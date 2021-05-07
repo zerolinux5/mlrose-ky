@@ -16,7 +16,7 @@ from .fitness import (OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks,
                       Knapsack, TravellingSales, Queens, MaxKColor,
                       CustomFitness)
 from .neural import NeuralNetwork, LinearRegression, LogisticRegression, _nn_core, NNClassifier
-from .neural.activation import (identity, relu, sigmoid, softmax, tanh)
+from .neural.activation import (identity, relu,leaky_relu, sigmoid, softmax, tanh)
 from .neural.fitness import NetworkWeights
 from .neural.utils.weights import (flatten_weights, unflatten_weights)
 
