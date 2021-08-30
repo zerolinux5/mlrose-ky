@@ -1,7 +1,8 @@
 __pycache__/*
 tests/__pycache__/*
 mlrose_hiive/__pycache__/*
-
+mlrose_hiive/*/__pycache__/*
+mlrose_hiive/*/*/__pycache__/*
 build/*
 mlrose.egg-info/*
 dist/*

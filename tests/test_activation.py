@@ -11,7 +11,7 @@ except:
 
 import unittest
 import numpy as np
-from mlrose_hiive.neural.activation import identity, sigmoid, softmax, tanh, relu
+from mlrose_hiive.neural.activation import identity, sigmoid, softmax, tanh, relu ,leaky_relu
 # The above functions are not automatically imported at initialization, so
 # must be imported explicitly from activation.py.
 
@@ -104,6 +104,39 @@ class TestActivation(unittest.TestCase):
                       [1, 0, 0]])
 
         assert np.array_equal(relu(x, deriv=True), y)
+
+
+    @staticmethod
+    def test_leaky_relu():
+        """Test relu activation function"""
+
+        x = np.array([[0, 1, 3],
+                      [-1, 0, -5],
+                      [1, 0, 3],
+                      [10, -9, -7]])
+
+        y = np.array([[0, 1, 3],
+                      [-0.3, 0, -1.5],
+                      [1, 0, 3],
+                      [10, -2.7, -2.1]])
+
+        assert np.allclose(leaky_relu(x), y)
+
+    @staticmethod
+    def test_leaky_relu_deriv():
+        """Test relu activation function derivative"""
+
+        x = np.array([[0, 1, 3],
+                      [-1, 0, -5],
+                      [1, 0, 3],
+                      [10, -9, -7]])
+
+        y = np.array([[0, 1, 1],
+                      [0.3, 0, 0.3],
+                      [1, 0, 1],
+                      [1, 0.3, 0.3]])
+
+        assert np.allclose(leaky_relu(x,deriv=True),y)
 
     @staticmethod
     def test_tanh():
