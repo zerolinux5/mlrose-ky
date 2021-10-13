@@ -29,7 +29,7 @@ class MaxKColorOpt(DiscreteOpt):
         self.length = length
 
         if fitness_fn is None:
-            fitness_fn = MaxKColor(edges)
+            fitness_fn = MaxKColor(edges, maximize)
 
         # set up initial state (everything painted one color)
         if source_graph is None:
