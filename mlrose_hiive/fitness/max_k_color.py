@@ -37,13 +37,18 @@ class MaxKColor:
     The MaxKColor fitness function is suitable for use in discrete-state
     optimization problems *only*.
 
-    This is a cost minimization problem: lower scores are better than
+    If this is a cost minimization problem: lower scores are better than
     higher scores. That is, for a given graph, and a given number of colors,
     the challenge is to assign a color to each node in the graph such that
     the number of pairs of adjacent nodes of the same color is minimized.
+
+    If this is a cost maximization problem: higher scores are better than
+    lower scores. That is, for a given graph, and a given number of colors,
+    the challenge is to assign a color to each node in the graph such that
+    the number of pairs of adjacent nodes of different colors are maximized.
     """
 
-    def __init__(self, edges):
+    def __init__(self, edges, maximize=False):
 
         # Remove any duplicates from list
         edges = list({tuple(sorted(edge)) for edge in edges})
@@ -51,6 +56,7 @@ class MaxKColor:
         self.graph_edges = None
         self.edges = edges
         self.prob_type = 'discrete'
+        self.maximize = maximize
 
     def evaluate(self, state):
         """Evaluate the fitness of a state vector.
@@ -73,7 +79,11 @@ class MaxKColor:
         # This is NOT what the docs above say.
 
         edges = self.edges if self.graph_edges is None else self.graph_edges
-        fitness = sum(int(state[n1] == state[n2]) for (n1, n2) in edges)
+
+        if self.maximize:
+            fitness = sum(int(state[n1] == state[n2]) for (n1, n2) in edges)
+        else:
+            fitness = sum(int(state[n1] != state[n2]) for (n1, n2) in edges)
         """
         if fitness == 0:
             for i in range(len(edges)):
