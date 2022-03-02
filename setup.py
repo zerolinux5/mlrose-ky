@@ -42,7 +42,7 @@ setup(name='mlrose_hiive',
                 'mlrose_hiive.opt_probs', 'mlrose_hiive.fitness', 'mlrose_hiive.algorithms.mutators',
                 'mlrose_hiive.neural', 'mlrose_hiive.neural.activation', 'mlrose_hiive.neural.fitness',
                 'mlrose_hiive.neural.utils', 'mlrose_hiive.decorators',
-                'mlrose_hiive.gridsearch'],
+                'mlrose_hiive.gridsearch', 'mlrose_hiive.samples'],
       install_requires=['numpy', 'scipy', 'scikit-learn', 'pandas', 'networkx', 'joblib'],
       python_requires='>=3',
       zip_safe=False)
