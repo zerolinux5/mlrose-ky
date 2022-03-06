@@ -235,8 +235,7 @@ class _NNCore(_NNBase):
         # Can't use restart feature of random_hill_climb function, since
         # want to keep initial weights in the range -1 to 1.
         for _ in range(self.restarts + 1):
-            if init_weights is None:
-                init_weights = np.random.uniform(-1, 1, num_nodes)
+            restart_weights = np.random.uniform(-1, 1, num_nodes) if init_weights is None else init_weights
 
             if self.curve:
                 current_weights, current_loss, fitness_curve = \
@@ -245,7 +244,7 @@ class _NNCore(_NNBase):
                                       self.early_stopping else
                                       self.max_iters,
                                       max_iters=self.max_iters,
-                                      restarts=0, init_state=init_weights,
+                                      restarts=0, init_state=restart_weights,
                                       curve=self.curve)
             else:
                 current_weights, current_loss, _ = random_hill_climb(
@@ -253,7 +252,7 @@ class _NNCore(_NNBase):
                     max_attempts=self.max_attempts if self.early_stopping
                     else self.max_iters,
                     max_iters=self.max_iters,
-                    restarts=0, init_state=init_weights, curve=self.curve)
+                    restarts=0, init_state=restart_weights, curve=self.curve)
 
             if current_loss < loss:
                 fitted_weights = current_weights
