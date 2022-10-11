@@ -1,4 +1,4 @@
-# mlrose: Machine Learning, Randomized Optimization and Search
+# mlrose: Machine Learning, Randomized Optimization and SEarch
 mlrose is a Python package for applying some of the most common randomized optimization and search algorithms to a range of different optimization problems, over both discrete- and continuous-valued parameter spaces.
 
 ## Project Background
