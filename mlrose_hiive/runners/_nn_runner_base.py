@@ -8,8 +8,6 @@ import pandas as pd
 import numpy as np
 import pickle as pk
 
-from joblib.my_exceptions import WorkerInterrupt
-
 from mlrose_hiive import GridSearchMixin
 from mlrose_hiive.runners._runner_base import _RunnerBase
 
@@ -102,7 +100,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             except:
                 pass
             return self.run_stats_df, self.curves_df, self.cv_results_df, sr
-        except WorkerInterrupt:
+        except KeyboardInterrupt:
             return None, None, None, None
         finally:
             self._tear_down()
