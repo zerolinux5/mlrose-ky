@@ -146,7 +146,7 @@ def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf,
             best_state = next_state
 
         if curve:
-            fitness_curve.append(problem.get_fitness())
+            fitness_curve.append(problem.get_adjusted_fitness())
 
         problem.set_state(next_state)
 
