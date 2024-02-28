@@ -81,27 +81,11 @@ class MaxKColor:
         edges = self.edges if self.graph_edges is None else self.graph_edges
 
         if self.maximize:
-            fitness = sum(int(state[n1] == state[n2]) for (n1, n2) in edges)
-        else:
+            # Maximise the number of adjacent nodes not of the same colour.
             fitness = sum(int(state[n1] != state[n2]) for (n1, n2) in edges)
-        """
-        if fitness == 0:
-            for i in range(len(edges)):
-                # Check for adjacent nodes of the same color
-                n1, n2 = edges[i]
-                print(f'i:{i}: ({n1},{n2})[{state[n1]}] <-> [{state[n2]}]')
-        """
-        """
-        
-        if self.graph_edges is not None:
-            fitness = sum(int(state[n1] == state[n2]) for (n1, n2) in self.graph_edges)
         else:
-            fitness = 0
-            for i in range(len(self.edges)):
-                # Check for adjacent nodes of the same color
-                if state[self.edges[i][0]] == state[self.edges[i][1]]:
-                    fitness += 1
-        """
+            # Minimise the number of adjacent nodes of the same colour.
+            fitness = sum(int(state[n1] == state[n2]) for (n1, n2) in edges)
         return fitness
 
     def get_prob_type(self):
