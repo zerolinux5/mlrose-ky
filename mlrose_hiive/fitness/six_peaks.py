@@ -87,7 +87,7 @@ class SixPeaks(_DiscretePeaksBase):
 
         # Calculate R(X, T)
         _r = 0
-        _max_score = max(tail_0, head_1)
+        _max_score = max(head_0, head_1, tail_0, tail_1)
         if tail_0 > _t and head_1 > _t:
             _r = _n
         elif tail_1 > _t and head_0 > _t:
@@ -95,7 +95,7 @@ class SixPeaks(_DiscretePeaksBase):
             _max_score = max(tail_1, head_0)
 
         # Evaluate function
-        fitness = max(tail_0, head_1) + _r
+        fitness = _max_score + _r
 
         return fitness
 
