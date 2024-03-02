@@ -39,6 +39,8 @@ class MaxKColorOpt(DiscreteOpt):
         else:
             self.source_graph = source_graph
 
+        self.stop_fitness = self.source_graph.number_of_edges() if maximize else 0
+
         fitness_fn.set_graph(self.source_graph)
         # if none is provided, make a reasonable starting guess.
         # the max val is going to be the one plus the maximum number of neighbors of any one node.
@@ -58,4 +60,4 @@ class MaxKColorOpt(DiscreteOpt):
         self.set_state(state)
 
     def can_stop(self):
-        return int(self.get_fitness()) == 0
+        return int(self.get_fitness()) == self.stop_fitness

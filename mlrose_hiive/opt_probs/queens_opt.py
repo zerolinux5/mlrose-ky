@@ -24,7 +24,9 @@ class QueensOpt(DiscreteOpt):
         self.length = length
 
         if fitness_fn is None:
-            fitness_fn = Queens()
+            fitness_fn = Queens(maximize=maximize)
+
+        self.stop_fitness = Queens.get_max_size(length) if maximize else 0
 
         self.max_val = length
         crossover = UniformCrossOver(self) if crossover is None else crossover
@@ -36,4 +38,4 @@ class QueensOpt(DiscreteOpt):
         self.set_state(state)
 
     def can_stop(self):
-        return int(self.get_fitness()) == 0
+        return int(self.get_fitness()) == self.stop_fitness
