@@ -80,8 +80,10 @@ class MaxKColor:
         edges = self.edges if self.graph_edges is None else self.graph_edges
 
         if self.maximize:
+            # Maximise the number of adjacent nodes not of the same colour.
             fitness = sum(int(state[n1] != state[n2]) for (n1, n2) in edges)
         else:
+            # Minimise the number of adjacent nodes of the same colour.
             fitness = sum(int(state[n1] == state[n2]) for (n1, n2) in edges)
         return fitness
 
