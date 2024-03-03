@@ -3,7 +3,6 @@
 # Author: Genevieve Hayes (Modified by Andrew Rollings)
 # License: BSD 3 clause
 
-import numpy as np
 
 
 class MaxKColor:
