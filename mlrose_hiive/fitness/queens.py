@@ -102,4 +102,8 @@ class Queens:
 
     @staticmethod
     def get_max_size(problem_size):
-        return 6*problem_size
+        if problem_size <= 1:
+            return 0
+        if problem_size == 2:
+            return 1
+        return 3*(problem_size-2)
