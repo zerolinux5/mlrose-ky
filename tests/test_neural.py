@@ -10,6 +10,7 @@ except:
     sys.path.append("..")
 import unittest
 import numpy as np
+from sklearn.model_selection import StratifiedShuffleSplit, learning_curve
 # The following functions/classes are not automatically imported at
 # initialization, so must be imported explicitly from neural.py and
 # activation.py.
@@ -463,6 +464,44 @@ class TestNeuralNetwork(unittest.TestCase):
 
         assert (np.array_equal(network.predict(X), labels)
                 and np.allclose(network.predicted_probs, probs, atol=0.0001))
+        
+    @staticmethod
+    def test_learning_curve():
+        """Test sk-learning learning curve method."""
+
+        network = NeuralNetwork(hidden_nodes=[2], activation='identity',
+                                algorithm='simulated_annealing',
+                                bias=True, is_classifier=True, curve=True,  # curve has to be true...
+                                learning_rate=1, clip_max=1,
+                                max_attempts=100)
+
+        X = np.array([[0, 1, 0, 1],
+                      [0, 0, 1, 0],
+                      [1, 1, 0, 1],
+                      [1, 0, 1, 1],
+                      [0, 0, 1, 1],
+                      [1, 0, 0, 0],
+                      [1, 1, 1, 0],
+                      [0, 1, 1, 0],
+                      [0, 0, 0, 1],
+                      [1, 1, 0, 0],
+                      [0, 1, 1, 1],
+                      [1, 0, 1, 0],
+                      [1, 1, 1, 1],
+                      [0, 0, 0, 0],
+                      [0, 1, 0, 0],
+                      [1, 0, 0, 1]])
+        y = np.array([1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0])
+
+        train_sizes = [0.5, 1.0]
+        cv = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+
+        train_sizes, train_scores, test_scores = learning_curve(network, X, y, 
+                                                                train_sizes=train_sizes, 
+                                                                cv=cv, 
+                                                                scoring='accuracy') # error_score = 'raise' raises the actual sk-learn errors
+        
+        assert not np.isnan(train_scores).any() and not np.isnan(test_scores).any() # Fails if all values are NaN
 
 
 class TestLinearRegression(unittest.TestCase):
