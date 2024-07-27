@@ -107,7 +107,7 @@ class ContinuousOpt(_OptProb):
 
         Returns
         -------
-        state: array
+        state: np.ndarray
             Randomly generated state vector.
         """
         state = np.random.uniform(self.min_val, self.max_val, self.length)
@@ -119,7 +119,7 @@ class ContinuousOpt(_OptProb):
 
         Returns
         -------
-        neighbor: array
+        neighbor: np.ndarray
             State vector of random neighbor.
         """
         while True:
@@ -173,10 +173,10 @@ class ContinuousOpt(_OptProb):
 
         Parameters
         ----------
-        parent_1: array
+        parent_1: np.ndarray
             State vector for parent 1.
 
-        parent_2: array
+        parent_2: np.ndarray
             State vector for parent 2.
 
         mutation_prob: float
@@ -185,7 +185,7 @@ class ContinuousOpt(_OptProb):
 
         Returns
         -------
-        child: array
+        child: np.ndarray
             Child state vector produced from parents 1 and 2.
         """
         if len(parent_1) != self.length or len(parent_2) != self.length:
@@ -226,12 +226,12 @@ class ContinuousOpt(_OptProb):
 
         Parameters
         ----------
-        updates: array
+        updates: np.ndarray
             Update array.
 
         Returns
         -------
-        updated_state: array
+        updated_state: np.ndarray
             Current state adjusted for updates.
         """
         if len(updates) != self.length:

@@ -54,7 +54,7 @@ class _OptProb:
 
         Returns
         -------
-        best: array
+        best: np.ndarray
             State vector defining best child.
         """
         best = self.population[np.argmax(self.pop_fitness)]
@@ -66,7 +66,7 @@ class _OptProb:
 
         Returns
         -------
-        best: array
+        best: np.ndarray
             State vector defining best neighbor.
         """
         fitness_list = []
@@ -84,7 +84,7 @@ class _OptProb:
 
         Parameters
         ----------
-        state: array
+        state: np.ndarray
             State vector for evaluation.
 
         Returns
@@ -154,7 +154,7 @@ class _OptProb:
 
         Returns
         -------
-        self.mate_probs: array.
+        self.mate_probs: np.ndarray.
             Numpy array containing mate probabilities of the current
             population.
         """
@@ -175,7 +175,7 @@ class _OptProb:
 
         Returns
         -------
-        self.pop_fitness: array
+        self.pop_fitness: np.ndarray
             Numpy array containing the fitness values for the current
             population.
         """
@@ -186,7 +186,7 @@ class _OptProb:
 
         Returns
         -------
-        self.population: array
+        self.population: np.ndarray
             Numpy array containing current population.
         """
         return self.population
@@ -196,7 +196,7 @@ class _OptProb:
 
         Returns
         -------
-        self.state: array
+        self.state: np.ndarray
             Current state vector.
         """
         return self.state
@@ -207,7 +207,7 @@ class _OptProb:
 
         Parameters
         ----------
-        new_population: array
+        new_population: np.ndarray
             Numpy array containing new population.
         """
         self.population = new_population
@@ -230,7 +230,7 @@ class _OptProb:
 
         Parameters
         ----------
-        new_state: array
+        new_state: np.ndarray
             New state vector value.
         """
         if len(new_state) != self.length:

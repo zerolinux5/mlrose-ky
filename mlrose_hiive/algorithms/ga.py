@@ -95,11 +95,11 @@ def genetic_alg(problem, pop_size=200, pop_breed_percent=0.75, elite_dreg_ratio=
         User data passed as last parameter of callback.
     Returns
     -------
-    best_state: array
+    best_state: np.ndarray
         Numpy array containing state that optimizes the fitness function.
     best_fitness: float
         Value of fitness function at best state.
-    fitness_curve: array
+    fitness_curve: np.ndarray
         Numpy array of arrays containing the fitness of the entire population
         at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.

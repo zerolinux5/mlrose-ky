@@ -14,7 +14,7 @@ class _DiscretePeaksBase:
         ----------
         b: int
             Integer for counting at head of vector.
-        x: array
+        x: np.ndarray
             Vector of integers.
 
         Returns
@@ -44,7 +44,7 @@ class _DiscretePeaksBase:
         b: int
             Integer for counting at tail of vector.
 
-        x: array
+        x: np.ndarray
             Vector of integers.
 
         Returns

@@ -70,14 +70,14 @@ class LogisticRegression(_NNCore, ClassifierMixin):
 
     Attributes
     ----------
-    fitted_weights: array
+    fitted_weights: np.ndarray
         Numpy array giving the fitted weights when :code:`fit` is performed.
 
     loss: float
         Value of loss function for fitted weights when :code:`fit` is
         performed.
 
-    fitness_curve: array
+    fitness_curve: np.ndarray
         Numpy array giving the fitness at each training iteration.
     """
 

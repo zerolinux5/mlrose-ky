@@ -26,7 +26,7 @@ def gradient_descent(problem, max_attempts=10, max_iters=np.inf,
     max_iters: int, default: np.inf
         Maximum number of iterations of the algorithm.
 
-    init_state: array, default: None
+    init_state: np.ndarray, default: None
         Numpy array containing starting state for algorithm.
         If None, then a random state is used.
 
@@ -48,13 +48,13 @@ def gradient_descent(problem, max_attempts=10, max_iters=np.inf,
 
     Returns
     -------
-    best_state: array
+    best_state: np.ndarray
         Numpy array containing state that optimizes fitness function.
 
     best_fitness: float
         Value of fitness function at best state.
 
-    fitness_curve: array
+    fitness_curve: np.ndarray
         Numpy array containing the fitness at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.
     """

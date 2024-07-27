@@ -68,7 +68,7 @@ class SixPeaks(_DiscretePeaksBase):
 
         Parameters
         ----------
-        state: array
+        state: np.ndarray
             State array for evaluation.
 
         Returns

@@ -39,7 +39,7 @@ class FlipFlop:
 
         Parameters
         ----------
-        state: array
+        state: np.ndarray
             State array for evaluation.
 
         Returns

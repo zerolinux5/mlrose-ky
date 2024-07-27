@@ -24,15 +24,15 @@ class _NNBase(BaseEstimator, ABC):
 
         Parameters
         ----------
-        X: array
+        X: np.ndarray
             Numpy array containing feature dataset with each row
             representing a single observation.
 
-        y: array
+        y: np.ndarray
             Numpy array containing data labels. Length must be same as
             length of X.
 
-        init_state: array, default: None
+        init_state: np.ndarray, default: None
             Numpy array containing starting weights for algorithm.
             If :code:`None`, then a random state is used.
         """
@@ -44,13 +44,13 @@ class _NNBase(BaseEstimator, ABC):
 
         Parameters
         ----------
-        X: array
+        X: np.ndarray
             Numpy array containing feature dataset with each row
             representing a single observation.
 
         Returns
         -------
-        y_pred: array
+        y_pred: np.ndarray
             Numpy array containing predicted data labels.
         """
         pass

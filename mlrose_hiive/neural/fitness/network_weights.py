@@ -15,11 +15,11 @@ class NetworkWeights:
 
     Parameters
     ----------
-    X: array
+    X: np.ndarray
         Numpy array containing feature dataset with each row representing a
         single observation.
 
-    y: array
+    y: np.ndarray
         Numpy array containing true values of data labels.
         Length must be same as length of X.
 
@@ -109,7 +109,7 @@ class NetworkWeights:
 
         Parameters
         ----------
-        state: array
+        state: np.ndarray
             State array for evaluation.
 
         Returns

@@ -83,7 +83,7 @@ class Knapsack:
 
         Parameters
         ----------
-        state: array
+        state: np.ndarray
             State array for evaluation. Must be the same length as the weights
             and values arrays.
 

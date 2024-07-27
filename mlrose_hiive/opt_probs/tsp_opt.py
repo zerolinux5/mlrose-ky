@@ -73,12 +73,12 @@ class TSPOpt(DiscreteOpt):
 
         Parameters
         ----------
-        probs: array
+        probs: np.ndarray
             Vector of probabilities that may or may not sum to 1.
 
         Returns
         -------
-        adj_probs: array
+        adj_probs: np.ndarray
             Vector of probabilities that sums to 1. Returns a zero vector if
             sum(probs) = 0.
         """
@@ -103,7 +103,7 @@ class TSPOpt(DiscreteOpt):
 
         Returns
         -------
-        state: array
+        state: np.ndarray
             Randomly generated state vector.
         """
         state = np.random.permutation(self.length)
@@ -115,7 +115,7 @@ class TSPOpt(DiscreteOpt):
 
         Returns
         -------
-        state: array
+        state: np.ndarray
             State vector of MIMIC random sample.
         """
         remaining = list(np.arange(self.length))
@@ -156,7 +156,7 @@ class TSPOpt(DiscreteOpt):
 
         Returns
         -------
-        neighbor: array
+        neighbor: np.ndarray
             State vector of random neighbor.
         """
         neighbor = np.copy(self.state)
@@ -178,7 +178,7 @@ class TSPOpt(DiscreteOpt):
 
         Returns
         -------
-        new_sample: array
+        new_sample: np.ndarray
             Numpy array containing new sample.
         """
         if sample_size <= 0:

@@ -16,7 +16,7 @@ def flatten_weights(weights):
 
     Returns
     -------
-    flat_weights: array
+    flat_weights: np.ndarray
         1D weights array.
     """
     flat_weights = []
@@ -34,7 +34,7 @@ def unflatten_weights(flat_weights, node_list):
 
     Parameters
     ----------
-    flat_weights: array
+    flat_weights: np.ndarray
         1D weights array.
 
     node_list: list
@@ -76,7 +76,7 @@ def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf,
         Maximum number of attempts to find a better state at each step.
     max_iters: int, default: np.inf
         Maximum number of iterations of the algorithm.
-    init_state: array, default: None
+    init_state: np.ndarray, default: None
         Numpy array containing starting state for algorithm.
         If None, then a random state is used.
     random_state: int, default: None
@@ -89,11 +89,11 @@ def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf,
         third return value.
     Returns
     -------
-    best_state: array
+    best_state: np.ndarray
         Numpy array containing state that optimizes fitness function.
     best_fitness: float
         Value of fitness function at best state.
-    fitness_curve: array
+    fitness_curve: np.ndarray
         Numpy array containing the fitness at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.
     """

@@ -283,7 +283,7 @@ class DiscreteOpt(_OptProb):
 
         Returns
         -------
-        self.keep_sample: array
+        self.keep_sample: np.ndarray
             Numpy array containing samples with fitness in the top keep_pct
             percentile.
         """
@@ -304,7 +304,7 @@ class DiscreteOpt(_OptProb):
 
         Returns
         -------
-        state: array
+        state: np.ndarray
             Randomly generated state vector.
         """
         state = np.random.randint(0, self.max_val, self.length)
@@ -316,7 +316,7 @@ class DiscreteOpt(_OptProb):
 
         Returns
         -------
-        neighbor: array
+        neighbor: np.ndarray
             State vector of random neighbor.
         """
         neighbor = np.copy(self.state)
@@ -365,9 +365,9 @@ class DiscreteOpt(_OptProb):
 
         Parameters
         ----------
-        parent_1: array
+        parent_1: np.ndarray
             State vector for parent 1.
-        parent_2: array
+        parent_2: np.ndarray
             State vector for parent 2.
         mutation_prob: float
             Probability of a mutation at each state element during
@@ -375,7 +375,7 @@ class DiscreteOpt(_OptProb):
 
         Returns
         -------
-        child: array
+        child: np.ndarray
             Child state vector produced from parents 1 and 2.
         """
         if len(parent_1) != self.length or len(parent_2) != self.length:
@@ -411,7 +411,7 @@ class DiscreteOpt(_OptProb):
 
         Returns
         -------
-        new_sample: array
+        new_sample: np.ndarray
             Numpy array containing new sample.
         """
         if sample_size <= 0:

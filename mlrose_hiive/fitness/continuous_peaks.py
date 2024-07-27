@@ -60,7 +60,7 @@ class ContinuousPeaks:
 
         Parameters
         ----------
-        state: array
+        state: np.ndarray
             State array for evaluation.
 
         Returns
@@ -106,7 +106,7 @@ class ContinuousPeaks:
         b: int
             Integer for counting.
 
-        x: array
+        x: np.ndarray
             Vector of integers.
 
         Returns

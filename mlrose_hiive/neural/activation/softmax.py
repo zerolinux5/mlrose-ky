@@ -16,12 +16,12 @@ def softmax(x):
 
     Parameters
     ----------
-    x: array
+    x: np.ndarray
         Array containing input data.
 
     Returns
     -------
-    fx: array
+    fx: np.ndarray
         Value of activation function at x
     """
     max_prob = np.max(x, axis=1).reshape((-1, 1))

@@ -16,7 +16,7 @@ def identity(x, deriv=False):
 
     Parameters
     ----------
-    x: array
+    x: np.ndarray
         Array containing input data.
 
     deriv: bool, default: False
@@ -25,7 +25,7 @@ def identity(x, deriv=False):
 
     Returns
     -------
-    fx: array
+    fx: np.ndarray
         Value of activation function at x
     """
     if not deriv:

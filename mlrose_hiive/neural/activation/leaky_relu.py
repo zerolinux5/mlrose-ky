@@ -17,7 +17,7 @@ def leaky_relu(x, alpha=0.3, deriv=False):
 
     Parameters
     ----------
-    x: array
+    x: np.ndarray
         Array containing input data.
     alpha: int , default : 0.3
         Alpha value to be set for applying small negative gradient
@@ -27,7 +27,7 @@ def leaky_relu(x, alpha=0.3, deriv=False):
 
     Returns
     -------
-    fx: array
+    fx: np.ndarray
         Value of activation function at x
     """
     fx = np.copy(x)

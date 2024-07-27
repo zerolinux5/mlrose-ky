@@ -27,7 +27,7 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         Maximum number of iterations of the algorithm.
     restarts: int, default: 0
         Number of random restarts.
-    init_state: array, default: None
+    init_state: np.ndarray, default: None
         1-D Numpy array containing starting state for algorithm.
         If :code:`None`, then a random state is used.
     curve: bool, default: False
@@ -51,11 +51,11 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         User data passed as last parameter of callback.
     Returns
     -------
-    best_state: array
+    best_state: np.ndarray
         Numpy array containing state that optimizes the fitness function.
     best_fitness: float
         Value of fitness function at best state.
-    fitness_curve: array
+    fitness_curve: np.ndarray
         Numpy array containing the fitness at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.
     References

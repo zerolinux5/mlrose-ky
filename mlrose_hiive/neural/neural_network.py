@@ -79,20 +79,20 @@ class NeuralNetwork(_NNCore, ClassifierMixin):
 
     Attributes
     ----------
-    fitted_weights: array
+    fitted_weights: np.ndarray
         Numpy array giving the fitted weights when :code:`fit` is performed.
 
     loss: float
         Value of loss function for fitted weights when :code:`fit` is
         performed.
 
-    predicted_probs: array
+    predicted_probs: np.ndarray
         Numpy array giving the predicted probabilities for each class when
         :code:`predict` is performed for multi-class classification data; or
         the predicted probability for class 1 when :code:`predict` is performed
         for binary classification data.
 
-    fitness_curve: array
+    fitness_curve: np.ndarray
         Numpy array giving the fitness at each training iteration.
     """
 

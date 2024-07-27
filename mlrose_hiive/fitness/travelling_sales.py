@@ -109,7 +109,7 @@ class TravellingSales:
 
         Parameters
         ----------
-        state: array
+        state: np.ndarray
             State array for evaluation. Each integer between 0 and
             (len(state) - 1), inclusive must appear exactly once in the array.
 
