@@ -56,11 +56,10 @@ class SixPeaks(_DiscretePeaksBase):
     """
 
     def __init__(self, t_pct=0.1):
-
         self.t_pct = t_pct
         self.prob_type = 'discrete'
 
-        if (self.t_pct < 0) or (self.t_pct > 1):
+        if self.t_pct < 0 or self.t_pct > 1:
             raise Exception("""t_pct must be between 0 and 1.""")
 
     def evaluate(self, state):
@@ -77,7 +76,7 @@ class SixPeaks(_DiscretePeaksBase):
             Value of fitness function.
         """
         _n = len(state)
-        _t = np.ceil(self.t_pct*_n)
+        _t = np.ceil(self.t_pct * _n)
 
         # Calculate head and tail values
         head_0 = self.head(0, state)
@@ -85,19 +84,14 @@ class SixPeaks(_DiscretePeaksBase):
         head_1 = self.head(1, state)
         tail_1 = self.tail(1, state)
 
-        # Calculate R(X, T)
-        _r = 0
-        _max_score = max(head_0, head_1, tail_0, tail_1)
-        if tail_0 > _t and head_1 > _t:
-            _r = _n
-        elif tail_1 > _t and head_0 > _t:
-            _r = _n
-            _max_score = max(tail_1, head_0)
+        # Calculate max(tail(0, x), head(1, x))
+        _max_score = max(tail_0, head_1)
+
+        # Calculate R(x, T)
+        _r = _n if tail_0 > _t and head_1 > _t or tail_1 > _t and head_0 > _t else 0
 
         # Evaluate function
-        fitness = _max_score + _r
-
-        return fitness
+        return _max_score + _r
 
     def get_prob_type(self):
         """ Return the problem type.
