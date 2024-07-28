@@ -1,6 +1,7 @@
 """Unit tests for opt_probs.py"""
 
 # Author: Genevieve Hayes
+# Modified: Kyle Nakamura
 # License: BSD 3 clause
 
 import numpy as np

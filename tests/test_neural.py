@@ -1,6 +1,7 @@
 """ Unit tests for neural.py"""
 
 # Author: Genevieve Hayes
+# Modified: Kyle Nakamura
 # License: BSD 3 clause
 
 import numpy as np
@@ -51,7 +52,7 @@ class TestNeural:
 
         flat = list(x) + list(y) + list(z)
         nodes = [4, 3, 2, 8]
-        weights = unflatten_weights(flat, nodes)
+        weights = unflatten_weights(np.asarray(flat), nodes)
 
         assert np.array_equal(weights[0], a) and np.array_equal(weights[1], b) and np.array_equal(weights[2], c)
 
@@ -135,7 +136,7 @@ class TestNeuralWeights:
         b = list(0.01 * (np.arange(2) + 1))
         weights = a + b
 
-        assert round(fitness.evaluate(weights), 4) == 0.7393
+        assert round(fitness.evaluate(np.asarray(weights)), 4) == 0.7393
 
     def test_evaluate_no_bias_multi(self):
         """Test evaluate method for multivariate classifier with no bias term"""
@@ -154,7 +155,7 @@ class TestNeuralWeights:
         b = list(0.01 * (np.arange(4) + 1))
         weights = a + b
 
-        assert round(fitness.evaluate(weights), 4) == 0.7183
+        assert round(fitness.evaluate(np.asarray(weights)), 4) == 0.7183
 
     def test_evaluate_no_bias_regressor(self):
         """Test evaluate method for regressor with no bias term"""
@@ -173,7 +174,7 @@ class TestNeuralWeights:
         b = list(0.01 * (np.arange(2) + 1))
         weights = a + b
 
-        assert round(fitness.evaluate(weights), 4) == 0.5542
+        assert round(fitness.evaluate(np.asarray(weights)), 4) == 0.5542
 
     def test_evaluate_bias_regressor(self):
         """Test evaluate method for regressor with bias term"""
@@ -192,7 +193,7 @@ class TestNeuralWeights:
         b = list(0.01 * (np.arange(2) + 1))
         weights = a + b
 
-        assert round(fitness.evaluate(weights), 4) == 0.4363
+        assert round(fitness.evaluate(np.asarray(weights)), 4) == 0.4363
 
     def test_calculate_updates(self):
         """Test calculate_updates method"""
@@ -218,7 +219,7 @@ class TestNeuralWeights:
         a = list(np.arange(8) + 1)
         b = list(0.01 * (np.arange(2) + 1))
         weights = a + b
-        fitness.evaluate(weights)
+        fitness.evaluate(np.asarray(weights))
 
         updates = fitness.calculate_updates()
         update1 = np.array([[-0.0017, -0.0034],

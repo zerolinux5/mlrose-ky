@@ -1,6 +1,7 @@
 """Unit tests for decay.py"""
 
 # Author: Genevieve Hayes
+# Modified: Kyle Nakamura
 # License: BSD 3 clause
 
 try:
