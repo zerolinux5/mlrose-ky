@@ -1,7 +1,7 @@
 """ GA Mutators."""
 
 # Author: Genevieve Hayes
-# Modified: Andrew Rollings
+# Modified: Andrew Rollings, Kyle Nakamura
 # License: BSD 3 clause
 from abc import ABC, abstractmethod
 
