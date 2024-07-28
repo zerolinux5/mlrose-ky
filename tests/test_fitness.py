@@ -8,7 +8,7 @@ import numpy as np
 
 try:
     import mlrose_hiive
-except ImportError:
+except:
     import sys
     sys.path.append("..")
 
