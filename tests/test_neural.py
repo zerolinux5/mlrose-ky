@@ -1,4 +1,4 @@
-""" Unit tests for neural.py"""
+"""Unit tests for neural.py"""
 
 # Author: Genevieve Hayes
 # Modified: Kyle Nakamura

@@ -1,7 +1,7 @@
-""" Classes for defining fitness functions."""
+"""Classes for defining fitness functions."""
 
 
-# Author: Genevieve Hayes (Modified by Andrew Rollings)
+# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 

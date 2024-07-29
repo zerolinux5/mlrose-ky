@@ -1,4 +1,4 @@
-""" Classes for defining decay schedules for simulated annealing."""
+"""Classes for defining decay schedules for simulated annealing."""
 
 
 # Author: Genevieve Hayes

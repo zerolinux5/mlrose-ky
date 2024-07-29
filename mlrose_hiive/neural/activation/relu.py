@@ -1,6 +1,6 @@
-""" Neural network activation functions."""
+"""Neural network activation functions."""
 
-# Author: Genevieve Hayes (Modified by Andrew Rollings)
+# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 from mlrose_hiive.decorators import short_name

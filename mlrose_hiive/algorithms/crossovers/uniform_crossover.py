@@ -1,7 +1,6 @@
-""" Crossover implementations for GA.
-"""
+"""Crossover implementations for GA."""
 
-# Author: Genevieve Hayes (modified by Andrew Rollings)
+# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np

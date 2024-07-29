@@ -1,4 +1,4 @@
-""" Classes for defining optimization problem objects."""
+"""Classes for defining optimization problem objects."""
 
 import numpy as np
 

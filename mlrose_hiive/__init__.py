@@ -1,6 +1,6 @@
-""" MLROSe initialization file."""
+"""MLROSe initialization file."""
 
-# Author: Genevieve Hayes (modified by Andrew Rollings)
+# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 from .algorithms.ga import genetic_alg

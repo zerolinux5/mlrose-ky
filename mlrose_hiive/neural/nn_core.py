@@ -1,6 +1,6 @@
-""" Classes for defining neural network weight optimization problems."""
+"""Classes for defining neural network weight optimization problems."""
 
-# Author: Genevieve Hayes (modified by Andrew Rollings)
+# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 
