@@ -4,7 +4,7 @@
 # License: BSD 3 clause
 
 
-class _DiscretePeaksBase:
+class DiscretePeaksBase:
 
     @staticmethod
     def head(_b, _x):

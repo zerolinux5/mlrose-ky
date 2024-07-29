@@ -177,7 +177,7 @@ class NetworkWeights:
         updates_list: list
             List of back propagation weight updates.
         """
-        delta_list = []
+        delta_list: list = []
         updates_list = []
 
         # Work backwards from final layer

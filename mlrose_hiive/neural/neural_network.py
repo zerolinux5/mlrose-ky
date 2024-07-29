@@ -6,7 +6,7 @@
 from sklearn.base import ClassifierMixin
 
 from mlrose_hiive.algorithms.decay import GeomDecay
-from ._nn_core import _NNCore
+from .nn_core import _NNCore
 
 
 class NeuralNetwork(_NNCore, ClassifierMixin):

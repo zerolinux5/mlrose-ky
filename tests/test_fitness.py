@@ -14,7 +14,7 @@ except:
 
 from mlrose_hiive import (OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks,
                           Knapsack, TravellingSales, Queens, MaxKColor, CustomFitness)
-from mlrose_hiive.fitness._discrete_peaks_base import _DiscretePeaksBase
+from mlrose_hiive.fitness.discrete_peaks_base import DiscretePeaksBase
 
 
 def test_onemax():
@@ -32,13 +32,13 @@ def test_flipflop():
 def test_head():
     """Test head function"""
     state = np.array([1, 1, 1, 1, 0, 1, 0, 2, 1, 1, 1, 1, 1, 4, 6, 1, 1])
-    assert _DiscretePeaksBase.head(1, state) == 4
+    assert DiscretePeaksBase.head(1, state) == 4
 
 
 def test_tail():
     """Test tail function"""
     state = np.array([1, 1, 1, 1, 0, 1, 0, 2, 1, 1, 1, 1, 1, 4, 6, 1, 1])
-    assert _DiscretePeaksBase.tail(1, state) == 2
+    assert DiscretePeaksBase.tail(1, state) == 2
 
 
 def test_max_run_middle():

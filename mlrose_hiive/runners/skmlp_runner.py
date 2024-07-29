@@ -13,7 +13,7 @@ class SKMLPRunner(_NNRunnerBase):
         def __init__(self, runner, **kwargs):
             self.runner = runner
             self.mlp = MLPClassifier(**kwargs)
-            self.state_callback = self.runner._save_state
+            self.state_callback = self.runner.save_state
             self.fit_started_ = False
             self.user_info_ = None
             self.kwargs_ = kwargs
@@ -25,9 +25,11 @@ class SKMLPRunner(_NNRunnerBase):
             # need to intercept the classifier so we can track statistics.
             if runner.generate_curves:
                 if hasattr(self.mlp, '_update_no_improvement_count'):
+                    # noinspection PyProtectedMember
                     self._mlp_update_no_improvement_count = self.mlp._update_no_improvement_count
                     self.mlp._update_no_improvement_count = self._update_no_improvement_count_intercept
                 if hasattr(self.mlp, '_loss_grad_lbfgs'):
+                    # noinspection PyProtectedMember
                     self._mlp_loss_grad_lbfgs = self.mlp._loss_grad_lbfgs
                     self.mlp._loss_grad_lbfgs = self._loss_grad_lbfgs_intercept
 
@@ -50,7 +52,7 @@ class SKMLPRunner(_NNRunnerBase):
 
         def fit(self, x_train, y_train=None):
             self.fit_started_ = True
-            self.runner._start_run_timing()
+            self.runner.start_run_timing()
             # make initial callback
             self._invoke_runner_callback()
             return self.mlp.fit(x_train, y_train)
@@ -80,10 +82,10 @@ class SKMLPRunner(_NNRunnerBase):
 
         def _invoke_runner_callback(self):
             iterations = self.mlp.n_iter_ if hasattr(self.mlp, 'n_iter_') else 0
+            # noinspection PyProtectedMember
             no_improvement_count = self.mlp._no_improvement_count if hasattr(self.mlp, '_no_improvement_count') else 0
 
-            done = (self.mlp.early_stopping and (no_improvement_count > self.mlp.n_iter_no_change) or
-                    iterations == self.mlp.max_iter)
+            done = self.mlp.early_stopping and (no_improvement_count > self.mlp.n_iter_no_change) or iterations == self.mlp.max_iter
 
             # check for early abort.
             if self.runner.has_aborted():
@@ -91,7 +93,7 @@ class SKMLPRunner(_NNRunnerBase):
             if self.user_info_ is None:
                 self.user_info_ = [(k, self.__dict__[k]) for k in self.kwargs_.keys() if hasattr(self, k)]
                 for k, v in self.user_info_:
-                    self.runner._log_current_argument(k, v)
+                    self.runner.log_current_argument(k, v)
 
             return self.state_callback(iteration=iterations,
                                        state=self.state_,

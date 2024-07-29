@@ -15,7 +15,7 @@ except:
 from mlrose_hiive import OneMax, DiscreteOpt, ContinuousOpt, TSPOpt, OnePointCrossOver
 from mlrose_hiive.neural import NetworkWeights
 from mlrose_hiive.neural.activation import identity
-from mlrose_hiive.opt_probs._opt_prob import _OptProb as OptProb
+from mlrose_hiive.opt_probs.opt_prob import OptProb
 
 
 class TestOptProb:

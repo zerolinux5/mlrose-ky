@@ -10,10 +10,10 @@ from scipy.sparse.csgraph import minimum_spanning_tree, depth_first_tree
 
 from mlrose_hiive.algorithms.crossovers import UniformCrossOver
 from mlrose_hiive.algorithms.mutators import SwapMutator
-from mlrose_hiive.opt_probs._opt_prob import _OptProb
+from mlrose_hiive.opt_probs.opt_prob import OptProb
 
 
-class DiscreteOpt(_OptProb):
+class DiscreteOpt(OptProb):
     """Class for defining discrete-state optimization problems.
 
     Parameters
@@ -38,7 +38,7 @@ class DiscreteOpt(_OptProb):
                  crossover=None, mutator=None):
         self._get_mutual_info_impl = self._get_mutual_info_slow
 
-        _OptProb.__init__(self, length, fitness_fn, maximize)
+        OptProb.__init__(self, length, fitness_fn, maximize)
 
         if self.fitness_fn.get_prob_type() == 'continuous':
             raise Exception("""fitness_fn must have problem type 'discrete',"""

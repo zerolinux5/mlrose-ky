@@ -39,7 +39,7 @@ class MIMICRunner(_RunnerBase):
     def _setup(self):
         super()._setup()
         if self._use_fast_mimic is not None:
-            self._log_current_argument('use_fast_mimic', self._use_fast_mimic)
+            self.log_current_argument('use_fast_mimic', self._use_fast_mimic)
 
     def run(self):
         return super().run_experiment_(algorithm=mlrose_hiive.mimic,

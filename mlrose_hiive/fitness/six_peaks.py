@@ -5,10 +5,10 @@
 
 import numpy as np
 
-from mlrose_hiive.fitness._discrete_peaks_base import _DiscretePeaksBase
+from mlrose_hiive.fitness.discrete_peaks_base import DiscretePeaksBase
 
 
-class SixPeaks(_DiscretePeaksBase):
+class SixPeaks(DiscretePeaksBase):
     """Fitness function for Six Peaks optimization problem. Evaluates the
     fitness of an n-dimensional state vector :math:`x`, given parameter T, as:
 
