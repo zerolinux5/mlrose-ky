@@ -376,7 +376,7 @@ class TestContinuousOpt:
         a = list(np.arange(8) + 1)
         b = list(0.01 * (np.arange(2) + 1))
         weights = a + b
-        fitness.evaluate(weights)
+        fitness.evaluate(np.asarray(weights))
 
         problem = ContinuousOpt(10, fitness, maximize=False)
 

@@ -12,9 +12,9 @@ class _DiscretePeaksBase:
 
         Parameters
         ----------
-        b: int
+        _b: int
             Integer for counting at head of vector.
-        x: np.ndarray
+        _x: np.ndarray
             Vector of integers.
 
         Returns
@@ -41,10 +41,10 @@ class _DiscretePeaksBase:
 
         Parameters
         ----------
-        b: int
+        _b: int
             Integer for counting at tail of vector.
 
-        x: np.ndarray
+        _x: np.ndarray
             Vector of integers.
 
         Returns

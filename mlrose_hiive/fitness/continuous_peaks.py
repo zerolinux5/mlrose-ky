@@ -103,10 +103,10 @@ class ContinuousPeaks:
 
         Parameters
         ----------
-        b: int
+        _b: int
             Integer for counting.
 
-        x: np.ndarray
+        _x: np.ndarray
             Vector of integers.
 
         Returns

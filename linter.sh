@@ -18,9 +18,9 @@ python_files=("mlrose/algorithms.py"
 for filename in "${python_files[@]}"
 do
     echo "Starting lint on ${filename}"
-    pylint ${filename} --score=no --disable=$disable_options
-    pycodestyle ${filename}
-    flake8 ${filename}
+    pylint "${filename}" --score=no --disable=$disable_options
+    pycodestyle "${filename}"
+    flake8 "${filename}"
 done
 
 echo "Finished linting all files"

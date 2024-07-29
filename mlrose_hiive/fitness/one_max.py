@@ -36,7 +36,8 @@ class OneMax:
 
         self.prob_type = 'either'
 
-    def evaluate(self, state):
+    @staticmethod
+    def evaluate(state):
         """Evaluate the fitness of a state vector.
 
         Parameters

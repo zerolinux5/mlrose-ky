@@ -35,11 +35,6 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         If :code:`False`, then no curve is stored.
         If :code:`True`, then a history of fitness values is provided as a
         third return value.
-    fevals: bool, default: False
-        Boolean to track the number of fitness function evaluations.
-        If :code:`False`, then nothing additional is returned.
-        If :code:`True`, then a history of function evaluations per iteration
-        is provided as a fourth return value.
     random_state: int, default: None
         If random_state is a positive integer, random_state is the seed used
         by np.random.seed(); otherwise, the random seed is not set.

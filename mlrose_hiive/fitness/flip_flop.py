@@ -34,7 +34,8 @@ class FlipFlop:
 
         self.prob_type = 'discrete'
 
-    def evaluate(self, state):
+    @staticmethod
+    def evaluate(state):
         """Evaluate the fitness of a state vector.
 
         Parameters
@@ -60,7 +61,8 @@ class FlipFlop:
 
         return fitness
 
-    def evaluate_many(self, states):
+    @staticmethod
+    def evaluate_many(states):
         """Evaluate the fitness of a an ndarray of states.
 
         Parameters

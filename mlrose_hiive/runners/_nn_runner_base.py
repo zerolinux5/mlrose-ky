@@ -124,7 +124,8 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         filename_root += arg_hash
         return filename_root
 
-    def _check_match(self, df_ref, df_to_check):
+    @staticmethod
+    def _check_match(df_ref, df_to_check):
         cols = [i for i in df_ref.columns]
         found = False
         for _, row in df_to_check.iterrows():
@@ -137,7 +138,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
                 break
         return found
 
-    def _tear_down(self):
+    def _tear_down(self, filename=None):
         if self.best_params is None or self.replay_mode() is None or self._output_directory is None:
             super()._tear_down()
             return
@@ -148,10 +149,12 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         filename_part = filename_root.split(os.sep)[-1]
         if not os.path.isdir(path) and path[0] != os.sep:
             path = f'{os.sep}{path}'
+
         # find all data frames output by this runner
-        filenames = [fn for fn in os.listdir(path) if (filename_part in fn
-                                                       and fn.endswith('.p')
-                                                       and '_df_' in fn)]
+        filenames = [fn for fn in os.listdir(str(path)) if (filename_part in fn
+                                                            and fn.endswith('.p')
+                                                            and '_df_' in fn)]
+
         # get the best parameters
         df_best_params = pd.DataFrame([{k: self._sanitize_value(v) for k, v in self.best_params.items()}])
 
@@ -159,17 +162,16 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         correct_files = []
         incorrect_files = []
         for fn in filenames:
-            filename = os.path.join(path, fn)
+            filename = os.path.join(str(path), fn)
             with open(filename, 'rb') as pickle_file:
                 try:
                     df = pk.load(pickle_file)
-                    # delete = (pd.merge(df, df_best_params, how='inner')).empty
                     found = self._check_match(df_best_params, df)
                     if not found:
                         incorrect_files.append(filename)
                     else:
                         correct_files.append(filename)
-                except:
+                except (EOFError, pk.UnpicklingError) as _:
                     pass
 
         # extract the md5s from the names for the best and non-best parameter files
@@ -179,24 +181,24 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         # remove the suboptimal files
         all_incorrect_files = []
         for incorrect_md5 in incorrect_md5s:
-            all_incorrect_files.extend([os.path.join(path, fn) for fn in os.listdir(path) if incorrect_md5 in fn])
+            all_incorrect_files.extend([os.path.join(str(path), fn) for fn in os.listdir(str(path)) if incorrect_md5 in fn])
 
-        for filename in all_incorrect_files:
+        for _filename in all_incorrect_files:
             # os.rename(filename, f'{filename}.del')
-            os.remove(filename)
+            os.remove(_filename)
 
         # rename the best files by removing the md5 from the end
         all_correct_files = []
-        for correct_md5 in correct_md5s:
-            all_correct_files.extend([(os.path.join(path, fn), f'__{correct_md5}')
-                                      for fn in os.listdir(path)
-                                      if correct_md5 in fn])
+        for _correct_md5 in correct_md5s:
+            all_correct_files.extend([(os.path.join(str(path), fn), f'__{_correct_md5}')
+                                      for fn in os.listdir(str(path))
+                                      if _correct_md5 in fn])
 
-        for filename, correct_md5 in all_correct_files:
-            correct_filename = filename.replace(correct_md5, '')
+        for _filename, _correct_md5 in all_correct_files:
+            correct_filename = _filename.replace(_correct_md5, '')
             if os.path.exists(correct_filename):
                 os.rename(correct_filename, f'{correct_filename}.bak')
-            os.rename(filename, correct_filename)
+            os.rename(_filename, correct_filename)
 
         super()._tear_down()
 

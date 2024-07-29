@@ -93,6 +93,10 @@ def genetic_alg(problem, pop_size=200, pop_breed_percent=0.75, elite_dreg_ratio=
         Return true to continue iterating, or false to stop.
     callback_user_info: any, default: None
         User data passed as last parameter of callback.
+    hamming_factor: float, default: 0.0
+        Factor to account for Hamming distance in parent selection.
+    hamming_decay_factor: float, default: None
+        Decay factor for the hamming_factor over iterations.
     Returns
     -------
     best_state: np.ndarray

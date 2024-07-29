@@ -14,8 +14,8 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../'))
 
+sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
@@ -27,7 +27,6 @@ author = 'Genevieve Hayes'
 version = ''
 # The full version, including alpha/beta/rc tags
 release = '1.2.0'
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -115,7 +114,6 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'mlrosedoc'
 
-
 # -- Options for LaTeX output ------------------------------------------------
 
 latex_elements = {
@@ -144,7 +142,6 @@ latex_documents = [
      'Genevieve Hayes', 'manual'),
 ]
 
-
 # -- Options for manual page output ------------------------------------------
 
 # One entry per manual page. List of tuples
@@ -153,7 +150,6 @@ man_pages = [
     (master_doc, 'mlrose_hiive', 'mlrose_hiive Documentation',
      [author], 1)
 ]
-
 
 # -- Options for Texinfo output ----------------------------------------------
 
@@ -165,6 +161,5 @@ texinfo_documents = [
      author, 'mlrose_hiive', 'One line description of project.',
      'Miscellaneous'),
 ]
-
 
 # -- Extension configuration -------------------------------------------------

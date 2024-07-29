@@ -68,7 +68,8 @@ class TSPOpt(DiscreteOpt):
         self.source_graph = source_graph
         self.prob_type = 'tsp'
 
-    def adjust_probs(self, probs):
+    @staticmethod
+    def adjust_probs(probs):
         """Normalize a vector of probabilities so that the vector sums to 1.
 
         Parameters

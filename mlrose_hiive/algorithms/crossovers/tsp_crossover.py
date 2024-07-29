@@ -71,7 +71,7 @@ class TSPCrossOver(_CrossOverBase):
                 child[i] = nx
                 visited[nx] = True
         elif np.random.randint(2) == 0:
-            child = np.copy(parent_1, copy=True)
+            child = np.copy(parent_1)
         else:
-            child = np.copy(parent_2, copy=True)
+            child = np.copy(parent_2)
         return child

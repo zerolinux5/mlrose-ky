@@ -78,6 +78,8 @@ class DiscreteOpt(_OptProb):
 
         # Find minimum spanning tree of mutual info matrix
         csr_mx = csr_matrix(mutual_info)
+
+        # noinspection PyTypeChecker
         mst = minimum_spanning_tree(csr_mx)
 
         # Convert minimum spanning tree to depth first tree with node 0 as root

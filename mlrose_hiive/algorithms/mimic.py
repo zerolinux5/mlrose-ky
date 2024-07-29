@@ -42,6 +42,9 @@ def mimic(problem, pop_size=200, keep_pct=0.2, max_attempts=10,
         Return true to continue iterating, or false to stop.
     callback_user_info: any, default: None
         User data passed as last parameter of callback.
+    noise: float, default: 0.0
+        Noise level to be added to the fitness function,
+        expressed as a value between 0 and 0.1.
     Returns
     -------
     best_state: np.ndarray

@@ -32,7 +32,7 @@ class _NNBase(BaseEstimator, ABC):
             Numpy array containing data labels. Length must be same as
             length of X.
 
-        init_state: np.ndarray, default: None
+        init_weights: np.ndarray, default: None
             Numpy array containing starting weights for algorithm.
             If :code:`None`, then a random state is used.
         """
