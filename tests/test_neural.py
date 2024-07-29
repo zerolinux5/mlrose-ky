@@ -9,7 +9,7 @@ from sklearn.model_selection import StratifiedShuffleSplit, learning_curve
 
 try:
     import mlrose_hiive
-except:
+except ImportError:
     import sys
     sys.path.append("..")
 

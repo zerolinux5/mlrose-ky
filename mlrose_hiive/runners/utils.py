@@ -5,7 +5,7 @@ def build_data_filename(output_directory, runner_name, experiment_name, df_name,
     # ensure directory exists
     try:
         os.makedirs(os.path.join(output_directory, experiment_name))
-    except:
+    except (OSError, IOError, FileExistsError, Exception):
         pass
 
     # return full filename

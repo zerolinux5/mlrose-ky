@@ -39,7 +39,7 @@ class SyntheticData:
                       .replace('.', '_'))
             try:
                 makedirs(output)
-            except OSError as _:
+            except OSError:
                 pass
         features, classes = self.get_synthetic_features_and_classes(add_redundant_column)
         return sd2, features, classes, output

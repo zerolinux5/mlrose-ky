@@ -90,15 +90,17 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
 
             try:
                 self._dump_pickle_to_disk(sr, 'grid_search_results', final_save=True)
-            except:
+            except (OSError, IOError, pk.PickleError):
                 pass
 
+            # noinspection PyBroadException
             try:
                 y_pred = sr.best_estimator_.predict(self.x_test)
                 score = self.score(y_pred=y_pred, y_true=self.y_train)
                 self._print_banner(f'Score: {score}')
-            except:
+            except Exception:
                 pass
+
             return self.run_stats_df, self.curves_df, self.cv_results_df, sr
         except KeyboardInterrupt:
             return None, None, None, None
@@ -161,7 +163,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
                         incorrect_files.append(filename)
                     else:
                         correct_files.append(filename)
-                except (EOFError, pk.UnpicklingError) as _:
+                except (EOFError, pk.UnpicklingError):
                     pass
 
         # extract the md5s from the names for the best and non-best parameter files

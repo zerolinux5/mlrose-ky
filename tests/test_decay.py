@@ -6,7 +6,7 @@
 
 try:
     import mlrose_hiive
-except:
+except ImportError:
     import sys
     sys.path.append("..")
 

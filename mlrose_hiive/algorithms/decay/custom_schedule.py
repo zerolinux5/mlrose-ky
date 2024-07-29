@@ -30,7 +30,6 @@ class CustomSchedule:
     """
 
     def __init__(self, schedule, **kwargs):
-
         self.schedule = schedule
         self.kwargs = kwargs
 
@@ -47,9 +46,7 @@ class CustomSchedule:
         temp: float
             Temperature parameter at time t.
         """
-
-        temp = self.schedule(t, **self.kwargs)
-        return temp
+        return self.schedule(t, **self.kwargs)
 
     def get_info__(self, t=None, prefix=''):
         prefix = f'_{prefix}__schedule_' if len(prefix) > 0 else 'schedule_'
@@ -58,8 +55,10 @@ class CustomSchedule:
             f'{prefix}schedule': self.schedule
         }
         info.update({f'{prefix}_args_{k}': v for k, v in self.kwargs.items()})
+
         if t is not None:
             info[f'{prefix}current_value'] = self.evaluate(t)
+
         return info
 
     def __str__(self):
@@ -70,8 +69,6 @@ class CustomSchedule:
 
     def __eq__(self, other):
         try:
-
-            return (self.__class__.__name__ == other.__class__.__name__ and
-                    self.get_info__() == other.get_info__())
-        except:
+            return self.__class__.__name__ == other.__class__.__name__ and self.get_info__() == other.get_info__()
+        except AttributeError:
             return False

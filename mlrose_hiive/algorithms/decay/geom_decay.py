@@ -1,4 +1,4 @@
-# Author: Genevieve Hayes (modified by Andrew Rollings)
+# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 
@@ -38,7 +38,6 @@ class GeomDecay:
     """
 
     def __init__(self, init_temp=1.0, decay=0.99, min_temp=0.001):
-
         self.init_temp = init_temp
         self.decay = decay
         self.min_temp = min_temp
@@ -46,7 +45,7 @@ class GeomDecay:
         if self.init_temp <= 0:
             raise Exception("""init_temp must be greater than 0.""")
 
-        if (self.decay <= 0) or (self.decay > 1):
+        if self.decay <= 0 or self.decay > 1:
             raise Exception("""decay must be between 0 and 1.""")
 
         if self.min_temp < 0:
@@ -67,7 +66,6 @@ class GeomDecay:
         temp: float
             Temperature parameter at time t.
         """
-
         temp = self.init_temp*(self.decay**t)
 
         if temp < self.min_temp:
@@ -83,8 +81,10 @@ class GeomDecay:
             f'{prefix}decay': self.decay,
             f'{prefix}min_temp': self.min_temp,
         }
+
         if t is not None:
             info[f'{prefix}current_value'] = self.evaluate(t)
+
         return info
 
     def __str__(self):
@@ -96,10 +96,9 @@ class GeomDecay:
 
     def __eq__(self, other):
         try:
-
-            return (self.__class__.__name__ == other.__class__.__name__ and
-                    self.init_temp == other.init_temp and
-                    self.decay == other.decay and
-                    self.min_temp == other.min_temp)
-        except:
+            return (self.__class__.__name__ == other.__class__.__name__
+                    and self.init_temp == other.init_temp
+                    and self.decay == other.decay
+                    and self.min_temp == other.min_temp)
+        except AttributeError:
             return False

@@ -143,8 +143,8 @@ class _RunnerBase(ABC):
                 if self.has_aborted() and self._get_spawn_count() == 0:
                     sig, frame = self.__sigint_params
                     self.__original_sigint_handler(sig, frame)
-        except:
-            logging.error('Problem restoring SIGNINT handler')
+        except (ValueError, TypeError, AttributeError, Exception) as e:
+            logging.error(f'Problem restoring SIGNINT handler: {e}')
 
     def log_current_argument(self, arg_name, arg_value):
         self._current_logged_algorithm_args[arg_name] = arg_value
@@ -223,19 +223,22 @@ class _RunnerBase(ABC):
     def _load_pickles(self):
         curves_df_filename = f"{self._get_pickle_filename_root('curves_df')}.p"
         run_stats_df_filename = f"{self._get_pickle_filename_root('run_stats_df')}.p"
+
         self.curves_df = None
         self.run_stats_df = None
+
         if os.path.exists(curves_df_filename):
             with open(curves_df_filename, 'rb') as pickle_file:
                 try:
                     self.curves_df = pk.load(pickle_file)
-                except:
+                except (OSError, IOError, pk.PickleError):
                     pass
+
         if os.path.exists(run_stats_df_filename):
             with open(run_stats_df_filename, 'rb') as pickle_file:
                 try:
                     self.run_stats_df = pk.load(pickle_file)
-                except:
+                except (OSError, IOError, pk.PickleError):
                     pass
 
         return self.curves_df is not None and self.run_stats_df is not None
@@ -249,7 +252,6 @@ class _RunnerBase(ABC):
         if self.replay_mode() and self._load_pickles():
             return None, None, None
 
-        # arg_text = [get_short_name(v) for v in self._current_logged_algorithm_args.values()]
         self._print_banner('*** Run START ***')
         np.random.seed(self.seed)
 
@@ -265,8 +267,10 @@ class _RunnerBase(ABC):
                         state_fitness_callback=self.save_state,
                         callback_user_info=user_info,
                         **args_to_pass)
+
         self._print_banner('*** Run END ***')
         self._curve_base = len(self._fitness_curves)
+
         return ret
 
     def start_run_timing(self):
@@ -285,6 +289,7 @@ class _RunnerBase(ABC):
         curve_stat.update(curve_data)
         if isinstance(curve_value, dict):
             curve_stat.update(curve_value)
+
         return curve_stat
 
     def save_state(self, iteration, state, fitness, user_data,
@@ -295,7 +300,7 @@ class _RunnerBase(ABC):
         t = end - self._run_start_time
         self._iteration_times.append(t)
 
-        # do we need to log anything else?
+        # FIXME: do we need to log anything else?
         if iteration > 0 and iteration not in self.iteration_list and not done:
             return True
 
@@ -362,7 +367,6 @@ class _RunnerBase(ABC):
             if ix_start < 0:
                 ix_start = 0
 
-            # fc = list(zip(range(curve_stats_saved, total_curve_stats + 1), curve[-curve_stats_to_save:]))
             fc = list(zip(range(ix_start, ix_end), curve[-curve_stats_to_save:]))
 
             curve_stats = [self._create_curve_stat(iteration=ix,
@@ -374,12 +378,7 @@ class _RunnerBase(ABC):
 
             if self._copy_zero_curve_fitness_from_first and len(self._fitness_curves) > 1:
                 self._fitness_curves[0]['Fitness'] = self._fitness_curves[1]['Fitness']
-                # self._fitness_curves[0]['FEvals'] = 0
                 self._copy_zero_curve_fitness_from_first = False
             self._create_and_save_run_data_frames()
-
-        # save progress
-        # if iteration > 0:
-        #    self._create_and_save_run_data_frames()
 
         return not (self.has_aborted() or done)

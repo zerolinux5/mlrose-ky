@@ -39,7 +39,7 @@ class GridSearchMixin:
         if not self._get_y_argmax and len(y_pred.shape) > 1 and len(y_true.shape) > 1:
             try:
                 return self._scorer_method(y_pred=y_pred, y_true=y_true, **cleaned_kwargs)
-            except:
+            except TypeError:
                 self._get_y_argmax = True
 
         if self._get_y_argmax:
@@ -48,5 +48,5 @@ class GridSearchMixin:
 
         try:
             return self._scorer_method(y_pred=y_pred, y_true=y_true, **cleaned_kwargs)
-        except:
+        except TypeError:
             return self._scorer_method(y_true=y_true, **cleaned_kwargs)
