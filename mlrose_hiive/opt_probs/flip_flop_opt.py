@@ -29,7 +29,7 @@ class FlipFlopOpt(DiscreteOpt):
         self.max_val = 2
         crossover = OnePointCrossOver(self) if crossover is None else crossover
         mutator = ChangeOneMutator(self) if mutator is None else mutator
-        super().__init__(length, fitness_fn, maximize, 2, crossover, mutator)
+        super().__init__(length, fitness_fn, maximize, crossover=crossover, mutator=mutator)
 
         state = np.random.randint(2, size=self.length)
         self.set_state(state)

@@ -121,7 +121,6 @@ class TSPOpt(DiscreteOpt):
         """
         remaining = list(np.arange(self.length))
         state = np.zeros(self.length, dtype=np.int8)
-        sample_order = self.sample_order[1:]
         node_probs = np.copy(self.node_probs)
 
         # Get value of first element in new sample

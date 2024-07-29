@@ -105,16 +105,6 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         finally:
             self._tear_down()
 
-        """
-        best = {
-            'best_params': sr.best_params_,
-            'best_score': sr.best_score_,
-            'best_estimator': sr.best_estimator_,
-            'best_loss': sr.best_estimator_.best_loss_,
-            'best_fitted_weights': sr.best_estimator_.fitted_weights  # ndarray
-        }
-        """
-
     def _get_pickle_filename_root(self, name):
         filename_root = super()._get_pickle_filename_root(name)
         arg_text = ''.join([f'{k}_{self._sanitize_value(v)}_'

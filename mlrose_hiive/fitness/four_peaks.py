@@ -83,7 +83,7 @@ class FourPeaks(_DiscretePeaksBase):
         head_1 = self.head(1, state)
 
         # Calculate R(X, T)
-        if (tail_0 > _t and head_1 > _t):
+        if tail_0 > _t and head_1 > _t:
             _r = _n
         else:
             _r = 0

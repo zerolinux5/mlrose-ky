@@ -17,12 +17,6 @@ class TSPCrossOver(_CrossOverBase):
 
     def mate(self, p1, p2):
         return self._mate_fill(p1, p2)
-        """
-        if np.random.randint(2) == 0:
-            return self._mate_fill(p1, p2)
-        else:
-            return self._mate_traverse(p1, p2)
-        """
 
     def _mate_fill(self, p1, p2):
         if self._length > 1:

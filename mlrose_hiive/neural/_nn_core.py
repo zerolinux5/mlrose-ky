@@ -10,7 +10,7 @@ from sklearn.preprocessing import LabelBinarizer
 from mlrose_hiive.algorithms.decay import GeomDecay
 from mlrose_hiive.algorithms.rhc import random_hill_climb
 from mlrose_hiive.algorithms.sa import simulated_annealing
-from mlrose_hiive.algorithms.ga import  genetic_alg
+from mlrose_hiive.algorithms.ga import genetic_alg
 
 from mlrose_hiive.neural._nn_base import _NNBase
 from mlrose_hiive.neural.activation import (identity, relu, sigmoid, tanh)
@@ -108,17 +108,15 @@ class _NNCore(_NNBase):
             raise Exception("""Algorithm must be one of: 'random_hill_climb',
                     'simulated_annealing', 'genetic_alg',
                     'gradient_descent'.""")
-            
-    def _validate_input(self, X, y):
+
+    def _validate_input(self, y):
         """
         Add _classes attribute based on classes present in y.
         """
-        
-        # Required for sk-learn 1.3+. Doesn't cause issues for lower versions.
+        # Required for scikit-learn 1.3+. Doesn't cause issues for lower versions.
         # Copied from https://github.com/scikit-learn/scikit-learn/blob/5c4aa5d0d90ba66247d675d4c3fc2fdfba3c39ff/sklearn/neural_network/_multilayer_perceptron.py
         # Note: no workaround found for multi-class labels, still doesn't work with f1 score.
-        
-        if (not hasattr(self, "classes_")):
+        if not hasattr(self, "classes_"):
             self._label_binarizer = LabelBinarizer()
             self._label_binarizer.fit(y)
             self.classes_ = self._label_binarizer.classes_
@@ -141,7 +139,7 @@ class _NNCore(_NNBase):
             If :code:`None`, then a random state is used.
         """
         self._validate()
-        self._validate_input(X, y)
+        self._validate_input(y)
 
         X, y = self._format_x_y_data(X, y)
 
@@ -248,31 +246,26 @@ class _NNCore(_NNBase):
         fitness_curve = []
         fitted_weights = []
         loss = np.inf
+
         # Can't use restart feature of random_hill_climb function, since
         # want to keep initial weights in the range -1 to 1.
         for _ in range(self.restarts + 1):
             restart_weights = np.random.uniform(-1, 1, num_nodes) if init_weights is None else init_weights
 
-            if self.curve:
-                current_weights, current_loss, fitness_curve = \
-                    random_hill_climb(problem,
-                                      max_attempts=self.max_attempts if
-                                      self.early_stopping else
-                                      self.max_iters,
-                                      max_iters=self.max_iters,
-                                      restarts=0, init_state=restart_weights,
-                                      curve=self.curve)
-            else:
-                current_weights, current_loss, _ = random_hill_climb(
-                    problem,
-                    max_attempts=self.max_attempts if self.early_stopping
-                    else self.max_iters,
-                    max_iters=self.max_iters,
-                    restarts=0, init_state=restart_weights, curve=self.curve)
+            current_weights, current_loss, fitness_curve = random_hill_climb(problem,
+                                                                             max_attempts=(self.max_attempts if self.early_stopping
+                                                                                           else self.max_iters),
+                                                                             max_iters=self.max_iters,
+                                                                             init_state=restart_weights,
+                                                                             curve=self.curve)
+
+            if not self.curve:
+                fitness_curve = []
 
             if current_loss < loss:
                 fitted_weights = current_weights
                 loss = current_loss
+
         return fitness_curve, fitted_weights, loss
 
     def predict(self, X):

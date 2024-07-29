@@ -57,9 +57,9 @@ class DiscreteOpt(_OptProb):
         else:
             self.max_val = max_val
 
-        self.keep_sample = []
+        self.keep_sample = np.array([])
         self.node_probs = np.zeros([self.length, self.max_val, self.max_val])
-        self.parent_nodes = []
+        self.parent_nodes = np.array([])
         self.sample_order = []
         self.prob_type = 'discrete'
         self.noise = 0
@@ -98,8 +98,7 @@ class DiscreteOpt(_OptProb):
 
         for i in range(1, self.length):
             for j in range(self.max_val):
-                subset = self.keep_sample[np.where(
-                    self.keep_sample[:, parent[i - 1]] == j)[0]]
+                subset = self.keep_sample[np.where(self.keep_sample[:, parent[i - 1]] == j)[0]]
 
                 if not len(subset):
                     probs[i, j] = 1 / self.max_val
@@ -145,9 +144,7 @@ class DiscreteOpt(_OptProb):
         mutual_info = np.zeros([self.length, self.length])
         for i in range(self.length - 1):
             for j in range(i + 1, self.length):
-                mutual_info[i, j] = -1 * mutual_info_score(
-                    self.keep_sample[:, i],
-                    self.keep_sample[:, j])
+                mutual_info[i, j] = -1 * mutual_info_score(self.keep_sample[:, i], self.keep_sample[:, j])
         return mutual_info
 
     # adapted from https://github.com/parkds/mlrose/blob/f7154a1d3e3fdcd934bb3c683b943264d2870fd1/mlrose/algorithms.py
@@ -241,7 +238,7 @@ class DiscreteOpt(_OptProb):
         """
         sample_order = []
         last = [0]
-        parent = np.array(self.parent_nodes)
+        parent = self.parent_nodes
 
         while len(sample_order) < self.length:
             inds = []

@@ -15,7 +15,7 @@ class MaxKColorGenerator:
         """
         np.random.seed(seed)
         # all nodes have to be connected, somehow.
-        node_connection_counts = 1 + np.random.randint(max_connections_per_node, size=number_of_nodes)
+        node_connection_counts = 1 + np.random.choice(max_connections_per_node, size=number_of_nodes)
 
         node_connections = {}
         nodes = range(number_of_nodes)

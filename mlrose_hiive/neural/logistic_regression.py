@@ -87,11 +87,7 @@ class LogisticRegression(_NNCore, ClassifierMixin):
                  mutation_prob=0.1, max_attempts=10, random_state=None,
                  curve=False):
 
-        _NNCore.__init__(
-            self, hidden_nodes=[], activation='sigmoid',
-            algorithm=algorithm, max_iters=max_iters, bias=bias,
-            is_classifier=True, learning_rate=learning_rate,
-            early_stopping=early_stopping, clip_max=clip_max,
-            restarts=restarts, schedule=schedule, pop_size=pop_size,
-            mutation_prob=mutation_prob, max_attempts=max_attempts,
-            random_state=random_state, curve=curve)
+        _NNCore.__init__(self, hidden_nodes=[], activation='sigmoid', algorithm=algorithm, max_iters=max_iters, bias=bias,
+                         learning_rate=learning_rate, early_stopping=early_stopping, clip_max=clip_max, restarts=restarts,
+                         schedule=schedule, pop_size=pop_size, mutation_prob=mutation_prob, max_attempts=max_attempts,
+                         random_state=random_state, curve=curve)

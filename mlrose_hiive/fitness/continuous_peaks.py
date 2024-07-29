@@ -76,7 +76,7 @@ class ContinuousPeaks:
         max_1 = self.max_run(1, state)
 
         # Calculate R(X, T)
-        if (max_0 > _t and max_1 > _t):
+        if max_0 > _t and max_1 > _t:
             _r = _n
         else:
             _r = 0

@@ -118,9 +118,7 @@ def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf,
     else:
         problem.set_state(init_state)
 
-    if curve:
-        fitness_curve = []
-
+    fitness_curve = []
     attempts = 0
     iters = 0
 

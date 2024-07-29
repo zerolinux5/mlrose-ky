@@ -33,7 +33,7 @@ class NeuralNetwork(_NNCore, ClassifierMixin):
     bias: bool, default: True
         Whether to include a bias term.
 
-    is_classifer: bool, default: True
+    is_classifier: bool, default: True
         Whether the network is for classification or regression. Set
         :code:`True` for classification and :code:`False` for regression.
 

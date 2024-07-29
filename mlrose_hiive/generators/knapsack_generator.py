@@ -17,9 +17,6 @@ class KnapsackGenerator:
         np.random.seed(seed)
         weights = 1 + np.random.randint(max_weight_per_item, size=number_of_items_types)
         values = 1 + np.random.randint(max_value_per_item, size=number_of_items_types)
-        problem = mlrose_hiive.KnapsackOpt(length=number_of_items_types,
-                                           maximize=True, max_val=max_item_count,
-                                           weights=weights, values=values,
-                                           max_weight_pct=max_weight_pct,
-                                           multiply_by_max_item_count=multiply_by_max_item_count)
+        problem = mlrose_hiive.KnapsackOpt(length=number_of_items_types, max_val=max_item_count, weights=weights, values=values,
+                                           max_weight_pct=max_weight_pct, multiply_by_max_item_count=multiply_by_max_item_count)
         return problem

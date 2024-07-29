@@ -38,7 +38,7 @@ class SyntheticData:
             output = self.root_directory + f'/synthetic__sz_{x_dim*y_dim}__n_{1 if add_noise else 0}__rc_{add_redundant_column}/'.lower().replace('.', '_')
             try:
                 makedirs(output)
-            except OSError as e:
+            except OSError as _:
                 pass
         features, classes = self.get_synthetic_features_and_classes(add_redundant_column)
         return sd2, features, classes, output

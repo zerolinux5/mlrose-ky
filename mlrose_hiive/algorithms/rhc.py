@@ -58,16 +58,13 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
     Brownlee, J (2011). *Clever Algorithms: Nature-Inspired Programming
     Recipes*. `<http://www.cleveralgorithms.com>`_.
     """
-    if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) \
-            or (max_attempts < 0):
+    if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) or max_attempts < 0:
         raise Exception("""max_attempts must be a positive integer.""")
 
-    if (not isinstance(max_iters, int) and max_iters != np.inf
-        and not max_iters.is_integer()) or (max_iters < 0):
+    if (not isinstance(max_iters, int) and max_iters != np.inf and not max_iters.is_integer()) or max_iters < 0:
         raise Exception("""max_iters must be a positive integer.""")
 
-    if (not isinstance(restarts, int) and not restarts.is_integer()) \
-            or (restarts < 0):
+    if (not isinstance(restarts, int) and not restarts.is_integer()) or restarts < 0:
         raise Exception("""restarts must be a positive integer.""")
 
     if init_state is not None and len(init_state) != problem.get_length():
@@ -83,8 +80,6 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
     best_fitness_curve = []
     all_curves = []
 
-    continue_iterating = True
-    # problem.reset()
     for current_restart in range(restarts + 1):
         # Initialize optimization problem and attempts counter
         fevals = problem.fitness_evaluations
@@ -160,6 +155,7 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         # break out if we can stop
         if problem.can_stop():
             break
+
     best_fitness *= problem.get_maximize()
 
     return best_state, best_fitness, np.asarray(best_fitness_curve) if curve else None
