@@ -75,8 +75,7 @@ class TestNeural:
         test_fitness = -1 * problem.eval_fitness(test_weights)
         best_state, best_fitness, _ = gradient_descent(problem)
 
-        assert (len(best_state) == 10 and min(best_state) >= -1
-                and max(best_state) <= 1 and best_fitness < test_fitness)
+        assert len(best_state) == 10 and min(best_state) >= -1 and max(best_state) <= 1 and best_fitness < test_fitness
 
     def test_gradient_descent_iter1(self):
         """Test gradient_descent function gets the correct answer after a
@@ -234,8 +233,7 @@ class TestNeuralNetwork:
         network.fit(X, y, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) < 10 and len(fitted) == 10
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) < 10 and len(fitted) == 10 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_simulated_annealing(self):
         """Test fit method using the simulated_annealing algorithm"""
@@ -254,8 +252,7 @@ class TestNeuralNetwork:
         network.fit(X, y, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) < 10 and len(fitted) == 10
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) < 10 and len(fitted) == 10 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_genetic_alg(self):
         """Test fit method using the genetic_alg algorithm"""
@@ -292,8 +289,7 @@ class TestNeuralNetwork:
         network.fit(X, y, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) < 10 and len(fitted) == 10
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) < 10 and len(fitted) == 10 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_predict_no_bias(self):
         """Test predict method with no bias term"""
@@ -393,8 +389,7 @@ class TestLinearRegression:
         network.fit(X, y, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) < 4 and len(fitted) == 4
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_simulated_annealing(self):
         """Test fit method using the simulated_annealing algorithm"""
@@ -418,8 +413,7 @@ class TestLinearRegression:
         network.fit(X, y, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) < 4 and len(fitted) == 4
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_genetic_alg(self):
         """Test fit method using the genetic_alg algorithm"""
@@ -442,8 +436,7 @@ class TestLinearRegression:
         network.fit(X, y)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) < 4 and len(fitted) == 4
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_gradient_descent(self):
         """Test fit method using the gradient_descent algorithm"""
@@ -521,8 +514,7 @@ class TestLogisticRegression:
         network.fit(X, y, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) < 4 and len(fitted) == 4
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_simulated_annealing(self):
         """Test fit method using the simulated_annealing algorithm"""
@@ -546,8 +538,7 @@ class TestLogisticRegression:
         network.fit(X, y, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) < 4 and len(fitted) == 4
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_genetic_alg(self):
         """Test fit method using the genetic_alg algorithm"""
@@ -588,8 +579,7 @@ class TestLogisticRegression:
         network.fit(X, y, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert (sum(fitted) <= 4 and len(fitted) == 4
-                and min(fitted) >= -1 and max(fitted) <= 1)
+        assert sum(fitted) <= 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_predict_no_bias(self):
         """Test predict method with no bias term"""

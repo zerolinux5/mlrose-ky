@@ -64,8 +64,7 @@ class _NNCore(_NNBase):
         self.fitness_curve = []
 
     def _validate(self):
-        if (not isinstance(self.max_iters, int) and self.max_iters != np.inf
-            and not self.max_iters.is_integer()) or (self.max_iters < 0):
+        if (not isinstance(self.max_iters, int) and self.max_iters != np.inf and not self.max_iters.is_integer()) or self.max_iters < 0:
             raise Exception("""max_iters must be a positive integer.""")
 
         if not isinstance(self.bias, bool):
@@ -83,8 +82,7 @@ class _NNCore(_NNBase):
         if self.clip_max <= 0:
             raise Exception("""clip_max must be greater than 0.""")
 
-        if (not isinstance(self.max_attempts, int) and not
-        self.max_attempts.is_integer()) or (self.max_attempts < 0):
+        if (not isinstance(self.max_attempts, int) and not self.max_attempts.is_integer()) or self.max_attempts < 0:
             raise Exception("""max_attempts must be a positive integer.""")
 
         if self.pop_size < 0:
@@ -95,27 +93,24 @@ class _NNCore(_NNBase):
             else:
                 raise Exception("""pop_size must be a positive integer.""")
 
-        if (self.mutation_prob < 0) or (self.mutation_prob > 1):
+        if self.mutation_prob < 0 or self.mutation_prob > 1:
             raise Exception("""mutation_prob must be between 0 and 1.""")
 
-        if self.activation is None or \
-                self.activation not in self.activation_dict.keys():
+        if self.activation is None or self.activation not in self.activation_dict.keys():
             raise Exception("""Activation function must be one of: 'identity',
                     'relu', 'sigmoid' or 'tanh'.""")
 
-        if self.algorithm not in ['random_hill_climb', 'simulated_annealing',
-                                  'genetic_alg', 'gradient_descent']:
-            raise Exception("""Algorithm must be one of: 'random_hill_climb',
-                    'simulated_annealing', 'genetic_alg',
-                    'gradient_descent'.""")
+        if self.algorithm not in ['random_hill_climb', 'simulated_annealing', 'genetic_alg', 'gradient_descent']:
+            raise Exception("""Algorithm must be one of: 'random_hill_climb', 'simulated_annealing', 'genetic_alg', 'gradient_descent'.""")
 
     def _validate_input(self, y):
         """
-        Add _classes attribute based on classes present in y.
+        Add classes_ attribute based on classes present in y.
         """
-        # Required for scikit-learn 1.3+. Doesn't cause issues for lower versions.
-        # Copied from https://github.com/scikit-learn/scikit-learn/blob/5c4aa5d0d90ba66247d675d4c3fc2fdfba3c39ff/sklearn/neural_network/_multilayer_perceptron.py
-        # Note: no workaround found for multi-class labels, still doesn't work with f1 score.
+        # Copied from
+        # https://github.com/scikit-learn/scikit-learn/blob/5c4aa5d0d90ba66247d675d4c3fc2fdfba3c39ff/sklearn/neural_network/_multilayer_perceptron.py
+        # Note: Required for scikit-learn 1.3+. Doesn't cause issues for lower versions.
+        # No workaround found for multi-class labels, still doesn't work with f1 score.
         if not hasattr(self, "classes_"):
             self._label_binarizer = LabelBinarizer()
             self._label_binarizer.fit(y)
@@ -144,7 +139,6 @@ class _NNCore(_NNBase):
         X, y = self._format_x_y_data(X, y)
 
         node_list = self._build_node_list(X, y, self.hidden_nodes, self.bias)
-
         num_nodes = self._calculate_state_size(node_list)
 
         if init_weights is not None and len(init_weights) != num_nodes:
@@ -283,8 +277,7 @@ class _NNCore(_NNBase):
             Numpy array containing predicted data labels.
         """
         if not np.shape(X)[1] == (self.node_list[0] - self.bias):
-            raise Exception("""The number of columns in X must equal %d"""
-                            % ((self.node_list[0] - self.bias),))
+            raise Exception("""The number of columns in X must equal %d""" % ((self.node_list[0] - self.bias),))
 
         y_pred, pp = self._predict(X=X,
                                    fitted_weights=self.fitted_weights,

@@ -1,8 +1,8 @@
 """ Classes for defining fitness functions."""
 
+
 # Author: Genevieve Hayes (Modified by Andrew Rollings)
 # License: BSD 3 clause
-
 
 
 class MaxKColor:
@@ -48,7 +48,6 @@ class MaxKColor:
     """
 
     def __init__(self, edges, maximize=False):
-
         # Remove any duplicates from list
         edges = list({tuple(sorted(edge)) for edge in edges})
 

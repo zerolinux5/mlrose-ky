@@ -305,9 +305,9 @@ class _RunnerBase(ABC):
             data_desc = ', '.join([f'{n}:[{get_short_name(v)}]' for n, v in display_data.items()])
             logging.debug(data_desc)
         logging.debug(f'runner_name:[{self.dynamic_runner_name()}], experiment_name:[{self._experiment_name}], ' +
-              ('' if attempt is None else f'attempt:[{attempt}], ') +
-              f'iteration:[{iteration}], done:[{done}], '
-              f'time:[{t:.2f}], fitness:[{fitness:.4f}]')
+                      ('' if attempt is None else f'attempt:[{attempt}], ') +
+                      f'iteration:[{iteration}], done:[{done}], '
+                      f'time:[{t:.2f}], fitness:[{fitness:.4f}]')
 
         state_string = str(state).replace('\n', '//')[:200]
         logging.debug(f'\t{state_string}...')
@@ -319,7 +319,6 @@ class _RunnerBase(ABC):
                                    for k, v in self._current_logged_algorithm_args.items()}
         current_iteration_stats.update({str(gd(k)): self._sanitize_value(v)
                                         for k, v in {k: v for (k, v) in user_data}.items()})
-
 
         # check for additional info
         gi = lambda k, v: {} if not hasattr(v, 'get_info__') else v.get_info__(t)

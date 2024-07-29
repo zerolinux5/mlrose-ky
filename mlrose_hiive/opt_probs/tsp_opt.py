@@ -57,7 +57,7 @@ class TSPOpt(DiscreteOpt):
             if coords is not None:
                 length = len(coords)
             elif distances is not None:
-                length = len(set([x for (x,_,_) in distances] + [x for (_,x,_) in distances]))
+                length = len(set([x for (x, _, _) in distances] + [x for (_, x, _) in distances]))
         self.length = length
         DiscreteOpt.__init__(self, length, fitness_fn, maximize, max_val=length,
                              crossover=TSPCrossOver(self), mutator=SwapMutator(self))
@@ -84,7 +84,7 @@ class TSPOpt(DiscreteOpt):
             sum(probs) = 0.
         """
         sp = np.sum(probs)
-        return np.zeros(np.shape(probs)) if sp == 0 else probs/sp
+        return np.zeros(np.shape(probs)) if sp == 0 else probs / sp
 
     def find_neighbors(self):
         """Find all neighbors of the current state.
@@ -134,7 +134,7 @@ class TSPOpt(DiscreteOpt):
 
         # Set values of remaining elements of state
         for i in sample_order:
-            par_ind = self.parent_nodes[i-1]
+            par_ind = self.parent_nodes[i - 1]
             par_value = state[par_ind]
             probs = node_probs[i, par_value]
 

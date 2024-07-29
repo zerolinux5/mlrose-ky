@@ -31,7 +31,6 @@ class FlipFlop:
     """
 
     def __init__(self):
-
         self.prob_type = 'discrete'
 
     @staticmethod
@@ -49,10 +48,9 @@ class FlipFlop:
             Value of fitness function.
         """
 
-        fitness = sum([state[i] != state[i-1] for i in range(1, len(state))])
+        fitness = sum([state[i] != state[i - 1] for i in range(1, len(state))])
 
-
-        # may not be faster
+        # FIXME: this may or may not be faster:
         """
         runs = np.zeros(state.size-1, dtype=int)
         np.not_equal(state[:-1], state[1:], out=runs)
@@ -75,8 +73,7 @@ class FlipFlop:
         fitness: ndarray
             Population fitness values.
         """
-
-        runs = np.zeros((states.shape[0], states.shape[1]-1), dtype=int)
+        runs = np.zeros((states.shape[0], states.shape[1] - 1), dtype=int)
         np.not_equal(states[:, :-1], states[:, 1:], out=runs)
         fitness = np.sum(runs, axis=1)
 

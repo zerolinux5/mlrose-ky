@@ -29,11 +29,9 @@ class TSPGenerator:
 
         g = nx.Graph()
         for a, b, distance in distances:
-
             g.add_edge(a, b, length=int(round(distance)))
 
         return TSPOpt(coords=coords, distances=distances, source_graph=g)
-
 
     @staticmethod
     def get_distances(coords, truncate=True):
@@ -44,15 +42,15 @@ class TSPGenerator:
             distances = [(c1, c2, int(d)) for c1, c2, d in distances]
         return distances
 
-    #  https://stackoverflow.com/a/5419576/40410
     @staticmethod
     def list_duplicates_(seq):
+        #  https://stackoverflow.com/a/5419576/40410
         tally = defaultdict(list)
         for i, item in enumerate(seq):
             tally[item].append(i)
         return list((indices[1:] for _, indices in tally.items() if len(indices) > 1))
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     results = TSPGenerator.generate(123, 22)
     print(results)

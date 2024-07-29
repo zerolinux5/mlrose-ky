@@ -50,4 +50,3 @@ class GridSearchMixin:
             return self._scorer_method(y_pred=y_pred, y_true=y_true, **cleaned_kwargs)
         except:
             return self._scorer_method(y_true=y_true, **cleaned_kwargs)
-

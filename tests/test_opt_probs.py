@@ -307,8 +307,7 @@ class TestDiscreteOpt:
         problem.random_pop(100)
         pop = problem.get_population()
         pop_fitness = problem.get_pop_fitness()
-        assert (np.shape(pop)[0] == 100 and np.shape(pop)[1] == 5
-                and 0 < np.sum(pop) < 500 and len(pop_fitness) == 100)
+        assert np.shape(pop)[0] == 100 and np.shape(pop)[1] == 5 and 0 < np.sum(pop) < 500 and len(pop_fitness) == 100
 
     def test_reproduce_mut0(self):
         """Test reproduce method when mutation_prob is 0"""
@@ -450,8 +449,7 @@ class TestContinuousOpt:
         problem.random_pop(100)
         pop = problem.get_population()
         pop_fitness = problem.get_pop_fitness()
-        assert (np.shape(pop)[0] == 100 and np.shape(pop)[1] == 5
-                and 0 < np.sum(pop) < 500 and len(pop_fitness) == 100)
+        assert np.shape(pop)[0] == 100 and np.shape(pop)[1] == 5 and 0 < np.sum(pop) < 500 and len(pop_fitness) == 100
 
     def test_reproduce_mut0(self):
         """Test reproduce method when mutation_prob is 0"""
@@ -601,5 +599,4 @@ class TestTSPOpt:
         problem.eval_node_probs()
         sample = problem.sample_pop(100)
         row_sums = np.sum(sample, axis=1)
-        assert (np.shape(sample)[0] == 100 and np.shape(sample)[1] == 5
-                and max(row_sums) == 10 and min(row_sums) == 10)
+        assert np.shape(sample)[0] == 100 and np.shape(sample)[1] == 5 and max(row_sums) == 10 and min(row_sums) == 10

@@ -2,11 +2,12 @@
 
 # Author: Genevieve Hayes (Modified by Andrew Rollings)
 # License: BSD 3 clause
+
 from mlrose_hiive.decorators import short_name
 
+import warnings
 import numpy as np
 
-import warnings
 warnings.filterwarnings("ignore")
 
 

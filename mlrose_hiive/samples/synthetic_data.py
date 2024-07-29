@@ -35,7 +35,8 @@ class SyntheticData:
 
         output = None
         if self.root_directory is not None:
-            output = self.root_directory + f'/synthetic__sz_{x_dim*y_dim}__n_{1 if add_noise else 0}__rc_{add_redundant_column}/'.lower().replace('.', '_')
+            output = (self.root_directory + f'/synthetic__sz_{x_dim*y_dim}__n_{1 if add_noise else 0}__rc_{add_redundant_column}/'.lower()
+                      .replace('.', '_'))
             try:
                 makedirs(output)
             except OSError as _:
@@ -118,9 +119,7 @@ class SyntheticData:
 
 
 def plot_synthetic_dataset(x_train, x_test, y_train, y_test, classifier=None, transparent_bg=False, bg_color='white'):
-    # Plot the decision boundary. For that, we will assign a color to each
-    # point in the mesh [x_min, m_max]x[y_min, y_max].
-
+    # Plot the decision boundary. For that, we will assign a color to each point in the mesh [x_min, m_max] X [y_min, y_max].
     o = 0.05
     x_min_train, x_max_train = x_train[:, 0].min() - o, x_train[:, 0].max() + o
     y_min_train, y_max_train = x_train[:, 1].min() - o, x_train[:, 1].max() + o
@@ -143,10 +142,9 @@ def plot_synthetic_dataset(x_train, x_test, y_train, y_test, classifier=None, tr
         xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
                              np.arange(y_min, y_max, h))
 
-    # just plot the dataset first
+    # Plot the dataset first
     cm = plt.get_cmap('RdBu')
     cm_bright = mpl.ListedColormap(['#FF0000', '#0000FF'])
-    # ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
 
     ax = plt.gca()
     if classifier is not None:
@@ -164,10 +162,10 @@ def plot_synthetic_dataset(x_train, x_test, y_train, y_test, classifier=None, tr
             Z = Z.mean(axis=2)
         ax.contourf(xx, yy, Z, cmap=cm, alpha=.8)
 
-    # Plot also the training points
+    # Plot the training and testing points
     ax.scatter(x_train[:, 0], x_train[:, 1], c=y_train, cmap=cm_bright, edgecolor='darkgreen')
-    # and testing points
     ax.scatter(x_test[:, 0], x_test[:, 1], c=y_test, cmap=cm_bright, edgecolor='white', alpha=0.6)
+
     ax.patch.set_facecolor(bg_color)
     if transparent_bg:
         ax.patch.set_alpha(0)
@@ -175,7 +173,5 @@ def plot_synthetic_dataset(x_train, x_test, y_train, y_test, classifier=None, tr
     ax.set_ylim(yy.min(), yy.max())
     ax.set_xticks(())
     ax.set_yticks(())
-    # ax.text(xx.max() - .3, yy.min() + .3, ('%.2f' % score).lstrip('0'),
-    #        size=15, horizontalalignment='right')
 
     plt.show()

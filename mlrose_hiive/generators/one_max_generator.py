@@ -11,5 +11,4 @@ class OneMaxGenerator:
     def generate(seed, size=20):
         np.random.seed(seed)
         fitness = OneMax()
-        problem = DiscreteOpt(length=size, fitness_fn=fitness)
-        return problem
+        return DiscreteOpt(length=size, fitness_fn=fitness)

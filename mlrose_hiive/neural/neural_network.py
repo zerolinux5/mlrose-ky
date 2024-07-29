@@ -3,7 +3,7 @@
 # Author: Genevieve Hayes (modified by Andrew Rollings)
 # License: BSD 3 clause
 
-from sklearn.base import  ClassifierMixin
+from sklearn.base import ClassifierMixin
 
 from mlrose_hiive.algorithms.decay import GeomDecay
 from ._nn_core import _NNCore
@@ -129,4 +129,3 @@ class NeuralNetwork(_NNCore, ClassifierMixin):
             max_attempts=max_attempts,
             random_state=random_state,
             curve=curve)
-

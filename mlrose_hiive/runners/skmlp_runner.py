@@ -63,7 +63,7 @@ class SKMLPRunner(_NNRunnerBase):
             self._state = self.mlp.coefs_ if hasattr(self.mlp, 'coefs_') else []
             self.loss_ = self.mlp.loss_ if hasattr(self.mlp, 'loss_') else 0
             if hasattr(self.mlp, 'loss_curve_'):
-                self.curve_ = [(l, None) for l in self.mlp.loss_curve_]
+                self.curve_ = [(_loss_val, None) for _loss_val in self.mlp.loss_curve_]
             else:
                 self.curve_.append((self.loss_, None))
             self._invoke_runner_callback()

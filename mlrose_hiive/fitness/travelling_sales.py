@@ -101,7 +101,10 @@ class TravellingSales:
         if self.coords:
             self.calculate_fitness = self.__calculate_fitness_by_coords
         else:
-            self.df_path_list = pd.DataFrame([[self.path_list[i][0], self.path_list[i][1], self.dist_list[i]] for i in range(len(self.path_list))])
+            self.df_path_list = pd.DataFrame([[
+                self.path_list[i][0],
+                self.path_list[i][1],
+                self.dist_list[i]] for i in range(len(self.path_list))])
             self.calculate_fitness = self.__calculate_fitness_by_distance
 
     def evaluate(self, state):

@@ -58,15 +58,13 @@ def unflatten_weights(flat_weights, node_list):
 
     for i in range(len(node_list) - 1):
         end = start + node_list[i]*node_list[i + 1]
-        weights.append(np.reshape(flat_weights[start:end],
-                                  [node_list[i], node_list[i+1]]))
+        weights.append(np.reshape(flat_weights[start:end], [node_list[i], node_list[i+1]]))
         start = end
 
     return weights
 
 
-def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf,
-                     init_state=None, curve=False, random_state=None):
+def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf, init_state=None, curve=False, random_state=None):
     """Use gradient_descent to find the optimal neural network weights.
     Parameters
     ----------
@@ -97,12 +95,10 @@ def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf,
         Numpy array containing the fitness at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.
     """
-    if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) \
-       or (max_attempts < 0):
+    if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) or max_attempts < 0:
         raise Exception("""max_attempts must be a positive integer.""")
 
-    if (not isinstance(max_iters, int) and max_iters != np.inf
-            and not max_iters.is_integer()) or (max_iters < 0):
+    if (not isinstance(max_iters, int) and max_iters != np.inf and not max_iters.is_integer()) or max_iters < 0:
         raise Exception("""max_iters must be a positive integer.""")
 
     if init_state is not None and len(init_state) != problem.get_length():
