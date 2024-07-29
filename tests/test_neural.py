@@ -67,17 +67,9 @@ class TestNeural:
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [4, 2, 1]
-        fitness = NetworkWeights(
-            X,
-            y,
-            nodes,
-            activation=identity,
-            bias=False,
-            is_classifier=False,
-            learning_rate=0.1,
-        )
+        fitness = NetworkWeights(X, y, nodes, activation=identity, bias=False, is_classifier=False)
 
-        problem = ContinuousOpt(10, fitness, maximize=False, min_val=-1, max_val=1, step=0.1)
+        problem = ContinuousOpt(10, fitness, maximize=False, min_val=-1)
 
         test_weights = np.ones(10)
         test_fitness = -1 * problem.eval_fitness(test_weights)
@@ -98,17 +90,9 @@ class TestNeural:
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [4, 2, 1]
-        fitness = NetworkWeights(
-            X,
-            y,
-            nodes,
-            activation=identity,
-            bias=False,
-            is_classifier=False,
-            learning_rate=0.1,
-        )
+        fitness = NetworkWeights(X, y, nodes, activation=identity, bias=False, is_classifier=False)
 
-        problem = ContinuousOpt(10, fitness, maximize=False, min_val=-1, max_val=1, step=0.1)
+        problem = ContinuousOpt(10, fitness, maximize=False, min_val=-1)
         init_weights = np.ones(10)
         best_state, best_fitness, _ = gradient_descent(problem, max_iters=1, init_state=init_weights)
         x = np.array([-0.7, -0.7, -0.9, -0.9, -0.9, -0.9, -1, -1, -1, -1])
@@ -187,7 +171,7 @@ class TestNeuralWeights:
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [5, 2, 1]
-        fitness = NetworkWeights(X, y, nodes, activation=identity, bias=True, is_classifier=False)
+        fitness = NetworkWeights(X, y, nodes, activation=identity, is_classifier=False)
 
         a = list(np.arange(10) + 1)
         b = list(0.01 * (np.arange(2) + 1))
@@ -236,16 +220,7 @@ class TestNeuralNetwork:
 
     def test_fit_random_hill_climb(self):
         """Test fit method using the random hill climbing algorithm"""
-        network = NeuralNetwork(
-            hidden_nodes=[2],
-            activation="identity",
-            algorithm="random_hill_climb",
-            bias=False,
-            is_classifier=True,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = NeuralNetwork(hidden_nodes=[2], activation="identity", bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -264,16 +239,8 @@ class TestNeuralNetwork:
 
     def test_fit_simulated_annealing(self):
         """Test fit method using the simulated_annealing algorithm"""
-        network = NeuralNetwork(
-            hidden_nodes=[2],
-            activation="identity",
-            algorithm="simulated_annealing",
-            bias=False,
-            is_classifier=True,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = NeuralNetwork(hidden_nodes=[2], activation="identity", algorithm="simulated_annealing", bias=False, learning_rate=1,
+                                clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -292,16 +259,8 @@ class TestNeuralNetwork:
 
     def test_fit_genetic_alg(self):
         """Test fit method using the genetic_alg algorithm"""
-        network = NeuralNetwork(
-            hidden_nodes=[2],
-            activation="identity",
-            algorithm="genetic_alg",
-            bias=False,
-            is_classifier=True,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = NeuralNetwork(hidden_nodes=[2], activation="identity", algorithm="genetic_alg", bias=False, learning_rate=1, clip_max=1,
+                                max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -318,16 +277,8 @@ class TestNeuralNetwork:
 
     def test_fit_gradient_descent(self):
         """Test fit method using the gradient_descent algorithm"""
-        network = NeuralNetwork(
-            hidden_nodes=[2],
-            activation="identity",
-            algorithm="gradient_descent",
-            bias=False,
-            is_classifier=True,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = NeuralNetwork(hidden_nodes=[2], activation="identity", algorithm="gradient_descent", bias=False, learning_rate=1,
+                                clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -346,16 +297,7 @@ class TestNeuralNetwork:
 
     def test_predict_no_bias(self):
         """Test predict method with no bias term"""
-        network = NeuralNetwork(
-            hidden_nodes=[2],
-            activation="identity",
-            algorithm="random_hill_climb",
-            bias=False,
-            is_classifier=True,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = NeuralNetwork(hidden_nodes=[2], activation="identity", bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -379,16 +321,7 @@ class TestNeuralNetwork:
 
     def test_predict_bias(self):
         """Test predict method with bias term"""
-        network = NeuralNetwork(
-            hidden_nodes=[2],
-            activation="identity",
-            algorithm="random_hill_climb",
-            bias=True,
-            is_classifier=True,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = NeuralNetwork(hidden_nodes=[2], activation="identity", learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -413,17 +346,8 @@ class TestNeuralNetwork:
 
     def test_learning_curve(self):
         """Test scikit-learn learning curve method."""
-        network = NeuralNetwork(
-            hidden_nodes=[2],
-            activation="identity",
-            algorithm="simulated_annealing",
-            bias=True,
-            is_classifier=True,
-            curve=True,  # curve has to be true...
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = NeuralNetwork(hidden_nodes=[2], activation="identity", algorithm="simulated_annealing", curve=True, learning_rate=1,
+                                clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 1, 0],
@@ -455,13 +379,7 @@ class TestLinearRegression:
 
     def test_fit_random_hill_climb(self):
         """Test fit method using the random hill climbing algorithm"""
-        network = LinearRegression(
-            algorithm="random_hill_climb",
-            bias=False,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LinearRegression(bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -529,13 +447,7 @@ class TestLinearRegression:
 
     def test_fit_gradient_descent(self):
         """Test fit method using the gradient_descent algorithm"""
-        network = LinearRegression(
-            algorithm="gradient_descent",
-            bias=False,
-            learning_rate=0.1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LinearRegression(algorithm="gradient_descent", bias=False, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -553,13 +465,7 @@ class TestLinearRegression:
 
     def test_predict_no_bias(self):
         """Test predict method with no bias term"""
-        network = LinearRegression(
-            algorithm="random_hill_climb",
-            bias=False,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LinearRegression(bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -578,13 +484,7 @@ class TestLinearRegression:
 
     def test_predict_bias(self):
         """Test predict method with bias term"""
-        network = LinearRegression(
-            algorithm="random_hill_climb",
-            bias=True,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LinearRegression(learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -607,13 +507,7 @@ class TestLogisticRegression:
 
     def test_fit_random_hill_climb(self):
         """Test fit method using the random hill climbing algorithm"""
-        network = LogisticRegression(
-            algorithm="random_hill_climb",
-            bias=False,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LogisticRegression(bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -680,13 +574,7 @@ class TestLogisticRegression:
 
     def test_fit_gradient_descent(self):
         """Test fit method using the gradient_descent algorithm"""
-        network = LogisticRegression(
-            algorithm="gradient_descent",
-            bias=False,
-            learning_rate=0.1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LogisticRegression(algorithm="gradient_descent", bias=False, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -705,13 +593,7 @@ class TestLogisticRegression:
 
     def test_predict_no_bias(self):
         """Test predict method with no bias term"""
-        network = LogisticRegression(
-            algorithm="random_hill_climb",
-            bias=False,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LogisticRegression(bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
@@ -731,13 +613,7 @@ class TestLogisticRegression:
 
     def test_predict_bias(self):
         """Test predict method with bias term"""
-        network = LogisticRegression(
-            algorithm="random_hill_climb",
-            bias=True,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LogisticRegression(learning_rate=1, clip_max=1, max_attempts=100)
 
         X = np.array([[0, 1, 0, 1],
                       [0, 0, 0, 0],
