@@ -1,7 +1,6 @@
 """GA Mutators."""
 
-# Author: Genevieve Hayes
-# Modified: Andrew Rollings, Kyle Nakamura
+# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 from .change_one_mutator import ChangeOneMutator

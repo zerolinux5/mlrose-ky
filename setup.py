@@ -1,7 +1,6 @@
 """MLROSe setup file."""
 
-# Author: Genevieve Hayes
-# Modified: Andrew Rollings, Kyle Nakamura
+# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 from setuptools import setup
