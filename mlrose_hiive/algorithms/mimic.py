@@ -1,19 +1,30 @@
-"""Functions to implement the randomized optimization and search algorithms.
-"""
+"""Functions to implement the randomized optimization and search algorithms."""
 
 # Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np
-
+from typing import Callable, Any
 from mlrose_hiive.decorators import short_name
 
 
 @short_name('mimic')
-def mimic(problem, pop_size=200, keep_pct=0.2, max_attempts=10,
-          max_iters=np.inf, curve=False, random_state=None,
-          state_fitness_callback=None, callback_user_info=None, noise=0.0):
+def mimic(problem: Any,
+          pop_size: int = 200,
+          keep_pct: float = 0.2,
+          max_attempts: int = 10,
+          noise: float = 0.0,
+          max_iters: int = np.inf,
+          curve: bool = False,
+          random_state: int | None = None,
+          state_fitness_callback: Callable = None,
+          callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray | None]:
     """Use MIMIC to find the optimum for a given optimization problem.
+
+    Note
+    ----
+    MIMIC cannot be used for solving continuous-state optimization problems.
+
     Parameters
     ----------
     problem: optimization object
@@ -45,6 +56,7 @@ def mimic(problem, pop_size=200, keep_pct=0.2, max_attempts=10,
     noise: float, default: 0.0
         Noise level to be added to the fitness function,
         expressed as a value between 0 and 0.1.
+
     Returns
     -------
     best_state: np.ndarray
@@ -54,39 +66,24 @@ def mimic(problem, pop_size=200, keep_pct=0.2, max_attempts=10,
     fitness_curve: np.ndarray
         Numpy array containing the fitness at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.
+
     References
     ----------
-    De Bonet, J., C. Isbell, and P. Viola (1997). MIMIC: Finding Optima by
-    Estimating Probability Densities. In *Advances in Neural Information
-    Processing Systems* (NIPS) 9, pp. 424–430.
-    Note
-    ----
-    MIMIC cannot be used for solving continuous-state optimization problems.
+    De Bonet, J., C. Isbell, and P. Viola (1997). MIMIC: Finding Optima by Estimating Probability Densities.
+    In *Advances in Neural Information Processing Systems* (NIPS) 9, pp. 424–430.
     """
     if problem.get_prob_type() == 'continuous':
-        raise Exception("""problem type must be discrete or tsp.""")
-
-    if pop_size < 0:
-        raise Exception("""pop_size must be a positive integer.""")
-    elif not isinstance(pop_size, int):
-        if pop_size.is_integer():
-            pop_size = int(pop_size)
-        else:
-            raise Exception("""pop_size must be a positive integer.""")
-
-    if (keep_pct < 0) or (keep_pct > 1):
-        raise Exception("""keep_pct must be between 0 and 1.""")
-
-    if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) \
-       or (max_attempts < 0):
-        raise Exception("""max_attempts must be a positive integer.""")
-
-    if (not isinstance(max_iters, int) and max_iters != np.inf
-            and not max_iters.is_integer()) or (max_iters < 0):
-        raise Exception("""max_iters must be a positive integer.""")
-
-    if (noise < 0) or (noise > 0.1):
-        raise Exception("""noise must be between 0 and 0.1.""")
+        raise ValueError("problem type must be discrete or tsp.")
+    if not isinstance(pop_size, int) or pop_size < 0:
+        raise ValueError(f"pop_size must be a positive integer. Got {pop_size}")
+    if keep_pct < 0 or keep_pct > 1:
+        raise ValueError(f"keep_pct must be between 0 and 1. Got {keep_pct}")
+    if not isinstance(max_attempts, int) or max_attempts < 0:
+        raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
+    if not (isinstance(max_iters, int) or max_iters == np.inf) or max_iters < 0:
+        raise ValueError(f"max_iters must be a positive integer or np.inf. Got {max_iters}")
+    if noise < 0 or noise > 0.1:
+        raise ValueError(f"noise must be between 0 and 0.1. Got {noise}")
     else:
         problem.noise = noise
 
@@ -94,12 +91,10 @@ def mimic(problem, pop_size=200, keep_pct=0.2, max_attempts=10,
     if isinstance(random_state, int) and random_state > 0:
         np.random.seed(random_state)
 
+    # Initialize problem
     fitness_curve = []
-
-    # Initialize problem, population and attempts counter
     problem.reset()
     problem.random_pop(pop_size)
-
     if state_fitness_callback is not None:
         # initial call with base data
         state_fitness_callback(iteration=0,
@@ -107,11 +102,11 @@ def mimic(problem, pop_size=200, keep_pct=0.2, max_attempts=10,
                                fitness=problem.get_adjusted_fitness(),
                                fitness_evaluations=problem.fitness_evaluations,
                                user_data=callback_user_info)
+
     attempts = 0
     iters = 0
-
     continue_iterating = True
-    while (attempts < max_attempts) and (iters < max_iters):
+    while attempts < max_attempts and iters < max_iters:
         iters += 1
         problem.current_iteration += 1
 
@@ -159,4 +154,7 @@ def mimic(problem, pop_size=200, keep_pct=0.2, max_attempts=10,
     best_fitness = problem.get_maximize()*problem.get_fitness()
     best_state = problem.get_state().astype(int)
 
-    return best_state, best_fitness, np.asarray(fitness_curve) if curve else None
+    if curve:
+        return best_state, best_fitness, np.asarray(fitness_curve)
+
+    return best_state, best_fitness, None

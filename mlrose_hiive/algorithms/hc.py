@@ -1,71 +1,73 @@
-"""Functions to implement the randomized optimization and search algorithms.
-"""
+"""Functions to implement the randomized optimization and search algorithms."""
 
 # Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np
-
+from typing import Callable, Any
 from mlrose_hiive.decorators import short_name
 
 
 @short_name('hc')
-def hill_climb(problem, max_iters=np.inf, restarts=0, init_state=None,
-               curve=False, random_state=None,
-               state_fitness_callback=None, callback_user_info=None):
-    """Use standard hill climbing to find the optimum for a given
-    optimization problem.
+def hill_climb(problem: Any,
+               max_iters: int = np.inf,
+               restarts: int = 0,
+               init_state: np.ndarray | None = None,
+               curve: bool = False,
+               random_state: int | None = None,
+               state_fitness_callback: Callable = None,
+               callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray | None]:
+    """Use standard hill climbing to find the optimum for a given optimization problem.
+
     Parameters
     ----------
     problem: optimization object
         Object containing fitness function optimization problem to be solved.
-        For example, :code:`DiscreteOpt()`, :code:`ContinuousOpt()` or
-        :code:`TSPOpt()`.
+        For example, `DiscreteOpt()`, `ContinuousOpt()` or `TSPOpt()`.
     max_iters: int, default: np.inf
         Maximum number of iterations of the algorithm for each restart.
     restarts: int, default: 0
         Number of random restarts.
-    init_state: np.ndarray, default: None
+    init_state: np.ndarray | None, default: None
         1-D Numpy array containing starting state for algorithm.
-        If :code:`None`, then a random state is used.
+        If None, then a random state is used.
     curve: bool, default: False
         Boolean to keep fitness values for a curve.
-        If :code:`False`, then no curve is stored.
-        If :code:`True`, then a history of fitness values is provided as a
+        If False, then no curve is stored.
+        If True, then a history of fitness values is provided as a
         third return value.
-    random_state: int, default: None
+    random_state: int | None, default: None
         If random_state is a positive integer, random_state is the seed used
         by np.random.seed(); otherwise, the random seed is not set.
-    state_fitness_callback: function taking two parameters, default: None
+    state_fitness_callback: callable | None, default: None
         If specified, this callback will be invoked once per iteration.
         Parameters are (iteration, current best state, current best fit, user callback data).
         Return true to continue iterating, or false to stop.
-    callback_user_info: any, default: None
+    callback_user_info: any | None, default: None
         User data passed as last parameter of callback.
+
     Returns
     -------
     best_state: np.ndarray
         Numpy array containing state that optimizes the fitness function.
     best_fitness: float
         Value of fitness function at best state.
-    fitness_curve: np.ndarray
+    fitness_curve: np.ndarray | None
         Numpy array containing the fitness at every iteration.
-        Only returned if input argument :code:`curve` is :code:`True`.
+        Only returned if input argument curve is True.
+
     References
     ----------
-    Russell, S. and P. Norvig (2010). *Artificial Intelligence: A Modern
-    Approach*, 3rd edition. Prentice Hall, New Jersey, USA.
+    Russell, S. and P. Norvig (2010). *Artificial Intelligence: A Modern Approach*, 3rd edition.
+    Prentice Hall, New Jersey, USA.
     """
-    if (not isinstance(max_iters, int) and max_iters != np.inf
-            and not max_iters.is_integer()) or (max_iters < 0):
-        raise Exception("""max_iters must be a positive integer.""")
-
-    if (not isinstance(restarts, int) and not restarts.is_integer()) \
-       or (restarts < 0):
-        raise Exception("""restarts must be a positive integer.""")
-
+    if not (isinstance(max_iters, int) or max_iters == np.inf or max_iters.is_integer()) or max_iters < 0:
+        raise ValueError(f"max_iters must be a positive integer. Got {max_iters}")
+    if not (isinstance(restarts, int) or restarts.is_integer()) or restarts < 0:
+        raise ValueError(f"restarts must be a positive integer. Got {restarts}")
     if init_state is not None and len(init_state) != problem.get_length():
-        raise Exception("""init_state must have same length as problem.""")
+        raise ValueError(f"init_state must have the same length as the problem. "
+                         f"Expected length {problem.get_length()}, got {len(init_state)}")
 
     # Set random seed
     if isinstance(random_state, int) and random_state > 0:

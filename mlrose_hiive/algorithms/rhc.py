@@ -1,20 +1,25 @@
-"""Functions to implement the randomized optimization and search algorithms.
-"""
+"""Functions to implement the randomized optimization and search algorithms."""
 
 # Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np
-
+from typing import Callable, Any
 from mlrose_hiive.decorators import short_name
 
 
 @short_name('rhc')
-def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
-                      init_state=None, curve=False, random_state=None,
-                      state_fitness_callback=None, callback_user_info=None):
-    """Use randomized hill climbing to find the optimum for a given
-    optimization problem.
+def random_hill_climb(problem: Any,
+                      max_attempts: int = 10,
+                      max_iters: int = np.inf,
+                      restarts: int = 0,
+                      init_state: np.ndarray = None,
+                      curve: bool = False,
+                      random_state: int = None,
+                      state_fitness_callback: Callable = None,
+                      callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray | None]:
+    """Use randomized hill climbing to find the optimum for a given optimization problem.
+
     Parameters
     ----------
     problem: optimization object
@@ -44,6 +49,7 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
         Return true to continue iterating, or false to stop.
     callback_user_info: any, default: None
         User data passed as last parameter of callback.
+
     Returns
     -------
     best_state: np.ndarray
@@ -53,22 +59,20 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
     fitness_curve: np.ndarray
         Numpy array containing the fitness at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.
+
     References
     ----------
-    Brownlee, J (2011). *Clever Algorithms: Nature-Inspired Programming
-    Recipes*. `<http://www.cleveralgorithms.com>`_.
+    Brownlee, J (2011). *Clever Algorithms: Nature-Inspired Programming Recipes*.
+    `<http://www.cleveralgorithms.com>`_.
     """
-    if (not isinstance(max_attempts, int) and not max_attempts.is_integer()) or max_attempts < 0:
-        raise Exception("""max_attempts must be a positive integer.""")
-
-    if (not isinstance(max_iters, int) and max_iters != np.inf and not max_iters.is_integer()) or max_iters < 0:
-        raise Exception("""max_iters must be a positive integer.""")
-
-    if (not isinstance(restarts, int) and not restarts.is_integer()) or restarts < 0:
-        raise Exception("""restarts must be a positive integer.""")
-
+    if not isinstance(max_attempts, int) or max_attempts < 0:
+        raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
+    if not (isinstance(max_iters, int) or max_iters == np.inf) or max_iters < 0:
+        raise ValueError(f"max_iters must be a positive integer or np.inf. Got {max_iters}")
+    if not isinstance(restarts, int) or restarts < 0:
+        raise ValueError(f"restarts must be a positive integer. Got {restarts}")
     if init_state is not None and len(init_state) != problem.get_length():
-        raise Exception("""init_state must have same length as problem.""")
+        raise ValueError(f"init_state must have the same length as the problem. Expected length {problem.get_length()}, got {len(init_state)}")
 
     # Set random seed
     if isinstance(random_state, int) and random_state > 0:
@@ -76,20 +80,20 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
 
     best_fitness = -np.inf
     best_state = None
-
     best_fitness_curve = []
     all_curves = []
 
     for current_restart in range(restarts + 1):
-        # Initialize optimization problem and attempts counter
+        # Initialize problem
+        fitness_curve = []
         fevals = problem.fitness_evaluations
         if init_state is None:
             problem.reset()
         else:
             problem.set_state(init_state)
+
         problem.fitness_evaluations = fevals
 
-        fitness_curve = []
         callback_extra_data = None
         if state_fitness_callback is not None:
             callback_extra_data = callback_user_info + [('current_restart', current_restart)]
@@ -102,7 +106,7 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
 
         attempts = 0
         iters = 0
-        while (attempts < max_attempts) and (iters < max_iters):
+        while attempts < max_attempts and iters < max_iters:
             iters += 1
             problem.current_iteration += 1
 
@@ -110,8 +114,8 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
             next_state = problem.random_neighbor()
             next_fitness = problem.eval_fitness(next_state)
 
-            # If best neighbor is an improvement,
-            # move to that state and reset attempts counter
+            # FIXME: RHC should move to neighbor if >= current fitness (?)
+            # If best neighbor is an improvement, move to that state and reset attempts counter
             current_fitness = problem.get_fitness()
             if next_fitness > current_fitness:
                 problem.set_state(next_state)
@@ -124,10 +128,6 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
                 curve_value = (adjusted_fitness, problem.fitness_evaluations)
                 fitness_curve.append(curve_value)
                 all_curves.append(curve_value)
-                """
-                all_curves.append({'current_restart': current_restart, 'Fitness': problem.get_adjusted_fitness(),
-                                   'FEval': problem.fitness_evaluations})
-                """
 
             # invoke callback
             if state_fitness_callback is not None:
@@ -158,4 +158,7 @@ def random_hill_climb(problem, max_attempts=10, max_iters=np.inf, restarts=0,
 
     best_fitness *= problem.get_maximize()
 
-    return best_state, best_fitness, np.asarray(best_fitness_curve) if curve else None
+    if curve:
+        return best_state, best_fitness, np.asarray(best_fitness_curve)
+
+    return best_state, best_fitness, None
