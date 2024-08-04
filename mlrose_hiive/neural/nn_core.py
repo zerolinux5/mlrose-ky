@@ -7,7 +7,7 @@
 import numpy as np
 from abc import abstractmethod
 from sklearn.preprocessing import LabelBinarizer
-from mlrose_hiive.algorithms.decay import GeomDecay
+from mlrose_hiive.algorithms.decay import GeometricDecay
 from mlrose_hiive.algorithms.rhc import random_hill_climb
 from mlrose_hiive.algorithms.sa import simulated_annealing
 from mlrose_hiive.algorithms.ga import genetic_alg
@@ -27,7 +27,7 @@ class _NNCore(_NNBase):
     @abstractmethod
     def __init__(self, hidden_nodes=None, activation='relu', algorithm='random_hill_climb', max_iters=100, bias=True,
                  is_classifier=True, learning_rate=0.1, early_stopping=False, clip_max=1e+10, restarts=0,
-                 schedule=GeomDecay(), pop_size=200, mutation_prob=0.1, max_attempts=10, random_state=None,
+                 schedule=GeometricDecay(), pop_size=200, mutation_prob=0.1, max_attempts=10, random_state=None,
                  curve=False):
 
         super().__init__()

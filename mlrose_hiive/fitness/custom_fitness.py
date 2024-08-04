@@ -24,11 +24,10 @@ class CustomFitness:
 
     Examples
     -------
-    >>> import mlrose_hiive
     >>> import numpy as np
     >>> def cust_fn(state, c): return c * np.sum(state)
     >>> kwargs = {'c': 10}
-    >>> fitness = mlrose_hiive.CustomFitness(cust_fn, **kwargs)
+    >>> fitness = CustomFitness(cust_fn, **kwargs)
     >>> state = np.array([1, 2, 3, 4, 5])
     >>> fitness.evaluate(state)
     150

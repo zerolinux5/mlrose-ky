@@ -6,12 +6,12 @@
 import numpy as np
 from typing import Callable, Any
 from mlrose_hiive.decorators import short_name
-from mlrose_hiive.algorithms.decay import GeomDecay
+from mlrose_hiive.algorithms.decay import GeometricDecay
 
 
 @short_name('sa')
 def simulated_annealing(problem: Any,
-                        schedule: Any = GeomDecay(),
+                        schedule: Any = GeometricDecay(),
                         max_attempts: int = 10,
                         max_iters: int = np.inf,
                         init_state: np.ndarray = None,
@@ -27,7 +27,7 @@ def simulated_annealing(problem: Any,
         Object containing fitness function optimization problem to be solved.
         For example, :code:`DiscreteOpt()`, :code:`ContinuousOpt()` or
         :code:`TSPOpt()`.
-    schedule: schedule object, default: :code:`mlrose_hiive.GeomDecay()`
+    schedule: schedule object, default: :code:`mlrose_hiive.GeometricDecay()`
         Schedule used to determine the value of the temperature parameter.
     max_attempts: int, default: 10
         Maximum number of attempts to find a better neighbor at each step.

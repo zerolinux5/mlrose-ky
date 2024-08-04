@@ -5,7 +5,7 @@
 
 from sklearn.base import ClassifierMixin
 
-from mlrose_hiive.algorithms.decay import GeomDecay
+from mlrose_hiive.algorithms.decay import GeometricDecay
 from .nn_core import _NNCore
 
 
@@ -53,7 +53,7 @@ class NeuralNetwork(_NNCore, ClassifierMixin):
         Number of random restarts.
         Only required if :code:`algorithm = 'random_hill_climb'`.
 
-    schedule: schedule object, default = mlrose_hiive.GeomDecay()
+    schedule: schedule object, default = mlrose_hiive.GeometricDecay()
         Schedule used to determine the value of the temperature parameter.
         Only required if :code:`algorithm = 'simulated_annealing'`.
 
@@ -106,7 +106,7 @@ class NeuralNetwork(_NNCore, ClassifierMixin):
                  early_stopping=False,
                  clip_max=1e+10,
                  restarts=0,
-                 schedule=GeomDecay(),
+                 schedule=GeometricDecay(),
                  pop_size=200,
                  mutation_prob=0.1,
                  max_attempts=10,

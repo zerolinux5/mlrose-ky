@@ -6,7 +6,7 @@
 
 from sklearn.base import ClassifierMixin
 
-from mlrose_hiive.algorithms.decay import GeomDecay
+from mlrose_hiive.algorithms.decay import GeometricDecay
 from .nn_core import _NNCore
 
 
@@ -44,7 +44,7 @@ class LogisticRegression(_NNCore, ClassifierMixin):
         Number of random restarts.
         Only required if :code:`algorithm = 'random_hill_climb'`.
 
-    schedule: schedule object, default = mlrose_hiive.GeomDecay()
+    schedule: schedule object, default = mlrose_hiive.GeometricDecay()
         Schedule used to determine the value of the temperature parameter.
         Only required if :code:`algorithm = 'simulated_annealing'`.
 
@@ -83,7 +83,7 @@ class LogisticRegression(_NNCore, ClassifierMixin):
 
     def __init__(self, algorithm='random_hill_climb', max_iters=100, bias=True,
                  learning_rate=0.1, early_stopping=False, clip_max=1e+10,
-                 restarts=0, schedule=GeomDecay(), pop_size=200,
+                 restarts=0, schedule=GeometricDecay(), pop_size=200,
                  mutation_prob=0.1, max_attempts=10, random_state=None,
                  curve=False):
 
