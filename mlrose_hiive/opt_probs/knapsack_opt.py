@@ -3,7 +3,7 @@
 # Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
-from mlrose_hiive.algorithms.crossovers import UniformCrossOver
+from mlrose_hiive.algorithms.crossovers import UniformCrossover
 from mlrose_hiive.algorithms.mutators import ChangeOneMutator
 from mlrose_hiive.fitness.knapsack import Knapsack
 from mlrose_hiive.opt_probs.discrete_opt import DiscreteOpt
@@ -36,6 +36,6 @@ class KnapsackOpt(DiscreteOpt):
                                   multiply_by_max_item_count=multiply_by_max_item_count)
 
         self.max_val = max_val
-        crossover = UniformCrossOver(self) if crossover is None else crossover
+        crossover = UniformCrossover(self) if crossover is None else crossover
         mutator = ChangeOneMutator(self) if mutator is None else mutator
         super().__init__(length, fitness_fn, maximize, max_val, crossover, mutator)

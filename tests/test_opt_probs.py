@@ -11,7 +11,7 @@ except ImportError:
     import sys
     sys.path.append("..")
 
-from mlrose_hiive import OneMax, DiscreteOpt, ContinuousOpt, TSPOpt, OnePointCrossOver
+from mlrose_hiive import OneMax, DiscreteOpt, ContinuousOpt, TSPOpt, OnePointCrossover
 from mlrose_hiive.neural import NetworkWeights
 from mlrose_hiive.neural.activation import identity
 from mlrose_hiive.opt_probs.opt_prob import OptProb
@@ -327,7 +327,7 @@ class TestDiscreteOpt:
     def test_reproduce_mut1_max_gt2(self):
         """Test reproduce method when mutation_prob is 1 and max_val is greater than 2"""
         problem = DiscreteOpt(5, OneMax(), max_val=3)
-        problem._crossover = OnePointCrossOver(problem)
+        problem._crossover = OnePointCrossover(problem)
         father = np.zeros(5)
         mother = np.ones(5) * 2
         child = problem.reproduce(father, mother, mutation_prob=1)

@@ -10,6 +10,6 @@ from .rhc import random_hill_climb
 from .gd import gradient_descent
 from .mimic import mimic
 
-from .crossovers import UniformCrossOver, TSPCrossOver, OnePointCrossOver
+from .crossovers import UniformCrossover, TSPCrossover, OnePointCrossover
 from .decay import ArithDecay, CustomSchedule, ExpDecay, GeomDecay
 from .mutators import ChangeOneMutator, DiscreteMutator, ShiftOneMutator, SwapMutator

@@ -3,6 +3,6 @@
 # Author: Genevieve Hayes
 # License: BSD 3 clause
 
-from .uniform_crossover import UniformCrossOver
-from .tsp_crossover import TSPCrossOver
-from .one_point_crossover import OnePointCrossOver
+from .one_point_crossover import OnePointCrossover
+from .tsp_crossover import TSPCrossover
+from .uniform_crossover import UniformCrossover

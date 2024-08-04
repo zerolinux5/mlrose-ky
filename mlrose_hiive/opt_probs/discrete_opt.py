@@ -8,7 +8,7 @@ from sklearn.metrics import mutual_info_score
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import minimum_spanning_tree, depth_first_tree
 
-from mlrose_hiive.algorithms.crossovers import UniformCrossOver
+from mlrose_hiive.algorithms.crossovers import UniformCrossover
 from mlrose_hiive.algorithms.mutators import SwapMutator
 from mlrose_hiive.opt_probs.opt_prob import OptProb
 
@@ -64,7 +64,7 @@ class DiscreteOpt(OptProb):
         self.prob_type = 'discrete'
         self.noise = 0
 
-        self._crossover = UniformCrossOver(self) if crossover is None else crossover
+        self._crossover = UniformCrossover(self) if crossover is None else crossover
         self._mutator = SwapMutator(self) if mutator is None else mutator
 
         self._mut_mask = None

@@ -5,7 +5,7 @@
 
 import numpy as np
 
-from mlrose_hiive.algorithms.crossovers import TSPCrossOver
+from mlrose_hiive.algorithms.crossovers import TSPCrossover
 from mlrose_hiive.algorithms.mutators import SwapMutator
 from mlrose_hiive.fitness import TravellingSales
 from mlrose_hiive.opt_probs.discrete_opt import DiscreteOpt
@@ -60,7 +60,7 @@ class TSPOpt(DiscreteOpt):
                 length = len(set([x for (x, _, _) in distances] + [x for (_, x, _) in distances]))
         self.length = length
         DiscreteOpt.__init__(self, length, fitness_fn, maximize, max_val=length,
-                             crossover=TSPCrossOver(self), mutator=SwapMutator(self))
+                             crossover=TSPCrossover(self), mutator=SwapMutator(self))
 
         if self.fitness_fn.get_prob_type() != 'tsp':
             raise Exception("""fitness_fn must have problem type 'tsp'.""")

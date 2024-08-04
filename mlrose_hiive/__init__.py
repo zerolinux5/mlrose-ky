@@ -10,7 +10,7 @@ from .algorithms.rhc import random_hill_climb
 from .algorithms.gd import gradient_descent
 from .algorithms.mimic import mimic
 from .algorithms.decay import GeomDecay, ArithDecay, ExpDecay, CustomSchedule
-from .algorithms.crossovers import OnePointCrossOver, UniformCrossOver, TSPCrossOver
+from .algorithms.crossovers import OnePointCrossover, UniformCrossover, TSPCrossover
 from .algorithms.mutators import ChangeOneMutator, DiscreteMutator, SwapMutator, ShiftOneMutator
 
 from .fitness import OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks, Knapsack, TravellingSales, Queens, MaxKColor, CustomFitness
