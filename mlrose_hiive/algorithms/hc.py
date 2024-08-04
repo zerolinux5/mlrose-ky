@@ -12,11 +12,11 @@ from mlrose_hiive.decorators import short_name
 def hill_climb(problem: Any,
                max_iters: int = np.inf,
                restarts: int = 0,
-               init_state: np.ndarray | None = None,
+               init_state: np.ndarray = None,
                curve: bool = False,
-               random_state: int | None = None,
+               random_state: int = None,
                state_fitness_callback: Callable = None,
-               callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray | None]:
+               callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray]:
     """Use standard hill climbing to find the optimum for a given optimization problem.
 
     Parameters
@@ -28,7 +28,7 @@ def hill_climb(problem: Any,
         Maximum number of iterations of the algorithm for each restart.
     restarts: int, default: 0
         Number of random restarts.
-    init_state: np.ndarray | None, default: None
+    init_state: np.ndarray, default: None
         1-D Numpy array containing starting state for algorithm.
         If None, then a random state is used.
     curve: bool, default: False
@@ -36,14 +36,14 @@ def hill_climb(problem: Any,
         If False, then no curve is stored.
         If True, then a history of fitness values is provided as a
         third return value.
-    random_state: int | None, default: None
+    random_state: int, default: None
         If random_state is a positive integer, random_state is the seed used
         by np.random.seed(); otherwise, the random seed is not set.
-    state_fitness_callback: callable | None, default: None
+    state_fitness_callback: callable, default: None
         If specified, this callback will be invoked once per iteration.
         Parameters are (iteration, current best state, current best fit, user callback data).
         Return true to continue iterating, or false to stop.
-    callback_user_info: any | None, default: None
+    callback_user_info: any, default: None
         User data passed as last parameter of callback.
 
     Returns
@@ -52,7 +52,7 @@ def hill_climb(problem: Any,
         Numpy array containing state that optimizes the fitness function.
     best_fitness: float
         Value of fitness function at best state.
-    fitness_curve: np.ndarray | None
+    fitness_curve: np.ndarray
         Numpy array containing the fitness at every iteration.
         Only returned if input argument curve is True.
 

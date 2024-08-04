@@ -14,6 +14,7 @@ class Knapsack:
     :math:`x = [x_{0}, x_{1}, \\ldots, x_{n-1}]` as:
 
     .. math::
+
         Fitness(x) = \\sum_{i = 0}^{n-1}v_{i}x_{i}, \\text{ if}
         \\sum_{i = 0}^{n-1}w_{i}x_{i} \\leq W, \\text{ and 0, otherwise,}
 

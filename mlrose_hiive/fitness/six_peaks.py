@@ -13,6 +13,7 @@ class SixPeaks(DiscretePeaksBase):
     fitness of an n-dimensional state vector :math:`x`, given parameter T, as:
 
     .. math::
+
         Fitness(x, T) = \\max(tail(0, x), head(1, x)) + R(x, T)
 
     where:

@@ -9,7 +9,7 @@ except ImportError:
     import sys
     sys.path.append("..")
 
-from mlrose_hiive import GeomDecay, ArithDecay, ExpDecay, CustomSchedule
+from mlrose_hiive import GeomDecay, ArithmeticDecay, ExpDecay, CustomSchedule
 
 
 def test_geom_above_min():
@@ -28,14 +28,14 @@ def test_geom_below_min():
 
 def test_arith_above_min():
     """Test arithmetic decay evaluation function for case where result is above the minimum"""
-    schedule = ArithDecay(init_temp=10, decay=0.95, min_temp=1)
+    schedule = ArithmeticDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
     x = schedule.evaluate(5)
     assert x == 5.25
 
 
 def test_arith_below_min():
     """Test arithmetic decay evaluation function for case where result is below the minimum"""
-    schedule = ArithDecay(init_temp=10, decay=0.95, min_temp=1)
+    schedule = ArithmeticDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
     x = schedule.evaluate(50)
     assert x == 1
 

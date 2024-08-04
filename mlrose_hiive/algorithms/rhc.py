@@ -17,7 +17,7 @@ def random_hill_climb(problem: Any,
                       curve: bool = False,
                       random_state: int = None,
                       state_fitness_callback: Callable = None,
-                      callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray | None]:
+                      callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray]:
     """Use randomized hill climbing to find the optimum for a given optimization problem.
 
     Parameters

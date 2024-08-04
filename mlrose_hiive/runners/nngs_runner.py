@@ -11,7 +11,7 @@ Example usage:
     grid_search_parameters = ({
         'max_iters': [1, 2, 4, 8, 16, 32, 64, 128],                     # nn params
         'learning_rate': [0.001, 0.002, 0.003],                         # nn params
-        'schedule': [ArithDecay(1), ArithDecay(100), ArithDecay(1000)]  # sa params
+        'schedule': [ArithmeticDecay(1), ArithmeticDecay(100), ArithmeticDecay(1000)]  # sa params
     })
 
     nnr = NNGSRunner(x_train=x_train,

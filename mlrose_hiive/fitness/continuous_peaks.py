@@ -12,6 +12,7 @@ class ContinuousPeaks:
     as:
 
     .. math::
+
         Fitness(x, T) = \\max(max\\_run(0, x), max\\_run(1, x)) + R(x, T)
 
     where:

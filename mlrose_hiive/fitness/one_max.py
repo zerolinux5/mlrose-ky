@@ -12,6 +12,7 @@ class OneMax:
     :math:`x = [x_{0}, x_{1}, \\ldots, x_{n-1}]` as:
 
     .. math::
+
         Fitness(x) = \\sum_{i = 0}^{n-1}x_{i}
 
     Example

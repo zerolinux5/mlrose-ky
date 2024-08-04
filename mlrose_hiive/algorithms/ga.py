@@ -47,7 +47,7 @@ def _get_hamming_distance_float(population: np.ndarray, p1: np.ndarray) -> np.nd
 
 
 def _genetic_alg_select_parents(pop_size: int, problem: Any,
-                                get_hamming_distance_func: Callable[[np.ndarray, np.ndarray], np.ndarray] | None,
+                                get_hamming_distance_func: Callable[[np.ndarray, np.ndarray], np.ndarray],
                                 hamming_factor: float = 0.0) -> tuple[np.ndarray, np.ndarray]:
     """
     Select parents for the next generation in the genetic algorithm.
@@ -58,7 +58,7 @@ def _genetic_alg_select_parents(pop_size: int, problem: Any,
         Size of the population.
     problem : optimization object
         The optimization problem instance.
-    get_hamming_distance_func : Callable[[np.ndarray, np.ndarray], np.ndarray] | None
+    get_hamming_distance_func : Callable[[np.ndarray, np.ndarray], np.ndarray]
         Function to calculate Hamming distance.
     hamming_factor : float, default: 0.0
         Factor to account for Hamming distance in parent selection.
@@ -107,7 +107,7 @@ def genetic_alg(problem: Any,
                 state_fitness_callback: Callable[..., Any] = None,
                 callback_user_info: Any = None,
                 hamming_factor: float = 0.0,
-                hamming_decay_factor: float = None) -> tuple[np.ndarray, float, np.ndarray | None]:
+                hamming_decay_factor: float = None) -> tuple[np.ndarray, float, np.ndarray]:
     """
     Use a standard genetic algorithm to find the optimum for a given optimization problem.
 
@@ -137,9 +137,9 @@ def genetic_alg(problem: Any,
         Boolean to keep fitness values for a curve.
         If :code:`False`, then no curve is stored.
         If :code:`True`, then a history of fitness values is provided as a third return value.
-    random_state : int | None, default: None
+    random_state : int, default: None
         If random_state is a positive integer, random_state is the seed used by np.random.seed(); otherwise, the random seed is not set.
-    state_fitness_callback : Callable[..., Any] | None, default: None
+    state_fitness_callback : Callable[..., Any], default: None
         If specified, this callback will be invoked once per iteration.
         Parameters are (iteration, max attempts reached?, current best state, current best fit, user callback data).
         Return true to continue iterating, or false to stop.
@@ -147,7 +147,7 @@ def genetic_alg(problem: Any,
         User data passed as last parameter of callback.
     hamming_factor : float, default: 0.0
         Factor to account for Hamming distance in parent selection.
-    hamming_decay_factor : float | None, default: None
+    hamming_decay_factor : float, default: None
         Decay factor for the hamming_factor over iterations.
 
     Returns
@@ -156,7 +156,7 @@ def genetic_alg(problem: Any,
         Numpy array containing state that optimizes the fitness function.
     best_fitness : float
         Value of fitness function at best state.
-    fitness_curve : np.ndarray | None
+    fitness_curve : np.ndarray
         Numpy array of arrays containing the fitness of the entire population at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.
 
@@ -194,7 +194,7 @@ def genetic_alg(problem: Any,
                                fitness_evaluations=problem.fitness_evaluations,
                                user_data=callback_user_info)
 
-    get_hamming_distance_func: Callable[[np.ndarray, np.ndarray], np.ndarray] | None = None
+    get_hamming_distance_func: Callable[[np.ndarray, np.ndarray], np.ndarray] = None
     if hamming_factor > 0:
         g1 = problem.get_population()[0][0]
         if isinstance(g1, float) or g1.dtype == 'float64':

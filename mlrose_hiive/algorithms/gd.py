@@ -17,7 +17,7 @@ def gradient_descent(problem: Any,
                      curve: bool = False,
                      random_state: int = None,
                      state_fitness_callback: Callable = None,
-                     callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray | None]:
+                     callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray]:
     """Use gradient_descent to find the optimal neural network weights.
 
     Parameters

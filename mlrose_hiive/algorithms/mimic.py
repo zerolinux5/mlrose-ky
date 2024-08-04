@@ -16,9 +16,9 @@ def mimic(problem: Any,
           noise: float = 0.0,
           max_iters: int = np.inf,
           curve: bool = False,
-          random_state: int | None = None,
+          random_state: int = None,
           state_fitness_callback: Callable = None,
-          callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray | None]:
+          callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray]:
     """Use MIMIC to find the optimum for a given optimization problem.
 
     Note
