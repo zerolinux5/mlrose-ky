@@ -26,15 +26,12 @@ class GeomDecay:
     min_temp: float, default: 0.001
         Minimum value of temperature parameter. Must be greater than 0.
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> schedule = mlrose_hiive.GeomDecay(init_temp=10, decay=0.95, min_temp=1)
-        >>> schedule.evaluate(5)
-        7.73780...
+    >>> import mlrose_hiive
+    >>> schedule = mlrose_hiive.GeomDecay(init_temp=10, decay=0.95, min_temp=1)
+    >>> schedule.evaluate(5)
+    7.737809374999998
     """
 
     def __init__(self, init_temp=1.0, decay=0.99, min_temp=0.001):

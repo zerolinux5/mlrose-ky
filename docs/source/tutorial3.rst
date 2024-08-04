@@ -37,9 +37,7 @@ The Iris dataset is a famous multivariate classification dataset first presented
 
 The Iris dataset is included with the Python sklearn package. The feature values and label of the first observation in the dataset are shown below, along with the maximum and minimum values of each of the features and the unique label values:
 
-.. highlight:: python
 .. code-block:: python
-
     import numpy as np
     from sklearn.datasets import load_iris
     
@@ -90,9 +88,7 @@ In keeping with standard machine learning practice, it is also necessary to spli
 
 These pre-processing steps are implemented below.
 
-.. highlight:: python
 .. code-block:: python
-
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 	
@@ -122,9 +118,7 @@ For this example, we will use the Randomized Hill Climbing algorithm to find the
 
 This model is initialized and fitted to our preprocessed data below:
 
-.. highlight:: python
 .. code-block:: python
-
     # Initialize neural network object and fit object
     nn_model1 = mlrose.NeuralNetwork(hidden_nodes = [2], activation = 'relu', \
                                      algorithm = 'random_hill_climb', max_iters = 1000, \
@@ -136,9 +130,7 @@ This model is initialized and fitted to our preprocessed data below:
 	
 Once the model is fitted, we can use it to predict the labels for our training and test datasets and use these prediction to assess the model's training and test accuracy.
 
-.. highlight:: python
 .. code-block:: python
-
     from sklearn.metrics import accuracy_score
 	
     # Predict labels for train set and assess accuracy
@@ -161,9 +153,7 @@ In this case, our model achieves training accuracy of 45% and test accuracy of 5
 
 We can potentially improve on the accuracy of our model by tuning the parameters we set when initializing the neural network object. Suppose we decide to change the optimization algorithm to gradient descent, but leave all other model parameters unchanged.
 
-.. highlight:: python
 .. code-block:: python
-
     # Initialize neural network object and fit object
     nn_model2 = mlrose.NeuralNetwork(hidden_nodes = [2], activation = 'relu', \
                                      algorithm = 'gradient_descent', max_iters = 1000, \
@@ -197,9 +187,7 @@ Linear and logistic regression models are special cases of neural networks. A li
 
 For example, suppose we wished to fit a logistic regression to our Iris data using the randomized hill climbing algorithm and all other parameters set as for the example in the previous section. We could do this by initializing a :code:`NeuralNetwork()` object like so:
 
-.. highlight:: python
 .. code-block:: python
-
     lr_nn_model1 = mlrose.NeuralNetwork(hidden_nodes = [], activation = 'sigmoid', \
                                         algorithm = 'random_hill_climb', max_iters = 1000, \
                                         bias = True, is_classifier = True, learning_rate = 0.0001, \
@@ -210,9 +198,7 @@ However, for convenience, mlrose provides the :code:`LinearRegression()` and :co
 
 In our Iris dataset example, we can, thus, initialize and fit our logistic regression model as follows:
 
-.. highlight:: python
 .. code-block:: python
-
     # Initialize logistic regression object and fit object
     lr_model1 = mlrose.LogisticRegression(algorithm = 'random_hill_climb', max_iters = 1000, \
                                           bias = True, learning_rate = 0.0001, \
@@ -243,9 +229,7 @@ Nevertheless, as in the previous section, we can potentially improve model accur
 
 Suppose we increase our learning rate to 0.01.
 
-.. highlight:: python
 .. code-block:: python
-
     # Initialize logistic regression object and fit object
     lr_model2 = mlrose.LogisticRegression(algorithm = 'random_hill_climb', max_iters = 1000, \
                                           bias = True, learning_rate = 0.01, \

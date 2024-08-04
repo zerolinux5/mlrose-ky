@@ -18,18 +18,15 @@ class MaxKColor:
         List of all pairs of connected nodes. Order does not matter, so (a, b)
         and (b, a) are considered to be the same.
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> import numpy as np
-        >>> edges = [(0, 1), (0, 2), (0, 4), (1, 3), (2, 0), (2, 3), (3, 4)]
-        >>> fitness = mlrose_hiive.MaxKColor(edges)
-        >>> state = np.array([0, 1, 0, 1, 1])
-        >>> fitness.evaluate(state)
-        3
+    >>> import mlrose_hiive
+    >>> import numpy as np
+    >>> edges = [(0, 1), (0, 2), (0, 4), (1, 3), (2, 0), (2, 3), (3, 4)]
+    >>> fitness = mlrose_hiive.MaxKColor(edges)
+    >>> state = np.array([0, 1, 0, 1, 1])
+    >>> fitness.evaluate(state)
+    3
 
     Note
     ----

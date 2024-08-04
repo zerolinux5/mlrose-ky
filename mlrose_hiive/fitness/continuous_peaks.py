@@ -30,17 +30,14 @@ class ContinuousPeaks:
         expressed as a percentage of the state space dimension, n (i.e.
         :math:`T = t_{pct} \\times n`).
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> import numpy as np
-        >>> fitness = mlrose_hiive.ContinuousPeaks(t_pct=0.15)
-        >>> state = np.array([0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1])
-        >>> fitness.evaluate(state)
-        17
+    >>> import mlrose_hiive
+    >>> import numpy as np
+    >>> fitness = mlrose_hiive.ContinuousPeaks(t_pct=0.15)
+    >>> state = np.array([0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1])
+    >>> fitness.evaluate(state)
+    17
 
     Note
     ----

@@ -47,9 +47,7 @@ The steps required to solve this problem are the same as those used to solve any
 
 Before starting with the example, you will need to import the mlrose and Numpy Python packages.
 
-.. highlight:: python
 .. code-block:: python
-
 	import mlrose
 	import numpy as np
 	
@@ -63,9 +61,7 @@ To initialize a fitness function object for the :code:`TravellingSales()` class,
 
 If we choose to specify the coordinates, then these should be input as an ordered list of pairs (where pair i specifies the coordinates of city i), as follows:
 
-.. highlight:: python
 .. code-block:: python
-
     # Create list of city coordinates
     coords_list = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 3)]
 
@@ -76,9 +72,7 @@ Alternatively, if we choose to specity the distances, then these should be input
 
 Using the distance approach, the fitness function object can be initialize as follows:
 
-.. highlight:: python
 .. code-block:: python
-
     # Create list of distances between pairs of cities
     dist_list = [(0, 1, 3.1623), (0, 2, 4.1231), (0, 3, 5.8310), (0, 4, 4.2426), \
                  (0, 5, 5.3852), (0, 6, 4.0000), (0, 7, 2.2361), (1, 2, 1.0000), \
@@ -101,9 +95,7 @@ If a fitness function has already been manually defined, as demonstrated in the 
 
 In our example, we want to solve a minimization problem of length 8. If we use the :code:`fitness_coords` fitness function defined above, we can define an optimization problem object as follows:
 
-.. highlight:: python
 .. code-block:: python
-
     # Define optimization problem object
     problem_fit = mlrose.TSPOpt(length = 8, fitness_fn = fitness_coords, maximize=False)
 
@@ -111,9 +103,7 @@ Alternatively, if we had not previously defined a fitness function (and we wish 
 
 In the case of our example, if we choose to specify a list of coordinates, in place of a fitness function object, we can initialize our optimization problem object as:
 
-.. highlight:: python
 .. code-block:: python
-
     # Create list of city coordinates
     coords_list = [(1, 1), (4, 2), (5, 2), (6, 4), (4, 4), (3, 6), (1, 5), (2, 3)]
 
@@ -128,9 +118,7 @@ Once the optimization object is defined, all that is left to do is to select a r
 
 This time, suppose we wish to use the genetic algorithms with the default parameter settings of a population size (pop_size) of 200, a mutation probability (mutation_prob) of 0.1, a maximum of 10 attempts per step (max_attempts) and no limit on the maximum total number of iteration of the algorithm (max_iters). This returns the following solution:
 
-.. highlight:: python
 .. code-block:: python
-	
     # Solve problem using the genetic algorithm
     best_state, best_fitness = mlrose.genetic_alg(problem_fit, random_state = 2)
 
@@ -150,9 +138,7 @@ The solution tour found by the algorithm is pictured below and has a total lengt
 
 As in the 8-Queens example given in the previous tutorial, this solution can potentially be improved on by tuning the parameters of the optimization algorithm. For example, increasing the maximum number of attempts per step to 100 and increasing the mutation probability to 0.2, yields a tour with a total length of 17.343 units.
 
-.. highlight:: python
 .. code-block:: python
-	
     # Solve problem using the genetic algorithm
     best_state, best_fitness = mlrose.genetic_alg(problem_fit, mutation_prob = 0.2, 
                                                   max_attempts = 100, random_state = 2)

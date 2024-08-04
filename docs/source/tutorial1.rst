@@ -69,9 +69,7 @@ This is not an optimal solution to the 8-Queens problem, since the three queens 
 
 Before starting with this example, you will need to import the mlrose and Numpy Python packages.
 
-.. highlight:: python
 .. code-block:: python
-
 	import mlrose
 	import numpy as np
    
@@ -85,21 +83,16 @@ mlrose includes pre-defined fitness function classes for a range of common optim
 
 We can initialize a fitness function object for this class, as follows:
 
-.. highlight:: python
 .. code-block:: python
-
 	fitness = mlrose.Queens()
 	
 Alternatively, we could look at the 8-Queens problem as one where the aim is to find a state vector for which all pairs of queens do *not* attack each other. In this context, we could define our fitness function as evaluating the number of pairs of *non-attacking* queens for a given state and try to maximize this function.
 
 This definition of the 8-Queens fitness function is different from that used by mlrose's pre-defined :code:`Queens()` class, so to use it, we will need to create a custom fitness function. This can be done by first defining a fitness function with a signature of the form :code:`fitness_fn(state, **kwargs)`, and then using mlrose's :code:`CustomFitness()` class to create a fitness function object, as follows:
 
-.. highlight:: python
 .. code-block:: python
-
    # Define alternative N-Queens fitness function for maximization problem
    def queens_max(state):
-		
       # Initialize counter
 	  fitness_cnt = 0
 		
@@ -136,9 +129,7 @@ To initialize a discrete-state optimization problem object, it is necessary to s
 
 For this example, we will use the first of the two fitness function objects defined above, so we want to solve a minimization problem. 
 
-.. highlight:: python
 .. code-block:: python
-
 	problem = mlrose.DiscreteOpt(length = 8, fitness_fn = fitness, maximize = False, max_val = 8)
 	
 However, had we chosen to use the second (custom) fitness function object, we would be dealing with a maximization problem, so, in the above code, we would have to set the :code:`maximize` parameter to :code:`True` instead of :code:`False` (in addition to changing the value of the :code:`fitness_fn` parameter).
@@ -157,9 +148,7 @@ Suppose we wish to use an exponential decay schedule (with default parameter set
 
 The algorithm returns the best state it can find, given the parameter values it has been provided, as well as the fitness value for that state.
 
-.. highlight:: python
 .. code-block:: python
-
    # Define decay schedule
    schedule = mlrose.ExpDecay()
    
@@ -189,10 +178,8 @@ The solution state has a fitness value of 2, indicating there are still two pair
 
 We can try to improve on our solution by tuning the parameters of our algorithm. Any of the algorithm's parameters can be tuned. However, in this case, let's focus on tuning the max_attempts parameter only, and increase it from 10 to 100.
 
-.. highlight:: python
 .. code-block:: python
-
-   # Solve problem using simulated annealing        
+   # Solve problem using simulated annealing
    best_state, best_fitness = mlrose.simulated_annealing(problem, schedule = schedule,
                                                          max_attempts = 100, max_iters = 1000,
                                                          init_state = init_state, random_state = 1)

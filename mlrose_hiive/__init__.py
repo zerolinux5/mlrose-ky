@@ -9,7 +9,7 @@ from .algorithms.hc import hill_climb
 from .algorithms.rhc import random_hill_climb
 from .algorithms.gd import gradient_descent
 from .algorithms.mimic import mimic
-from .algorithms.decay import GeomDecay, ArithmeticDecay, ExpDecay, CustomSchedule
+from .algorithms.decay import GeomDecay, ArithmeticDecay, ExpDecay, CustomDecay
 from .algorithms.crossovers import OnePointCrossover, UniformCrossover, TSPCrossover
 from .algorithms.mutators import ChangeOneMutator, DiscreteMutator, SwapMutator, ShiftOneMutator
 

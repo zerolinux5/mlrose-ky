@@ -9,7 +9,7 @@ except ImportError:
     import sys
     sys.path.append("..")
 
-from mlrose_hiive import GeomDecay, ArithmeticDecay, ExpDecay, CustomSchedule
+from mlrose_hiive import GeomDecay, ArithmeticDecay, ExpDecay, CustomDecay
 
 
 def test_geom_above_min():
@@ -59,6 +59,6 @@ def test_custom():
     def custom_schedule(t, c):
         return t + c
     kwargs = {'c': 10}
-    schedule = CustomSchedule(custom_schedule, **kwargs)
+    schedule = CustomDecay(custom_schedule, **kwargs)
     x = schedule.evaluate(5)
     assert x == 15

@@ -11,5 +11,5 @@ from .gd import gradient_descent
 from .mimic import mimic
 
 from .crossovers import UniformCrossover, TSPCrossover, OnePointCrossover
-from .decay import ArithmeticDecay, CustomSchedule, ExpDecay, GeomDecay
+from .decay import ArithmeticDecay, CustomDecay, ExpDecay, GeomDecay
 from .mutators import ChangeOneMutator, DiscreteMutator, ShiftOneMutator, SwapMutator

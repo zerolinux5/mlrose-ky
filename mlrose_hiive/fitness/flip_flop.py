@@ -12,17 +12,14 @@ class FlipFlop:
     consecutive elements of :math:`x`, (:math:`x_{i}` and :math:`x_{i+1}`)
     where :math:`x_{i} \\neq x_{i+1}`.
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> import numpy as np
-        >>> fitness = mlrose_hiive.FlipFlop()
-        >>> state = np.array([0, 1, 0, 1, 1, 1, 1])
-        >>> fitness.evaluate(state)
-        3
+    >>> import mlrose_hiive
+    >>> import numpy as np
+    >>> fitness = mlrose_hiive.FlipFlop()
+    >>> state = np.array([0, 1, 0, 1, 1, 1, 1])
+    >>> fitness.evaluate(state)
+    3
 
     Note
     ----

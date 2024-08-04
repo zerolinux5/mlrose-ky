@@ -13,17 +13,14 @@ class Queens:
     represents the row position (between 0 and n-1, inclusive) of the 'queen'
     in column i, as the number of pairs of attacking queens.
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> import numpy as np
-        >>> fitness = mlrose_hiive.Queens()
-        >>> state = np.array([1, 4, 1, 3, 5, 5, 2, 7])
-        >>> fitness.evaluate(state)
-        6
+    >>> import mlrose_hiive
+    >>> import numpy as np
+    >>> fitness = mlrose_hiive.Queens()
+    >>> state = np.array([1, 4, 1, 3, 5, 5, 2, 7])
+    >>> fitness.evaluate(state)
+    6
 
     References
     ----------

@@ -30,15 +30,12 @@ class ExpDecay:
     min_temp: float, default: 0.001
         Minimum value of temperature parameter. Must be greater than 0.
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-       >>> import mlrose_hiive
-       >>> schedule = mlrose_hiive.ExpDecay(init_temp=10, exp_const=0.05, min_temp=1)
-       >>> schedule.evaluate(5)
-       7.78800...
+    >>> import mlrose_hiive
+    >>> schedule = mlrose_hiive.ExpDecay(init_temp=10, exp_const=0.05, min_temp=1)
+    >>> schedule.evaluate(5)
+    7.788007830714049
     """
 
     def __init__(self, init_temp=1.0, exp_const=0.005, min_temp=0.001):

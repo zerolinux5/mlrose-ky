@@ -4,7 +4,7 @@
 # License: BSD 3 clause
 
 
-class CustomSchedule:
+class CustomDecay:
     """Class for generating your own temperature schedule.
 
     Parameters
@@ -16,17 +16,14 @@ class CustomSchedule:
     kwargs: additional arguments
         Additional parameters to be passed to schedule.
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> def custom(t, c): return t + c
-        >>> kwargs = {'c': 10}
-        >>> schedule = mlrose_hiive.CustomSchedule(custom, **kwargs)
-        >>> schedule.evaluate(5)
-        15
+    >>> import mlrose_hiive
+    >>> def custom(t, c): return t + c
+    >>> kwargs = {'c': 10}
+    >>> schedule = mlrose_hiive.CustomDecay(custom, **kwargs)
+    >>> schedule.evaluate(5)
+    15
     """
 
     def __init__(self, schedule, **kwargs):

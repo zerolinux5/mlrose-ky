@@ -22,19 +22,16 @@ class CustomFitness:
     kwargs: additional arguments
         Additional parameters to be passed to the fitness function.
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> import numpy as np
-        >>> def cust_fn(state, c): return c*np.sum(state)
-        >>> kwargs = {'c': 10}
-        >>> fitness = mlrose_hiive.CustomFitness(cust_fn, **kwargs)
-        >>> state = np.array([1, 2, 3, 4, 5])
-        >>> fitness.evaluate(state)
-        150
+    >>> import mlrose_hiive
+    >>> import numpy as np
+    >>> def cust_fn(state, c): return c * np.sum(state)
+    >>> kwargs = {'c': 10}
+    >>> fitness = mlrose_hiive.CustomFitness(cust_fn, **kwargs)
+    >>> state = np.array([1, 2, 3, 4, 5])
+    >>> fitness.evaluate(state)
+    150
     """
 
     def __init__(self, fitness_fn, problem_type='either', **kwargs):

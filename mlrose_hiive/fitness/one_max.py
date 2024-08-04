@@ -15,17 +15,14 @@ class OneMax:
 
         Fitness(x) = \\sum_{i = 0}^{n-1}x_{i}
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> import numpy as np
-        >>> fitness = mlrose_hiive.OneMax()
-        >>> state = np.array([0, 1, 0, 1, 1, 1, 1])
-        >>> fitness.evaluate(state)
-        5
+    >>> import mlrose_hiive
+    >>> import numpy as np
+    >>> fitness = mlrose_hiive.OneMax()
+    >>> state = np.array([0, 1, 0, 1, 1, 1, 1])
+    >>> fitness.evaluate(state)
+    5
 
     Note
     -----

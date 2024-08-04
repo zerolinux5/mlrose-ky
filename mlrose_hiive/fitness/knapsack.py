@@ -34,20 +34,17 @@ class Knapsack:
         of the total of the weights list
         (:math:`W =` max_weight_pct :math:`\\times` total_weight).
 
-    Example
+    Examples
     -------
-    .. highlight:: python
-    .. code-block:: python
-
-        >>> import mlrose_hiive
-        >>> import numpy as np
-        >>> weights = [10, 5, 2, 8, 15]
-        >>> values = [1, 2, 3, 4, 5]
-        >>> max_weight_pct = 0.6
-        >>> fitness = mlrose_hiive.Knapsack(weights, values, max_weight_pct)
-        >>> state = np.array([1, 0, 2, 1, 0])
-        >>> fitness.evaluate(state)
-        11
+    >>> import mlrose_hiive
+    >>> import numpy as np
+    >>> weights = [10, 5, 2, 8, 15]
+    >>> values = [1, 2, 3, 4, 5]
+    >>> max_weight_pct = 0.6
+    >>> fitness = mlrose_hiive.Knapsack(weights, values, max_weight_pct)
+    >>> state = np.array([1, 0, 2, 1, 0])
+    >>> fitness.evaluate(state)
+    11
 
     Note
     ----
