@@ -10,6 +10,6 @@ class FourPeaksGenerator:
     @staticmethod
     def generate(seed, size=20, t_pct=0.1):
         np.random.seed(seed)
-        fitness = FourPeaks(t_pct=t_pct)
+        fitness = FourPeaks(threshold_percentage=t_pct)
         problem = DiscreteOpt(length=size, fitness_fn=fitness)
         return problem

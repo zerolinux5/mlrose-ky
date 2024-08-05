@@ -158,12 +158,12 @@ class NetworkWeights:
         """
         return self.output_activation
 
-    def get_prob_type(self):
+    def get_problem_type(self):
         """ Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
+        self.prob_type: str
             Specifies problem type as 'discrete', 'continuous', 'tsp', or
             'either'.
         """

@@ -1,4 +1,4 @@
-"""Classes for defining fitness functions."""
+"""Class defining the One Max fitness function for use with optimization algorithms."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
@@ -7,9 +7,9 @@ import numpy as np
 
 
 class OneMax:
-    """Fitness function for One Max optimization problem. Evaluates the
-    fitness of an n-dimensional state vector
-    :math:`x = [x_{0}, x_{1}, \\ldots, x_{n-1}]` as:
+    """Fitness function for One Max optimization problem.
+
+    Evaluates the fitness of an n-dimensional state vector `x` as:
 
     .. math::
 
@@ -17,48 +17,49 @@ class OneMax:
 
     Examples
     -------
-    >>> import mlrose_hiive
-    >>> import numpy as np
-    >>> fitness = mlrose_hiive.OneMax()
+    >>> fitness = OneMax()
     >>> state = np.array([0, 1, 0, 1, 1, 1, 1])
     >>> fitness.evaluate(state)
-    5
+    5.0
 
     Note
     -----
-    The One Max fitness function is suitable for use in either discrete or
-    continuous-state optimization problems.
+    The One Max fitness function is suitable for use in either discrete or continuous-state optimization problems.
     """
 
-    def __init__(self):
-
-        self.prob_type = 'either'
+    def __init__(self) -> None:
+        self.problem_type: str = 'either'
 
     @staticmethod
-    def evaluate(state):
+    def evaluate(state_vector: np.ndarray) -> float:
         """Evaluate the fitness of a state vector.
 
         Parameters
         ----------
-        state: np.ndarray
+        state_vector: np.ndarray
             State array for evaluation.
 
         Returns
         -------
-        fitness: float
+        float
             Value of fitness function.
+            
+        Raises
+        ------
+        TypeError
+            If `state_vector` is not an instance of `np.ndarray`.
         """
+        if not isinstance(state_vector, np.ndarray):
+            raise TypeError(f"Expected state_vector to be np.ndarray, got {type(state_vector).__name__} instead.")
 
-        fitness = np.sum(state)
-        return fitness
+        return float(np.sum(state_vector))
 
-    def get_prob_type(self):
-        """ Return the problem type.
+    def get_problem_type(self) -> str:
+        """Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
-            Specifies problem type as 'discrete', 'continuous', 'tsp'
-            or 'either'.
+        str
+            Specifies problem type as 'either'.
         """
-        return self.prob_type
+        return self.problem_type

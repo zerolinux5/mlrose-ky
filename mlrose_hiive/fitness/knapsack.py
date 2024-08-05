@@ -1,4 +1,4 @@
-"""Classes for defining fitness functions."""
+"""Class defining the Knapsack fitness function for use with optimization algorithms."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
@@ -7,113 +7,112 @@ import numpy as np
 
 
 class Knapsack:
-    """Fitness function for Knapsack optimization problem. Given a set of n
-    items, where item i has known weight :math:`w_{i}` and known value
-    :math:`v_{i}`; and maximum knapsack capacity, :math:`W`, the Knapsack
-    fitness function evaluates the fitness of a state vector
-    :math:`x = [x_{0}, x_{1}, \\ldots, x_{n-1}]` as:
+    """Fitness function for Knapsack optimization problem.
+
+    Given a set of n items, where item i has known weight :math:`w_{i}` and known value
+    :math:`v_{i}`; and maximum knapsack capacity, :math:`W`, the Knapsack fitness function
+    evaluates the fitness of a state vector :math:`x = [x_{0}, x_{1}, \\ldots, x_{n-1}]` as:
 
     .. math::
 
         Fitness(x) = \\sum_{i = 0}^{n-1}v_{i}x_{i}, \\text{ if}
         \\sum_{i = 0}^{n-1}w_{i}x_{i} \\leq W, \\text{ and 0, otherwise,}
 
-    where :math:`x_{i}` denotes the number of copies of item i included in the
-    knapsack.
+    where :math:`x_{i}` denotes the number of copies of item i included in the knapsack.
 
     Parameters
     ----------
-    weights: list
+    weights : list[float]
         List of weights for each of the n items.
 
-    values: list
+    values : list[float]
         List of values for each of the n items.
 
-    max_weight_pct: float, default: 0.35
-        Parameter used to set maximum capacity of knapsack (W) as a percentage
-        of the total of the weights list
-        (:math:`W =` max_weight_pct :math:`\\times` total_weight).
+    max_weight_pct : float, default=0.35
+        Parameter used to set maximum capacity of knapsack (W) as a percentage of
+        the total of the weights list (:math:`W =` max_weight_pct :math:`\times` total_weight).
+
+    max_item_count : int, default=1
+        Maximum number of copies of each item that can be included in the knapsack.
+
+    multiply_by_max_item_count : bool, default=False
+        Whether to multiply the maximum weight by the maximum item count.
 
     Examples
-    -------
-    >>> import mlrose_hiive
-    >>> import numpy as np
+    --------
     >>> weights = [10, 5, 2, 8, 15]
     >>> values = [1, 2, 3, 4, 5]
     >>> max_weight_pct = 0.6
-    >>> fitness = mlrose_hiive.Knapsack(weights, values, max_weight_pct)
-    >>> state = np.array([1, 0, 2, 1, 0])
-    >>> fitness.evaluate(state)
-    11
+    >>> fitness = Knapsack(weights, values, max_weight_pct)
+    >>> state_vector = np.array([1, 0, 2, 1, 0])
+    >>> fitness.evaluate(state_vector)
+    11.0
 
     Note
     ----
-    The Knapsack fitness function is suitable for use in discrete-state
-    optimization problems *only*.
+    The Knapsack fitness function is suitable for use in discrete-state optimization problems *only*.
     """
 
-    def __init__(self, weights, values, max_weight_pct=0.35, max_item_count=1, multiply_by_max_item_count=False):
+    def __init__(self, weights: list[float], values: list[float], max_weight_pct: float = 0.35,
+                 max_item_count: int = 1, multiply_by_max_item_count: bool = False):
+        self.problem_type: str = 'discrete'
+        self.weights: list[float] = weights
+        self.values: list[float] = values
 
-        self.weights = weights
-        self.values = values
         count_multiplier = max_item_count if multiply_by_max_item_count else 1.0
-        self._w = np.ceil(np.sum(self.weights) * max_weight_pct * count_multiplier)
-        self.prob_type = 'discrete'
+        self.max_weight = np.ceil(np.sum(self.weights) * max_weight_pct * count_multiplier)
 
         if len(self.weights) != len(self.values):
-            raise Exception("""The weights array and values array must be"""
-                            + """ the same size.""")
-
+            raise ValueError("The weights and values lists must be the same size.")
         if min(self.weights) <= 0:
-            raise Exception("""All weights must be greater than 0.""")
-
+            raise ValueError("All weights must be greater than 0.")
         if min(self.values) <= 0:
-            raise Exception("""All values must be greater than 0.""")
-
+            raise ValueError("All values must be greater than 0.")
         if max_item_count <= 0:
-            raise Exception("""max_item_count must be greater than 0.""")
-
+            raise ValueError("max_item_count must be greater than 0.")
         if max_weight_pct <= 0:
-            raise Exception("""max_weight_pct must be greater than 0.""")
+            raise ValueError("max_weight_pct must be greater than 0.")
 
-    def evaluate(self, state):
+    def evaluate(self, state_vector: np.ndarray) -> float:
         """Evaluate the fitness of a state vector.
 
         Parameters
         ----------
-        state: np.ndarray
+        state_vector : np.ndarray
             State array for evaluation. Must be the same length as the weights
             and values arrays.
 
         Returns
         -------
-        fitness: float
+        float
             Value of fitness function.
+
+        Raises
+        ------
+        ValueError
+            If `state_vector` is not the same size as the weights and values arrays.
+        TypeError
+            If `state_vector` is not an instance of `np.ndarray`.
         """
+        if not isinstance(state_vector, np.ndarray):
+            raise TypeError(f"Expected state_vector to be np.ndarray, got {type(state_vector).__name__} instead.")
+        if len(state_vector) != len(self.weights):
+            raise ValueError("The state_vector must be the same size as the weights and values arrays.")
 
-        if len(state) != len(self.weights):
-            raise Exception("""The state array must be the same size as the"""
-                            + """ weight and values arrays.""")
+        total_weight = np.sum(state_vector * self.weights)
+        total_value = np.sum(state_vector * self.values)
 
-        # Calculate total weight and value of knapsack
-        total_weight = np.sum(state*self.weights)
-        total_value = np.sum(state*self.values)
+        if total_weight <= self.max_weight:
+            return float(total_value)
 
-        # Allow for weight constraint
-        if total_weight <= self._w:
-            fitness = total_value
-        else:
-            fitness = 0
+        return 0.0
 
-        return fitness
-
-    def get_prob_type(self):
-        """ Return the problem type.
+    def get_problem_type(self) -> str:
+        """Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
-            Specifies problem type as 'discrete', 'continuous', 'tsp'
-            or 'either'.
+        str
+            Specifies problem type as 'discrete'.
         """
-        return self.prob_type
+        return self.problem_type

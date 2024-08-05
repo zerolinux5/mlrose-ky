@@ -1,9 +1,10 @@
-"""Classes for defining fitness functions."""
+"""Class defining a customizable fitness function for use with optimization algorithms."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np
+from typing import Callable, Any
 
 
 class CustomFitness:
@@ -11,60 +12,85 @@ class CustomFitness:
 
     Parameters
     ----------
-    fitness_fn: callable
+    fitness_fn : Callable
         Function for calculating fitness of a state with the signature
-        :code:`fitness_fn(state, **kwargs)`.
+        `fitness_fn(state, **kwargs)`.
 
-    problem_type: string, default: 'either'
+    problem_type : str, default: 'either'
         Specifies problem type as 'discrete', 'continuous', 'tsp' or 'either'
         (denoting either discrete or continuous).
 
-    kwargs: additional arguments
+    kwargs : additional arguments
         Additional parameters to be passed to the fitness function.
 
     Examples
-    -------
-    >>> import numpy as np
-    >>> def cust_fn(state, c): return c * np.sum(state)
+    --------
+    >>> def custom_fn(state, c): return c * np.sum(state)
     >>> kwargs = {'c': 10}
-    >>> fitness = CustomFitness(cust_fn, **kwargs)
-    >>> state = np.array([1, 2, 3, 4, 5])
-    >>> fitness.evaluate(state)
-    150
+    >>> fitness = CustomFitness(custom_fn, **kwargs)
+    >>> state_vector = np.array([1, 2, 3, 4, 5])
+    >>> fitness.evaluate(state_vector)
+    150.0
     """
 
-    def __init__(self, fitness_fn, problem_type='either', **kwargs):
+    def __init__(self, fitness_fn: Callable[..., float], problem_type: str = 'either', **kwargs: Any):
+        """
+        Initialize the CustomFitness class.
 
+        Parameters
+        ----------
+        fitness_fn : Callable
+            Function for calculating fitness of a state with the signature
+            `fitness_fn(state, **kwargs)`.
+
+        problem_type : str, optional, default='either'
+            Specifies problem type as 'discrete', 'continuous', 'tsp',
+            or 'either' (denoting either discrete or continuous).
+
+        kwargs : additional arguments
+            Additional parameters to be passed to the fitness function.
+
+        Raises
+        ------
+        ValueError
+            If `problem_type` is not one of ['discrete', 'continuous', 'tsp', 'either'].
+        """
         if problem_type not in ['discrete', 'continuous', 'tsp', 'either']:
-            raise Exception("""problem_type does not exist.""")
-        self.fitness_fn = fitness_fn
-        self.problem_type = problem_type
-        self.kwargs = kwargs
+            raise ValueError(f"Invalid problem_type: {problem_type}. Must be one of ['discrete', 'continuous', 'tsp', 'either'].")
 
-    def evaluate(self, state):
+        self.fitness_fn: Callable[..., float] = fitness_fn
+        self.problem_type: str = problem_type
+        self.kwargs: Any = kwargs
+
+    def evaluate(self, state_vector: np.ndarray) -> float:
         """Evaluate the fitness of a state vector.
 
         Parameters
         ----------
-        state: np.ndarray
+        state_vector : np.ndarray
             State array for evaluation.
 
         Returns
         -------
-        fitness: float
+        float
             Value of fitness function.
+
+        Raises
+        ------
+        TypeError
+            If `state_vector` is not an instance of `np.ndarray`.
         """
+        if not isinstance(state_vector, np.ndarray):
+            raise TypeError(f"Expected state_vector to be np.ndarray, got {type(state_vector).__name__} instead.")
 
-        fitness = self.fitness_fn(state, **self.kwargs)
-        return fitness
+        return float(self.fitness_fn(state_vector, **self.kwargs))
 
-    def get_prob_type(self):
-        """ Return the problem type.
+    def get_problem_type(self) -> str:
+        """Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
-            Specifies problem type as 'discrete', 'continuous', 'tsp'
-            or 'either'.
+        str
+            Specifies problem type as 'discrete', 'continuous', 'tsp' or 'either'.
         """
         return self.problem_type

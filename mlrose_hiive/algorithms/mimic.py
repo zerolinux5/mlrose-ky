@@ -72,7 +72,7 @@ def mimic(problem: Any,
     De Bonet, J., C. Isbell, and P. Viola (1997). MIMIC: Finding Optima by Estimating Probability Densities.
     In *Advances in Neural Information Processing Systems* (NIPS) 9, pp. 424–430.
     """
-    if problem.get_prob_type() == 'continuous':
+    if problem.get_problem_type() == 'continuous':
         raise ValueError("problem type must be discrete or tsp.")
     if not isinstance(pop_size, int) or pop_size < 0:
         raise ValueError(f"pop_size must be a positive integer. Got {pop_size}")

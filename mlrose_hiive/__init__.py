@@ -13,7 +13,7 @@ from .algorithms.decay import GeometricDecay, ArithmeticDecay, ExponentialDecay,
 from .algorithms.crossovers import OnePointCrossover, UniformCrossover, TSPCrossover
 from .algorithms.mutators import SingleGeneMutator, DiscreteGeneMutator, GeneSwapMutator, SingleShiftMutator
 
-from .fitness import OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks, Knapsack, TravellingSales, Queens, MaxKColor, CustomFitness
+from .fitness import OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks, Knapsack, TravellingSalesperson, Queens, MaxKColor, CustomFitness
 
 from .neural import NeuralNetwork, LinearRegression, LogisticRegression, NNClassifier, nn_core
 from .neural.activation import identity, relu, leaky_relu, sigmoid, softmax, tanh

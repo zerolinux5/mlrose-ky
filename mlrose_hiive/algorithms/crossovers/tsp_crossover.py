@@ -16,7 +16,7 @@ from mlrose_hiive.algorithms.crossovers._crossover_base import _CrossoverBase
 
 class TSPCrossover(_CrossoverBase):
     """
-    Crossover operation tailored for the Traveling Salesman Problem (TSP) in genetic algorithms.
+    Crossover operation tailored for the Travelling Salesperson Problem (TSP) in genetic algorithms.
 
     Implements specific crossover techniques that ensure valid TSP routes in the offspring.
     The crossover handles distinct city sequences without repetitions and uses specialized

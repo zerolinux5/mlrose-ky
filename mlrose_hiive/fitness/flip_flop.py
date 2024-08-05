@@ -1,4 +1,4 @@
-"""Classes for defining fitness functions."""
+"""Class defining the Flip Flop fitness function for use with optimization algorithms."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
@@ -7,19 +7,17 @@ import numpy as np
 
 
 class FlipFlop:
-    """Fitness function for Flip Flop optimization problem. Evaluates the
-    fitness of a state vector :math:`x` as the total number of pairs of
-    consecutive elements of :math:`x`, (:math:`x_{i}` and :math:`x_{i+1}`)
-    where :math:`x_{i} \\neq x_{i+1}`.
+    """Fitness function for Flip Flop optimization problem.
+
+    Evaluates the fitness of a state vector :math:`x` as the total number of pairs of consecutive
+    elements of :math:`x`, (:math:`x_{i}` and :math:`x_{i+1}`) where :math:`x_{i} \\neq x_{i+1}`.
 
     Examples
-    -------
-    >>> import mlrose_hiive
-    >>> import numpy as np
-    >>> fitness = mlrose_hiive.FlipFlop()
-    >>> state = np.array([0, 1, 0, 1, 1, 1, 1])
-    >>> fitness.evaluate(state)
-    3
+    --------
+    >>> fitness = FlipFlop()
+    >>> state_vector = np.array([0, 1, 0, 1, 1, 1, 1])
+    >>> fitness.evaluate(state_vector)
+    3.0
 
     Note
     ----
@@ -28,61 +26,67 @@ class FlipFlop:
     """
 
     def __init__(self):
-        self.prob_type = 'discrete'
+        """Initialize the Flip Flop fitness function."""
+        self.problem_type: str = 'discrete'
 
     @staticmethod
-    def evaluate(state):
+    def evaluate(state_vector: np.ndarray) -> float:
         """Evaluate the fitness of a state vector.
 
         Parameters
         ----------
-        state: np.ndarray
+        state_vector : np.ndarray
             State array for evaluation.
 
         Returns
         -------
-        fitness: float
+        float
             Value of fitness function.
-        """
 
-        fitness = sum([state[i] != state[i - 1] for i in range(1, len(state))])
-
-        # FIXME: this may or may not be faster:
+        Raises
+        ------
+        TypeError
+            If `state_vector` is not an instance of `np.ndarray`.
         """
-        runs = np.zeros(state.size-1, dtype=int)
-        np.not_equal(state[:-1], state[1:], out=runs)
-        fitness = np.sum(runs)
-        """
+        if not isinstance(state_vector, np.ndarray):
+            raise TypeError(f"Expected state_vector to be np.ndarray, got {type(state_vector).__name__} instead.")
 
+        differences = np.diff(state_vector) != 0
+        fitness = float(np.sum(differences))
         return fitness
 
     @staticmethod
-    def evaluate_many(states):
-        """Evaluate the fitness of a an ndarray of states.
+    def evaluate_many(state_matrix: np.ndarray) -> np.ndarray:
+        """Evaluate the fitness of an ndarray of state vectors.
 
         Parameters
         ----------
-        states: ndarray
+        state_matrix : np.ndarray
             States array for evaluation.
 
         Returns
         -------
-        fitness: ndarray
-            Population fitness values.
+        np.ndarray
+            Array of fitness values.
+
+        Raises
+        ------
+        TypeError
+            If `state_matrix` is not an instance of `np.ndarray`.
         """
-        runs = np.zeros((states.shape[0], states.shape[1] - 1), dtype=int)
-        np.not_equal(states[:, :-1], states[:, 1:], out=runs)
-        fitness = np.sum(runs, axis=1)
+        if not isinstance(state_matrix, np.ndarray):
+            raise TypeError(f"Expected state_matrix to be np.ndarray, got {type(state_matrix).__name__} instead.")
 
-        return fitness
+        differences = np.diff(state_matrix, axis=1) != 0
+        fitness_values = np.sum(differences, axis=1)
+        return fitness_values
 
-    def get_prob_type(self):
-        """ Return the problem type.
+    def get_problem_type(self) -> str:
+        """Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
-            Specifies problem type as 'discrete', 'continuous', 'tsp'
-            or 'either'.
+        str
+            Specifies problem type as 'discrete'.
         """
-        return self.prob_type
+        return self.problem_type

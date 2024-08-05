@@ -1,32 +1,38 @@
-"""Classes for defining fitness functions."""
-
+"""Class defining the Max-K Color fitness function for use with optimization algorithms."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
+import numpy as np
+
 
 class MaxKColor:
-    """Fitness function for Max-k color optimization problem. Evaluates the
-    fitness of an n-dimensional state vector
-    :math:`x = [x_{0}, x_{1}, \\ldots, x_{n-1}]`, where :math:`x_{i}`
-    represents the color of node i, as the number of pairs of adjacent nodes
+    """Fitness function for Max-K color optimization problem.
+
+    Evaluates the fitness of an n-dimensional state vector
+    .. math::
+
+        x = [x_{0}, x_{1}, \\ldots, x_{n-1}]
+
+    where :math:`x_{i}` represents the color of node i, as the number of pairs of adjacent nodes
     of the same color.
 
     Parameters
     ----------
-    edges: list of pairs
+    edges : list[tuple[int, int]]
         List of all pairs of connected nodes. Order does not matter, so (a, b)
         and (b, a) are considered to be the same.
 
+    maximize : bool, optional, default=False
+        Whether to maximize or minimize the fitness function.
+
     Examples
-    -------
-    >>> import mlrose_hiive
-    >>> import numpy as np
+    --------
     >>> edges = [(0, 1), (0, 2), (0, 4), (1, 3), (2, 0), (2, 3), (3, 4)]
-    >>> fitness = mlrose_hiive.MaxKColor(edges)
-    >>> state = np.array([0, 1, 0, 1, 1])
-    >>> fitness.evaluate(state)
-    3
+    >>> fitness = MaxKColor(edges)
+    >>> state_vector = np.array([0, 1, 0, 1, 1])
+    >>> fitness.evaluate(state_vector)
+    3.0
 
     Note
     ----
@@ -44,51 +50,72 @@ class MaxKColor:
     the number of pairs of adjacent nodes of different colors are maximized.
     """
 
-    def __init__(self, edges, maximize=False):
-        # Remove any duplicates from list
-        edges = list({tuple(sorted(edge)) for edge in edges})
+    def __init__(self, edges: list[tuple[int, int]], maximize: bool = False):
+        """
+        Initialize the MaxKColor fitness function.
 
-        self.graph_edges = None
-        self.edges = edges
-        self.prob_type = 'discrete'
+        Parameters
+        ----------
+        edges : List[Tuple[int, int]]
+            List of all pairs of connected nodes.
+
+        maximize : bool, optional, default=False
+            Whether to maximize or minimize the fitness function.
+        """
+        self.problem_type: str = 'discrete'
         self.maximize = maximize
+        self.graph_edges: list[tuple[int, int]] | None = None
 
-    def evaluate(self, state):
+        # Remove any duplicates from list
+        # noinspection PyTypeChecker
+        self.edges: list[tuple[int, int]] = list({tuple(sorted(edge)) for edge in edges})
+
+    def evaluate(self, state_vector: np.ndarray) -> float:
         """Evaluate the fitness of a state vector.
 
         Parameters
         ----------
-        state: np.ndarray
+        state_vector : np.ndarray
             State array for evaluation.
 
         Returns
         -------
-        fitness: float
+        float
             Value of fitness function.
-        """
-        # This fitness score is the count of neigbor nodes with the same state value.
-        # Therefore, state value represents color.
-        # FIXME: This is NOT what the docs above say.
 
-        edges = self.edges if self.graph_edges is None else self.graph_edges
+        Raises
+        ------
+        TypeError
+            If `state_vector` is not an instance of `np.ndarray`.
+        """
+        if not isinstance(state_vector, np.ndarray):
+            raise TypeError(f"Expected state_vector to be np.ndarray, got {type(state_vector).__name__} instead.")
+
+        edges = self.graph_edges if self.graph_edges is not None else self.edges
 
         if self.maximize:
             # Maximize the number of adjacent nodes not of the same color.
-            return sum(int(state[n1] != state[n2]) for (n1, n2) in edges)
+            return float(sum(state_vector[n1] != state_vector[n2] for (n1, n2) in edges))
 
         # Minimize the number of adjacent nodes of the same color.
-        return sum(int(state[n1] == state[n2]) for (n1, n2) in edges)
+        return float(sum(state_vector[n1] == state_vector[n2] for (n1, n2) in edges))
 
-    def get_prob_type(self):
-        """ Return the problem type.
+    def get_problem_type(self) -> str:
+        """Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
-            Specifies problem type as 'discrete', 'continuous', 'tsp'
-            or 'either'.
+        str
+            Specifies problem type as 'discrete'.
         """
-        return self.prob_type
+        return self.problem_type
 
-    def set_graph(self, graph):
+    def set_graph(self, graph) -> None:
+        """Set the graph edges from an external graph representation.
+
+        Parameters
+        ----------
+        graph : Any
+            A graph object with an `edges()` method that returns a list of edges.
+        """
         self.graph_edges = [e for e in graph.edges()]

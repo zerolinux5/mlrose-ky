@@ -1,16 +1,16 @@
-"""Classes for defining fitness functions."""
+"""Class defining the Six Peaks fitness function for use with optimization algorithms."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np
 
-from mlrose_hiive.fitness.discrete_peaks_base import DiscretePeaksBase
+from mlrose_hiive.fitness._discrete_peaks_base import _DiscretePeaksBase
 
 
-class SixPeaks(DiscretePeaksBase):
+class SixPeaks(_DiscretePeaksBase):
     """Fitness function for Six Peaks optimization problem. Evaluates the
-    fitness of an n-dimensional state vector :math:`x`, given parameter T, as:
+    fitness of an n-dimensional state vector `x`, given parameter T, as:
 
     .. math::
 
@@ -18,28 +18,26 @@ class SixPeaks(DiscretePeaksBase):
 
     where:
 
-    * :math:`tail(b, x)` is the number of trailing b's in :math:`x`;
-    * :math:`head(b, x)` is the number of leading b's in :math:`x`;
-    * :math:`R(x, T) = n`, if (:math:`tail(0, x) > T` and
-      :math:`head(1, x) > T`) or (:math:`tail(1, x) > T` and
-      :math:`head(0, x) > T`); and
-    * :math:`R(x, T) = 0`, otherwise.
+    * `tail(b, x)` is the number of trailing b's in `x`;
+    * `head(b, x)` is the number of leading b's in `x`;
+    * `R(x, T) = n`, if (`tail(0, x) > T` and
+      `head(1, x) > T`) or (`tail(1, x) > T` and
+      `head(0, x) > T`); and
+    * `R(x, T) = 0`, otherwise.
 
     Parameters
     ----------
-    t_pct: float, default: 0.1
-        Threshold parameter (T) for Six Peaks fitness function, expressed as
-        a percentage of the state space dimension, n (i.e.
-        :math:`T = t_{pct} \\times n`).
+    threshold_percentage : float, optional, default=0.1
+        Threshold parameter (T) for Six Peaks fitness function, expressed as a percentage
+        of the state space dimension, n (i.e. `T = threshold_pct \\times n`).
 
     Examples
-    -------
-    >>> import mlrose_hiive
+    --------
     >>> import numpy as np
-    >>> fitness = mlrose_hiive.SixPeaks(t_pct=0.15)
-    >>> state = np.array([0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1])
-    >>> fitness.evaluate(state)
-    12
+    >>> fitness = SixPeaks(threshold_percentage=0.15)
+    >>> state_vector = np.array([0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1])
+    >>> fitness.evaluate(state_vector)
+    12.0
 
     References
     ----------
@@ -50,54 +48,71 @@ class SixPeaks(DiscretePeaksBase):
     Note
     ----
     The Six Peaks fitness function is suitable for use in bit-string
-    (discrete-state with :code:`max_val = 2`) optimization problems *only*.
+    (discrete-state with `max_val = 2`) optimization problems *only*.
     """
 
-    def __init__(self, t_pct=0.1):
-        self.t_pct = t_pct
-        self.prob_type = 'discrete'
+    def __init__(self, threshold_percentage: float = 0.1):
+        """
+        Initialize the Six Peaks fitness function.
 
-        if self.t_pct < 0 or self.t_pct > 1:
-            raise Exception("""t_pct must be between 0 and 1.""")
+        Parameters
+        ----------
+        threshold_percentage : float, optional, default=0.1
+            Threshold parameter (T) for Six Peaks fitness function.
+        """
+        self.threshold_percentage: float = threshold_percentage
+        self.problem_type: str = 'discrete'
 
-    def evaluate(self, state):
+        if not (0 <= self.threshold_percentage <= 1):
+            raise ValueError(f"threshold_pct must be between 0 and 1, got {self.threshold_percentage}.")
+
+    def evaluate(self, state_vector: np.ndarray) -> float:
         """Evaluate the fitness of a state vector.
 
         Parameters
         ----------
-        state: np.ndarray
+        state_vector : np.ndarray
             State array for evaluation.
 
         Returns
         -------
-        fitness: float
+        float
             Value of fitness function.
+
+        Raises
+        ------
+        TypeError
+            If `state_vector` is not an instance of `np.ndarray`.
         """
-        _n = len(state)
-        _t = np.ceil(self.t_pct * _n)
+        if not isinstance(state_vector, np.ndarray):
+            raise TypeError(f"Expected state_vector to be np.ndarray, got {type(state_vector).__name__} instead.")
+
+        vector_length = len(state_vector)
+        threshold = np.ceil(self.threshold_percentage * vector_length)
 
         # Calculate head and tail values
-        head_0 = self.head(0, state)
-        tail_0 = self.tail(0, state)
-        head_1 = self.head(1, state)
-        tail_1 = self.tail(1, state)
+        leading_zeros = self.count_leading_values(0, state_vector)
+        trailing_zeros = self.count_trailing_values(0, state_vector)
+        leading_ones = self.count_leading_values(1, state_vector)
+        trailing_ones = self.count_trailing_values(1, state_vector)
 
         # Calculate max(tail(0, x), head(1, x))
-        _max_score = max(tail_0, head_1)
+        max_score = max(trailing_zeros, leading_ones)
 
         # Calculate R(x, T)
-        _r = _n if tail_0 > _t and head_1 > _t or tail_1 > _t and head_0 > _t else 0
+        reward = vector_length if (trailing_zeros > threshold and leading_ones > threshold) or \
+                                  (trailing_ones > threshold and leading_zeros > threshold) else 0
 
         # Evaluate function
-        return _max_score + _r
+        fitness = float(max_score + reward)
+        return fitness
 
-    def get_prob_type(self):
-        """ Return the problem type.
+    def get_problem_type(self) -> str:
+        """Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
-            Specifies problem type as 'discrete', 'continuous', 'tsp'
-            or 'either'.
+        str
+            Specifies problem type as 'discrete'.
         """
-        return self.prob_type
+        return self.problem_type

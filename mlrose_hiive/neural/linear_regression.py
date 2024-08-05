@@ -17,7 +17,7 @@ class LinearRegression(_NNCore, RegressorMixin):
 
     Parameters
     ----------
-    algorithm: string, default: 'random_hill_climb'
+    algorithm: str, default: 'random_hill_climb'
         Algorithm used to find optimal network weights. Must be one
         of:'random_hill_climb', 'simulated_annealing', 'genetic_alg' or
         'gradient_descent'.

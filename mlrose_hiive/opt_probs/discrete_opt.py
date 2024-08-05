@@ -40,7 +40,7 @@ class DiscreteOpt(OptProb):
 
         OptProb.__init__(self, length, fitness_fn, maximize)
 
-        if self.fitness_fn.get_prob_type() == 'continuous':
+        if self.fitness_fn.get_problem_type() == 'continuous':
             raise Exception("""fitness_fn must have problem type 'discrete',"""
                             + """ 'either' or 'tsp'. Define problem as"""
                             + """ ContinuousOpt problem or use alternative"""
@@ -288,12 +288,12 @@ class DiscreteOpt(OptProb):
         """
         return self.keep_sample
 
-    def get_prob_type(self):
+    def get_problem_type(self):
         """ Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
+        self.prob_type: str
             Returns problem type.
         """
         return self.prob_type

@@ -1,4 +1,4 @@
-"""Classes for defining fitness functions."""
+"""Class defining the Continuous Peaks fitness function for use with optimization algorithms."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
@@ -7,126 +7,124 @@ import numpy as np
 
 
 class ContinuousPeaks:
-    """Fitness function for Continuous Peaks optimization problem. Evaluates
-    the fitness of an n-dimensional state vector :math:`x`, given parameter T,
-    as:
-
-    .. math::
-
-        Fitness(x, T) = \\max(max\\_run(0, x), max\\_run(1, x)) + R(x, T)
-
-    where:
-
-    * :math:`max\\_run(b, x)` is the length of the maximum run of b's
-      in :math:`x`;
-    * :math:`R(x, T) = n`, if (:math:`max\\_run(0, x) > T` and
-      :math:`max\\_run(1, x) > T`); and
-    * :math:`R(x, T) = 0`, otherwise.
+    """
+    Fitness function for Continuous Peaks optimization problem. Evaluates the fitness
+    of an n-dimensional state vector `x`, given parameter T.
 
     Parameters
     ----------
-    t_pct: float, default: 0.1
-        Threshold parameter (T) for Continuous Peaks fitness function,
-        expressed as a percentage of the state space dimension, n (i.e.
-        :math:`T = t_{pct} \\times n`).
+    threshold_percentage : float, default=0.1
+        Threshold parameter (T) for Continuous Peaks fitness function, expressed as a
+        percentage of the state space dimension, n (i.e., `T = threshold_percentage * n`).
+
+    Attributes
+    ----------
+    threshold_percentage : float
+        The threshold percentage for the fitness function.
+    problem_type : str
+        Specifies problem type as 'discrete'.
 
     Examples
-    -------
-    >>> import mlrose_hiive
-    >>> import numpy as np
-    >>> fitness = mlrose_hiive.ContinuousPeaks(t_pct=0.15)
+    --------
+    >>> fitness = ContinuousPeaks(threshold_percentage=0.15)
     >>> state = np.array([0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1])
     >>> fitness.evaluate(state)
-    17
+    17.0
 
     Note
     ----
-    The Continuous Peaks fitness function is suitable for use in bit-string
-    (discrete-state with :code:`max_val = 2`) optimization problems *only*.
+    The Continuous Peaks fitness function is suitable for use in bit-string (discrete-state
+    with `max_val = 2`) optimization problems only.
     """
 
-    def __init__(self, t_pct=0.1):
+    def __init__(self, threshold_percentage: float = 0.1) -> None:
+        self.threshold_percentage: float = threshold_percentage
+        self.problem_type: str = 'discrete'
 
-        self.t_pct = t_pct
-        self.prob_type = 'discrete'
+        if not (0 <= self.threshold_percentage <= 1):
+            raise ValueError(f"threshold_percentage must be between 0 and 1, got {self.threshold_percentage} instead.")
 
-        if (self.t_pct < 0) or (self.t_pct > 1):
-            raise Exception("""t_pct must be between 0 and 1.""")
-
-    def evaluate(self, state):
-        """Evaluate the fitness of a state vector.
+    def evaluate(self, state: np.ndarray) -> float:
+        """
+        Evaluate the fitness of a state vector.
 
         Parameters
         ----------
-        state: np.ndarray
+        state : np.ndarray
             State array for evaluation.
 
         Returns
         -------
-        fitness: float
-            Value of fitness function.
+        float
+            Value of the fitness function.
         """
-        _n = len(state)
-        _t = np.ceil(self.t_pct*_n)
+        num_elements = len(state)
+        threshold = int(np.ceil(self.threshold_percentage * num_elements))
 
-        # Calculate length of maximum runs of 0's and 1's
-        max_0 = self.max_run(0, state)
-        max_1 = self.max_run(1, state)
+        max_zeros = self._max_run(0, state)
+        max_ones = self._max_run(1, state)
 
-        # Calculate R(X, T)
-        if max_0 > _t and max_1 > _t:
-            _r = _n
-        else:
-            _r = 0
+        reward = num_elements if max_zeros > threshold and max_ones > threshold else 0
 
-        # Evaluate function
-        fitness = max(max_0, max_1) + _r
-
+        fitness = float(max(max_zeros, max_ones) + reward)
         return fitness
 
-    def get_prob_type(self):
-        """ Return the problem type.
+    def get_problem_type(self) -> str:
+        """
+        Return the problem type.
 
         Returns
         -------
-        self.prob_type: string
-            Specifies problem type as 'discrete', 'continuous', 'tsp'
-            or 'either'.
+        str
+            Specifies problem type as 'discrete'.
         """
-        return self.prob_type
+        return self.problem_type
 
     @staticmethod
-    def max_run(_b, _x):
-        """Determine the length of the maximum run of b's in vector x.
+    def _max_run(value: int, vector: np.ndarray) -> int:
+        """
+        Determine the length of the maximum run of a given value in a vector.
 
         Parameters
         ----------
-        _b: int
-            Integer for counting.
-
-        _x: np.ndarray
+        value : int
+            Value to count.
+        vector : np.ndarray
             Vector of integers.
 
         Returns
         -------
-        max: int
-            Length of maximum run of b's.
+        int
+            Length of the maximum run of the given value.
         """
-        # Initialize counter
-        _max = 0
-        run = 0
+        # Create a boolean array where each element is True if it equals the given value
+        is_value = np.array(vector == value)
 
-        # Iterate through values in vector
-        for i in _x:
-            if i == _b:
-                run += 1
-            else:
-                if run > _max:
-                    _max = run
+        # If the value does not exist in the vector, return 0
+        if not np.any(is_value):
+            return 0
 
-                run = 0
+        # Calculate the differences between consecutive elements in the boolean array
+        diffs = np.diff(is_value.astype(int))
 
-        if (_x[-1] == _b) and (run > _max):
-            _max = run
+        # Find the indices where the value starts and ends
+        run_starts = np.where(diffs == 1)[0] + 1
+        run_ends = np.where(diffs == -1)[0] + 1
 
-        return _max
+        # If the run starts at the beginning of the vector, include the first index
+        if is_value[0]:
+            run_starts = np.insert(run_starts, 0, 0)
+
+        # If the run ends at the end of the vector, include the last index
+        if is_value[-1]:
+            run_ends = np.append(run_ends, len(vector))
+
+        # Ensure that run_ends has the same length as run_starts
+        if len(run_starts) > len(run_ends):
+            run_ends = np.append(run_ends, len(vector))
+
+        # Calculate the lengths of the runs
+        run_lengths = run_ends - run_starts
+
+        # Return the maximum run length, or 0 if no runs are found
+        return run_lengths.max() if run_lengths.size > 0 else 0

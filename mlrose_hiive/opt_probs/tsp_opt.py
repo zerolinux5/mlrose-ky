@@ -7,7 +7,7 @@ import numpy as np
 
 from mlrose_hiive.algorithms.crossovers import TSPCrossover
 from mlrose_hiive.algorithms.mutators import GeneSwapMutator
-from mlrose_hiive.fitness import TravellingSales
+from mlrose_hiive.fitness import TravellingSalesperson
 from mlrose_hiive.opt_probs.discrete_opt import DiscreteOpt
 
 
@@ -50,7 +50,7 @@ class TSPOpt(DiscreteOpt):
             raise Exception("""At least one of fitness_fn, coords and"""
                             + """ distances must be specified.""")
         elif fitness_fn is None:
-            fitness_fn = TravellingSales(coords=coords, distances=distances)
+            fitness_fn = TravellingSalesperson(coords=coords, distances=distances)
         self.distances = distances
         self.coords = coords
         if length is None:
@@ -62,7 +62,7 @@ class TSPOpt(DiscreteOpt):
         DiscreteOpt.__init__(self, length, fitness_fn, maximize, max_val=length,
                              crossover=TSPCrossover(self), mutator=GeneSwapMutator(self))
 
-        if self.fitness_fn.get_prob_type() != 'tsp':
+        if self.fitness_fn.get_problem_type() != 'tsp':
             raise Exception("""fitness_fn must have problem type 'tsp'.""")
 
         self.source_graph = source_graph

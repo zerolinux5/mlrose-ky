@@ -18,11 +18,11 @@ class NeuralNetwork(_NNCore, ClassifierMixin):
     hidden_nodes: list of ints
         List giving the number of nodes in each hidden layer.
 
-    activation: string, default: 'relu'
+    activation: str, default: 'relu'
         Activation function for each of the hidden layers. Must be one of:
         'identity', 'relu', 'sigmoid' or 'tanh'.
 
-    algorithm: string, default: 'random_hill_climb'
+    algorithm: str, default: 'random_hill_climb'
         Algorithm used to find optimal network weights. Must be one
         of:'random_hill_climb', 'simulated_annealing', 'genetic_alg' or
         'gradient_descent'.
