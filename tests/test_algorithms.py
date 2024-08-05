@@ -122,7 +122,7 @@ def test_simulated_annealing_discrete_max():
 def test_simulated_annealing_continuous_max():
     """Test simulated_annealing function for a continuous maximization problem"""
     problem = ContinuousOpt(5, OneMax())
-    best_state, best_fitness, _ = simulated_annealing(problem, max_attempts=20)
+    best_state, best_fitness, _ = simulated_annealing(problem, max_attempts=20, random_state=1)
     x = np.ones(5)
     assert np.array_equal(best_state, x) and best_fitness == 5
 
@@ -130,7 +130,7 @@ def test_simulated_annealing_continuous_max():
 def test_simulated_annealing_discrete_min():
     """Test simulated_annealing function for a discrete minimization problem"""
     problem = DiscreteOpt(5, OneMax(), maximize=False)
-    best_state, best_fitness, _ = simulated_annealing(problem)
+    best_state, best_fitness, _ = simulated_annealing(problem, random_state=1)
     x = np.zeros(5)
     assert np.array_equal(best_state, x) and best_fitness == 0
 
@@ -138,7 +138,7 @@ def test_simulated_annealing_discrete_min():
 def test_simulated_annealing_continuous_min():
     """Test simulated_annealing function for a continuous minimization problem"""
     problem = ContinuousOpt(5, OneMax(), maximize=False)
-    best_state, best_fitness, _ = simulated_annealing(problem)
+    best_state, best_fitness, _ = simulated_annealing(problem, random_state=1)
     x = np.zeros(5)
     assert np.array_equal(best_state, x) and best_fitness == 0
 
