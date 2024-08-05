@@ -1,4 +1,4 @@
-"""Unit tests for activation.py"""
+"""Unit tests for neural/activation/"""
 
 # Author: Genevieve Hayes (modified by Kyle Nakamura)
 # License: BSD 3 clause

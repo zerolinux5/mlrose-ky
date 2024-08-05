@@ -1,4 +1,4 @@
-"""Unit tests for neural.py"""
+"""Unit tests for neural/"""
 
 # Author: Genevieve Hayes (modified by Kyle Nakamura)
 # License: BSD 3 clause

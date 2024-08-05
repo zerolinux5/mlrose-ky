@@ -1,4 +1,4 @@
-"""Unit tests for decay.py"""
+"""Unit tests for neural/decay/"""
 
 # Authors: Genevieve Hayes (modified by Kyle Nakamura)
 # License: BSD 3 clause

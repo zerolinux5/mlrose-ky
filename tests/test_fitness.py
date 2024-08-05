@@ -1,4 +1,4 @@
-"""Unit tests for fitness.py"""
+"""Unit tests for neural/fitness/"""
 
 # Author: Genevieve Hayes (modified by Kyle Nakamura)
 # License: BSD 3 clause

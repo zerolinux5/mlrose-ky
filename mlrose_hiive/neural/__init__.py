@@ -1,6 +1,6 @@
 """Classes for defining neural network weight optimization problems."""
 
-# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 from .activation import (identity, relu, leaky_relu, sigmoid, softmax, tanh)

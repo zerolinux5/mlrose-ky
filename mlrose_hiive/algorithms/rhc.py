@@ -1,6 +1,6 @@
 """Functions to implement the randomized optimization and search algorithms."""
 
-# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np

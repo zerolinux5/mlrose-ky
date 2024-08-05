@@ -1,3 +1,5 @@
+"""Unit tests base script."""
+
 import pytest
 
 if __name__ == "__main__":

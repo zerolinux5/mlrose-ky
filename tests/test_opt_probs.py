@@ -1,4 +1,4 @@
-"""Unit tests for opt_probs.py"""
+"""Unit tests for opt_probs/"""
 
 # Author: Genevieve Hayes (modified by Kyle Nakamura)
 # License: BSD 3 clause

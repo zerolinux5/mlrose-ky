@@ -1,6 +1,6 @@
 """Classes for defining algorithms problem objects."""
 
-# Author: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 from .ga import genetic_alg
