@@ -1,4 +1,4 @@
-"""Class for defining a geometric decay schedule for simulated annealing."""
+"""Class for defining a geometric decay schedule for Simulated Annealing (SA)."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause

@@ -1,4 +1,4 @@
-"""Classes for defining optimization problem objects."""
+"""Classes for defining optimization problem objects for Simulated Annealing (SA)."""
 
 # Author: Genevieve Hayes
 # License: BSD 3 clause

@@ -1,4 +1,4 @@
-"""GA Crossovers."""
+"""Classes for defining crossover strategies for Genetic Algorithms (GA)."""
 
 # Author: Genevieve Hayes
 # License: BSD 3 clause

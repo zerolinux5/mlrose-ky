@@ -1,9 +1,9 @@
-"""Class for defining a custom decay schedule for simulated annealing."""
+"""Class for defining a custom decay schedule for Simulated Annealing (SA)."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
-from typing import Callable, Concatenate
+from typing import Callable
 
 
 class CustomDecay:

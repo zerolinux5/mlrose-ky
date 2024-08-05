@@ -1,9 +1,9 @@
-"""GA Mutators."""
+"""Classes for defining mutation strategies for Genetic Algorithms (GA)."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
-from .change_one_mutator import SingleGeneMutator
 from .discrete_mutator import DiscreteGeneMutator
-from .shift_one_mutator import SingleShiftMutator
-from .swap_mutator import GeneSwapMutator
+from .gene_swap_mutator import GeneSwapMutator
+from .single_gene_mutator import SingleGeneMutator
+from .single_shift_mutator import SingleShiftMutator
