@@ -1,30 +1,65 @@
-"""GA Mutators."""
+"""Discrete Gene Mutator for Genetic Algorithms (GA)."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np
+from typing import Any
 
 from mlrose_hiive.algorithms.mutators._mutator_base import _MutatorBase
 
 
-class DiscreteMutator(_MutatorBase):
+class DiscreteGeneMutator(_MutatorBase):
+    """
+    A mutator class that performs discrete mutation on individual genes in a genetic algorithm.
 
-    def __init__(self, opt_prob):
-        super().__init__(opt_prob)
-        self._max_val = opt_prob.max_val
+    This class supports mutation where each gene in the chromosome can be discretely modified
+    based on the mutation probability and the nature of the gene values.
 
-    def mutate(self, child, mutation_probability):
-        rand = np.random.uniform(size=self._length)
-        mutate = np.where(rand < mutation_probability)[0]
+    Attributes
+    ----------
+    optimization_problem : Any
+        The optimization problem instance associated with the mutation operations.
+    max_gene_value : int
+        The maximum allowable value for any gene in the chromosome.
 
-        if self._max_val == 2:
-            for i in mutate:
-                child[i] = np.abs(child[i] - 1)
+    Parameters
+    ----------
+    optimization_problem : Any
+        An instance of an optimization problem that the mutator will operate on.
+    """
+    def __init__(self, optimization_problem: Any) -> None:
+        super().__init__(optimization_problem)
+        self.max_gene_value = optimization_problem.max_val
 
+    def mutate(self, child: np.ndarray, mutation_probability: float) -> np.ndarray:
+        """
+        Apply discrete mutation to a chromosome based on a given mutation probability.
+
+        The method supports two mutation modes: binary mutation (for binary genes) and discrete
+        value mutation for genes that can take on multiple discrete values.
+
+        Parameters
+        ----------
+        child : np.ndarray
+            The chromosome of a child individual to be mutated.
+        mutation_probability : float
+            The probability of each gene being mutated.
+
+        Returns
+        -------
+        np.ndarray
+            The mutated chromosome.
+        """
+        random_thresholds = np.random.uniform(size=self.chromosome_length)
+        mutation_indices = np.where(random_thresholds < mutation_probability)[0]
+
+        if self.max_gene_value == 2:
+            child[mutation_indices] = 1 - child[mutation_indices]
         else:
-            for i in mutate:
-                vals = list(np.arange(self._max_val))
-                vals.remove(child[i])
-                child[i] = vals[np.random.randint(0, self._max_val-1)]
+            for index in mutation_indices:
+                possible_values = list(range(self.max_gene_value))
+                possible_values.remove(child[index])
+                child[index] = np.random.choice(possible_values)
+
         return child

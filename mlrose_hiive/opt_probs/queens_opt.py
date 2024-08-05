@@ -6,7 +6,7 @@
 import numpy as np
 
 from mlrose_hiive.algorithms.crossovers import UniformCrossover
-from mlrose_hiive.algorithms.mutators import ChangeOneMutator
+from mlrose_hiive.algorithms.mutators import SingleGeneMutator
 from mlrose_hiive.fitness.queens import Queens
 from mlrose_hiive.opt_probs.discrete_opt import DiscreteOpt
 
@@ -30,7 +30,7 @@ class QueensOpt(DiscreteOpt):
 
         self.max_val = length
         crossover = UniformCrossover(self) if crossover is None else crossover
-        mutator = ChangeOneMutator(self) if mutator is None else mutator
+        mutator = SingleGeneMutator(self) if mutator is None else mutator
         super().__init__(length, fitness_fn, maximize, length, crossover, mutator)
 
         state = np.random.randint(self.length, size=self.length)

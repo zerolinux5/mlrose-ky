@@ -3,10 +3,10 @@
 This module defines a uniform crossover operation used in genetic algorithms,
 where each gene in the offspring is chosen randomly from one of the corresponding
 genes of the parents.
-
-Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-License: BSD 3 Clause
 """
+
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# License: BSD 3 Clause
 
 import numpy as np
 from typing import Any, Sequence

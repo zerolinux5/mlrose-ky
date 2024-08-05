@@ -11,7 +11,7 @@ from .algorithms.gd import gradient_descent
 from .algorithms.mimic import mimic
 from .algorithms.decay import GeometricDecay, ArithmeticDecay, ExponentialDecay, CustomDecay
 from .algorithms.crossovers import OnePointCrossover, UniformCrossover, TSPCrossover
-from .algorithms.mutators import ChangeOneMutator, DiscreteMutator, SwapMutator, ShiftOneMutator
+from .algorithms.mutators import SingleGeneMutator, DiscreteGeneMutator, GeneSwapMutator, SingleShiftMutator
 
 from .fitness import OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks, Knapsack, TravellingSales, Queens, MaxKColor, CustomFitness
 

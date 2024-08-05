@@ -7,6 +7,6 @@ from .continuous_opt import ContinuousOpt
 from .discrete_opt import DiscreteOpt
 from .flip_flop_opt import FlipFlopOpt
 from .knapsack_opt import KnapsackOpt
-from .queens_opt import QueensOpt
 from .max_k_color_opt import MaxKColorOpt
+from .queens_opt import QueensOpt
 from .tsp_opt import TSPOpt

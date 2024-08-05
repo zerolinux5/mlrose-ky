@@ -2,10 +2,10 @@
 
 This module defines a one-point crossover operation used in genetic algorithms,
 where a single crossover point is chosen randomly to combine two parent solutions.
-
-Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-License: BSD 3 Clause
 """
+
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# License: BSD 3 Clause
 
 import numpy as np
 from typing import Any, Sequence

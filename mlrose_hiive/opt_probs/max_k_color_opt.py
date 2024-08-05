@@ -6,7 +6,7 @@
 import numpy as np
 
 from mlrose_hiive.algorithms.crossovers import UniformCrossover
-from mlrose_hiive.algorithms.mutators import ChangeOneMutator
+from mlrose_hiive.algorithms.mutators import SingleGeneMutator
 from mlrose_hiive.fitness import MaxKColor
 from mlrose_hiive.opt_probs.discrete_opt import DiscreteOpt
 
@@ -50,7 +50,7 @@ class MaxKColorOpt(DiscreteOpt):
         self.max_val = max_colors
 
         crossover = UniformCrossover(self) if crossover is None else crossover
-        mutator = ChangeOneMutator(self) if mutator is None else mutator
+        mutator = SingleGeneMutator(self) if mutator is None else mutator
         super().__init__(length, fitness_fn, maximize, max_colors, crossover, mutator)
 
         # state = [len([*g.neighbors(n)]) for n in range(length)]

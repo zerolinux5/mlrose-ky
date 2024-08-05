@@ -6,7 +6,7 @@
 import numpy as np
 
 from mlrose_hiive.algorithms.crossovers import OnePointCrossover
-from mlrose_hiive.algorithms.mutators import ChangeOneMutator
+from mlrose_hiive.algorithms.mutators import SingleGeneMutator
 from mlrose_hiive.fitness import FlipFlop
 from mlrose_hiive.opt_probs.discrete_opt import DiscreteOpt
 
@@ -28,7 +28,7 @@ class FlipFlopOpt(DiscreteOpt):
 
         self.max_val = 2
         crossover = OnePointCrossover(self) if crossover is None else crossover
-        mutator = ChangeOneMutator(self) if mutator is None else mutator
+        mutator = SingleGeneMutator(self) if mutator is None else mutator
         super().__init__(length, fitness_fn, maximize, crossover=crossover, mutator=mutator)
 
         state = np.random.randint(2, size=self.length)

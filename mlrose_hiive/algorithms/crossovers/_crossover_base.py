@@ -2,10 +2,10 @@
 
 This module defines a base class for crossover operations used in genetic algorithms,
 detailing how two parent solutions can be combined to create offspring.
-
-Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-License: BSD 3 Clause
 """
+
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# License: BSD 3 Clause
 
 from abc import ABC, abstractmethod
 from typing import Any

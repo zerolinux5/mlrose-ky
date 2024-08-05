@@ -3,10 +3,10 @@
 This module defines a TSP-specific crossover operation used in genetic algorithms,
 which handles the mating of parent solutions to produce offspring that respect the TSP
 constraints.
-
-Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-License: BSD 3 Clause
 """
+
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# License: BSD 3 Clause
 
 import numpy as np
 from typing import Any, Sequence
