@@ -1,6 +1,6 @@
 """Unit tests for algorithms/decorators"""
 
-# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# Author: Kyle Nakamura
 # License: BSD 3 clause
 
 try:
