@@ -1,6 +1,6 @@
 """Class defining a Knapsack optimization problem generator."""
 
-# Author: Genevieve Hayes (modified by Kyle Nakamura)
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np

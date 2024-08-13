@@ -1,5 +1,8 @@
 """Class defining an N-Queens optimization problem generator."""
 
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# License: BSD 3 clause
+
 import numpy as np
 
 from mlrose_hiive import QueensOpt

@@ -1,6 +1,6 @@
 """Classes for generating optimization problem objects."""
 
-# Author: Genevieve Hayes
+# Authors: Genevieve Hayes (modified by Kyle Nakamura)
 # License: BSD 3 clause
 
 from .continuous_peaks_generator import ContinuousPeaksGenerator

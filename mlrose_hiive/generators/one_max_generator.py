@@ -1,5 +1,8 @@
 """Class defining a One Max optimization problem generator."""
 
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# License: BSD 3 clause
+
 import numpy as np
 
 from mlrose_hiive import DiscreteOpt, OneMax
