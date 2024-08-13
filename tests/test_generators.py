@@ -11,7 +11,7 @@ except ImportError:
     sys.path.append("..")
     import mlrose_hiive
 
-from mlrose_hiive import ContinuousPeaks, DiscreteOpt, FourPeaks, SixPeaks, FlipFlopOpt
+from mlrose_hiive import ContinuousPeaks, DiscreteOpt, FourPeaks, SixPeaks, FlipFlopOpt, QueensOpt
 from mlrose_hiive.generators import (ContinuousPeaksGenerator, FlipFlopGenerator, FourPeaksGenerator, SixPeaksGenerator,
                                      KnapsackGenerator, MaxKColorGenerator, QueensGenerator, TSPGenerator)
 
