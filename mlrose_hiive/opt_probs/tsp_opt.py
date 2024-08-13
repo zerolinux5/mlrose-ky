@@ -44,21 +44,21 @@ class TSPOpt(DiscreteOpt):
         argument is ignored if fitness_fn or coords is not :code:`None`.
     """
 
-    def __init__(self, length=None, fitness_fn=None, maximize=False, coords=None,
-                 distances=None, source_graph=None):
+    def __init__(self, length=None, fitness_fn=None, maximize=False, coords: list = None,
+                 distances: list[tuple] = None, source_graph=None):
         if (fitness_fn is None) and (coords is None) and (distances is None):
             raise Exception("""At least one of fitness_fn, coords and"""
                             + """ distances must be specified.""")
         elif fitness_fn is None:
             fitness_fn = TravellingSalesperson(coords=coords, distances=distances)
-        self.distances = distances
-        self.coords = coords
+        self.distances: list[tuple] = distances
+        self.coords: list | None = coords
         if length is None:
             if coords is not None:
                 length = len(coords)
             elif distances is not None:
                 length = len(set([x for (x, _, _) in distances] + [x for (_, x, _) in distances]))
-        self.length = length
+        self.length: int = length
         DiscreteOpt.__init__(self, length, fitness_fn, maximize, max_val=length,
                              crossover=TSPCrossover(self), mutator=GeneSwapMutator(self))
 

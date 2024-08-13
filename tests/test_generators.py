@@ -544,6 +544,7 @@ class TestQueensGenerator:
 
         assert problem.length == size
 
+
 # noinspection PyTypeChecker
 class TestTSPGenerator:
 

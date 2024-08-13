@@ -52,7 +52,7 @@ class TravellingSalesperson:
        fitness function object.
     """
 
-    def __init__(self, coords: list[tuple[float, float]] = None, distances: list[tuple[int, int, float]] = None) -> None:
+    def __init__(self, coords: list[tuple] = None, distances: list[tuple] = None) -> None:
         # Ensure that at least one of coords or distances is provided
         if coords is None and distances is None:
             raise ValueError("At least one of coords and distances must be specified.")
