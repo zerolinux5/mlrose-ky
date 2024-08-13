@@ -41,19 +41,18 @@ class DiscreteOpt(OptProb):
         OptProb.__init__(self, length, fitness_fn, maximize)
 
         if self.fitness_fn.get_problem_type() == 'continuous':
-            raise Exception("""fitness_fn must have problem type 'discrete',"""
-                            + """ 'either' or 'tsp'. Define problem as"""
-                            + """ ContinuousOpt problem or use alternative"""
-                            + """ fitness function."""
-                            )
+            raise ValueError("""fitness_fn must have problem type 'discrete',"""
+                             + """ 'either' or 'tsp'. Define problem as"""
+                             + """ ContinuousOpt problem or use alternative"""
+                             + """ fitness function.""")
 
         if max_val < 0:
-            raise Exception("""max_val must be a positive integer.""")
+            raise ValueError(f"max_val must be a positive integer. Got {max_val}")
         elif not isinstance(max_val, int):
             if max_val.is_integer():
                 self.max_val = int(max_val)
             else:
-                raise Exception("""max_val must be a positive integer.""")
+                raise ValueError(f"max_val must be a positive integer. Got {max_val}")
         else:
             self.max_val = max_val
 

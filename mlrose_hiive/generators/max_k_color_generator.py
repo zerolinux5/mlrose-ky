@@ -56,10 +56,14 @@ class MaxKColorGenerator:
             raise ValueError(f"Number of nodes must be a positive integer. Got {number_of_nodes}")
         if not isinstance(max_connections_per_node, int) or max_connections_per_node <= 0:
             raise ValueError(f"Max connections per node must be a positive integer. Got {max_connections_per_node}")
-        if max_colors is not None and not isinstance(max_colors, int):
-            raise ValueError(f"Max colors must be an integer or None. Got {max_colors}")
+        if max_colors is not None and (not isinstance(max_colors, int) or max_colors <= 0):
+            raise ValueError(f"Max colors must be a positive integer or None. Got {max_colors}")
         if not isinstance(maximize, bool):
             raise ValueError(f"Maximize must be a boolean. Got {maximize}")
+
+        # Handle single node case
+        if number_of_nodes == 1:
+            return MaxKColorOpt(edges=[], length=1, maximize=maximize, max_colors=max_colors)
 
         np.random.seed(seed)
 

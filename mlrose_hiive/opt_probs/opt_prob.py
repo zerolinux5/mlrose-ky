@@ -23,12 +23,12 @@ class OptProb:
     def __init__(self, length, fitness_fn, maximize=True):
 
         if length < 0:
-            raise Exception("""length must be a positive integer.""")
+            raise ValueError("""length must be a positive integer.""")
         elif not isinstance(length, int):
             if length.is_integer():
                 self.length = int(length)
             else:
-                raise Exception("""length must be a positive integer.""")
+                raise ValueError("""length must be a positive integer.""")
         else:
             self.length = length
 

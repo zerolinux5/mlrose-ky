@@ -31,6 +31,16 @@ class MaxKColorOpt(DiscreteOpt):
         if fitness_fn is None:
             fitness_fn = MaxKColor(edges, maximize)
 
+        # Handle single node case
+        if length == 1:
+            self.max_val = 1
+            self.source_graph = nx.Graph()
+            fitness_fn.set_graph(self.source_graph)
+            self.stop_fitness = 0 if maximize else 0
+            super().__init__(length, fitness_fn, maximize, 1, crossover, mutator)
+            self.set_state(np.array([0]))
+            return
+
         # set up initial state (everything painted one color)
         if source_graph is None:
             g = nx.Graph()
@@ -42,8 +52,7 @@ class MaxKColorOpt(DiscreteOpt):
         self.stop_fitness = self.source_graph.number_of_edges() if maximize else 0
 
         fitness_fn.set_graph(self.source_graph)
-        # if none is provided, make a reasonable starting guess.
-        # the max val is going to be the one plus the maximum number of neighbors of any one node.
+
         if max_colors is None:
             total_neighbor_count = [len([*self.source_graph.neighbors(n)]) for n in range(length)]
             max_colors = 1 + max(total_neighbor_count)
@@ -53,10 +62,8 @@ class MaxKColorOpt(DiscreteOpt):
         mutator = SingleGeneMutator(self) if mutator is None else mutator
         super().__init__(length, fitness_fn, maximize, max_colors, crossover, mutator)
 
-        # state = [len([*g.neighbors(n)]) for n in range(length)]
         state = np.random.randint(max_colors, size=self.length)
         np.random.shuffle(state)
-        # state = [0] * length
         self.set_state(state)
 
     def can_stop(self):
