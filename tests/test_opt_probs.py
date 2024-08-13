@@ -9,7 +9,9 @@ try:
     import mlrose_hiive
 except ImportError:
     import sys
+
     sys.path.append("..")
+    import mlrose_hiive
 
 from mlrose_hiive import OneMax, DiscreteOpt, ContinuousOpt, TSPOpt, OnePointCrossover
 from mlrose_hiive.neural import NetworkWeights

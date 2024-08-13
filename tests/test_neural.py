@@ -10,6 +10,7 @@ try:
     import mlrose_hiive
 except ImportError:
     import sys
+
     sys.path.append("..")
 
 from mlrose_hiive.neural.linear_regression import LinearRegression

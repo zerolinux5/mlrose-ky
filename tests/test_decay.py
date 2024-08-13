@@ -7,7 +7,9 @@ try:
     import mlrose_hiive
 except ImportError:
     import sys
+
     sys.path.append("..")
+    import mlrose_hiive
 
 from mlrose_hiive import GeometricDecay, ArithmeticDecay, ExponentialDecay, CustomDecay
 

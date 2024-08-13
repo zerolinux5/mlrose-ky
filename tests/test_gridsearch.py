@@ -3,7 +3,7 @@
 # Author: Kyle Nakamura
 # License: BSD 3 clause
 
-import numpy as np
+# import numpy as np
 
 try:
     import mlrose_hiive
