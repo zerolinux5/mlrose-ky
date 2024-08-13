@@ -11,9 +11,9 @@ except ImportError:
     sys.path.append("..")
     import mlrose_hiive
 
-from mlrose_hiive import ContinuousPeaks, DiscreteOpt, FourPeaks, SixPeaks, FlipFlopOpt, QueensOpt
+from mlrose_hiive import ContinuousPeaks, DiscreteOpt, FourPeaks, SixPeaks, FlipFlopOpt, QueensOpt, OneMax, KnapsackOpt, MaxKColorOpt, TSPOpt
 from mlrose_hiive.generators import (ContinuousPeaksGenerator, FlipFlopGenerator, FourPeaksGenerator, SixPeaksGenerator,
-                                     KnapsackGenerator, MaxKColorGenerator, QueensGenerator, TSPGenerator)
+                                     KnapsackGenerator, MaxKColorGenerator, QueensGenerator, TSPGenerator, OneMaxGenerator)
 
 SEED = 12
 
@@ -277,6 +277,384 @@ class TestSixPeaksGenerator:
 
         assert problem.length == size
         assert problem.fitness_fn.threshold_percentage == threshold_percentage
+
+
+# noinspection PyTypeChecker
+class TestKnapsackGenerator:
+
+    def test_generate_valid_case(self):
+        """Test generate method with valid parameters."""
+        number_of_item_types = 10
+        max_item_count = 5
+        max_weight_per_item = 25
+        max_value_per_item = 10
+        max_weight_percentage = 0.6
+        multiply_by_max_item_count = True
+
+        problem = KnapsackGenerator.generate(
+            seed=SEED,
+            number_of_item_types=number_of_item_types,
+            max_item_count=max_item_count,
+            max_weight_per_item=max_weight_per_item,
+            max_value_per_item=max_value_per_item,
+            max_weight_percentage=max_weight_percentage,
+            multiply_by_max_item_count=multiply_by_max_item_count
+        )
+
+        assert problem.length == number_of_item_types
+        assert problem.max_val == max_item_count
+
+    def test_generate_invalid_seed(self):
+        """Test generate method raises ValueError when SEED is not an integer."""
+        with pytest.raises(ValueError) as excinfo:
+            KnapsackGenerator.generate(seed="not_an_int")
+        assert str(excinfo.value) == "Seed must be an integer. Got not_an_int"
+
+    def test_generate_invalid_number_of_item_types(self):
+        """Test generate method raises ValueError when number_of_item_types is invalid."""
+        with pytest.raises(ValueError) as excinfo:
+            KnapsackGenerator.generate(SEED, number_of_item_types=0)
+        assert str(excinfo.value) == "Number of item types must be a positive integer. Got 0"
+
+    def test_generate_invalid_max_item_count(self):
+        """Test generate method raises ValueError when max_item_count is invalid."""
+        with pytest.raises(ValueError) as excinfo:
+            KnapsackGenerator.generate(SEED, max_item_count=-1)
+        assert str(excinfo.value) == "Max item count must be a positive integer. Got -1"
+
+    def test_generate_invalid_max_weight_per_item(self):
+        """Test generate method raises ValueError when max_weight_per_item is invalid."""
+        with pytest.raises(ValueError) as excinfo:
+            KnapsackGenerator.generate(SEED, max_weight_per_item=0)
+        assert str(excinfo.value) == "Max weight per item must be a positive integer. Got 0"
+
+    def test_generate_invalid_max_value_per_item(self):
+        """Test generate method raises ValueError when max_value_per_item is invalid."""
+        with pytest.raises(ValueError) as excinfo:
+            KnapsackGenerator.generate(SEED, max_value_per_item=-10)
+        assert str(excinfo.value) == "Max value per item must be a positive integer. Got -10"
+
+    def test_generate_default_parameters(self):
+        """Test generate method with default parameters."""
+        problem = KnapsackGenerator.generate(seed=SEED)
+
+        assert problem.length == 10
+        assert problem.max_val == 5
+
+    def test_generate_invalid_max_weight_percentage(self):
+        """Test generate method raises ValueError when max_weight_percentage is invalid."""
+        with pytest.raises(ValueError) as excinfo:
+            KnapsackGenerator.generate(SEED, max_weight_percentage=1.5)
+        assert str(excinfo.value) == "Max weight percentage must be a float between 0 and 1. Got 1.5"
+
+    def test_generate_invalid_multiply_by_max_item_count(self):
+        """Test generate method raises ValueError when multiply_by_max_item_count is not a boolean."""
+        with pytest.raises(ValueError) as excinfo:
+            KnapsackGenerator.generate(SEED, multiply_by_max_item_count="yes")
+        assert str(excinfo.value) == "multiply_by_max_item_count must be a boolean. Got yes"
+
+    def test_generate_max_weight_percentage_zero(self):
+        """Test generate method with max_weight_percentage set to 0"""
+        max_weight_percentage = 0.0
+
+        with pytest.raises(ValueError) as excinfo:
+            KnapsackGenerator.generate(seed=SEED, max_weight_percentage=max_weight_percentage)
+        assert str(excinfo.value) == "max_weight_pct must be greater than 0."
+
+
+# noinspection PyTypeChecker
+class TestMaxKColorGenerator:
+
+    def test_generate_negative_max_colors(self):
+        """Test generate method raises ValueError when max_colors is a negative integer."""
+        with pytest.raises(ValueError) as excinfo:
+            MaxKColorGenerator.generate(SEED, number_of_nodes=10, max_colors=-3)
+        assert str(excinfo.value) == "Max colors must be a positive integer or None. Got -3"
+
+    def test_generate_non_integer_max_colors(self):
+        """Test generate method raises ValueError when max_colors is a non-integer value."""
+        with pytest.raises(ValueError) as excinfo:
+            MaxKColorGenerator.generate(SEED, number_of_nodes=10, max_connections_per_node=3, max_colors="five")
+        assert str(excinfo.value) == "Max colors must be a positive integer or None. Got five"
+
+    def test_generate_seed_float(self):
+        """Test generate method raises ValueError when SEED is a float."""
+        with pytest.raises(ValueError) as excinfo:
+            MaxKColorGenerator.generate(seed=1.5)
+        assert str(excinfo.value) == "Seed must be an integer. Got 1.5"
+
+    def test_generate_float_number_of_nodes(self):
+        """Test generate method raises ValueError when number_of_nodes is a float."""
+        with pytest.raises(ValueError) as excinfo:
+            MaxKColorGenerator.generate(SEED, number_of_nodes=10.5)
+        assert str(excinfo.value) == "Number of nodes must be a positive integer. Got 10.5"
+
+    def test_generate_max_connections_per_node_float(self):
+        """Test generate method raises ValueError when max_connections_per_node is a float."""
+        with pytest.raises(ValueError) as excinfo:
+            MaxKColorGenerator.generate(SEED, number_of_nodes=10, max_connections_per_node=4.5)
+        assert str(excinfo.value) == "Max connections per node must be a positive integer. Got 4.5"
+
+    def test_generate_maximize_string(self):
+        """Test generate method raises ValueError when maximize is a string."""
+        with pytest.raises(ValueError) as excinfo:
+            MaxKColorGenerator.generate(SEED, maximize="true")
+        assert str(excinfo.value) == "Maximize must be a boolean. Got true"
+
+    def test_generate_single_node_one_connection(self):
+        """Test generate method with one node and up to one connection."""
+        number_of_nodes = 1
+        max_connections_per_node = 1
+        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes, max_connections_per_node=max_connections_per_node)
+
+        assert problem.length == number_of_nodes
+        assert problem.source_graph.number_of_edges() == 0
+
+    def test_generate_single_node_two_connections(self):
+        """Test generate method with one node and up to two connections."""
+        number_of_nodes = 1
+        max_connections_per_node = 2
+        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes, max_connections_per_node=max_connections_per_node)
+
+        assert problem.length == number_of_nodes
+        assert problem.source_graph.number_of_edges() == 0
+
+    def test_generate_two_nodes_one_connection(self):
+        """Test generate method with two nodes and up to one connection."""
+        number_of_nodes = 2
+        max_connections_per_node = 1
+        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes, max_connections_per_node=max_connections_per_node)
+
+        assert problem.length == number_of_nodes
+        assert problem.source_graph.number_of_edges() == 1
+
+    def test_generate_two_nodes_two_connections(self):
+        """Test generate method with two nodes and up to two connections."""
+        number_of_nodes = 2
+        max_connections_per_node = 2
+        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes, max_connections_per_node=max_connections_per_node)
+
+        assert problem.length == number_of_nodes
+        assert problem.source_graph.number_of_edges() == 1
+
+    def test_generate_large_graph(self):
+        """Test generate method with a large graph."""
+        number_of_nodes = 100
+        max_connections_per_node = 10
+        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes, max_connections_per_node=max_connections_per_node)
+
+        assert problem.length == number_of_nodes
+        assert problem.source_graph.number_of_edges() > 0
+
+    def test_generate_no_edges(self):
+        """Test generate method with no possible connections."""
+        with pytest.raises(ValueError) as excinfo:
+            MaxKColorGenerator.generate(SEED, number_of_nodes=10, max_connections_per_node=0)
+        assert str(excinfo.value) == "Max connections per node must be a positive integer. Got 0"
+
+    def test_generate_max_colors_none(self):
+        """Test generate method with max_colors set to None."""
+        number_of_nodes = 5
+        max_connections_per_node = 3
+        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes, max_connections_per_node=max_connections_per_node)
+
+        assert problem.length == number_of_nodes
+        assert problem.max_val > 1
+
+    def test_generate_zero_nodes(self):
+        """Test generate method raises ValueError when number_of_nodes is zero."""
+        with pytest.raises(ValueError) as excinfo:
+            MaxKColorGenerator.generate(SEED, number_of_nodes=0)
+        assert str(excinfo.value) == "Number of nodes must be a positive integer. Got 0"
+
+    def test_generate_large_max_colors(self):
+        """Test generate method with a large max_colors value."""
+        number_of_nodes = 10
+        max_connections_per_node = 3
+        max_colors = 100
+        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes,
+                                              max_connections_per_node=max_connections_per_node,
+                                              max_colors=max_colors)
+
+        assert problem.length == number_of_nodes
+        assert problem.max_val == max_colors
+
+    def test_generate_large_max_connections(self):
+        """Test generate method with large max_connections_per_node value."""
+        number_of_nodes = 10
+        max_connections_per_node = 9
+        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes, max_connections_per_node=max_connections_per_node)
+
+        assert problem.length == number_of_nodes
+        assert problem.source_graph.number_of_edges() > 0
+
+
+# noinspection PyTypeChecker
+class TestQueensGenerator:
+
+    def test_generate_size_zero(self):
+        """Test generate method raises ValueError when size is zero."""
+        with pytest.raises(ValueError) as excinfo:
+            QueensGenerator.generate(SEED, size=0)
+        assert str(excinfo.value) == "Size must be a positive integer. Got 0"
+
+    def test_generate_negative_size(self):
+        """Test generate method raises ValueError when size is negative."""
+        with pytest.raises(ValueError) as excinfo:
+            QueensGenerator.generate(SEED, size=-5)
+        assert str(excinfo.value) == "Size must be a positive integer. Got -5"
+
+    def test_generate_non_integer_size(self):
+        """Test generate method raises ValueError when size is a non-integer value."""
+        with pytest.raises(ValueError) as excinfo:
+            QueensGenerator.generate(SEED, size="ten")
+        assert str(excinfo.value) == "Size must be a positive integer. Got ten"
+
+    def test_generate_invalid_seed(self):
+        """Test generate method raises ValueError when seed is not an integer."""
+        with pytest.raises(ValueError) as excinfo:
+            QueensGenerator.generate(seed="not_an_int")
+        assert str(excinfo.value) == "Seed must be an integer. Got not_an_int"
+
+    def test_generate_invalid_maximize(self):
+        """Test generate method raises ValueError when maximize is not a boolean."""
+        with pytest.raises(ValueError) as excinfo:
+            QueensGenerator.generate(SEED, maximize="yes")
+        assert str(excinfo.value) == "Maximize must be a boolean. Got yes"
+
+    def test_generate_default_size(self):
+        """Test generate method with default size."""
+        problem = QueensGenerator.generate(SEED)
+
+        assert problem.length == 20
+
+    def test_generate_with_seed(self):
+        """Test generate method with a specified seed."""
+        problem = QueensGenerator.generate(SEED)
+        np.random.seed(SEED)
+        expected_problem = QueensOpt(length=20)
+
+        assert problem.length == expected_problem.length
+        assert problem.__class__ == expected_problem.__class__
+
+    def test_generate_custom_size(self):
+        """Test generate method with custom size."""
+        size = 30
+        problem = QueensGenerator.generate(SEED, size=size)
+
+        assert problem.length == size
+
+
+# noinspection PyTypeChecker
+class TestTSPGenerator:
+
+    def test_generate_invalid_seed(self):
+        """Test generate method raises ValueError when seed is not an integer."""
+        with pytest.raises(ValueError) as excinfo:
+            TSPGenerator.generate(seed="not_an_int", number_of_cities=5)
+        assert str(excinfo.value) == "Seed must be an integer. Got not_an_int"
+
+    def test_generate_invalid_number_of_cities(self):
+        """Test generate method raises ValueError when number_of_cities is not a positive integer."""
+        with pytest.raises(ValueError) as excinfo:
+            TSPGenerator.generate(SEED, number_of_cities=0)
+        assert str(excinfo.value) == "Number of cities must be a positive integer. Got 0"
+
+    def test_generate_invalid_area_width(self):
+        """Test generate method raises ValueError when area_width is not a positive integer."""
+        with pytest.raises(ValueError) as excinfo:
+            TSPGenerator.generate(SEED, number_of_cities=5, area_width=0)
+        assert str(excinfo.value) == "Area width must be a positive integer. Got 0"
+
+    def test_generate_invalid_area_height(self):
+        """Test generate method raises ValueError when area_height is not a positive integer."""
+        with pytest.raises(ValueError) as excinfo:
+            TSPGenerator.generate(SEED, number_of_cities=5, area_height=0)
+        assert str(excinfo.value) == "Area height must be a positive integer. Got 0"
+
+    def test_generate_default_parameters(self):
+        """Test generate method with default parameters."""
+        problem = TSPGenerator.generate(seed=SEED, number_of_cities=5)
+        assert problem.length == 5
+        assert problem.coords is not None
+        assert problem.distances is not None
+        assert problem.source_graph is not None
+
+    def test_generate_custom_parameters(self):
+        """Test generate method with custom parameters."""
+        problem = TSPGenerator.generate(seed=SEED, number_of_cities=5, area_width=100, area_height=100)
+        assert problem.length == 5
+        assert problem.coords is not None
+        assert problem.distances is not None
+        assert problem.source_graph is not None
+
+    def test_generate_no_duplicate_coordinates(self):
+        """Test generate method ensures no duplicate coordinates."""
+        problem = TSPGenerator.generate(seed=SEED, number_of_cities=5)
+        coords = problem.coords
+        assert len(coords) == len(set(coords))
+
+    def test_generate_distances(self):
+        """Test generate method calculates distances correctly."""
+        problem = TSPGenerator.generate(seed=SEED, number_of_cities=5)
+        distances = problem.distances
+        for u, v, d in distances:
+            assert d == np.linalg.norm(np.subtract(problem.coords[u], problem.coords[v]))
+
+    def test_generate_graph(self):
+        """Test generate method creates a valid graph."""
+        problem = TSPGenerator.generate(seed=SEED, number_of_cities=5)
+        graph = problem.source_graph
+        assert graph.number_of_nodes() == 5
+        assert graph.number_of_edges() == len(problem.distances)
+# noinspection PyTypeChecker
+class TestOneMaxGenerator:
+
+    def test_generate_size_zero(self):
+        """Test generate method raises ValueError when size is zero."""
+        with pytest.raises(ValueError) as excinfo:
+            OneMaxGenerator.generate(SEED, size=0)
+        assert str(excinfo.value) == "Size must be a positive integer. Got 0"
+
+    def test_generate_negative_size(self):
+        """Test generate method raises ValueError when size is negative."""
+        with pytest.raises(ValueError) as excinfo:
+            OneMaxGenerator.generate(SEED, size=-5)
+        assert str(excinfo.value) == "Size must be a positive integer. Got -5"
+
+    def test_generate_non_integer_size(self):
+        """Test generate method raises ValueError when size is a non-integer value."""
+        with pytest.raises(ValueError) as excinfo:
+            OneMaxGenerator.generate(SEED, size="ten")
+        assert str(excinfo.value) == "Size must be a positive integer. Got ten"
+
+    def test_generate_invalid_seed(self):
+        """Test generate method raises ValueError when seed is not an integer."""
+        with pytest.raises(ValueError) as excinfo:
+            OneMaxGenerator.generate(seed="not_an_int")
+        assert str(excinfo.value) == "Seed must be an integer. Got not_an_int"
+
+    def test_generate_default_size(self):
+        """Test generate method with default size."""
+        problem = OneMaxGenerator.generate(SEED)
+
+        assert problem.length == 20
+
+    def test_generate_with_seed(self):
+        """Test generate method with a specified seed."""
+        problem = OneMaxGenerator.generate(SEED)
+        np.random.seed(SEED)
+        expected_problem = DiscreteOpt(length=20, fitness_fn=OneMax())
+
+        assert problem.length == expected_problem.length
+        assert problem.__class__ == expected_problem.__class__
+
+    def test_generate_custom_size(self):
+        """Test generate method with custom size."""
+        size = 30
+        problem = OneMaxGenerator.generate(SEED, size=size)
+
+        assert problem.length == size
 
 
 # noinspection PyTypeChecker
