@@ -15,3 +15,4 @@ mlrose_hiive/__pycache__/*
 tests/__pycache__/*
 tsp_test/*
 venvp/
+.aider*

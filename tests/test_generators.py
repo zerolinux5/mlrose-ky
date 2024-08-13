@@ -368,6 +368,29 @@ class TestSixPeaksGenerator:
 
 class TestKnapsackGenerator:
 
+    def test_generate_valid_case(self):
+        """Test generate method with valid parameters."""
+        seed = 42
+        number_of_item_types = 10
+        max_item_count = 5
+        max_weight_per_item = 25
+        max_value_per_item = 10
+        max_weight_percentage = 0.6
+        multiply_by_max_item_count = True
+
+        problem = KnapsackGenerator.generate(
+            seed=seed,
+            number_of_item_types=number_of_item_types,
+            max_item_count=max_item_count,
+            max_weight_per_item=max_weight_per_item,
+            max_value_per_item=max_value_per_item,
+            max_weight_percentage=max_weight_percentage,
+            multiply_by_max_item_count=multiply_by_max_item_count
+        )
+
+        assert problem.length == number_of_item_types
+        assert problem.max_val == max_item_count
+
     def test_generate_invalid_seed(self):
         """Test generate method raises ValueError when seed is not an integer."""
         try:
@@ -413,6 +436,14 @@ class TestKnapsackGenerator:
             assert str(e) == "Max value per item must be a positive integer. Got -10"
         else:
             assert False, "ValueError not raised"
+
+    def test_generate_default_parameters(self):
+        """Test generate method with default parameters."""
+        seed = 42
+        problem = KnapsackGenerator.generate(seed=seed)
+
+        assert problem.length == 10
+        assert problem.max_val == 5
 
     def test_generate_invalid_max_weight_percentage(self):
         """Test generate method raises ValueError when max_weight_percentage is invalid."""
