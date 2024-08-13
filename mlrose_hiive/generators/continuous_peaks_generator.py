@@ -1,10 +1,9 @@
-"""Classes for defining optimization problem objects."""
+"""Class defining a Continuous Peaks optimization problem generator."""
 
-# Author: Andrew Rollings
+# Authors: Andrew Rollings (modified by Kyle Nakamura)
 # License: BSD 3 clause
 
 import numpy as np
-from typing import Any
 
 from mlrose_hiive import DiscreteOpt, ContinuousPeaks
 
@@ -13,7 +12,7 @@ class ContinuousPeaksGenerator:
     """A class to generate Continuous Peaks optimization problems."""
 
     @staticmethod
-    def generate(seed: int, size: int = 20, threshold_percentage: float = 0.1) -> Any:
+    def generate(seed: int, size: int = 20, threshold_percentage: float = 0.1) -> DiscreteOpt:
         """
         Generate a Continuous Peaks optimization problem instance.
 

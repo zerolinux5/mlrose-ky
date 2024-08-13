@@ -1,4 +1,4 @@
-"""Classes for defining optimization problem objects."""
+"""Class defining a One Max optimization problem generator."""
 
 import numpy as np
 
@@ -6,9 +6,38 @@ from mlrose_hiive import DiscreteOpt, OneMax
 
 
 class OneMaxGenerator:
-    """Generator class for One Max."""
+    """A class to generate One Max optimization problems."""
+
     @staticmethod
-    def generate(seed, size=20):
+    def generate(seed: int, size: int = 20) -> DiscreteOpt:
+        """
+        Generate a One Max optimization problem instance.
+
+        Parameters
+        ----------
+        seed : int
+            Seed for the random number generator.
+        size : int, optional, default=20
+            The size of the optimization problem (number of bits).
+
+        Returns
+        -------
+        DiscreteOpt
+            An instance of DiscreteOpt configured for the One Max problem.
+
+        Raises
+        ------
+        ValueError
+            If `size` is not a positive integer.
+        """
+        if not isinstance(seed, int):
+            raise ValueError(f"Seed must be an integer. Got {seed}")
+        if not isinstance(size, int) or size <= 0:
+            raise ValueError(f"Size must be a positive integer. Got {size}")
+
         np.random.seed(seed)
+
         fitness = OneMax()
-        return DiscreteOpt(length=size, fitness_fn=fitness)
+        problem = DiscreteOpt(length=size, fitness_fn=fitness)
+
+        return problem
