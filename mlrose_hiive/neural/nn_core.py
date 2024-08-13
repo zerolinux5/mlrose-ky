@@ -13,7 +13,7 @@ from mlrose_hiive.algorithms.sa import simulated_annealing
 from mlrose_hiive.algorithms.ga import genetic_alg
 
 from mlrose_hiive.neural._nn_base import _NNBase
-from mlrose_hiive.neural.activation import (identity, relu, sigmoid, tanh)
+from mlrose_hiive.neural.activation import identity, relu, sigmoid, tanh
 from mlrose_hiive.neural.utils.weights import gradient_descent_original
 
 
@@ -25,10 +25,25 @@ class _NNCore(_NNBase):
     """
 
     @abstractmethod
-    def __init__(self, hidden_nodes=None, activation='relu', algorithm='random_hill_climb', max_iters=100, bias=True,
-                 is_classifier=True, learning_rate=0.1, early_stopping=False, clip_max=1e+10, restarts=0,
-                 schedule=GeometricDecay(), pop_size=200, mutation_prob=0.1, max_attempts=10, random_state=None,
-                 curve=False):
+    def __init__(
+        self,
+        hidden_nodes=None,
+        activation="relu",
+        algorithm="random_hill_climb",
+        max_iters=100,
+        bias=True,
+        is_classifier=True,
+        learning_rate=0.1,
+        early_stopping=False,
+        clip_max=1e10,
+        restarts=0,
+        schedule=GeometricDecay(),
+        pop_size=200,
+        mutation_prob=0.1,
+        max_attempts=10,
+        random_state=None,
+        curve=False,
+    ):
 
         super().__init__()
         if hidden_nodes is None:
@@ -36,10 +51,7 @@ class _NNCore(_NNBase):
         else:
             self.hidden_nodes = hidden_nodes
 
-        self.activation_dict = {'identity': identity,
-                                'relu': relu,
-                                'sigmoid': sigmoid,
-                                'tanh': tanh}
+        self.activation_dict = {"identity": identity, "relu": relu, "sigmoid": sigmoid, "tanh": tanh}
         self.activation = activation
         self.algorithm = algorithm
         self.max_iters = max_iters
@@ -97,10 +109,12 @@ class _NNCore(_NNBase):
             raise Exception("""mutation_prob must be between 0 and 1.""")
 
         if self.activation is None or self.activation not in self.activation_dict.keys():
-            raise Exception("""Activation function must be one of: 'identity',
-                    'relu', 'sigmoid' or 'tanh'.""")
+            raise Exception(
+                """Activation function must be one of: 'identity',
+                    'relu', 'sigmoid' or 'tanh'."""
+            )
 
-        if self.algorithm not in ['random_hill_climb', 'simulated_annealing', 'genetic_alg', 'gradient_descent']:
+        if self.algorithm not in ["random_hill_climb", "simulated_annealing", "genetic_alg", "gradient_descent"]:
             raise Exception("""Algorithm must be one of: 'random_hill_climb', 'simulated_annealing', 'genetic_alg', 'gradient_descent'.""")
 
     def _validate_input(self, y):
@@ -142,27 +156,22 @@ class _NNCore(_NNBase):
         num_nodes = self._calculate_state_size(node_list)
 
         if init_weights is not None and len(init_weights) != num_nodes:
-            raise Exception("""init_weights must be None or have length %d"""
-                            % (num_nodes,))
+            raise Exception("""init_weights must be None or have length %d""" % (num_nodes,))
 
         # Set random seed
         if isinstance(self.random_state, int) and self.random_state > 0:
             np.random.seed(self.random_state)
 
-        fitness, problem = self._build_problem_and_fitness_function(X, y,
-                                                                    node_list,
-                                                                    self.activation_dict[self.activation],
-                                                                    self.learning_rate,
-                                                                    self.bias,
-                                                                    self.clip_max,
-                                                                    self.is_classifier)
+        fitness, problem = self._build_problem_and_fitness_function(
+            X, y, node_list, self.activation_dict[self.activation], self.learning_rate, self.bias, self.clip_max, self.is_classifier
+        )
 
-        if self.algorithm == 'random_hill_climb':
+        if self.algorithm == "random_hill_climb":
             fitness_curve, fitted_weights, loss = self.__run_with_rhc(init_weights, num_nodes, problem)
 
-        elif self.algorithm == 'simulated_annealing':
+        elif self.algorithm == "simulated_annealing":
             fitness_curve, fitted_weights, loss = self._run_with_sa(init_weights, num_nodes, problem)
-        elif self.algorithm == 'genetic_alg':
+        elif self.algorithm == "genetic_alg":
             fitness_curve, fitted_weights, loss = self._run_with_ga(problem)
         else:  # Gradient descent case
             fitness_curve, fitted_weights, loss = self._run_with_gd(init_weights, num_nodes, problem)
@@ -187,7 +196,8 @@ class _NNCore(_NNBase):
             max_attempts=self.max_attempts if self.early_stopping else self.max_iters,
             max_iters=self.max_iters,
             curve=self.curve,
-            init_state=init_weights)
+            init_state=init_weights,
+        )
 
         return ([] if fitness_curve is None else fitness_curve), fitted_weights, loss
 
@@ -198,18 +208,19 @@ class _NNCore(_NNBase):
                 problem,
                 pop_size=self.pop_size,
                 mutation_prob=self.mutation_prob,
-                max_attempts=self.max_attempts if self.early_stopping else
-                self.max_iters,
+                max_attempts=self.max_attempts if self.early_stopping else self.max_iters,
                 max_iters=self.max_iters,
-                curve=self.curve)
+                curve=self.curve,
+            )
         else:
             fitted_weights, loss, _ = genetic_alg(
                 problem,
-                pop_size=self.pop_size, mutation_prob=self.mutation_prob,
-                max_attempts=self.max_attempts if self.early_stopping else
-                self.max_iters,
+                pop_size=self.pop_size,
+                mutation_prob=self.mutation_prob,
+                max_attempts=self.max_attempts if self.early_stopping else self.max_iters,
                 max_iters=self.max_iters,
-                curve=self.curve)
+                curve=self.curve,
+            )
         return fitness_curve, fitted_weights, loss
 
     def _run_with_sa(self, init_weights, num_nodes, problem):
@@ -220,20 +231,20 @@ class _NNCore(_NNBase):
             fitted_weights, loss, fitness_curve = simulated_annealing(
                 problem,
                 schedule=self.schedule,
-                max_attempts=self.max_attempts if self.early_stopping else
-                self.max_iters,
+                max_attempts=self.max_attempts if self.early_stopping else self.max_iters,
                 max_iters=self.max_iters,
                 init_state=init_weights,
-                curve=self.curve)
+                curve=self.curve,
+            )
         else:
             fitted_weights, loss, _ = simulated_annealing(
                 problem,
                 schedule=self.schedule,
-                max_attempts=self.max_attempts if self.early_stopping else
-                self.max_iters,
+                max_attempts=self.max_attempts if self.early_stopping else self.max_iters,
                 max_iters=self.max_iters,
                 init_state=init_weights,
-                curve=self.curve)
+                curve=self.curve,
+            )
         return fitness_curve, fitted_weights, loss
 
     def __run_with_rhc(self, init_weights, num_nodes, problem):
@@ -246,12 +257,13 @@ class _NNCore(_NNBase):
         for _ in range(self.restarts + 1):
             restart_weights = np.random.uniform(-1, 1, num_nodes) if init_weights is None else init_weights
 
-            current_weights, current_loss, fitness_curve = random_hill_climb(problem,
-                                                                             max_attempts=(self.max_attempts if self.early_stopping
-                                                                                           else self.max_iters),
-                                                                             max_iters=self.max_iters,
-                                                                             init_state=restart_weights,
-                                                                             curve=self.curve)
+            current_weights, current_loss, fitness_curve = random_hill_climb(
+                problem,
+                max_attempts=(self.max_attempts if self.early_stopping else self.max_iters),
+                max_iters=self.max_iters,
+                init_state=restart_weights,
+                curve=self.curve,
+            )
 
             if not self.curve:
                 fitness_curve = []
@@ -279,12 +291,14 @@ class _NNCore(_NNBase):
         if not np.shape(X)[1] == (self.node_list[0] - self.bias):
             raise Exception("""The number of columns in X must equal %d""" % ((self.node_list[0] - self.bias),))
 
-        y_pred, pp = self._predict(X=X,
-                                   fitted_weights=self.fitted_weights,
-                                   node_list=self.node_list,
-                                   input_activation=self.activation_dict[self.activation],
-                                   output_activation=self.output_activation,
-                                   bias=self.bias,
-                                   is_classifier=self.is_classifier)
+        y_pred, pp = self._predict(
+            X=X,
+            fitted_weights=self.fitted_weights,
+            node_list=self.node_list,
+            input_activation=self.activation_dict[self.activation],
+            output_activation=self.output_activation,
+            bias=self.bias,
+            is_classifier=self.is_classifier,
+        )
         self.predicted_probs = pp
         return y_pred

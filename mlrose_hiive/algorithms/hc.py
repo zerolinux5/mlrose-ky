@@ -8,15 +8,17 @@ from typing import Callable, Any
 from mlrose_hiive.decorators import short_name
 
 
-@short_name('hc')
-def hill_climb(problem: Any,
-               max_iters: int = np.inf,
-               restarts: int = 0,
-               init_state: np.ndarray = None,
-               curve: bool = False,
-               random_state: int = None,
-               state_fitness_callback: Callable = None,
-               callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray]:
+@short_name("hc")
+def hill_climb(
+    problem: Any,
+    max_iters: int = np.inf,
+    restarts: int = 0,
+    init_state: np.ndarray = None,
+    curve: bool = False,
+    random_state: int = None,
+    state_fitness_callback: Callable = None,
+    callback_user_info: Any = None,
+) -> tuple[np.ndarray, float, np.ndarray | None]:
     """Use standard hill climbing to find the optimum for a given optimization problem.
 
     Parameters
@@ -66,8 +68,9 @@ def hill_climb(problem: Any,
     if not (isinstance(restarts, int) or restarts.is_integer()) or restarts < 0:
         raise ValueError(f"restarts must be a positive integer. Got {restarts}")
     if init_state is not None and len(init_state) != problem.get_length():
-        raise ValueError(f"init_state must have the same length as the problem. "
-                         f"Expected length {problem.get_length()}, got {len(init_state)}")
+        raise ValueError(
+            f"init_state must have the same length as the problem. " f"Expected length {problem.get_length()}, got {len(init_state)}"
+        )
 
     # Set random seed
     if isinstance(random_state, int) and random_state > 0:
@@ -89,12 +92,11 @@ def hill_climb(problem: Any,
 
         callback_extra_data = None
         if state_fitness_callback is not None:
-            callback_extra_data = callback_user_info + [('current_restart', current_restart)]
+            callback_extra_data = callback_user_info + [("current_restart", current_restart)]
             # initial call with base data
-            state_fitness_callback(iteration=0,
-                                   state=problem.get_state(),
-                                   fitness=problem.get_adjusted_fitness(),
-                                   user_data=callback_extra_data)
+            state_fitness_callback(
+                iteration=0, state=problem.get_state(), fitness=problem.get_adjusted_fitness(), user_data=callback_extra_data
+            )
         iters = 0
         while iters < max_iters:
             iters += 1
@@ -110,13 +112,15 @@ def hill_climb(problem: Any,
             # invoke callback
             if state_fitness_callback is not None:
                 max_attempts_reached = (iters == max_iters) or problem.can_stop()
-                continue_iterating = state_fitness_callback(iteration=iters,
-                                                            attempt=None,
-                                                            done=max_attempts_reached,
-                                                            state=problem.get_state(),
-                                                            fitness=problem.get_adjusted_fitness(),
-                                                            curve=np.asarray(fitness_curve) if curve else None,
-                                                            user_data=callback_extra_data)
+                continue_iterating = state_fitness_callback(
+                    iteration=iters,
+                    attempt=None,
+                    done=max_attempts_reached,
+                    state=problem.get_state(),
+                    fitness=problem.get_adjusted_fitness(),
+                    curve=np.asarray(fitness_curve) if curve else None,
+                    user_data=callback_extra_data,
+                )
                 # break out if requested
                 if not continue_iterating:
                     break
@@ -140,7 +144,7 @@ def hill_climb(problem: Any,
         if not continue_iterating:
             break
 
-    best_fitness = problem.get_maximize()*best_fitness
+    best_fitness = problem.get_maximize() * best_fitness
 
     if curve:
         return best_state, best_fitness, np.asarray(best_fitness_curve)

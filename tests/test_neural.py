@@ -58,12 +58,7 @@ class TestNeural:
 
     def test_gradient_descent(self):
         """Test gradient_descent function"""
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [4, 2, 1]
@@ -80,12 +75,7 @@ class TestNeural:
     def test_gradient_descent_iter1(self):
         """Test gradient_descent function gets the correct answer after a
         single iteration"""
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [4, 2, 1]
@@ -104,12 +94,7 @@ class TestNeuralWeights:
 
     def test_evaluate_no_bias_classifier(self):
         """Test evaluate method for binary classifier with no bias term"""
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [4, 2, 1]
@@ -123,12 +108,7 @@ class TestNeuralWeights:
 
     def test_evaluate_no_bias_multi(self):
         """Test evaluate method for multivariate classifier with no bias term"""
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.array([[1, 1], [1, 0], [0, 0], [0, 0], [1, 0], [1, 1]])
 
         nodes = [4, 2, 2]
@@ -142,12 +122,7 @@ class TestNeuralWeights:
 
     def test_evaluate_no_bias_regressor(self):
         """Test evaluate method for regressor with no bias term"""
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [4, 2, 1]
@@ -161,12 +136,7 @@ class TestNeuralWeights:
 
     def test_evaluate_bias_regressor(self):
         """Test evaluate method for regressor with bias term"""
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [5, 2, 1]
@@ -180,24 +150,11 @@ class TestNeuralWeights:
 
     def test_calculate_updates(self):
         """Test calculate_updates method"""
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         nodes = [4, 2, 1]
-        fitness = NetworkWeights(
-            X,
-            y,
-            nodes,
-            activation=identity,
-            bias=False,
-            is_classifier=False,
-            learning_rate=1,
-        )
+        fitness = NetworkWeights(X, y, nodes, activation=identity, bias=False, is_classifier=False, learning_rate=1)
 
         a = list(np.arange(8) + 1)
         b = list(0.01 * (np.arange(2) + 1))
@@ -205,10 +162,7 @@ class TestNeuralWeights:
         fitness.evaluate(np.asarray(weights))
 
         updates = fitness.calculate_updates()
-        update1 = np.array([[-0.0017, -0.0034],
-                            [-0.0046, -0.0092],
-                            [-0.0052, -0.0104],
-                            [0.0014, 0.0028]])
+        update1 = np.array([[-0.0017, -0.0034], [-0.0046, -0.0092], [-0.0052, -0.0104], [0.0014, 0.0028]])
         update2 = np.array([[-3.17], [-4.18]])
 
         assert np.allclose(updates[0], update1, atol=0.001) and np.allclose(updates[1], update2, atol=0.001)
@@ -221,12 +175,7 @@ class TestNeuralNetwork:
         """Test fit method using the random hill climbing algorithm"""
         network = NeuralNetwork(hidden_nodes=[2], activation="identity", bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(10)
@@ -237,15 +186,17 @@ class TestNeuralNetwork:
 
     def test_fit_simulated_annealing(self):
         """Test fit method using the simulated_annealing algorithm"""
-        network = NeuralNetwork(hidden_nodes=[2], activation="identity", algorithm="simulated_annealing", bias=False, learning_rate=1,
-                                clip_max=1, max_attempts=100)
+        network = NeuralNetwork(
+            hidden_nodes=[2],
+            activation="identity",
+            algorithm="simulated_annealing",
+            bias=False,
+            learning_rate=1,
+            clip_max=1,
+            max_attempts=100,
+        )
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(10)
@@ -256,15 +207,11 @@ class TestNeuralNetwork:
 
     def test_fit_genetic_alg(self):
         """Test fit method using the genetic_alg algorithm"""
-        network = NeuralNetwork(hidden_nodes=[2], activation="identity", algorithm="genetic_alg", bias=False, learning_rate=1, clip_max=1,
-                                max_attempts=100)
+        network = NeuralNetwork(
+            hidden_nodes=[2], activation="identity", algorithm="genetic_alg", bias=False, learning_rate=1, clip_max=1, max_attempts=100
+        )
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         network.fit(X, y)
@@ -274,15 +221,11 @@ class TestNeuralNetwork:
 
     def test_fit_gradient_descent(self):
         """Test fit method using the gradient_descent algorithm"""
-        network = NeuralNetwork(hidden_nodes=[2], activation="identity", algorithm="gradient_descent", bias=False, learning_rate=1,
-                                clip_max=1, max_attempts=100)
+        network = NeuralNetwork(
+            hidden_nodes=[2], activation="identity", algorithm="gradient_descent", bias=False, learning_rate=1, clip_max=1, max_attempts=100
+        )
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(10)
@@ -295,22 +238,12 @@ class TestNeuralNetwork:
         """Test predict method with no bias term"""
         network = NeuralNetwork(hidden_nodes=[2], activation="identity", bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         network.fitted_weights = np.array([0.2, 0.5, 0.3, 0.4, 0.4, 0.3, 0.5, 0.2, -1, 1, 1, -1])
         network.node_list = [4, 2, 2]
         network.output_activation = softmax
 
-        probs = np.array([[0.40131, 0.59869],
-                          [0.5, 0.5],
-                          [0.5, 0.5],
-                          [0.5, 0.5],
-                          [0.31003, 0.68997],
-                          [0.64566, 0.35434]])
+        probs = np.array([[0.40131, 0.59869], [0.5, 0.5], [0.5, 0.5], [0.5, 0.5], [0.31003, 0.68997], [0.64566, 0.35434]])
         labels = np.array([[0, 1], [1, 0], [1, 0], [1, 0], [0, 1], [1, 0]])
 
         assert np.array_equal(network.predict(X), labels) and np.allclose(network.predicted_probs, probs, atol=0.0001)
@@ -319,48 +252,51 @@ class TestNeuralNetwork:
         """Test predict method with bias term"""
         network = NeuralNetwork(hidden_nodes=[2], activation="identity", learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
 
         network.fitted_weights = np.array([0.2, 0.5, 0.3, 0.4, 0.4, 0.3, 0.5, 0.2, 1, -1, -0.1, 0.1, 0.1, -0.1])
         network.node_list = [5, 2, 2]
         network.output_activation = softmax
 
-        probs = np.array([[0.39174, 0.60826],
-                          [0.40131, 0.59869],
-                          [0.40131, 0.59869],
-                          [0.40131, 0.59869],
-                          [0.38225, 0.61775],
-                          [0.41571, 0.58419]])
+        probs = np.array(
+            [[0.39174, 0.60826], [0.40131, 0.59869], [0.40131, 0.59869], [0.40131, 0.59869], [0.38225, 0.61775], [0.41571, 0.58419]]
+        )
         labels = np.array([[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]])
 
         assert np.array_equal(network.predict(X), labels) and np.allclose(network.predicted_probs, probs, atol=0.0001)
 
     def test_learning_curve(self):
         """Test scikit-learn learning curve method."""
-        network = NeuralNetwork(hidden_nodes=[2], activation="identity", algorithm="simulated_annealing", curve=True, learning_rate=1,
-                                clip_max=1, max_attempts=100)
+        network = NeuralNetwork(
+            hidden_nodes=[2],
+            activation="identity",
+            algorithm="simulated_annealing",
+            curve=True,
+            learning_rate=1,
+            clip_max=1,
+            max_attempts=100,
+        )
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 1, 0],
-                      [1, 1, 0, 1],
-                      [1, 0, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0],
-                      [1, 1, 1, 0],
-                      [0, 1, 1, 0],
-                      [0, 0, 0, 1],
-                      [1, 1, 0, 0],
-                      [0, 1, 1, 1],
-                      [1, 0, 1, 0],
-                      [1, 1, 1, 1],
-                      [0, 0, 0, 0],
-                      [0, 1, 0, 0],
-                      [1, 0, 0, 1]])
+        X = np.array(
+            [
+                [0, 1, 0, 1],
+                [0, 0, 1, 0],
+                [1, 1, 0, 1],
+                [1, 0, 1, 1],
+                [0, 0, 1, 1],
+                [1, 0, 0, 0],
+                [1, 1, 1, 0],
+                [0, 1, 1, 0],
+                [0, 0, 0, 1],
+                [1, 1, 0, 0],
+                [0, 1, 1, 1],
+                [1, 0, 1, 0],
+                [1, 1, 1, 1],
+                [0, 0, 0, 0],
+                [0, 1, 0, 0],
+                [1, 0, 0, 1],
+            ]
+        )
         y = np.array([1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0])
 
         train_sizes = [0.5, 1.0]
@@ -377,12 +313,7 @@ class TestLinearRegression:
         """Test fit method using the random hill climbing algorithm"""
         network = LinearRegression(bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(4)
@@ -393,20 +324,9 @@ class TestLinearRegression:
 
     def test_fit_simulated_annealing(self):
         """Test fit method using the simulated_annealing algorithm"""
-        network = LinearRegression(
-            algorithm="simulated_annealing",
-            bias=False,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LinearRegression(algorithm="simulated_annealing", bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(4)
@@ -417,20 +337,9 @@ class TestLinearRegression:
 
     def test_fit_genetic_alg(self):
         """Test fit method using the genetic_alg algorithm"""
-        network = LinearRegression(
-            algorithm="genetic_alg",
-            bias=False,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LinearRegression(algorithm="genetic_alg", bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         network.fit(X, y)
@@ -442,12 +351,7 @@ class TestLinearRegression:
         """Test fit method using the gradient_descent algorithm"""
         network = LinearRegression(algorithm="gradient_descent", bias=False, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(4)
@@ -460,12 +364,7 @@ class TestLinearRegression:
         """Test predict method with no bias term"""
         network = LinearRegression(bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
 
         network.fitted_weights = np.ones(4)
         network.node_list = [4, 1]
@@ -479,12 +378,7 @@ class TestLinearRegression:
         """Test predict method with bias term"""
         network = LinearRegression(learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
 
         network.fitted_weights = np.ones(5)
         network.node_list = [5, 1]
@@ -502,12 +396,7 @@ class TestLogisticRegression:
         """Test fit method using the random hill climbing algorithm"""
         network = LogisticRegression(bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(4)
@@ -518,20 +407,9 @@ class TestLogisticRegression:
 
     def test_fit_simulated_annealing(self):
         """Test fit method using the simulated_annealing algorithm"""
-        network = LogisticRegression(
-            algorithm="simulated_annealing",
-            bias=False,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LogisticRegression(algorithm="simulated_annealing", bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(4)
@@ -542,20 +420,9 @@ class TestLogisticRegression:
 
     def test_fit_genetic_alg(self):
         """Test fit method using the genetic_alg algorithm"""
-        network = LogisticRegression(
-            algorithm="genetic_alg",
-            bias=False,
-            learning_rate=1,
-            clip_max=1,
-            max_attempts=100,
-        )
+        network = LogisticRegression(algorithm="genetic_alg", bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         network.fit(X, y)
@@ -567,12 +434,7 @@ class TestLogisticRegression:
         """Test fit method using the gradient_descent algorithm"""
         network = LogisticRegression(algorithm="gradient_descent", bias=False, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
         y = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
 
         weights = np.ones(4)
@@ -585,12 +447,7 @@ class TestLogisticRegression:
         """Test predict method with no bias term"""
         network = LogisticRegression(bias=False, learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
 
         network.fitted_weights = np.array([-1, 1, 1, 1])
         network.node_list = [4, 1]
@@ -605,12 +462,7 @@ class TestLogisticRegression:
         """Test predict method with bias term"""
         network = LogisticRegression(learning_rate=1, clip_max=1, max_attempts=100)
 
-        X = np.array([[0, 1, 0, 1],
-                      [0, 0, 0, 0],
-                      [1, 1, 1, 1],
-                      [1, 1, 1, 1],
-                      [0, 0, 1, 1],
-                      [1, 0, 0, 0]])
+        X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
 
         network.fitted_weights = np.array([-1, 1, 1, 1, -1])
         network.node_list = [5, 1]

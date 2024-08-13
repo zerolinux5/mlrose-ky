@@ -6,12 +6,12 @@
 import numpy as np
 
 
-def flatten_weights(weights):
+def flatten_weights(weights: list) -> np.ndarray:
     """Flatten list of weights arrays into a 1D array.
 
     Parameters
     ----------
-    weights: list of arrays
+    weights: list
         List of 2D arrays for flattening.
 
     Returns
@@ -29,7 +29,7 @@ def flatten_weights(weights):
     return flat_weights
 
 
-def unflatten_weights(flat_weights, node_list):
+def unflatten_weights(flat_weights: np.ndarray, node_list: list) -> list:
     """Convert 1D weights array into list of 2D arrays.
 
     Parameters
@@ -43,12 +43,12 @@ def unflatten_weights(flat_weights, node_list):
 
     Returns
     -------
-    weights: list of arrays
+    weights: list
         List of 2D arrays created from flat_weights.
     """
     nodes = 0
     for i in range(len(node_list) - 1):
-        nodes += node_list[i]*node_list[i + 1]
+        nodes += node_list[i] * node_list[i + 1]
 
     if len(flat_weights) != nodes:
         raise Exception("""flat_weights must have length %d""" % (nodes,))
@@ -57,8 +57,8 @@ def unflatten_weights(flat_weights, node_list):
     start = 0
 
     for i in range(len(node_list) - 1):
-        end = start + node_list[i]*node_list[i + 1]
-        weights.append(np.reshape(flat_weights[start:end], [node_list[i], node_list[i+1]]))
+        end = start + node_list[i] * node_list[i + 1]
+        weights.append(np.reshape(flat_weights[start:end], [node_list[i], node_list[i + 1]]))
         start = end
 
     return weights
@@ -118,7 +118,7 @@ def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf, init_s
     attempts = 0
     iters = 0
 
-    best_fitness = problem.get_maximize()*problem.get_fitness()
+    best_fitness = problem.get_maximize() * problem.get_fitness()
     best_state = problem.get_state()
 
     while (attempts < max_attempts) and (iters < max_iters):
@@ -135,8 +135,8 @@ def gradient_descent_original(problem, max_attempts=10, max_iters=np.inf, init_s
         else:
             attempts += 1
 
-        if next_fitness > problem.get_maximize()*best_fitness:
-            best_fitness = problem.get_maximize()*next_fitness
+        if next_fitness > problem.get_maximize() * best_fitness:
+            best_fitness = problem.get_maximize() * next_fitness
             best_state = next_state
 
         if curve:

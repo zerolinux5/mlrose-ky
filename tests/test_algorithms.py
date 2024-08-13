@@ -13,8 +13,7 @@ except ImportError:
     sys.path.append("..")
     import mlrose_hiive
 
-from mlrose_hiive import (OneMax, DiscreteOpt, ContinuousOpt, hill_climb,
-                          random_hill_climb, simulated_annealing, genetic_alg, mimic)
+from mlrose_hiive import OneMax, DiscreteOpt, ContinuousOpt, hill_climb, random_hill_climb, simulated_annealing, genetic_alg, mimic
 
 SEED = 12
 

@@ -11,7 +11,7 @@ import numpy as np
 warnings.filterwarnings("ignore")
 
 
-@short_name('relu')
+@short_name("relu")
 def relu(x, deriv=False):
     """ReLU activation function
 

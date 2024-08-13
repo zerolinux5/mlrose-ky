@@ -18,15 +18,12 @@ class SyntheticData:
 
     @staticmethod
     def get_synthetic_features_and_classes(with_redundant_column=False):
-        features = [
-            '(1) A',
-            '(2) B',
-        ]
+        features = ["(1) A", "(2) B"]
         if with_redundant_column:
-            features.append('(3) R')
+            features.append("(3) R")
 
         # classes = ['EVEN', 'ODD']
-        classes = ['RED', 'BLUE']
+        classes = ["RED", "BLUE"]
         return features, classes
 
     def get_synthetic_data(self, x_dim=20, y_dim=20, add_noise=0.0, add_redundant_column=False):
@@ -35,8 +32,10 @@ class SyntheticData:
 
         output = None
         if self.root_directory is not None:
-            output = (self.root_directory + f'/synthetic__sz_{x_dim*y_dim}__n_{1 if add_noise else 0}__rc_{add_redundant_column}/'.lower()
-                      .replace('.', '_'))
+            output = (
+                self.root_directory
+                + f"/synthetic__sz_{x_dim*y_dim}__n_{1 if add_noise else 0}__rc_{add_redundant_column}/".lower().replace(".", "_")
+            )
             try:
                 makedirs(output)
             except OSError:
@@ -48,10 +47,7 @@ class SyntheticData:
         x = np.array(data[:, 0:-1])
         y = np.array(data[:, -1])
 
-        x_tr, x_ts, y_tr, y_ts = train_test_split(x, y,
-                                                  test_size=test_size,
-                                                  random_state=self.seed,
-                                                  stratify=y)
+        x_tr, x_ts, y_tr, y_ts = train_test_split(x, y, test_size=test_size, random_state=self.seed, stratify=y)
 
         # Normalize
         s = MinMaxScaler()
@@ -97,7 +93,7 @@ class SyntheticData:
                 xy = y + y_dim * x
                 abrc = data[xy]
                 r = np.random.random(1)[0]
-                data[xy] = [x, y, r, 1-abrc[-1]]
+                data[xy] = [x, y, r, 1 - abrc[-1]]
 
             # duplicate some rows and randomly flip the data for those rows
             for i in range(0, noise_count * 2):
@@ -109,16 +105,16 @@ class SyntheticData:
                 abrc = data[xy]
                 vo = abrc[-1]
                 ro = abrc[-2]
-                data.append([x, y, ro, vo if r < 0.5 else 1-vo])
+                data.append([x, y, ro, vo if r < 0.5 else 1 - vo])
 
         df = pd.DataFrame.from_records(data)
         df.rename(columns={0: "A", 1: "B", 2: "R", 3: "C"}, errors="raise", inplace=True)
         if not add_redundant_column:
-            df.drop(columns=['R'], inplace=True)
+            df.drop(columns=["R"], inplace=True)
         return df
 
 
-def plot_synthetic_dataset(x_train, x_test, y_train, y_test, classifier=None, transparent_bg=False, bg_color='white'):
+def plot_synthetic_dataset(x_train, x_test, y_train, y_test, classifier=None, transparent_bg=False, bg_color="white"):
     # Plot the decision boundary. For that, we will assign a color to each point in the mesh [x_min, m_max] X [y_min, y_max].
     o = 0.05
     x_min_train, x_max_train = x_train[:, 0].min() - o, x_train[:, 0].max() + o
@@ -132,19 +128,16 @@ def plot_synthetic_dataset(x_train, x_test, y_train, y_test, classifier=None, tr
 
     has_3_columns = x_train.shape[1] == 3
 
-    h = .02
+    h = 0.02
     rr = None
     if has_3_columns:
-        xx, yy, rr = np.meshgrid(np.arange(x_min, x_max, h),
-                                 np.arange(y_min, y_max, h),
-                                 np.arange(0, 1, h))
+        xx, yy, rr = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h), np.arange(0, 1, h))
     else:
-        xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-                             np.arange(y_min, y_max, h))
+        xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 
     # Plot the dataset first
-    cm = plt.get_cmap('RdBu')
-    cm_bright = mpl.ListedColormap(['#FF0000', '#0000FF'])
+    cm = plt.get_cmap("RdBu")
+    cm_bright = mpl.ListedColormap(["#FF0000", "#0000FF"])
 
     ax = plt.gca()
     if classifier is not None:
@@ -160,11 +153,11 @@ def plot_synthetic_dataset(x_train, x_test, y_train, y_test, classifier=None, tr
             xx = xx[:, :, 0]
             yy = yy[:, :, 0]
             Z = Z.mean(axis=2)
-        ax.contourf(xx, yy, Z, cmap=cm, alpha=.8)
+        ax.contourf(xx, yy, Z, cmap=cm, alpha=0.8)
 
     # Plot the training and testing points
-    ax.scatter(x_train[:, 0], x_train[:, 1], c=y_train, cmap=cm_bright, edgecolor='darkgreen')
-    ax.scatter(x_test[:, 0], x_test[:, 1], c=y_test, cmap=cm_bright, edgecolor='white', alpha=0.6)
+    ax.scatter(x_train[:, 0], x_train[:, 1], c=y_train, cmap=cm_bright, edgecolor="darkgreen")
+    ax.scatter(x_test[:, 0], x_test[:, 1], c=y_test, cmap=cm_bright, edgecolor="white", alpha=0.6)
 
     ax.patch.set_facecolor(bg_color)
     if transparent_bg:

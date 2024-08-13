@@ -96,22 +96,25 @@ class NeuralNetwork(_NNCore, ClassifierMixin):
         Numpy array giving the fitness at each training iteration.
     """
 
-    def __init__(self, hidden_nodes=None,
-                 activation='relu',
-                 algorithm='random_hill_climb',
-                 max_iters=100,
-                 bias=True,
-                 is_classifier=True,
-                 learning_rate=0.1,
-                 early_stopping=False,
-                 clip_max=1e+10,
-                 restarts=0,
-                 schedule=GeometricDecay(),
-                 pop_size=200,
-                 mutation_prob=0.1,
-                 max_attempts=10,
-                 random_state=None,
-                 curve=False):
+    def __init__(
+        self,
+        hidden_nodes=None,
+        activation="relu",
+        algorithm="random_hill_climb",
+        max_iters=100,
+        bias=True,
+        is_classifier=True,
+        learning_rate=0.1,
+        early_stopping=False,
+        clip_max=1e10,
+        restarts=0,
+        schedule=GeometricDecay(),
+        pop_size=200,
+        mutation_prob=0.1,
+        max_attempts=10,
+        random_state=None,
+        curve=False,
+    ):
         super().__init__(
             hidden_nodes=hidden_nodes,
             activation=activation,
@@ -128,4 +131,5 @@ class NeuralNetwork(_NNCore, ClassifierMixin):
             mutation_prob=mutation_prob,
             max_attempts=max_attempts,
             random_state=random_state,
-            curve=curve)
+            curve=curve,
+        )

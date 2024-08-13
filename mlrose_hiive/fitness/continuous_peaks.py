@@ -39,7 +39,7 @@ class ContinuousPeaks:
 
     def __init__(self, threshold_percentage: float = 0.1) -> None:
         self.threshold_percentage: float = threshold_percentage
-        self.problem_type: str = 'discrete'
+        self.problem_type: str = "discrete"
 
         if not (0 <= self.threshold_percentage <= 1):
             raise ValueError(f"threshold_percentage must be between 0 and 1, got {self.threshold_percentage} instead.")

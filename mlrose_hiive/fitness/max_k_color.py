@@ -62,7 +62,7 @@ class MaxKColor:
         maximize : bool, optional, default=False
             Whether to maximize or minimize the fitness function.
         """
-        self.problem_type: str = 'discrete'
+        self.problem_type: str = "discrete"
         self.maximize = maximize
         self.graph_edges: list[tuple[int, int]] | None = None
 

@@ -39,7 +39,7 @@ class Queens:
         maximize : bool, optional, default=False
             Whether to maximize or minimize the fitness function.
         """
-        self.problem_type: str = 'discrete'
+        self.problem_type: str = "discrete"
         self.maximize: bool = maximize
 
     @staticmethod
@@ -101,8 +101,8 @@ class Queens:
 
         # Generate state shifts for diagonal conflict checks
         state_shifts = np.array(
-            [self.shift(state_vector, i) + i for i in range(1 - size, size) if i != 0] +
-            [self.shift(state_vector, -i) + i for i in range(1 - size, size) if i != 0]
+            [self.shift(state_vector, i) + i for i in range(1 - size, size) if i != 0]
+            + [self.shift(state_vector, -i) + i for i in range(1 - size, size) if i != 0]
         )
 
         # Check for diagonal conflicts (queens on the same diagonal)

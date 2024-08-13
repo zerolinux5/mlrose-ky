@@ -54,9 +54,11 @@ class ArithmeticDecay:
             raise ValueError("Minimum temperature must be greater than 0 and less than initial temperature.")
 
     def __str__(self) -> str:
-        return (f'ArithmeticDecay(initial_temperature={self.initial_temperature}, '
-                f'decay_rate={self.decay_rate}, '
-                f'minimum_temperature={self.minimum_temperature})')
+        return (
+            f"ArithmeticDecay(initial_temperature={self.initial_temperature}, "
+            f"decay_rate={self.decay_rate}, "
+            f"minimum_temperature={self.minimum_temperature})"
+        )
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -64,9 +66,11 @@ class ArithmeticDecay:
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, ArithmeticDecay):
             return False
-        return (self.initial_temperature == other.initial_temperature and
-                self.decay_rate == other.decay_rate and
-                self.minimum_temperature == other.minimum_temperature)
+        return (
+            self.initial_temperature == other.initial_temperature
+            and self.decay_rate == other.decay_rate
+            and self.minimum_temperature == other.minimum_temperature
+        )
 
     def evaluate(self, time: int) -> float:
         """
@@ -85,7 +89,7 @@ class ArithmeticDecay:
         temperature = max(self.initial_temperature - (self.decay_rate * time), self.minimum_temperature)
         return temperature
 
-    def get_info(self, time: int = None, prefix: str = '') -> dict:
+    def get_info(self, time: int = None, prefix: str = "") -> dict:
         """
         Generate a dictionary containing the decay schedule's settings and optionally its current value.
 
@@ -102,16 +106,16 @@ class ArithmeticDecay:
         dict
             A dictionary with keys reflecting the decay schedule's parameters and optionally the current temperature.
         """
-        info_prefix = f'{prefix}schedule_' if prefix else 'schedule_'
+        info_prefix = f"{prefix}schedule_" if prefix else "schedule_"
 
         info = {
-            f'{info_prefix}type': 'arithmetic',
-            f'{info_prefix}initial_temperature': self.initial_temperature,
-            f'{info_prefix}decay_rate': self.decay_rate,
-            f'{info_prefix}minimum_temperature': self.minimum_temperature,
+            f"{info_prefix}type": "arithmetic",
+            f"{info_prefix}initial_temperature": self.initial_temperature,
+            f"{info_prefix}decay_rate": self.decay_rate,
+            f"{info_prefix}minimum_temperature": self.minimum_temperature,
         }
 
         if time is not None:
-            info[f'{info_prefix}current_value'] = self.evaluate(time)
+            info[f"{info_prefix}current_value"] = self.evaluate(time)
 
         return info

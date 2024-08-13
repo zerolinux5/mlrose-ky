@@ -59,7 +59,7 @@ class FourPeaks(_DiscretePeaksBase):
             Threshold parameter (T) for Four Peaks fitness function.
         """
         self.threshold_percentage: float = threshold_percentage
-        self.problem_type: str = 'discrete'
+        self.problem_type: str = "discrete"
 
         if not (0 <= self.threshold_percentage <= 1):
             raise ValueError(f"threshold_pct must be between 0 and 1, got {self.threshold_percentage}.")

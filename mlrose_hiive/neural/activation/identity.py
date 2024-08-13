@@ -7,10 +7,11 @@ from mlrose_hiive.decorators import short_name
 import numpy as np
 
 import warnings
+
 warnings.filterwarnings("ignore")
 
 
-@short_name('identity')
+@short_name("identity")
 def identity(x, deriv=False):
     """Linear activation function
 

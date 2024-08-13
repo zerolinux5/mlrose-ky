@@ -34,7 +34,7 @@ class CustomDecay:
         self.kwargs: dict = kwargs
 
     def __str__(self) -> str:
-        return f'CustomDecay(function={self.decay_function.__name__}, parameters={self.kwargs})'
+        return f"CustomDecay(function={self.decay_function.__name__}, parameters={self.kwargs})"
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -60,7 +60,7 @@ class CustomDecay:
         """
         return self.decay_function(time, **self.kwargs)
 
-    def get_info(self, time: int | None = None, prefix: str = '') -> dict:
+    def get_info(self, time: int | None = None, prefix: str = "") -> dict:
         """
         Retrieve a dictionary containing the configuration of the decay schedule and optionally the current value.
 
@@ -76,15 +76,15 @@ class CustomDecay:
         dict
             A dictionary detailing the decay schedule's settings and optionally the current temperature.
         """
-        info_prefix = f'{prefix}schedule_' if prefix else 'schedule_'
+        info_prefix = f"{prefix}schedule_" if prefix else "schedule_"
 
         info = {
-            f'{info_prefix}type': 'custom',
-            f'{info_prefix}function': self.decay_function.__name__,
-            **{f'{info_prefix}param_{key}': value for key, value in self.kwargs.items()}
+            f"{info_prefix}type": "custom",
+            f"{info_prefix}function": self.decay_function.__name__,
+            **{f"{info_prefix}param_{key}": value for key, value in self.kwargs.items()},
         }
 
         if time is not None:
-            info[f'{info_prefix}current_value'] = self.evaluate(time)
+            info[f"{info_prefix}current_value"] = self.evaluate(time)
 
         return info

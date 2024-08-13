@@ -10,11 +10,9 @@ class MaxKColorGenerator:
     """A class to generate Max-K Color optimization problems."""
 
     @staticmethod
-    def generate(seed: int,
-                 number_of_nodes: int = 20,
-                 max_connections_per_node: int = 4,
-                 max_colors: int | None = None,
-                 maximize: bool = False) -> MaxKColorOpt:
+    def generate(
+        seed: int, number_of_nodes: int = 20, max_connections_per_node: int = 4, max_colors: int | None = None, maximize: bool = False
+    ) -> MaxKColorOpt:
         """
         Generate a Max-K Color optimization problem instance.
 
@@ -73,8 +71,9 @@ class MaxKColorGenerator:
         node_connections = {}
         nodes = range(number_of_nodes)
         for node in nodes:
-            valid_other_nodes = [other for other in nodes if (
-                other != node and (other not in node_connections or node not in node_connections[other]))]
+            valid_other_nodes = [
+                other for other in nodes if (other != node and (other not in node_connections or node not in node_connections[other]))
+            ]
             count = min(node_connection_counts[node], len(valid_other_nodes))
             connected_nodes = sorted(np.random.choice(valid_other_nodes, count, replace=False))
             node_connections[node] = [(node, other) for other in connected_nodes]
@@ -84,13 +83,19 @@ class MaxKColorGenerator:
         graph.add_edges_from([edge for edges in node_connections.values() for edge in edges])
 
         for node in nodes:
-            unreachable = [(node, other) if node < other else (other, node) for other in nodes if other not in nx.bfs_tree(graph, node).nodes()]
+            unreachable = [
+                (node, other) if node < other else (other, node) for other in nodes if other not in nx.bfs_tree(graph, node).nodes()
+            ]
             for start, end in unreachable:
                 graph.add_edge(start, end)
-                remaining_unreachable = len([(node, other) if node < other else (other, node) for other in nodes if other not in nx.bfs_tree(graph, node).nodes()])
+                remaining_unreachable = len(
+                    [(node, other) if node < other else (other, node) for other in nodes if other not in nx.bfs_tree(graph, node).nodes()]
+                )
                 if remaining_unreachable == 0:
                     break
 
-        problem = MaxKColorOpt(edges=list(graph.edges()), length=number_of_nodes, maximize=maximize, max_colors=max_colors, source_graph=graph)
+        problem = MaxKColorOpt(
+            edges=list(graph.edges()), length=number_of_nodes, maximize=maximize, max_colors=max_colors, source_graph=graph
+        )
 
         return problem

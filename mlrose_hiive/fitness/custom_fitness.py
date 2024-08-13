@@ -33,7 +33,7 @@ class CustomFitness:
     150.0
     """
 
-    def __init__(self, fitness_fn: Callable[..., float], problem_type: str = 'either', **kwargs: Any):
+    def __init__(self, fitness_fn: Callable[..., float], problem_type: str = "either", **kwargs: Any):
         """
         Initialize the CustomFitness class.
 
@@ -55,7 +55,7 @@ class CustomFitness:
         ValueError
             If `problem_type` is not one of ['discrete', 'continuous', 'tsp', 'either'].
         """
-        if problem_type not in ['discrete', 'continuous', 'tsp', 'either']:
+        if problem_type not in ["discrete", "continuous", "tsp", "either"]:
             raise ValueError(f"Invalid problem_type: {problem_type}. Must be one of ['discrete', 'continuous', 'tsp', 'either'].")
 
         self.fitness_fn: Callable[..., float] = fitness_fn

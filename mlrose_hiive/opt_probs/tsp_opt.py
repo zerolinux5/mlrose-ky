@@ -42,13 +42,13 @@ class TSPOpt(DiscreteOpt):
         considered to be the same. If a pair is missing from the list, it is
         assumed that travel between the two nodes is not possible. This
         argument is ignored if fitness_fn or coords is not :code:`None`.
+
+    source_graph: networkx.Graph, default: None
     """
 
-    def __init__(self, length=None, fitness_fn=None, maximize=False, coords: list = None,
-                 distances: list[tuple] = None, source_graph=None):
+    def __init__(self, length=None, fitness_fn=None, maximize=False, coords: list = None, distances: list[tuple] = None, source_graph=None):
         if (fitness_fn is None) and (coords is None) and (distances is None):
-            raise Exception("""At least one of fitness_fn, coords and"""
-                            + """ distances must be specified.""")
+            raise Exception("""At least one of fitness_fn, coords and""" + """ distances must be specified.""")
         elif fitness_fn is None:
             fitness_fn = TravellingSalesperson(coords=coords, distances=distances)
         self.distances: list[tuple] = distances
@@ -59,14 +59,15 @@ class TSPOpt(DiscreteOpt):
             elif distances is not None:
                 length = len(set([x for (x, _, _) in distances] + [x for (_, x, _) in distances]))
         self.length: int = length
-        DiscreteOpt.__init__(self, length, fitness_fn, maximize, max_val=length,
-                             crossover=TSPCrossover(self), mutator=GeneSwapMutator(self))
+        DiscreteOpt.__init__(
+            self, length, fitness_fn, maximize, max_val=length, crossover=TSPCrossover(self), mutator=GeneSwapMutator(self)
+        )
 
-        if self.fitness_fn.get_problem_type() != 'tsp':
+        if self.fitness_fn.get_problem_type() != "tsp":
             raise Exception("""fitness_fn must have problem type 'tsp'.""")
 
         self.source_graph = source_graph
-        self.prob_type = 'tsp'
+        self.prob_type = "tsp"
 
     @staticmethod
     def adjust_probs(probs):
@@ -87,8 +88,7 @@ class TSPOpt(DiscreteOpt):
         return np.zeros(np.shape(probs)) if sp == 0 else probs / sp
 
     def find_neighbors(self):
-        """Find all neighbors of the current state.
-        """
+        """Find all neighbors of the current state."""
         self.neighbors = []
 
         for node1 in range(self.length - 1):
@@ -160,8 +160,7 @@ class TSPOpt(DiscreteOpt):
             State vector of random neighbor.
         """
         neighbor = np.copy(self.state)
-        node1, node2 = np.random.choice(np.arange(self.length),
-                                        size=2, replace=False)
+        node1, node2 = np.random.choice(np.arange(self.length), size=2, replace=False)
 
         neighbor[node1] = self.state[node2]
         neighbor[node2] = self.state[node1]

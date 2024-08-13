@@ -8,7 +8,7 @@ import numpy as np
 from sklearn.base import BaseEstimator
 
 from mlrose_hiive.neural.fitness.network_weights import NetworkWeights
-from mlrose_hiive.neural.utils import (unflatten_weights)
+from mlrose_hiive.neural.utils import unflatten_weights
 from mlrose_hiive.opt_probs import ContinuousOpt
 
 
@@ -79,31 +79,22 @@ class _NNBase(BaseEstimator, ABC):
             y = np.reshape(y, [len(y), 1])
         # Verify X and y are the same length
         if not np.shape(X)[0] == np.shape(y)[0]:
-            raise Exception('The length of X and y must be equal.')
+            raise Exception("The length of X and y must be equal.")
         return X, y
 
     @staticmethod
-    def _build_problem_and_fitness_function(X, y, node_list, activation, learning_rate,
-                                            bias, clip_max, is_classifier=True):
+    def _build_problem_and_fitness_function(X, y, node_list, activation, learning_rate, bias, clip_max, is_classifier=True):
         # Initialize optimization problem
-        fitness = NetworkWeights(X, y, node_list,
-                                 activation,
-                                 bias, is_classifier,
-                                 learning_rate=learning_rate)
+        fitness = NetworkWeights(X, y, node_list, activation, bias, is_classifier, learning_rate=learning_rate)
         num_nodes = _NNBase._calculate_state_size(node_list)
-        problem = ContinuousOpt(length=num_nodes,
-                                fitness_fn=fitness,
-                                maximize=False,
-                                min_val=-1 * clip_max,
-                                max_val=clip_max,
-                                step=learning_rate)
+        problem = ContinuousOpt(
+            length=num_nodes, fitness_fn=fitness, maximize=False, min_val=-1 * clip_max, max_val=clip_max, step=learning_rate
+        )
         return fitness, problem
 
     @staticmethod
-    def _predict(X, fitted_weights, node_list, bias, input_activation, output_activation,
-                 is_classifier=True):
-
-        weights = unflatten_weights(fitted_weights, node_list)
+    def _predict(X, fitted_weights, node_list, bias, input_activation, output_activation, is_classifier=True):
+        weights = list(unflatten_weights(fitted_weights, node_list))
 
         # Add bias column to inputs matrix, if required
         if bias:

@@ -27,7 +27,7 @@ class FlipFlop:
 
     def __init__(self):
         """Initialize the Flip Flop fitness function."""
-        self.problem_type: str = 'discrete'
+        self.problem_type: str = "discrete"
 
     @staticmethod
     def evaluate(state_vector: np.ndarray) -> float:

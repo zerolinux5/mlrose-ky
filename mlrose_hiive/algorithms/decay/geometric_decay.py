@@ -54,9 +54,11 @@ class GeometricDecay:
             raise ValueError("Minimum temperature must be greater than 0 and less than initial temperature.")
 
     def __str__(self) -> str:
-        return (f'GeometricDecay(initial_temperature={self.initial_temperature}, '
-                f'decay_rate={self.decay_rate}, '
-                f'minimum_temperature={self.minimum_temperature})')
+        return (
+            f"GeometricDecay(initial_temperature={self.initial_temperature}, "
+            f"decay_rate={self.decay_rate}, "
+            f"minimum_temperature={self.minimum_temperature})"
+        )
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -64,9 +66,11 @@ class GeometricDecay:
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, GeometricDecay):
             return False
-        return (self.initial_temperature == other.initial_temperature and
-                self.decay_rate == other.decay_rate and
-                self.minimum_temperature == other.minimum_temperature)
+        return (
+            self.initial_temperature == other.initial_temperature
+            and self.decay_rate == other.decay_rate
+            and self.minimum_temperature == other.minimum_temperature
+        )
 
     def evaluate(self, time: int) -> float:
         """
@@ -82,10 +86,10 @@ class GeometricDecay:
         float
             The temperature parameter at the given time, respecting the minimum temperature.
         """
-        temperature = max(self.initial_temperature * (self.decay_rate ** time), self.minimum_temperature)
+        temperature = max(self.initial_temperature * (self.decay_rate**time), self.minimum_temperature)
         return temperature
 
-    def get_info(self, time: int | None = None, prefix: str = '') -> dict:
+    def get_info(self, time: int | None = None, prefix: str = "") -> dict:
         """
         Retrieve a dictionary containing the configuration and optionally the current value of the decay schedule.
 
@@ -101,16 +105,16 @@ class GeometricDecay:
         dict
             A dictionary detailing the decay schedule settings and optionally the current temperature.
         """
-        info_prefix = f'{prefix}schedule_' if prefix else 'schedule_'
+        info_prefix = f"{prefix}schedule_" if prefix else "schedule_"
 
         info = {
-            f'{info_prefix}type': 'geometric',
-            f'{info_prefix}initial_temperature': self.initial_temperature,
-            f'{info_prefix}decay_rate': self.decay_rate,
-            f'{info_prefix}minimum_temperature': self.minimum_temperature,
+            f"{info_prefix}type": "geometric",
+            f"{info_prefix}initial_temperature": self.initial_temperature,
+            f"{info_prefix}decay_rate": self.decay_rate,
+            f"{info_prefix}minimum_temperature": self.minimum_temperature,
         }
 
         if time is not None:
-            info[f'{info_prefix}current_value'] = self.evaluate(time)
+            info[f"{info_prefix}current_value"] = self.evaluate(time)
 
         return info

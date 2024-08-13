@@ -32,7 +32,7 @@ class OptProb:
         else:
             self.length = length
 
-        self.state = np.array([0]*self.length)
+        self.state = np.array([0] * self.length)
         self.neighbors = []
         self.fitness_fn = fitness_fn
         self.fitness = 0
@@ -95,7 +95,7 @@ class OptProb:
         if len(state) != self.length:
             raise Exception("state length must match problem length")
 
-        fitness = self.maximize*self.fitness_fn.evaluate(state)
+        fitness = self.maximize * self.fitness_fn.evaluate(state)
         # increment fevals for the current iteration
         self.fitness_evaluations += 1
         return fitness
@@ -108,7 +108,7 @@ class OptProb:
 
         # Set -1*inf values to 0 to avoid dividing by sum of infinity.
         # This forces mate_probs for these pop members to 0.
-        pop_fitness[pop_fitness == -1.0*np.inf] = 0
+        pop_fitness[pop_fitness == -1.0 * np.inf] = 0
 
         # account for maximize = False
         if self.maximize == -1:
@@ -117,10 +117,10 @@ class OptProb:
         if np.sum(pop_fitness) == 0:
             self.mate_probs = np.ones(len(pop_fitness)) / len(pop_fitness)
         else:
-            self.mate_probs = pop_fitness/np.sum(pop_fitness)
+            self.mate_probs = pop_fitness / np.sum(pop_fitness)
 
     def get_fitness(self):
-        """ Return the fitness of the current state vector.
+        """Return the fitness of the current state vector.
 
         Returns
         -------
@@ -130,7 +130,7 @@ class OptProb:
         return self.fitness
 
     def get_adjusted_fitness(self):
-        """ Return maximization factor * fitness of the current state vector.
+        """Return maximization factor * fitness of the current state vector.
 
         Returns
         -------
@@ -140,7 +140,7 @@ class OptProb:
         return self.maximize * self.fitness
 
     def get_length(self):
-        """ Return the state vector length.
+        """Return the state vector length.
 
         Returns
         -------
@@ -150,7 +150,7 @@ class OptProb:
         return self.length
 
     def get_mate_probs(self):
-        """ Return the population mate probabilities.
+        """Return the population mate probabilities.
 
         Returns
         -------
@@ -161,7 +161,7 @@ class OptProb:
         return self.mate_probs
 
     def get_maximize(self):
-        """ Return the maximization multiplier.
+        """Return the maximization multiplier.
 
         Returns
         -------
@@ -171,7 +171,7 @@ class OptProb:
         return self.maximize
 
     def get_pop_fitness(self):
-        """ Return the current population fitness array.
+        """Return the current population fitness array.
 
         Returns
         -------
@@ -182,7 +182,7 @@ class OptProb:
         return self.pop_fitness
 
     def get_population(self):
-        """ Return the current population.
+        """Return the current population.
 
         Returns
         -------
@@ -192,7 +192,7 @@ class OptProb:
         return self.population
 
     def get_state(self):
-        """ Return the current state vector.
+        """Return the current state vector.
 
         Returns
         -------
@@ -202,7 +202,7 @@ class OptProb:
         return self.state
 
     def set_population(self, new_population):
-        """ Change the current population to a specified new population and get
+        """Change the current population to a specified new population and get
         the fitness of all members.
 
         Parameters

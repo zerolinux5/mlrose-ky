@@ -23,7 +23,7 @@ class NetworkWeights:
         Numpy array containing true values of data labels.
         Length must be same as length of X.
 
-    node_list: list of ints
+    node_list: list[int]
         Number of nodes in each layer, including the input and output layers.
 
     activation: callable
@@ -39,8 +39,7 @@ class NetworkWeights:
         classification and False for regression.
     """
 
-    def __init__(self, X, y, node_list, activation, bias=True,
-                 is_classifier=True, learning_rate=0.1):
+    def __init__(self, X, y, node_list: list[int], activation, bias=True, is_classifier=True, learning_rate=0.1):
 
         # Make sure y is an array and not a list
         y = np.array(y)
@@ -57,12 +56,10 @@ class NetworkWeights:
             raise Exception("""node_list must contain at least 2 elements.""")
 
         if not np.shape(X)[1] == (node_list[0] - bias):
-            raise Exception("""The number of columns in X must equal %d"""
-                            % ((node_list[0] - bias),))
+            raise Exception("""The number of columns in X must equal %d""" % ((node_list[0] - bias),))
 
         if not np.shape(y)[1] == node_list[-1]:
-            raise Exception("""The number of columns in y must equal %d"""
-                            % (node_list[-1],))
+            raise Exception("""The number of columns in y must equal %d""" % (node_list[-1],))
 
         if not isinstance(bias, bool):
             raise Exception("""bias must be True or False.""")
@@ -96,11 +93,11 @@ class NetworkWeights:
         self.inputs_list = []
         self.y_pred = y
         self.weights = []
-        self.prob_type = 'continuous'
+        self.prob_type = "continuous"
 
         nodes = 0
         for i in range(len(node_list) - 1):
-            nodes += node_list[i]*node_list[i + 1]
+            nodes += node_list[i] * node_list[i + 1]
 
         self.nodes = nodes
 
@@ -121,7 +118,7 @@ class NetworkWeights:
             raise Exception("""state must have length %d""" % (self.nodes,))
 
         self.inputs_list = []
-        self.weights = unflatten_weights(state, self.node_list)
+        self.weights: list = list(unflatten_weights(state, self.node_list))
 
         # Add bias column to inputs matrix, if required
         if self.bias:
@@ -149,7 +146,7 @@ class NetworkWeights:
         return fitness
 
     def get_output_activation(self):
-        """ Return the activation function for the output layer.
+        """Return the activation function for the output layer.
 
         Returns
         -------
@@ -159,7 +156,7 @@ class NetworkWeights:
         return self.output_activation
 
     def get_problem_type(self):
-        """ Return the problem type.
+        """Return the problem type.
 
         Returns
         -------
@@ -181,21 +178,20 @@ class NetworkWeights:
         updates_list = []
 
         # Work backwards from final layer
-        for i in range(len(self.inputs_list)-1, -1, -1):
+        for i in range(len(self.inputs_list) - 1, -1, -1):
             # Final layer
-            if i == len(self.inputs_list)-1:
-                delta = (self.y_pred - self.y_true)
+            if i == len(self.inputs_list) - 1:
+                delta = self.y_pred - self.y_true
             # Hidden layers
             else:
-                dot = np.dot(delta_list[-1], np.transpose(self.weights[i+1]))
-                activation = self.activation(self.inputs_list[i+1], deriv=True)
+                dot = np.dot(delta_list[-1], np.transpose(self.weights[i + 1]))
+                activation = self.activation(self.inputs_list[i + 1], deriv=True)
                 delta = dot * activation
 
             delta_list.append(delta)
 
             # Calculate updates
-            updates = (-1.0 * self.learning_rate *
-                       np.dot(np.transpose(self.inputs_list[i]), delta))
+            updates = -1.0 * self.learning_rate * np.dot(np.transpose(self.inputs_list[i]), delta)
 
             updates_list.append(updates)
 

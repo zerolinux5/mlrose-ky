@@ -3,8 +3,10 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
-import numpy as np
 from typing import Callable, Any
+
+import numpy as np
+
 from mlrose_hiive.decorators import short_name
 
 
@@ -46,9 +48,12 @@ def _get_hamming_distance_float(population: np.ndarray, p1: np.ndarray) -> np.nd
     return np.array([np.abs(p1 - p2) / len(p1) for p2 in population])
 
 
-def _genetic_alg_select_parents(pop_size: int, problem: Any,
-                                get_hamming_distance_func: Callable[[np.ndarray, np.ndarray], np.ndarray],
-                                hamming_factor: float = 0.0) -> tuple[np.ndarray, np.ndarray]:
+def _genetic_alg_select_parents(
+    pop_size: int,
+    problem: Any,
+    get_hamming_distance_func: Callable[[np.ndarray, np.ndarray], np.ndarray] | None,
+    hamming_factor: float = 0.0,
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Select parents for the next generation in the genetic algorithm.
 
@@ -92,22 +97,24 @@ def _genetic_alg_select_parents(pop_size: int, problem: Any,
     return p1, p2
 
 
-@short_name('ga')
-def genetic_alg(problem: Any,
-                pop_size: int = 200,
-                pop_breed_percent: float = 0.75,
-                elite_dreg_ratio: float = 0.99,
-                minimum_elites: int = 0,
-                minimum_dregs: int = 0,
-                mutation_prob: float = 0.1,
-                max_attempts: int = 10,
-                max_iters: int | float = np.inf,
-                curve: bool = False,
-                random_state: int = None,
-                state_fitness_callback: Callable[..., Any] = None,
-                callback_user_info: Any = None,
-                hamming_factor: float = 0.0,
-                hamming_decay_factor: float = None) -> tuple[np.ndarray, float, np.ndarray]:
+@short_name("ga")
+def genetic_alg(
+    problem: Any,
+    pop_size: int = 200,
+    pop_breed_percent: float = 0.75,
+    elite_dreg_ratio: float = 0.99,
+    minimum_elites: int = 0,
+    minimum_dregs: int = 0,
+    mutation_prob: float = 0.1,
+    max_attempts: int = 10,
+    max_iters: int | float = np.inf,
+    curve: bool = False,
+    random_state: int = None,
+    state_fitness_callback: Callable[..., Any] = None,
+    callback_user_info: Any = None,
+    hamming_factor: float = 0.0,
+    hamming_decay_factor: float = None,
+) -> tuple[np.ndarray, float, np.ndarray]:
     """
     Use a standard genetic algorithm to find the optimum for a given optimization problem.
 
@@ -119,7 +126,7 @@ def genetic_alg(problem: Any,
         Size of population to be used in genetic algorithm.
     pop_breed_percent : float, default 0.75
         Percentage of population to breed in each iteration.
-        The remainder of the population will be filled from the elite and dregs of the prior generation in a ratio specified by elite_dreg_ratio.
+        The remainder of the pop will be filled from the elite and dregs of the prior generation in a ratio specified by elite_dreg_ratio.
     elite_dreg_ratio : float, default:0.95
         The ratio of elites:dregs added directly to the next generation.
         For the default value, 95% of the added population will be elites, 5% will be dregs.
@@ -188,16 +195,18 @@ def genetic_alg(problem: Any,
     problem.random_pop(pop_size)
     if state_fitness_callback is not None:
         # initial call with base data
-        state_fitness_callback(iteration=0,
-                               state=problem.get_state(),
-                               fitness=problem.get_adjusted_fitness(),
-                               fitness_evaluations=problem.fitness_evaluations,
-                               user_data=callback_user_info)
+        state_fitness_callback(
+            iteration=0,
+            state=problem.get_state(),
+            fitness=problem.get_adjusted_fitness(),
+            fitness_evaluations=problem.fitness_evaluations,
+            user_data=callback_user_info,
+        )
 
-    get_hamming_distance_func: Callable[[np.ndarray, np.ndarray], np.ndarray] = None
+    get_hamming_distance_func: Callable[[np.ndarray, np.ndarray], np.ndarray] | None = None
     if hamming_factor > 0:
         g1 = problem.get_population()[0][0]
-        if isinstance(g1, float) or g1.dtype == 'float64':
+        if isinstance(g1, float) or g1.dtype == "float64":
             get_hamming_distance_func = _get_hamming_distance_float
         else:
             get_hamming_distance_func = _get_hamming_distance_default
@@ -225,10 +234,9 @@ def genetic_alg(problem: Any,
         next_gen = []
         for _ in range(breeding_pop_size):
             # Select parents
-            parent_1, parent_2 = _genetic_alg_select_parents(pop_size=pop_size,
-                                                             problem=problem,
-                                                             hamming_factor=hamming_factor,
-                                                             get_hamming_distance_func=get_hamming_distance_func)
+            parent_1, parent_2 = _genetic_alg_select_parents(
+                pop_size=pop_size, problem=problem, hamming_factor=hamming_factor, get_hamming_distance_func=get_hamming_distance_func
+            )
 
             # Create offspring
             child = problem.reproduce(parent_1, parent_2, mutation_prob)
@@ -263,14 +271,16 @@ def genetic_alg(problem: Any,
         # invoke callback
         if state_fitness_callback is not None:
             max_attempts_reached = attempts == max_attempts or iters == max_iters or problem.can_stop()
-            continue_iterating = state_fitness_callback(iteration=iters,
-                                                        attempt=attempts + 1,
-                                                        done=max_attempts_reached,
-                                                        state=problem.get_state(),
-                                                        fitness=problem.get_adjusted_fitness(),
-                                                        fitness_evaluations=problem.fitness_evaluations,
-                                                        curve=np.asarray(fitness_curve) if curve else None,
-                                                        user_data=callback_user_info)
+            continue_iterating = state_fitness_callback(
+                iteration=iters,
+                attempt=attempts + 1,
+                done=max_attempts_reached,
+                state=problem.get_state(),
+                fitness=problem.get_adjusted_fitness(),
+                fitness_evaluations=problem.fitness_evaluations,
+                curve=np.asarray(fitness_curve) if curve else None,
+                user_data=callback_user_info,
+            )
 
         # decay hamming factor
         if hamming_decay_factor is not None and hamming_factor > 0.0:

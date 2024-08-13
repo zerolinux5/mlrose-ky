@@ -7,10 +7,11 @@ from mlrose_hiive.decorators import short_name
 import numpy as np
 
 import warnings
+
 warnings.filterwarnings("ignore")
 
 
-@short_name('tanh')
+@short_name("tanh")
 def tanh(x, deriv=False):
     """Hyperbolic tan activation function
 

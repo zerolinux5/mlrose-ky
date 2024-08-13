@@ -21,7 +21,7 @@ def test_short_name_assignment():
     def some_function():
         return True
 
-    assert hasattr(some_function, '__short_name__'), "The function should have a '__short_name__' attribute"
+    assert hasattr(some_function, "__short_name__"), "The function should have a '__short_name__' attribute"
     assert some_function.__short_name__ == "SomeFunc", "The short name should be 'SomeFunc'"
 
 

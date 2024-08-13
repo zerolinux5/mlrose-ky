@@ -74,26 +74,28 @@ class TSPGenerator:
         return TSPOpt(coords=coords, distances=distances, source_graph=graph)
 
     @staticmethod
-    def get_distances(coords: list[tuple], truncate: bool = True) -> list[tuple[int, int, float | int]]:
+    def get_distances(coords: list[tuple], truncate: bool = True) -> list[tuple]:
         """
         Calculate the distances between all pairs of coordinates.
 
         Parameters
         ----------
-        coords : list of tuple of int
+        coords : list[tuple]
             A list of (x, y) coordinates representing the cities.
         truncate : bool, optional, default=True
             If True, truncate the distances to integers.
 
         Returns
         -------
-        distances : list of tuple of int, int, float or int
+        distances : list[tuple]
             A list of tuples representing the distance between each pair of cities.
         """
         # Calculate Euclidean distances between all pairs of coordinates
-        distances = [(c1, c2, np.linalg.norm(np.subtract(coords[c1], coords[c2])))
-                     for c1, c2 in it.product(range(len(coords)), range(len(coords)))
-                     if c1 != c2 and c2 > c1]
+        distances = [
+            (c1, c2, np.linalg.norm(np.subtract(coords[c1], coords[c2])))
+            for c1, c2 in it.product(range(len(coords)), range(len(coords)))
+            if c1 != c2 and c2 > c1
+        ]
         if truncate:
             distances = [(c1, c2, int(d)) for c1, c2, d in distances]
 
@@ -106,7 +108,7 @@ class TSPGenerator:
 
         Parameters
         ----------
-        seq : list of tuple of int
+        seq : list[tuple]
             A list of (x, y) coordinates.
 
         Returns

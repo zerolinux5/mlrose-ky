@@ -81,16 +81,38 @@ class LinearRegression(_NNCore, RegressorMixin):
         Numpy array giving the fitness at each training iteration.
     """
 
-    def __init__(self, algorithm='random_hill_climb', max_iters=100, bias=True,
-                 learning_rate=0.1, early_stopping=False, clip_max=1e+10,
-                 restarts=0, schedule=GeometricDecay(), pop_size=200,
-                 mutation_prob=0.1, max_attempts=10, random_state=None,
-                 curve=False):
+    def __init__(
+        self,
+        algorithm="random_hill_climb",
+        max_iters=100,
+        bias=True,
+        learning_rate=0.1,
+        early_stopping=False,
+        clip_max=1e10,
+        restarts=0,
+        schedule=GeometricDecay(),
+        pop_size=200,
+        mutation_prob=0.1,
+        max_attempts=10,
+        random_state=None,
+        curve=False,
+    ):
         _NNCore.__init__(
-            self, hidden_nodes=[], activation='identity',
-            algorithm=algorithm, max_iters=max_iters, bias=bias,
-            is_classifier=False, learning_rate=learning_rate,
-            early_stopping=early_stopping, clip_max=clip_max,
-            restarts=restarts, schedule=schedule, pop_size=pop_size,
-            mutation_prob=mutation_prob, max_attempts=max_attempts,
-            random_state=random_state, curve=curve)
+            self,
+            hidden_nodes=[],
+            activation="identity",
+            algorithm=algorithm,
+            max_iters=max_iters,
+            bias=bias,
+            is_classifier=False,
+            learning_rate=learning_rate,
+            early_stopping=early_stopping,
+            clip_max=clip_max,
+            restarts=restarts,
+            schedule=schedule,
+            pop_size=pop_size,
+            mutation_prob=mutation_prob,
+            max_attempts=max_attempts,
+            random_state=random_state,
+            curve=curve,
+        )

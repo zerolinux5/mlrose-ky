@@ -12,8 +12,7 @@ from mlrose_hiive.opt_probs.discrete_opt import DiscreteOpt
 
 
 class FlipFlopOpt(DiscreteOpt):
-    def __init__(self, length=None, fitness_fn=None, maximize=True,
-                 crossover=None, mutator=None):
+    def __init__(self, length=None, fitness_fn=None, maximize=True, crossover=None, mutator=None):
 
         if (fitness_fn is None) and (length is None):
             raise Exception("fitness_fn or length must be specified.")

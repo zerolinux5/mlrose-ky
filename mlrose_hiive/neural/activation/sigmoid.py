@@ -7,10 +7,11 @@ from mlrose_hiive.decorators import short_name
 import numpy as np
 
 import warnings
+
 warnings.filterwarnings("ignore")
 
 
-@short_name('sigmoid')
+@short_name("sigmoid")
 def sigmoid(x, deriv=False):
     """Sigmoid activation function
 
@@ -28,9 +29,9 @@ def sigmoid(x, deriv=False):
     fx: np.ndarray
         Value of activation function at x
     """
-    fx = 1/(1 + np.exp(-x))
+    fx = 1 / (1 + np.exp(-x))
 
     if deriv:
-        fx *= (1 - fx)
+        fx *= 1 - fx
 
     return fx

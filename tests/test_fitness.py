@@ -9,10 +9,21 @@ try:
     import mlrose_hiive
 except ImportError:
     import sys
+
     sys.path.append("..")
 
-from mlrose_hiive import (OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks,
-                          Knapsack, TravellingSalesperson, Queens, MaxKColor, CustomFitness)
+from mlrose_hiive import (
+    OneMax,
+    FlipFlop,
+    FourPeaks,
+    SixPeaks,
+    ContinuousPeaks,
+    Knapsack,
+    TravellingSalesperson,
+    Queens,
+    MaxKColor,
+    CustomFitness,
+)
 from mlrose_hiive.fitness._discrete_peaks_base import _DiscretePeaksBase
 
 
@@ -168,8 +179,10 @@ def test_max_k_color():
 
 def test_custom_fitness():
     """Test CustomFitness fitness function"""
+
     def custom_fitness(_state, c):
         return c * np.sum(_state)
+
     state = np.array([1, 2, 3, 4, 5])
-    kwargs = {'c': 10}
+    kwargs = {"c": 10}
     assert CustomFitness(custom_fitness, **kwargs).evaluate(state) == 150

@@ -10,14 +10,22 @@ from mlrose_hiive.opt_probs.discrete_opt import DiscreteOpt
 
 
 class KnapsackOpt(DiscreteOpt):
-    def __init__(self, length=None, fitness_fn=None, maximize=True, max_val=2,
-                 weights=None, values=None, max_weight_pct=0.35,
-                 crossover=None, mutator=None,
-                 multiply_by_max_item_count=False):
+    def __init__(
+        self,
+        length=None,
+        fitness_fn=None,
+        maximize=True,
+        max_val=2,
+        weights=None,
+        values=None,
+        max_weight_pct=0.35,
+        crossover=None,
+        mutator=None,
+        multiply_by_max_item_count=False,
+    ):
 
         if (fitness_fn is None) and (weights is None and values is None):
-            raise Exception("""fitness_fn or both weights and"""
-                            + """ values must be specified.""")
+            raise Exception("""fitness_fn or both weights and""" + """ values must be specified.""")
 
         if length is None:
             if weights is not None:
@@ -30,10 +38,13 @@ class KnapsackOpt(DiscreteOpt):
         self.length = length
 
         if fitness_fn is None:
-            fitness_fn = Knapsack(weights=weights, values=values,
-                                  max_weight_pct=max_weight_pct,
-                                  max_item_count=max_val,
-                                  multiply_by_max_item_count=multiply_by_max_item_count)
+            fitness_fn = Knapsack(
+                weights=weights,
+                values=values,
+                max_weight_pct=max_weight_pct,
+                max_item_count=max_val,
+                multiply_by_max_item_count=multiply_by_max_item_count,
+            )
 
         self.max_val = max_val
         crossover = UniformCrossover(self) if crossover is None else crossover

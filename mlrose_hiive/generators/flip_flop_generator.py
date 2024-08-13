@@ -38,5 +38,5 @@ class FlipFlopGenerator:
         np.random.seed(seed)
 
         problem = FlipFlopOpt(length=size)
-        
+
         return problem

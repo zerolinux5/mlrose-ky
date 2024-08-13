@@ -11,13 +11,9 @@ class GridSearchMixin:
 
     def _perform_grid_search(self, classifier, x_train, y_train, cv, parameters, n_jobs=1, verbose=False):
         scorer = self.make_scorer()
-        search_results = skms.GridSearchCV(classifier,
-                                           parameters,
-                                           cv=cv,
-                                           scoring=scorer,
-                                           n_jobs=n_jobs,
-                                           return_train_score=True,
-                                           verbose=verbose)
+        search_results = skms.GridSearchCV(
+            classifier, parameters, cv=cv, scoring=scorer, n_jobs=n_jobs, return_train_score=True, verbose=verbose
+        )
         search_results.fit(x_train, y_train)
         return search_results
 
@@ -33,7 +29,7 @@ class GridSearchMixin:
         cleaned_kwargs = {k: v for k, v in kwargs.items() if k in list(inspect.signature(self._scorer_method).parameters)}
 
         # workaround for odd usage from sklearn
-        if not hasattr(self, '_get_y_argmax'):
+        if not hasattr(self, "_get_y_argmax"):
             self._get_y_argmax = False
 
         if not self._get_y_argmax and len(y_pred.shape) > 1 and len(y_true.shape) > 1:

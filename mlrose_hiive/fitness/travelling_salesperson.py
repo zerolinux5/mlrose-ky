@@ -18,12 +18,12 @@ class TravellingSalesperson:
 
     Parameters
     ----------
-    coords : list of tuple[float, float] | None, optional
+    coords : list[tuple[float, float]] | None, optional
         Ordered list of the (x, y) coordinates of all nodes (where element i gives the coordinates of node i).
         This assumes that travel between all pairs of nodes is possible. If this is not the case, then use
         distances instead.
 
-    distances : list of tuple[int, int, float] | None, optional
+    distances : list[tuple[int, int, float]] | None, optional
         List giving the distances, d, between all pairs of nodes, u and v, for which travel is possible, with each
         list item in the form (u, v, d). Order of the nodes does not matter, so (u, v, d) and (v, u, d) are
         considered to be the same. If a pair is missing from the list, it is assumed that travel between the two nodes
@@ -58,7 +58,7 @@ class TravellingSalesperson:
             raise ValueError("At least one of coords and distances must be specified.")
 
         # Initialize class variables
-        self.prob_type: str = 'tsp'
+        self.prob_type: str = "tsp"
         self.coords: list = coords
         self.distances: list = distances
         self.is_coords: bool = coords is not None

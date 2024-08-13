@@ -15,28 +15,39 @@ from mlrose_hiive.runners._runner_base import _RunnerBase
 class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
     _interrupted_result_list = []
 
-    def __init__(self, x_train, y_train, x_test, y_test,
-                 experiment_name, seed, iteration_list,
-                 grid_search_parameters,
-                 grid_search_scorer_method,
-                 cv=5,
-                 generate_curves=True,
-                 output_directory=None,
-                 verbose_grid_search=True,
-                 override_ctrl_c_handler=True,
-                 n_jobs=1,
-                 replay=False,
-                 **kwargs):
+    def __init__(
+        self,
+        x_train,
+        y_train,
+        x_test,
+        y_test,
+        experiment_name,
+        seed,
+        iteration_list,
+        grid_search_parameters,
+        grid_search_scorer_method,
+        cv=5,
+        generate_curves=True,
+        output_directory=None,
+        verbose_grid_search=True,
+        override_ctrl_c_handler=True,
+        n_jobs=1,
+        replay=False,
+        **kwargs,
+    ):
         # call super on _RunnerBase
-        _RunnerBase.__init__(self, problem=None,
-                             experiment_name=experiment_name,
-                             seed=seed,
-                             iteration_list=iteration_list,
-                             generate_curves=generate_curves,
-                             output_directory=output_directory,
-                             replay=replay,
-                             override_ctrl_c_handler=override_ctrl_c_handler,
-                             copy_zero_curve_fitness_from_first=True)
+        _RunnerBase.__init__(
+            self,
+            problem=None,
+            experiment_name=experiment_name,
+            seed=seed,
+            iteration_list=iteration_list,
+            generate_curves=generate_curves,
+            output_directory=output_directory,
+            replay=replay,
+            override_ctrl_c_handler=override_ctrl_c_handler,
+            copy_zero_curve_fitness_from_first=True,
+        )
 
         # call super on GridSearchMixin
         GridSearchMixin.__init__(self, scorer_method=grid_search_scorer_method)
@@ -44,8 +55,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         self.classifier = None
 
         # add algorithm grid-search params
-        self.grid_search_parameters = self.build_grid_search_parameters(grid_search_parameters=grid_search_parameters,
-                                                                        **kwargs)
+        self.grid_search_parameters = self.build_grid_search_parameters(grid_search_parameters=grid_search_parameters, **kwargs)
         self.x_train = x_train
         self.y_train = y_train
         self.x_test = x_test
@@ -59,22 +69,24 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
     def run(self):
         try:
             self._setup()
-            logging.info(f'Running {self.dynamic_runner_name()}')
+            logging.info(f"Running {self.dynamic_runner_name()}")
             if self.replay_mode():
                 gsr_name = f"{super()._get_pickle_filename_root('grid_search_results')}.p"
-                with open(gsr_name, 'rb') as pickle_file:
+                with open(gsr_name, "rb") as pickle_file:
                     sr = pk.load(pickle_file)
             else:
                 run_start = time.perf_counter()
-                sr = self._perform_grid_search(classifier=self.classifier,
-                                               parameters=self.grid_search_parameters,
-                                               x_train=self.x_train,
-                                               y_train=self.y_train,
-                                               cv=self.cv,
-                                               n_jobs=self.n_jobs,
-                                               verbose=self.verbose_grid_search)
+                sr = self._perform_grid_search(
+                    classifier=self.classifier,
+                    parameters=self.grid_search_parameters,
+                    x_train=self.x_train,
+                    y_train=self.y_train,
+                    cv=self.cv,
+                    n_jobs=self.n_jobs,
+                    verbose=self.verbose_grid_search,
+                )
                 run_end = time.perf_counter()
-                logging.info(f'Run time: {run_end - run_start}')
+                logging.info(f"Run time: {run_end - run_start}")
 
             # pull the stats from the best estimator to here.
             # (as grid search will have cloned this object).
@@ -83,13 +95,11 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             self.best_params = sr.best_params_
             # dump the results to disk
             self.cv_results_df = self._make_cv_results_data_frame(sr.cv_results_)
-            edf = {
-                'cv_results_df': self.cv_results_df
-            }
+            edf = {"cv_results_df": self.cv_results_df}
             self._create_and_save_run_data_frames(extra_data_frames=edf, final_save=True)
 
             try:
-                self._dump_pickle_to_disk(sr, 'grid_search_results', final_save=True)
+                self._dump_pickle_to_disk(sr, "grid_search_results", final_save=True)
             except (OSError, IOError, pk.PickleError):
                 pass
 
@@ -97,7 +107,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             try:
                 y_pred = sr.best_estimator_.predict(self.x_test)
                 score = self.score(y_pred=y_pred, y_true=self.y_train)
-                self._print_banner(f'Score: {score}')
+                self._print_banner(f"Score: {score}")
             except Exception:
                 pass
 
@@ -109,10 +119,8 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
 
     def _get_pickle_filename_root(self, name):
         filename_root = super()._get_pickle_filename_root(name)
-        arg_text = ''.join([f'{k}_{self._sanitize_value(v)}_'
-                            for k, v in self._current_logged_algorithm_args.items()
-                            if 'state' not in k])
-        arg_hash = f'__{hashlib.md5(arg_text.encode()).hexdigest()}'.upper() if len(arg_text) > 0 else ''
+        arg_text = "".join([f"{k}_{self._sanitize_value(v)}_" for k, v in self._current_logged_algorithm_args.items() if "state" not in k])
+        arg_hash = f"__{hashlib.md5(arg_text.encode()).hexdigest()}".upper() if len(arg_text) > 0 else ""
         filename_root += arg_hash
         return filename_root
 
@@ -135,17 +143,15 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             super()._tear_down()
             return
 
-        filename_root = super()._get_pickle_filename_root('')
+        filename_root = super()._get_pickle_filename_root("")
 
         path = os.path.join(*filename_root.split(os.sep)[:-1])
         filename_part = filename_root.split(os.sep)[-1]
         if not os.path.isdir(path) and path[0] != os.sep:
-            path = f'{os.sep}{path}'
+            path = f"{os.sep}{path}"
 
         # find all data frames output by this runner
-        filenames = [fn for fn in os.listdir(str(path)) if (filename_part in fn
-                                                            and fn.endswith('.p')
-                                                            and '_df_' in fn)]
+        filenames = [fn for fn in os.listdir(str(path)) if (filename_part in fn and fn.endswith(".p") and "_df_" in fn)]
 
         # get the best parameters
         df_best_params = pd.DataFrame([{k: self._sanitize_value(v) for k, v in self.best_params.items()}])
@@ -155,7 +161,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         incorrect_files = []
         for fn in filenames:
             filename = os.path.join(str(path), fn)
-            with open(filename, 'rb') as pickle_file:
+            with open(filename, "rb") as pickle_file:
                 try:
                     df = pk.load(pickle_file)
                     found = self._check_match(df_best_params, df)
@@ -167,8 +173,8 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
                     pass
 
         # extract the md5s from the names for the best and non-best parameter files
-        correct_md5s = list(set([p.split('_')[-1][:-2] for p in correct_files]))
-        incorrect_md5s = list(set([p.split('_')[-1][:-2] for p in incorrect_files]))
+        correct_md5s = list(set([p.split("_")[-1][:-2] for p in correct_files]))
+        incorrect_md5s = list(set([p.split("_")[-1][:-2] for p in incorrect_files]))
 
         # remove the suboptimal files
         all_incorrect_files = []
@@ -182,14 +188,14 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         # rename the best files by removing the md5 from the end
         all_correct_files = []
         for _correct_md5 in correct_md5s:
-            all_correct_files.extend([(os.path.join(str(path), fn), f'__{_correct_md5}')
-                                      for fn in os.listdir(str(path))
-                                      if _correct_md5 in fn])
+            all_correct_files.extend(
+                [(os.path.join(str(path), fn), f"__{_correct_md5}") for fn in os.listdir(str(path)) if _correct_md5 in fn]
+            )
 
         for _filename, _correct_md5 in all_correct_files:
-            correct_filename = _filename.replace(_correct_md5, '')
+            correct_filename = _filename.replace(_correct_md5, "")
             if os.path.exists(correct_filename):
-                os.rename(correct_filename, f'{correct_filename}.bak')
+                os.rename(correct_filename, f"{correct_filename}.bak")
             os.rename(_filename, correct_filename)
 
         super()._tear_down()
@@ -197,15 +203,15 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
     @staticmethod
     def _make_cv_results_data_frame(cv_results):
         cv_results = cv_results.copy()
-        param_prefix = 'param_'
+        param_prefix = "param_"
         # drop params
         param_labels = [k for k in cv_results if param_prefix in k]
         # clean_results = {k: v for k, v in cv_results.items() if 'param_' not in k}
 
         new_param_values = {p: [] for p in param_labels}
-        for v in cv_results['params']:
+        for v in cv_results["params"]:
             for p in param_labels:
-                pl = p.replace(param_prefix, '')
+                pl = p.replace(param_prefix, "")
                 new_param_values[p].append(_NNRunnerBase._sanitize_value(v[pl]))
 
         # replace values with sanitized values
@@ -229,7 +235,4 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
     def _grid_search_score_intercept(self, y_true, y_pred, sample_weight=None, adjusted=False):
         if not self.classifier.fit_started_ and self.has_aborted():
             return np.NaN
-        return super()._grid_search_score_intercept(y_true=y_true,
-                                                    y_pred=y_pred,
-                                                    sample_weight=sample_weight,
-                                                    adjusted=adjusted)
+        return super()._grid_search_score_intercept(y_true=y_true, y_pred=y_pred, sample_weight=sample_weight, adjusted=adjusted)

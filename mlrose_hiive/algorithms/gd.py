@@ -9,15 +9,17 @@ from mlrose_hiive.decorators import short_name
 from mlrose_hiive.neural.utils import flatten_weights
 
 
-@short_name('gd')
-def gradient_descent(problem: Any,
-                     max_attempts: int = 10,
-                     max_iters: int | float = np.inf,
-                     init_state: np.ndarray = None,
-                     curve: bool = False,
-                     random_state: int = None,
-                     state_fitness_callback: Callable = None,
-                     callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray]:
+@short_name("gd")
+def gradient_descent(
+    problem: Any,
+    max_attempts: int = 10,
+    max_iters: int | float = np.inf,
+    init_state: np.ndarray = None,
+    curve: bool = False,
+    random_state: int = None,
+    state_fitness_callback: Callable = None,
+    callback_user_info: Any = None,
+) -> tuple[np.ndarray, float, np.ndarray | None]:
     """Use gradient_descent to find the optimal neural network weights.
 
     Parameters
@@ -74,10 +76,13 @@ def gradient_descent(problem: Any,
     else:
         problem.set_state(init_state)
     if state_fitness_callback is not None:
-        state_fitness_callback(iteration=0, max_attempts_reached=False,
-                               state=problem.get_state(),
-                               fitness=problem.get_adjusted_fitness(),
-                               user_data=callback_user_info)
+        state_fitness_callback(
+            iteration=0,
+            max_attempts_reached=False,
+            state=problem.get_state(),
+            fitness=problem.get_adjusted_fitness(),
+            user_data=callback_user_info,
+        )
 
     best_fitness = problem.get_maximize() * problem.get_fitness()
     best_state = problem.get_state()
@@ -105,13 +110,15 @@ def gradient_descent(problem: Any,
         # invoke callback
         if state_fitness_callback is not None:
             max_attempts_reached = attempts == max_attempts or iters == max_iters or problem.can_stop()
-            continue_iterating = state_fitness_callback(iteration=iters,
-                                                        attempt=attempts + 1,
-                                                        done=max_attempts_reached,
-                                                        state=problem.get_state(),
-                                                        fitness=problem.get_adjusted_fitness(),
-                                                        curve=np.asarray(fitness_curve) if curve else None,
-                                                        user_data=callback_user_info)
+            continue_iterating = state_fitness_callback(
+                iteration=iters,
+                attempt=attempts + 1,
+                done=max_attempts_reached,
+                state=problem.get_state(),
+                fitness=problem.get_adjusted_fitness(),
+                curve=np.asarray(fitness_curve) if curve else None,
+                user_data=callback_user_info,
+            )
 
         if not continue_iterating:
             break

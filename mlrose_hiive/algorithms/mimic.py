@@ -8,17 +8,19 @@ from typing import Callable, Any
 from mlrose_hiive.decorators import short_name
 
 
-@short_name('mimic')
-def mimic(problem: Any,
-          pop_size: int = 200,
-          keep_pct: float = 0.2,
-          max_attempts: int = 10,
-          noise: float = 0.0,
-          max_iters: int = np.inf,
-          curve: bool = False,
-          random_state: int = None,
-          state_fitness_callback: Callable = None,
-          callback_user_info: Any = None) -> tuple[np.ndarray, float, np.ndarray]:
+@short_name("mimic")
+def mimic(
+    problem: Any,
+    pop_size: int = 200,
+    keep_pct: float = 0.2,
+    max_attempts: int = 10,
+    noise: float = 0.0,
+    max_iters: int = np.inf,
+    curve: bool = False,
+    random_state: int = None,
+    state_fitness_callback: Callable = None,
+    callback_user_info: Any = None,
+) -> tuple[np.ndarray, float, np.ndarray | None]:
     """Use MIMIC to find the optimum for a given optimization problem.
 
     Note
@@ -72,7 +74,7 @@ def mimic(problem: Any,
     De Bonet, J., C. Isbell, and P. Viola (1997). MIMIC: Finding Optima by Estimating Probability Densities.
     In *Advances in Neural Information Processing Systems* (NIPS) 9, pp. 424–430.
     """
-    if problem.get_problem_type() == 'continuous':
+    if problem.get_problem_type() == "continuous":
         raise ValueError("problem type must be discrete or tsp.")
     if not isinstance(pop_size, int) or pop_size < 0:
         raise ValueError(f"pop_size must be a positive integer. Got {pop_size}")
@@ -97,11 +99,13 @@ def mimic(problem: Any,
     problem.random_pop(pop_size)
     if state_fitness_callback is not None:
         # initial call with base data
-        state_fitness_callback(iteration=0,
-                               state=problem.get_state(),
-                               fitness=problem.get_adjusted_fitness(),
-                               fitness_evaluations=problem.fitness_evaluations,
-                               user_data=callback_user_info)
+        state_fitness_callback(
+            iteration=0,
+            state=problem.get_state(),
+            fitness=problem.get_adjusted_fitness(),
+            fitness_evaluations=problem.fitness_evaluations,
+            user_data=callback_user_info,
+        )
 
     attempts = 0
     iters = 0
@@ -139,19 +143,21 @@ def mimic(problem: Any,
         # invoke callback
         if state_fitness_callback is not None:
             max_attempts_reached = (attempts == max_attempts) or (iters == max_iters) or problem.can_stop()
-            continue_iterating = state_fitness_callback(iteration=iters,
-                                                        attempt=attempts + 1,
-                                                        done=max_attempts_reached,
-                                                        state=problem.get_state(),
-                                                        fitness=problem.get_adjusted_fitness(),
-                                                        fitness_evaluations=problem.fitness_evaluations,
-                                                        curve=np.asarray(fitness_curve) if curve else None,
-                                                        user_data=callback_user_info)
+            continue_iterating = state_fitness_callback(
+                iteration=iters,
+                attempt=attempts + 1,
+                done=max_attempts_reached,
+                state=problem.get_state(),
+                fitness=problem.get_adjusted_fitness(),
+                fitness_evaluations=problem.fitness_evaluations,
+                curve=np.asarray(fitness_curve) if curve else None,
+                user_data=callback_user_info,
+            )
         # break out if requested
         if not continue_iterating:
             break
 
-    best_fitness = problem.get_maximize()*problem.get_fitness()
+    best_fitness = problem.get_maximize() * problem.get_fitness()
     best_state = problem.get_state().astype(int)
 
     if curve:

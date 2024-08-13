@@ -53,9 +53,15 @@ class Knapsack:
     The Knapsack fitness function is suitable for use in discrete-state optimization problems *only*.
     """
 
-    def __init__(self, weights: list[float], values: list[float], max_weight_pct: float = 0.35,
-                 max_item_count: int = 1, multiply_by_max_item_count: bool = False):
-        self.problem_type: str = 'discrete'
+    def __init__(
+        self,
+        weights: list[float],
+        values: list[float],
+        max_weight_pct: float = 0.35,
+        max_item_count: int = 1,
+        multiply_by_max_item_count: bool = False,
+    ):
+        self.problem_type: str = "discrete"
         self.weights: list[float] = weights
         self.values: list[float] = values
 

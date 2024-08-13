@@ -28,6 +28,7 @@ class DiscreteGeneMutator(_MutatorBase):
     optimization_problem : Any
         An instance of an optimization problem that the mutator will operate on.
     """
+
     def __init__(self, optimization_problem: Any) -> None:
         super().__init__(optimization_problem)
         self.max_gene_value = optimization_problem.max_val

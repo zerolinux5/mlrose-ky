@@ -34,17 +34,18 @@ class DiscreteOpt(OptProb):
         (max_val - 1), inclusive.
     """
 
-    def __init__(self, length, fitness_fn, maximize=True, max_val=2,
-                 crossover=None, mutator=None):
+    def __init__(self, length, fitness_fn, maximize=True, max_val=2, crossover=None, mutator=None):
         self._get_mutual_info_impl = self._get_mutual_info_slow
 
         OptProb.__init__(self, length, fitness_fn, maximize)
 
-        if self.fitness_fn.get_problem_type() == 'continuous':
-            raise ValueError("""fitness_fn must have problem type 'discrete',"""
-                             + """ 'either' or 'tsp'. Define problem as"""
-                             + """ ContinuousOpt problem or use alternative"""
-                             + """ fitness function.""")
+        if self.fitness_fn.get_problem_type() == "continuous":
+            raise ValueError(
+                """fitness_fn must have problem type 'discrete',"""
+                + """ 'either' or 'tsp'. Define problem as"""
+                + """ ContinuousOpt problem or use alternative"""
+                + """ fitness function."""
+            )
 
         if max_val < 0:
             raise ValueError(f"max_val must be a positive integer. Got {max_val}")
@@ -60,7 +61,7 @@ class DiscreteOpt(OptProb):
         self.node_probs = np.zeros([self.length, self.max_val, self.max_val])
         self.parent_nodes = np.array([])
         self.sample_order = []
-        self.prob_type = 'discrete'
+        self.prob_type = "discrete"
         self.noise = 0
 
         self._crossover = UniformCrossover(self) if crossover is None else crossover
@@ -70,8 +71,7 @@ class DiscreteOpt(OptProb):
         self._mut_inf = None
 
     def eval_node_probs(self):
-        """Update probability density estimates.
-        """
+        """Update probability density estimates."""
         # Create mutual info matrix
         mutual_info = self._get_mutual_info_impl()
 
@@ -91,9 +91,7 @@ class DiscreteOpt(OptProb):
         # Get probs
         probs = np.zeros([self.length, self.max_val, self.max_val])
 
-        probs[0, :] = np.histogram(self.keep_sample[:, 0],
-                                   np.arange(self.max_val + 1),
-                                   density=True)[0]
+        probs[0, :] = np.histogram(self.keep_sample[:, 0], np.arange(self.max_val + 1), density=True)[0]
 
         for i in range(1, self.length):
             for j in range(self.max_val):
@@ -102,14 +100,12 @@ class DiscreteOpt(OptProb):
                 if not len(subset):
                     probs[i, j] = 1 / self.max_val
                 else:
-                    temp_probs = np.histogram(subset[:, i],
-                                              np.arange(self.max_val + 1),
-                                              density=True)[0]
+                    temp_probs = np.histogram(subset[:, i], np.arange(self.max_val + 1), density=True)[0]
 
                     # Check if noise argument is not default (in epsilon)
                     if self.noise > 0:
                         # Add noise, from the mimic argument "noise"
-                        temp_probs = (temp_probs + self.noise)
+                        temp_probs += self.noise
                         # All probability adds up to one
                         temp_probs = np.divide(temp_probs, np.sum(temp_probs))
                         # Handle floating point error to ensure probability adds up to 1
@@ -131,7 +127,7 @@ class DiscreteOpt(OptProb):
             mut_mask = mut_mask.reshape((self.length * self.length))
             self._mut_mask = mut_mask
             # Set ignore error to ignore dividing by zero
-            np.seterr(divide='ignore', invalid='ignore')
+            np.seterr(divide="ignore", invalid="ignore")
             self._get_mutual_info_impl = self._get_mutual_info_fast
             self._mut_inf = np.zeros([self.length * self.length])
         else:
@@ -175,8 +171,8 @@ class DiscreteOpt(OptProb):
         U_sum = {}
         V_sum = {}
         for i in range(0, self.max_val):
-            U[i] = (d == i)
-            V[i] = (b == i)
+            U[i] = d == i
+            V[i] = b == i
             U_sum[i] = np.sum(d == i, axis=0)
             V_sum[i] = np.sum(b == i, axis=0)
 
@@ -187,7 +183,7 @@ class DiscreteOpt(OptProb):
                 # This corresponds to U and V of mutual info matrix, for this feature pair
                 coeff = np.sum(U[i] * V[j], axis=0)
                 # Compute length N, for the particular feature pair
-                UV_length = (U_sum[i] * V_sum[j])
+                UV_length = U_sum[i] * V_sum[j]
 
                 # compute the second term of the MI matrix
                 temp = np.log(coeff) - np.log(UV_length) + np.log(len_sample_kept)
@@ -212,8 +208,7 @@ class DiscreteOpt(OptProb):
         return mutual_info
 
     def find_neighbors(self):
-        """Find all neighbors of the current state.
-        """
+        """Find all neighbors of the current state."""
         self.neighbors = []
 
         if self.max_val == 2:
@@ -233,8 +228,7 @@ class DiscreteOpt(OptProb):
                     self.neighbors.append(neighbor)
 
     def find_sample_order(self):
-        """Determine order in which to generate sample vector elements.
-        """
+        """Determine order in which to generate sample vector elements."""
         sample_order = []
         last = [0]
         parent = self.parent_nodes
@@ -245,8 +239,7 @@ class DiscreteOpt(OptProb):
             # If last nodes list is empty, select random node than has not
             # previously been selected
             if len(last) == 0:
-                inds = [np.random.choice(list(set(np.arange(self.length)) -
-                                              set(sample_order)))]
+                inds = [np.random.choice(list(set(np.arange(self.length)) - set(sample_order)))]
             else:
                 for i in last:
                     inds += list(np.where(parent == i)[0] + 1)
@@ -277,7 +270,7 @@ class DiscreteOpt(OptProb):
         self.keep_sample = self.population[keep_inds]
 
     def get_keep_sample(self):
-        """ Return the keep sample.
+        """Return the keep sample.
 
         Returns
         -------
@@ -288,7 +281,7 @@ class DiscreteOpt(OptProb):
         return self.keep_sample
 
     def get_problem_type(self):
-        """ Return the problem type.
+        """Return the problem type.
 
         Returns
         -------
@@ -391,8 +384,7 @@ class DiscreteOpt(OptProb):
         return child
 
     def reset(self):
-        """Set the current state vector to a random value and get its fitness.
-        """
+        """Set the current state vector to a random value and get its fitness."""
         self.state = self.random()
         self.fitness = self.eval_fitness(self.state)
         self.fevals = {}
@@ -424,8 +416,7 @@ class DiscreteOpt(OptProb):
         new_sample = np.zeros([sample_size, self.length])
 
         # Get value of first element in new samples
-        new_sample[:, 0] = np.random.choice(self.max_val, sample_size,
-                                            p=self.node_probs[0, 0])
+        new_sample[:, 0] = np.random.choice(self.max_val, sample_size, p=self.node_probs[0, 0])
 
         # Get sample order
         self.find_sample_order()
@@ -437,8 +428,6 @@ class DiscreteOpt(OptProb):
 
             for j in range(self.max_val):
                 inds = np.where(new_sample[:, par_ind] == j)[0]
-                new_sample[inds, i] = np.random.choice(self.max_val,
-                                                       len(inds),
-                                                       p=self.node_probs[i, j])
+                new_sample[inds, i] = np.random.choice(self.max_val, len(inds), p=self.node_probs[i, j])
 
         return new_sample

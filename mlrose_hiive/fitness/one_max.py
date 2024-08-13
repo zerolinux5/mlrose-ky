@@ -28,7 +28,7 @@ class OneMax:
     """
 
     def __init__(self) -> None:
-        self.problem_type: str = 'either'
+        self.problem_type: str = "either"
 
     @staticmethod
     def evaluate(state_vector: np.ndarray) -> float:
@@ -43,7 +43,7 @@ class OneMax:
         -------
         float
             Value of fitness function.
-            
+
         Raises
         ------
         TypeError

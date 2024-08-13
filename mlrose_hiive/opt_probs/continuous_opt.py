@@ -33,18 +33,17 @@ class ContinuousOpt(OptProb):
         Step size used in determining neighbors of current state.
     """
 
-    def __init__(self, length, fitness_fn, maximize=True, min_val=0,
-                 max_val=1, step=0.1):
+    def __init__(self, length, fitness_fn, maximize=True, min_val=0, max_val=1, step=0.1):
 
         OptProb.__init__(self, length, fitness_fn, maximize=maximize)
 
-        if (self.fitness_fn.get_problem_type() != 'continuous') \
-           and (self.fitness_fn.get_problem_type() != 'either'):
-            raise Exception("fitness_fn must have problem type 'continuous'"
-                            + """ or 'either'. Define problem as"""
-                            + """ DiscreteOpt problem or use alternative"""
-                            + """ fitness function."""
-                            )
+        if (self.fitness_fn.get_problem_type() != "continuous") and (self.fitness_fn.get_problem_type() != "either"):
+            raise Exception(
+                "fitness_fn must have problem type 'continuous'"
+                + """ or 'either'. Define problem as"""
+                + """ DiscreteOpt problem or use alternative"""
+                + """ fitness function."""
+            )
 
         if max_val <= min_val:
             raise Exception("""max_val must be greater than min_val.""")
@@ -53,13 +52,12 @@ class ContinuousOpt(OptProb):
             raise Exception("""step size must be positive.""")
 
         if (max_val - min_val) < step:
-            raise Exception("""step size must be less than"""
-                            + """ (max_val - min_val).""")
+            raise Exception("""step size must be less than""" + """ (max_val - min_val).""")
 
         self.min_val = min_val
         self.max_val = max_val
         self.step = step
-        self.prob_type = 'continuous'
+        self.prob_type = "continuous"
 
     def calculate_updates(self):
         """Calculate gradient descent updates.
@@ -81,7 +79,7 @@ class ContinuousOpt(OptProb):
         for i in range(self.length):
             for j in [-1, 1]:
                 neighbor = np.copy(self.state)
-                neighbor[i] += j*self.step
+                neighbor[i] += j * self.step
 
                 if neighbor[i] > self.max_val:
                     neighbor[i] = self.max_val
@@ -93,7 +91,7 @@ class ContinuousOpt(OptProb):
                     self.neighbors.append(neighbor)
 
     def get_problem_type(self):
-        """ Return the problem type.
+        """Return the problem type.
 
         Returns
         -------
@@ -126,7 +124,7 @@ class ContinuousOpt(OptProb):
             neighbor = np.copy(self.state)
             i = np.random.randint(0, self.length)
 
-            neighbor[i] += self.step*np.random.choice([-1, 1])
+            neighbor[i] += self.step * np.random.choice([-1, 1])
 
             if neighbor[i] > self.max_val:
                 neighbor[i] = self.max_val
@@ -197,9 +195,9 @@ class ContinuousOpt(OptProb):
         # Reproduce parents
         if self.length > 1:
             _n = np.random.randint(self.length - 1)
-            child = np.array([0.0]*self.length)
-            child[0:_n+1] = parent_1[0:_n+1]
-            child[_n+1:] = parent_2[_n+1:]
+            child = np.array([0.0] * self.length)
+            child[0 : _n + 1] = parent_1[0 : _n + 1]
+            child[_n + 1 :] = parent_2[_n + 1 :]
         elif np.random.randint(2) == 0:
             child = np.copy(parent_1)
         else:
@@ -215,8 +213,7 @@ class ContinuousOpt(OptProb):
         return child
 
     def reset(self):
-        """Set the current state vector to a random value and get its fitness.
-        """
+        """Set the current state vector to a random value and get its fitness."""
         self.state = self.random()
         self.fitness_evaluations = 0
         self.fitness = self.eval_fitness(self.state)

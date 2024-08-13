@@ -7,10 +7,11 @@ from mlrose_hiive.decorators import short_name
 import numpy as np
 
 import warnings
+
 warnings.filterwarnings("ignore")
 
 
-@short_name('softmax')
+@short_name("softmax")
 def softmax(x):
     """Softmax activation function
 

@@ -11,13 +11,15 @@ class KnapsackGenerator:
     """A class to generate Knapsack optimization problems."""
 
     @staticmethod
-    def generate(seed: int,
-                 number_of_item_types: int = 10,
-                 max_item_count: int = 5,
-                 max_weight_per_item: int = 25,
-                 max_value_per_item: int = 10,
-                 max_weight_percentage: float = 0.6,
-                 multiply_by_max_item_count: bool = True) -> KnapsackOpt:
+    def generate(
+        seed: int,
+        number_of_item_types: int = 10,
+        max_item_count: int = 5,
+        max_weight_per_item: int = 25,
+        max_value_per_item: int = 10,
+        max_weight_percentage: float = 0.6,
+        multiply_by_max_item_count: bool = True,
+    ) -> KnapsackOpt:
         """
         Generate a Knapsack optimization problem instance.
 
@@ -74,7 +76,7 @@ class KnapsackGenerator:
             weights=weights,
             values=values,
             max_weight_pct=max_weight_percentage,
-            multiply_by_max_item_count=multiply_by_max_item_count
+            multiply_by_max_item_count=multiply_by_max_item_count,
         )
 
         return problem

@@ -12,8 +12,17 @@ except ImportError:
     import mlrose_hiive
 
 from mlrose_hiive import ContinuousPeaks, DiscreteOpt, FourPeaks, SixPeaks, FlipFlopOpt, QueensOpt, OneMax
-from mlrose_hiive.generators import (ContinuousPeaksGenerator, FlipFlopGenerator, FourPeaksGenerator, SixPeaksGenerator,
-                                     KnapsackGenerator, MaxKColorGenerator, QueensGenerator, TSPGenerator, OneMaxGenerator)
+from mlrose_hiive.generators import (
+    ContinuousPeaksGenerator,
+    FlipFlopGenerator,
+    FourPeaksGenerator,
+    SixPeaksGenerator,
+    KnapsackGenerator,
+    MaxKColorGenerator,
+    QueensGenerator,
+    TSPGenerator,
+    OneMaxGenerator,
+)
 
 SEED = 12
 
@@ -298,7 +307,7 @@ class TestKnapsackGenerator:
             max_weight_per_item=max_weight_per_item,
             max_value_per_item=max_value_per_item,
             max_weight_percentage=max_weight_percentage,
-            multiply_by_max_item_count=multiply_by_max_item_count
+            multiply_by_max_item_count=multiply_by_max_item_count,
         )
 
         assert problem.length == number_of_item_types
@@ -472,9 +481,9 @@ class TestMaxKColorGenerator:
         number_of_nodes = 10
         max_connections_per_node = 3
         max_colors = 100
-        problem = MaxKColorGenerator.generate(SEED, number_of_nodes=number_of_nodes,
-                                              max_connections_per_node=max_connections_per_node,
-                                              max_colors=max_colors)
+        problem = MaxKColorGenerator.generate(
+            SEED, number_of_nodes=number_of_nodes, max_connections_per_node=max_connections_per_node, max_colors=max_colors
+        )
 
         assert problem.length == number_of_nodes
         assert problem.max_val == max_colors
@@ -574,16 +583,20 @@ class TestTSPGenerator:
 
     def test_generate_default_parameters(self):
         """Test generate method with default parameters."""
-        problem = TSPGenerator.generate(seed=SEED, number_of_cities=5)
-        assert problem.length == 5
+        num_cities = 5
+        problem = TSPGenerator.generate(seed=SEED, number_of_cities=num_cities)
+
+        assert problem.length == num_cities
         assert problem.coords is not None
         assert problem.distances is not None
         assert problem.source_graph is not None
 
     def test_generate_custom_parameters(self):
         """Test generate method with custom parameters."""
-        problem = TSPGenerator.generate(seed=SEED, number_of_cities=5, area_width=100, area_height=100)
-        assert problem.length == 5
+        num_cities = 5
+        problem = TSPGenerator.generate(seed=SEED, number_of_cities=num_cities, area_width=100, area_height=100)
+
+        assert problem.length == num_cities
         assert problem.coords is not None
         assert problem.distances is not None
         assert problem.source_graph is not None
@@ -592,6 +605,7 @@ class TestTSPGenerator:
         """Test generate method ensures no duplicate coordinates."""
         problem = TSPGenerator.generate(seed=SEED, number_of_cities=5)
         coords = problem.coords
+
         assert len(coords) == len(set(coords))
 
     def test_generate_distances(self):
@@ -605,6 +619,7 @@ class TestTSPGenerator:
         """Test generate method creates a valid graph."""
         problem = TSPGenerator.generate(seed=SEED, number_of_cities=5)
         graph = problem.source_graph
+
         assert graph.number_of_nodes() == 5
         assert graph.number_of_edges() == len(problem.distances)
 
@@ -624,7 +639,7 @@ class TestTSPGenerator:
             max_weight_per_item=max_weight_per_item,
             max_value_per_item=max_value_per_item,
             max_weight_percentage=max_weight_percentage,
-            multiply_by_max_item_count=multiply_by_max_item_count
+            multiply_by_max_item_count=multiply_by_max_item_count,
         )
 
         assert problem.length == number_of_item_types
@@ -668,10 +683,8 @@ class TestTSPGenerator:
 
     def test_generate_max_weight_percentage_zero(self):
         """Test generate method with max_weight_percentage set to 0"""
-        max_weight_percentage = 0.0
-
         with pytest.raises(ValueError) as excinfo:
-            KnapsackGenerator.generate(seed=SEED, max_weight_percentage=max_weight_percentage)
+            KnapsackGenerator.generate(seed=SEED, max_weight_percentage=0.0)
         assert str(excinfo.value) == "max_weight_pct must be greater than 0."
 
 

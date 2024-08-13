@@ -58,9 +58,12 @@ def test_exp_below_min():
 
 def test_custom():
     """Test custom evaluation function"""
+
     # noinspection PyMissingOrEmptyDocstring
-    def custom_decay_function(time: int, offset: int) -> float: return time + offset
-    kwargs = {'offset': 10}
+    def custom_decay_function(time: int, offset: int) -> float:
+        return time + offset
+
+    kwargs = {"offset": 10}
     schedule = CustomDecay(custom_decay_function, **kwargs)
     x = schedule.evaluate(5)
     assert x == 15

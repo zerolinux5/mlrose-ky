@@ -8,12 +8,13 @@ from mlrose_hiive.decorators import short_name
 import numpy as np
 
 import warnings
+
 warnings.filterwarnings("ignore")
 
 
-@short_name('leaky_relu')
+@short_name("leaky_relu")
 def leaky_relu(x, alpha=0.3, deriv=False):
-    """ Leaky ReLU activation function
+    """Leaky ReLU activation function
 
     Parameters
     ----------

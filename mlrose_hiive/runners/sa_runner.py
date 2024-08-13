@@ -27,14 +27,30 @@ Example usage:
 """
 
 
-@short_name('sa')
+@short_name("sa")
 class SARunner(_RunnerBase):
 
-    def __init__(self, problem, experiment_name, seed, iteration_list, temperature_list, decay_list=None,
-                 max_attempts=500, generate_curves=True, **kwargs):
-        super().__init__(problem=problem, experiment_name=experiment_name, seed=seed, iteration_list=iteration_list,
-                         max_attempts=max_attempts, generate_curves=generate_curves,
-                         **kwargs)
+    def __init__(
+        self,
+        problem,
+        experiment_name,
+        seed,
+        iteration_list,
+        temperature_list,
+        decay_list=None,
+        max_attempts=500,
+        generate_curves=True,
+        **kwargs,
+    ):
+        super().__init__(
+            problem=problem,
+            experiment_name=experiment_name,
+            seed=seed,
+            iteration_list=iteration_list,
+            max_attempts=max_attempts,
+            generate_curves=generate_curves,
+            **kwargs,
+        )
         self.use_raw_temp = True
         self.temperature_list = temperature_list
         if all([np.isscalar(x) for x in temperature_list]):
@@ -44,7 +60,9 @@ class SARunner(_RunnerBase):
             self.use_raw_temp = False
 
     def run(self):
-        temperatures = self.temperature_list if self.use_raw_temp else [d(init_temp=t) for t in self.temperature_list
-                                                                        for d in self.decay_list]
-        return super().run_experiment_(algorithm=mlrose_hiive.simulated_annealing,
-                                       schedule=('Temperature', temperatures))
+        temperatures = (
+            self.temperature_list
+            if self.use_raw_temp
+            else [d(initial_temperature=t) for t in self.temperature_list for d in self.decay_list]
+        )
+        return super().run_experiment_(algorithm=mlrose_hiive.simulated_annealing, schedule=("Temperature", temperatures))

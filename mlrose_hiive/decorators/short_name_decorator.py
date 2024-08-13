@@ -11,7 +11,7 @@ It also includes a function to retrieve the assigned short name of a function.
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3 clause
 
-from typing import Callable
+from typing import Callable, Any
 
 
 def short_name(name_expression: str) -> Callable:
@@ -28,6 +28,7 @@ def short_name(name_expression: str) -> Callable:
     Callable
         A decorator that assigns the provided short name to a function and returns the function.
     """
+
     def decorator(func: Callable) -> Callable:
         """Assign a short name to the given function."""
         func.__short_name__ = name_expression
@@ -36,13 +37,13 @@ def short_name(name_expression: str) -> Callable:
     return decorator
 
 
-def get_short_name(func: Callable) -> str:
+def get_short_name(func: Any) -> str:
     """
     Retrieve the short name of a function, or its default name if a short name isn't assigned.
 
     Parameters
     ----------
-    func : Callable
+    func : Any
         The function from which the short name is retrieved.
 
     Returns
@@ -50,4 +51,4 @@ def get_short_name(func: Callable) -> str:
     str
         The short name of the function, if assigned; otherwise, returns the full function name.
     """
-    return getattr(func, '__short_name__', func.__name__)
+    return getattr(func, "__short_name__", func.__name__)
