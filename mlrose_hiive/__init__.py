@@ -39,4 +39,4 @@ from .runners import GARunner, MIMICRunner, RHCRunner, SARunner, NNGSRunner, SKM
 
 from .generators import MaxKColorGenerator, QueensGenerator, FlipFlopGenerator, TSPGenerator, KnapsackGenerator, ContinuousPeaksGenerator
 
-from .samples import SyntheticData, plot_synthetic_dataset
+from .samples import SyntheticDataGenerator, plot_synthetic_dataset

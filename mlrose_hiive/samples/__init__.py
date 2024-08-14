@@ -1,7 +1,6 @@
-"""Classes for running optimization problems."""
+"""Classes for synthetic data generation and visualization."""
 
-# Author: Andrew Rollings
+# Authors: Andrew Rollings (modified by Kyle Nakamura)
 # License: BSD 3 clause
 
-from .synthetic_data import SyntheticData
-from .synthetic_data import plot_synthetic_dataset
+from .synthetic_data import SyntheticDataGenerator, plot_synthetic_dataset
