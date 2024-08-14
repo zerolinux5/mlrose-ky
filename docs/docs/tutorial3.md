@@ -8,11 +8,11 @@ Examples of such models include neural networks, linear regression models and lo
 
 However, the problem of fitting the parameters (or weights) of a machine learning model can also be viewed as a continuous-state optimization problem, where the loss function takes the role of the fitness function, and the goal is to minimize this function.
 
-By framing the problem this way, we can use any of the randomized optimization algorithms that are suited to continuous-state optimization problems to fit the model parameters. In this tutorial, we will work through an example of how this can be done with mlrose.
+By framing the problem this way, we can use any of the randomized optimization algorithms that are suited to continuous-state optimization problems to fit the model parameters. In this tutorial, we will work through an example of how this can be done with mlrose-ky.
 
-### Solving Machine Learning Weight Optimization Problems with mlrose
+### Solving Machine Learning Weight Optimization Problems with mlrose-ky
 
-mlrose contains built-in functionality for solving the weight optimization problem for three types of machine learning models: (standard) neural networks, linear regression models and logistic regression models. This is done using the `NeuralNetwork()`, `LinearRegression()` and `LogisticRegression()` classes respectively.
+mlrose-ky contains built-in functionality for solving the weight optimization problem for three types of machine learning models: (standard) neural networks, linear regression models and logistic regression models. This is done using the `NeuralNetwork()`, `LinearRegression()` and `LogisticRegression()` classes respectively.
 
 Each of these classes includes a `fit` method, which implements the three steps for solving an optimization problem defined in the previous tutorials, for a given training dataset.
 
@@ -20,15 +20,15 @@ However, when fitting a machine learning model, finding the optimal model weight
 
 As a result, the abovementioned classes also include a `predict` method, which, if called after the `fit` method, will predict the labels for a given test dataset using the fitted model.
 
-The steps involved in solving a machine learning weight optimization problem with mlrose are typically:
+The steps involved in solving a machine learning weight optimization problem with mlrose-ky are typically:
 
 1. Initialize a machine learning weight optimization problem object.
 2. Find the optimal model weights for a given training dataset by calling the `fit` method of the object initialized in step 1.
 3. Predict the labels for a test dataset by calling the `predict` method of the object initialized in step 1.
 
-To fit the model weights, the user can choose between using either randomized hill climbing, simulated annealing, the genetic algorithm or gradient descent. In mlrose, the gradient descent algorithm is only available for use in solving the machine learning weight optimization problem and has been included primarily for benchmarking purposes, since this is one of the most common algorithm used in fitting neural networks and regression models.
+To fit the model weights, the user can choose between using either randomized hill climbing, simulated annealing, the genetic algorithm or gradient descent. In mlrose-ky, the gradient descent algorithm is only available for use in solving the machine learning weight optimization problem and has been included primarily for benchmarking purposes, since this is one of the most common algorithm used in fitting neural networks and regression models.
 
-We will now work through an example to illustrate how mlrose can be used to fit a neural network and a regression model to a given dataset.
+We will now work through an example to illustrate how mlrose-ky can be used to fit a neural network and a regression model to a given dataset.
 
 #### Example: the Iris Dataset
 
@@ -74,11 +74,11 @@ print(np.unique(data.target))
 
 From this we can see that all features in the Iris data set are numeric, albeit with different ranges, and that the class labels have been represented by integers.
 
-In the next few sections we will show how mlrose can be used to fit a neural network and a logistic regression model to this dataset, to predict the species of an iris flower given its feature values.
+In the next few sections we will show how mlrose-ky can be used to fit a neural network and a logistic regression model to this dataset, to predict the species of an iris flower given its feature values.
 
 ### Data Pre-Processing
 
-Before we can fit any sort of machine learning model to a dataset, it is necessary to manipulate our data into the form expected by mlrose. Each of the three machine learning models supported by mlrose expect to receive feature data in the form of a numpy array, with one row per observation and numeric features only (any categorical features must be one-hot encoded before passing to the machine learning models).
+Before we can fit any sort of machine learning model to a dataset, it is necessary to manipulate our data into the form expected by mlrose-ky. Each of the three machine learning models supported by mlrose-ky expect to receive feature data in the form of a numpy array, with one row per observation and numeric features only (any categorical features must be one-hot encoded before passing to the machine learning models).
 
 The models also expect to receive the target values as either: a list of numeric values (for regression data); a list of 0-1 indicator values (for binary classification data); or as a numpy array of one-hot encoded labels, with one row per observation (for multi-class classification data).
 
@@ -110,16 +110,16 @@ y_test_hot = one_hot.transform(y_test.reshape(-1, 1)).todense()
 ```
 ### Neural Networks
 
-Once the data has been preprocessed, fitting a neural network in mlrose simply involves following the steps listed above.
+Once the data has been preprocessed, fitting a neural network in mlrose-ky simply involves following the steps listed above.
 
-Suppose we wish to fit a neural network classifier to our Iris dataset with one hidden layer containing 2 nodes and a ReLU activation function (mlrose supports the ReLU, identity, sigmoid and tanh activation functions).
+Suppose we wish to fit a neural network classifier to our Iris dataset with one hidden layer containing 2 nodes and a ReLU activation function (mlrose-ky supports the ReLU, identity, sigmoid and tanh activation functions).
 
 For this example, we will use the Randomized Hill Climbing algorithm to find the optimal weights, with a maximum of 1000 iterations of the algorithm and 100 attempts to find a better set of weights at each step. We will also include a bias term; use a step size (learning rate) of 0.0001; and limit our weights to being in the range -5 to 5 (to reduce the landscape over which the algorithm must search in order to find the optimal weights).
 
 This model is initialized and fitted to our preprocessed data below:
 ```python
 # Initialize neural network object and fit object
-nn_model1 = mlrose.NeuralNetwork(hidden_nodes = [2], activation = 'relu', \
+nn_model1 = mlrose_ky.NeuralNetwork(hidden_nodes = [2], activation = 'relu', \
                                  algorithm = 'random_hill_climb', max_iters = 1000, \
                                  bias = True, is_classifier = True, learning_rate = 0.0001, \
                                  early_stopping = True, clip_max = 5, max_attempts = 100, \
@@ -156,7 +156,7 @@ We can potentially improve on the accuracy of our model by tuning the parameters
 
 ```python
 # Initialize neural network object and fit object
-nn_model2 = mlrose.NeuralNetwork(hidden_nodes = [2], activation = 'relu', \
+nn_model2 = mlrose_ky.NeuralNetwork(hidden_nodes = [2], activation = 'relu', \
                                  algorithm = 'gradient_descent', max_iters = 1000, \
                                  bias = True, is_classifier = True, learning_rate = 0.0001, \
                                  early_stopping = True, clip_max = 5, max_attempts = 100, \
@@ -190,20 +190,20 @@ Linear and logistic regression models are special cases of neural networks. A li
 For example, suppose we wished to fit a logistic regression to our Iris data using the randomized hill climbing algorithm and all other parameters set as for the example in the previous section. We could do this by initializing a `NeuralNetwork()` object like so:
 
 ```python
-lr_nn_model1 = mlrose.NeuralNetwork(hidden_nodes = [], activation = 'sigmoid', \
+lr_nn_model1 = mlrose_ky.NeuralNetwork(hidden_nodes = [], activation = 'sigmoid', \
                                     algorithm = 'random_hill_climb', max_iters = 1000, \
                                     bias = True, is_classifier = True, learning_rate = 0.0001, \
                                     early_stopping = True, clip_max = 5, max_attempts = 100, \
                                     random_state = 3)
 ```
 
-However, for convenience, mlrose provides the `LinearRegression()` and `LogisticRegression()` wrapper classes, which simplify model initialization.
+However, for convenience, mlrose-ky provides the `LinearRegression()` and `LogisticRegression()` wrapper classes, which simplify model initialization.
 
 In our Iris dataset example, we can, thus, initialize and fit our logistic regression model as follows:
 
 ```python
 # Initialize logistic regression object and fit object
-lr_model1 = mlrose.LogisticRegression(algorithm = 'random_hill_climb', max_iters = 1000, \
+lr_model1 = mlrose_ky.LogisticRegression(algorithm = 'random_hill_climb', max_iters = 1000, \
                                       bias = True, learning_rate = 0.0001, \
                                       early_stopping = True, clip_max = 5, max_attempts = 100, \
                                       random_state = 3)
@@ -234,7 +234,7 @@ Nevertheless, as in the previous section, we can potentially improve model accur
 Suppose we increase our learning rate to 0.01.
 ```python
 # Initialize logistic regression object and fit object
-lr_model2 = mlrose.LogisticRegression(algorithm = 'random_hill_climb', max_iters = 1000, \
+lr_model2 = mlrose_ky.LogisticRegression(algorithm = 'random_hill_climb', max_iters = 1000, \
                                       bias = True, learning_rate = 0.01, \
                                       early_stopping = True, clip_max = 5, max_attempts = 100, \
                                       random_state = 3)
@@ -262,6 +262,6 @@ This results in signficant improvements to both training and test accuracy, with
 
 ### Summary
 
-In this tutorial we demonstrated how mlrose can be used to find the optimal weights of three types of machine learning models: neural networks, linear regression models and logistic regression models.
+In this tutorial we demonstrated how mlrose-ky can be used to find the optimal weights of three types of machine learning models: neural networks, linear regression models and logistic regression models.
 
-Applying randomized optimization algorithms to the machine learning weight optimization problem is most certainly not the most common approach to solving this problem. However, it serves to demonstrate the versatility of the mlrose package and of randomized optimization algorithms in general.
+Applying randomized optimization algorithms to the machine learning weight optimization problem is most certainly not the most common approach to solving this problem. However, it serves to demonstrate the versatility of the mlrose-ky package and of randomized optimization algorithms in general.

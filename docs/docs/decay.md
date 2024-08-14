@@ -80,8 +80,8 @@ evaluate(t)
 
 #### Example
 ```python
->>> import mlrose
->>> schedule = mlrose.ArithDecay(init_temp\=10, decay=0.95, min_temp\=1)
+>>> import mlrose_ky
+>>> schedule = mlrose_ky.ArithDecay(init_temp\=10, decay=0.95, min_temp\=1)
 >>> schedule.evaluate(5)
 5.25
 ```
@@ -121,8 +121,8 @@ evaluate(t)
 
 #### Example
 ```python
->>> import mlrose
->>> schedule = mlrose.ExpDecay(init_temp=10, exp_const=0.05, min_temp=1)
+>>> import mlrose_ky
+>>> schedule = mlrose_ky.ExpDecay(init_temp=10, exp_const=0.05, min_temp=1)
 >>> schedule.evaluate(5)
 7.78800...
 ```
@@ -139,10 +139,10 @@ class CustomSchedule(schedule, **kwargs)
 
 #### Example
 ```python
->>> import mlrose
+>>> import mlrose_ky
 >>> def custom(t, c): return t + c
 >>> kwargs \= {'c': 10}
->>> schedule \= mlrose.CustomSchedule(custom, \*\*kwargs)
+>>> schedule \= mlrose_ky.CustomSchedule(custom, \*\*kwargs)
 >>> schedule.evaluate(5)
 15
 ```

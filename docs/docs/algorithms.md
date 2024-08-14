@@ -60,14 +60,14 @@ Brownlee, J (2011). _Clever Algorithms: Nature-Inspired Programming Recipes_. [h
 ### Simulated Annealing
 
 > [!INFO] Function
-> `simulated_annealing`(_problem_, _schedule=<mlrose.decay.GeomDecay object>_, _max\_attempts=10_, _max\_iters=inf_, _init\_state=None_, _curve=False_, _random\_state=None_)
+> `simulated_annealing`(_problem_, _schedule=<mlrose_ky.decay.GeomDecay object>_, _max\_attempts=10_, _max\_iters=inf_, _init\_state=None_, _curve=False_, _random\_state=None_)
 
 Use simulated annealing to find the optimum for a given optimization problem.
 
 **Parameters**:
 
 *   **problem** (_optimization object_) – Object containing fitness function optimization problem to be solved. For example, `DiscreteOpt()`, `ContinuousOpt()` or `TSPOpt()`.
-*   **schedule** (schedule object, default: `mlrose.GeomDecay()`) – Schedule used to determine the value of the temperature parameter.
+*   **schedule** (schedule object, default: `mlrose_ky.GeomDecay()`) – Schedule used to determine the value of the temperature parameter.
 *   **max\_attempts** (_int, default: 10_) – Maximum number of attempts to find a better neighbor at each step.
 *   **max\_iters** (_int, default: np.inf_) – Maximum number of iterations of the algorithm.
 *   **init\_state** (_array, default: None_) – 1-D Numpy array containing starting state for algorithm. If `None`, then a random state is used.

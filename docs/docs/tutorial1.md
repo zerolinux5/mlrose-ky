@@ -1,8 +1,8 @@
 ## Tutorial - Getting Started
 
-mlrose provides functionality for implementing some of the most popular randomization and search algorithms, and applying them to a range of different optimization problem domains.
+mlrose-ky provides functionality for implementing some of the most popular randomization and search algorithms, and applying them to a range of different optimization problem domains.
 
-In this tutorial, we will discuss what is meant by an optimization problem and step through an example of how mlrose can be used to solve them. It is assumed that you have already installed mlrose on your computer. If not, you can do so using the instructions provided [here](intro#install).
+In this tutorial, we will discuss what is meant by an optimization problem and step through an example of how mlrose-ky can be used to solve them. It is assumed that you have already installed mlrose-ky on your computer. If not, you can do so using the instructions provided [here](intro#install).
 
 ### What is an Optimization Problem?
 
@@ -41,9 +41,9 @@ There is no guarantee a randomized optimization algorithm will find the optimal 
 
 There is a trade-off between the time spent searching for the optimal solution to an optimization problem and the quality of the solution ultimately found.
 
-### Solving Optimization Problems with mlrose
+### Solving Optimization Problems with mlrose-ky
 
-Solving an optimization problem using mlrose involves three simple steps:
+Solving an optimization problem using mlrose-ky involves three simple steps:
 
 1. Define a fitness function object.
 2. Define an optimization problem object.
@@ -63,7 +63,7 @@ The chessboard pictured below could, therefore, be described by the state vector
 
 This is not an optimal solution to the 8-Queens problem, since the three queens in columns 5, 6 and 7 are attacking each other diagonally, as are the queens in columns 2 and 6.
 
-Before starting with this example, you will need to import the mlrose_ky and Numpy Python packages.
+Before starting with this example, you will need to import the mlrose-ky and Numpy Python packages.
 
 ```python
 import mlrose_ky
@@ -76,7 +76,7 @@ The first step in solving any optimization problem is to define the fitness func
 
 In the context of the 8-Queens problem, our goal is to find a state vector for which no pairs of attacking queens exist. Therefore, we could define our fitness function as evaluating the number of pairs of attacking queens for a given state and try to minimize this function.
 
-mlrose includes pre-defined fitness function classes for a range of common optimization problems, including the N-Queens family of problems (of which 8-Queens is a member). A list of the pre-defined fitness functions can be found [here](fitness#fitness). The pre-defined `Queens()` class includes an implementation of the (8-)Queens fitness function described above.
+mlrose-ky includes pre-defined fitness function classes for a range of common optimization problems, including the N-Queens family of problems (of which 8-Queens is a member). A list of the pre-defined fitness functions can be found [here](fitness#fitness). The pre-defined `Queens()` class includes an implementation of the (8-)Queens fitness function described above.
 
 We can initialize a fitness function object for this class, as follows:
 
@@ -110,14 +110,14 @@ def queens_max(state):
        return fitness_cnt
 
 # Initialize custom fitness function object
-fitness_cust = mlrose.CustomFitness(queens_max)
+fitness_cust = mlrose-ky.CustomFitness(queens_max)
 ```
 
 ### Define an Optimization Problem Object
 
-Once we have created a fitness function object, we can use it as an input into an optimization problem object. In mlrose, optimization problem objects are used to contain all of the important information about the optimization problem we are trying to solve. mlrose provides classes for defining three types of optimization problem objects:
+Once we have created a fitness function object, we can use it as an input into an optimization problem object. In mlrose-ky, optimization problem objects are used to contain all of the important information about the optimization problem we are trying to solve. mlrose-ky provides classes for defining three types of optimization problem objects:
 
-* `DiscreteOpt()`: This is used to describe discrete-state optimization problems. A discrete-state optimization problem is one where each element of the state vector can only take on a discrete set of values. In mlrose, these values are assumed to be integers in the range 0 to (max_val - 1), where max_val is defined at initialization.
+* `DiscreteOpt()`: This is used to describe discrete-state optimization problems. A discrete-state optimization problem is one where each element of the state vector can only take on a discrete set of values. In mlrose-ky, these values are assumed to be integers in the range 0 to (max_val - 1), where max_val is defined at initialization.
 * `ContinuousOpt()`: This is used to describe continuous-state optimization problems. Continuous-state optimization problems are similar to discrete-state optimization problems, except that each value in the state vector can take any value in the continuous range between min_val and max_val, as specified at initialization.
 * `TSPOpt()`: This is used to describe travelling salesperson (or tour) optimization problems. Travelling salesperson optimization problems differ from the previous two problem types in that, we know the elements of the optimal state vector are the integers 0 to (n - 1), where n is the length of the state vector, and our goal is to find the optimal ordering of those integers. We provide a worked example of this problem type [here](tutorial2), so will not discuss it further for now.
 
@@ -128,20 +128,20 @@ To initialize a discrete-state optimization problem object, it is necessary to s
 For this example, we will use the first of the two fitness function objects defined above, so we want to solve a minimization problem.
 
 ```python
-problem = mlrose.DiscreteOpt(length = 8, fitness_fn = fitness, maximize = False, max_val = 8)
+problem = mlrose_ky.DiscreteOpt(length = 8, fitness_fn = fitness, maximize = False, max_val = 8)
 ```
 
 However, had we chosen to use the second (custom) fitness function object, we would be dealing with a maximization problem, so, in the above code, we would have to set the `maximize` parameter to `True` instead of `False` (in addition to changing the value of the `fitness_fn` parameter).
 
 ### Select and Run a Randomized Optimization Algorithm
 
-Now that we have defined an optimization problem object, we are ready to solve our optimization problem. mlrose includes implementations of the (random-restart) hill climbing, randomized hill climbing (also known as stochastic hill climbing), simulated annealing, genetic algorithm and MIMIC (Mutual-Information-Maximizing Input Clustering) randomized optimization algorithms (references to each of these algorithms can be found [here](algorithms)).
+Now that we have defined an optimization problem object, we are ready to solve our optimization problem. mlrose-ky includes implementations of the (random-restart) hill climbing, randomized hill climbing (also known as stochastic hill climbing), simulated annealing, genetic algorithm and MIMIC (Mutual-Information-Maximizing Input Clustering) randomized optimization algorithms (references to each of these algorithms can be found [here](algorithms)).
 
 For discrete-state and travelling salesperson optimization problems, we can choose any of these algorithms. However, continuous-state problems are not supported in the case of MIMIC.
 
 For our example, suppose we wish to use simulated annealing. To implement this algorithm, in addition to defining an optimization problem object, we must also define a schedule object (to specify how the simulated annealing temperature parameter changes over time); the number of attempts the algorithm should make to find a “better” state at each step (max_attempts); and the maximum number of iterations the algorithm should run for overall (max_iters). We can also specify the starting state for the algorithm, if desired (init_state).
 
-To specify the schedule object, mlrose includes pre-defined decay schedule classes for geometric, arithmetic and expontential decay, as well as a class for defining your own decay schedule in a manner similar to the way in which we created a customized fitness function object. These classes are defined [here](decay).
+To specify the schedule object, mlrose-ky includes pre-defined decay schedule classes for geometric, arithmetic and expontential decay, as well as a class for defining your own decay schedule in a manner similar to the way in which we created a customized fitness function object. These classes are defined [here](decay).
 
 Suppose we wish to use an exponential decay schedule (with default parameter settings); make at most 10 attempts to find a “better” state at each algorithm step; limit ourselves to at most 1000 iterations of the algorithm; and start at an initial state of $x = [0, 1, 2, 3, 4, 5, 6, 7]$. This can be done using the following code.
 
@@ -149,13 +149,13 @@ The algorithm returns the best state it can find, given the parameter values it 
 
 ```python
 # Define decay schedule
-schedule = mlrose.ExpDecay()
+schedule = mlrose_ky.ExpDecay()
 
 # Define initial state
 init_state = np.array([0, 1, 2, 3, 4, 5, 6, 7])
 
 # Solve problem using simulated annealing
-best_state, best_fitness = mlrose.simulated_annealing(problem, schedule = schedule,
+best_state, best_fitness = mlrose_ky.simulated_annealing(problem, schedule = schedule,
                                                       max_attempts = 10, max_iters = 1000,
                                                       init_state = init_state, random_state = 1)
 
@@ -176,7 +176,7 @@ We can try to improve on our solution by tuning the parameters of our algorithm.
 
 ```python
 # Solve problem using simulated annealing
-best_state, best_fitness = mlrose.simulated_annealing(problem, schedule = schedule,
+best_state, best_fitness = mlrose_ky.simulated_annealing(problem, schedule = schedule,
                                                       max_attempts = 100, max_iters = 1000,
                                                       init_state = init_state, random_state = 1)
 
@@ -192,7 +192,7 @@ This time when we run our code, we get a solution with a fitness value of 0, ind
 ![[images/chess3.png]]
 ### Summary
 
-In this tutorial we defined what is meant by an optimization problem and went through a simple example of how mlrose can be used to solve them. This is all you need to solve the majority of optimization problems. However, there is one type of problem we have only briefly touched upon so far: the travelling salesperson optimization problem. In the next tutorial we will go through an example of how mlrose can be used to solve this problem type.
+In this tutorial we defined what is meant by an optimization problem and went through a simple example of how mlrose-ky can be used to solve them. This is all you need to solve the majority of optimization problems. However, there is one type of problem we have only briefly touched upon so far: the travelling salesperson optimization problem. In the next tutorial we will go through an example of how mlrose-ky can be used to solve this problem type.
 
 ### References
 

@@ -16,7 +16,7 @@ class NeuralNetwork(
     early_stopping=False,
     clip_max=1e10,
     restarts=0,
-    schedule=<mlrose.decay.GeomDecay object>,
+    schedule=<mlrose_ky.decay.GeomDecay object>,
     pop_size=200,
     mutation_prob=0.1,
     max_attempts=10,
@@ -37,7 +37,7 @@ class NeuralNetwork(
 *   `early_stopping` (_bool, default: False_) – Whether to terminate algorithm early if the loss is not improving. If `True`, then stop after max\_attempts iters with no improvement.
 *   `clip_max` (_float, default: 1e+10_) – Used to limit weights to the range \[-1\*clip\_max, clip\_max\].
 *   `restarts` (_int, default: 0_) – Number of random restarts. Only required if `algorithm = 'random_hill_climb'`.
-*   `schedule` (_schedule object, default = mlrose.GeomDecay()_) – Schedule used to determine the value of the temperature parameter. Only required if `algorithm = 'simulated_annealing'`.
+*   `schedule` (_schedule object, default = mlrose_ky.GeomDecay()_) – Schedule used to determine the value of the temperature parameter. Only required if `algorithm = 'simulated_annealing'`.
 *   `pop_size` (_int, default: 200_) – Size of population. Only required if `algorithm = 'genetic_alg'`.
 *   `mutation_prob` (_float, default: 0.1_) – Probability of a mutation at each element of the state vector during reproduction, expressed as a value between 0 and 1. Only required if `algorithm = 'genetic_alg'`.
 *   `max_attempts` (_int, default: 10_) – Maximum number of attempts to find a better state. Only required if `early_stopping = True`.
@@ -63,7 +63,7 @@ class LinearRegression(
     early_stopping=False,
     clip_max=1e10,
     restarts=0,
-    schedule=<mlrose.decay.GeomDecay object>,
+    schedule=<mlrose_ky.decay.GeomDecay object>,
     pop_size=200,
     mutation_prob=0.1,
     max_attempts=10,
@@ -81,7 +81,7 @@ class LinearRegression(
 *   `early_stopping` (_bool, default: False_) – Whether to terminate algorithm early if the loss is not improving. If `True`, then stop after max\_attempts iters with no improvement.
 *   `clip_max` (_float, default: 1e+10_) – Used to limit weights to the range \[-1\*clip\_max, clip\_max\].
 *   `restarts` (_int, default: 0_) – Number of random restarts. Only required if `algorithm = 'random_hill_climb'`.
-*   `schedule` (_schedule object, default = mlrose.GeomDecay()_) – Schedule used to determine the value of the temperature parameter. Only required if `algorithm = 'simulated_annealing'`.
+*   `schedule` (_schedule object, default = mlrose_ky.GeomDecay()_) – Schedule used to determine the value of the temperature parameter. Only required if `algorithm = 'simulated_annealing'`.
 *   `pop_size` (_int, default: 200_) – Size of population. Only required if `algorithm = 'genetic_alg'`.
 *   `mutation_prob` (_float, default: 0.1_) – Probability of a mutation at each element of the state vector during reproduction, expressed as a value between 0 and 1. Only required if `algorithm = 'genetic_alg'`.
 *   `max_attempts` (_int, default: 10_) – Maximum number of attempts to find a better state. Only required if `early_stopping = True`.
@@ -106,7 +106,7 @@ class LogisticRegression(
     early_stopping=False,
     clip_max=1e10,
     restarts=0,
-    schedule=<mlrose.decay.GeomDecay object>,
+    schedule=<mlrose_ky.decay.GeomDecay object>,
     pop_size=200,
     mutation_prob=0.1,
     max_attempts=10,
@@ -124,7 +124,7 @@ class LogisticRegression(
 *  `early_stopping` (_bool, default: False_) – Whether to terminate algorithm early if the loss is not improving. If `True`, then stop after max\_attempts iters with no improvement.
 * `clip_max` (_float, default: 1e+10_) – Used to limit weights to the range \[-1\*clip\_max, clip\_max\].
 * `restarts` (_int, default: 0_) – Number of random restarts. Only required if `algorithm = 'random_hill_climb'`.
-* `schedule` (_schedule object, default = mlrose.GeomDecay()_) – Schedule used to determine the value of the temperature parameter. Only required if `algorithm = 'simulated_annealing'`.
+* `schedule` (_schedule object, default = mlrose_ky.GeomDecay()_) – Schedule used to determine the value of the temperature parameter. Only required if `algorithm = 'simulated_annealing'`.
 *  `pop_size` (_int, default: 200_) – Size of population. Only required if `algorithm = 'genetic_alg'`.
 * `mutation_prob` (_float, default: 0.1_) – Probability of a mutation at each element of the state vector during reproduction, expressed as a value between 0 and 1. Only required if `algorithm = 'genetic_alg'`.
 * `max_attempts` (_int, default: 10_) – Maximum number of attempts to find a better state. Only required if `early_stopping = True`.
