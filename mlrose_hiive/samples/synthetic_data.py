@@ -1,13 +1,37 @@
+"""Class defining a synthetic dataset generator and a function to visualize a dataset."""
+
+"""TODO:
+Perform the following refactoring and documentation tasks for the code in this file, then delete this TODO comment.
+
+1. **Implement or Update to Python 3.10 Type Hinting**
+   - Apply explicit type annotations to all function and method parameters and return types.
+   - Replace deprecated types from the `typing` module (like `Union` and `Optional`) with Python 3.10’s built-in type hinting using the `|` operator and direct use of `None`.
+
+2. **Improve Code Readability and Clarity**
+   - Rename classes, methods, and variables to be more descriptive and intuitive, avoiding abbreviations and ensuring names accurately reflect their functionality.
+   - Reorganize code to improve logical flow and readability.
+
+3. **Implement or Enhance Documentation with NumPy Docstring Style**
+   - Document all classes and methods using the NumPy docstring style, which includes:
+     - Clear descriptions at the beginning of each class and method.
+     - Detailed `Parameters` and `Returns` sections that specify types, purposes, and descriptions.
+     - Inclusion of any `Attributes` for classes to describe instance variables.
+
+5. **Error Handling and Validation**
+   - Ensure methods include error handling or validations where necessary to avoid common pitfalls like indexing errors, type mismatches, or logic flaws.
+   - Ensure any `raise` statements include the actual value that caused the exception using f-strings.
+
+6. **Consistency in Naming Conventions**
+   - Ensure that naming conventions are consistent throughout the codebase, such as using CamelCase for class names and snake_case for variables and methods.
+"""
+
 from os import makedirs
-
-
+import matplotlib.colors as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-import matplotlib.pyplot as plt
-import matplotlib.colors as mpl
-import pandas as pd
-
-import numpy as np
 
 
 class SyntheticData:
@@ -33,8 +57,8 @@ class SyntheticData:
         output = None
         if self.root_directory is not None:
             output = (
-                self.root_directory
-                + f"/synthetic__sz_{x_dim*y_dim}__n_{1 if add_noise else 0}__rc_{add_redundant_column}/".lower().replace(".", "_")
+                    self.root_directory
+                    + f"/synthetic__sz_{x_dim * y_dim}__n_{1 if add_noise else 0}__rc_{add_redundant_column}/".lower().replace(".", "_")
             )
             try:
                 makedirs(output)
