@@ -1,11 +1,10 @@
+import os
 import time
 import hashlib
-import os
 import logging
 from abc import ABC
-
-import pandas as pd
 import numpy as np
+import pandas as pd
 import pickle as pk
 
 from mlrose_hiive import GridSearchMixin
