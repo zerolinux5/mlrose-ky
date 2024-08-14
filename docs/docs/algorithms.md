@@ -5,11 +5,18 @@ Functions to implement the randomized optimization and search algorithms.
 > The below functions are implemented within mlrose-ky. However, it is highly recommended to use the [Runners](/runners/) for assignment.
 
 ### Hill Climbing
-
-> [!INFO] Function
-> `hill_climb`(_problem_, _max\_iters=inf_, _restarts=0_, _init\_state=None_, _curve=False_, _random\_state=None_)
-
 Use standard hill climbing to find the optimum for a given optimization problem.
+
+```python
+hill_climb(
+    problem,
+    max_iters=float('inf'),
+    restarts=0,
+    init_state=None,
+    curve=False,
+    random_state=None
+)
+```
 
 **Parameters:**
 
@@ -31,11 +38,19 @@ Use standard hill climbing to find the optimum for a given optimization problem.
 Russell, S. and P. Norvig (2010). _Artificial Intelligence: A Modern Approach_, 3rd edition. Prentice Hall, New Jersey, USA.
 
 ### Random Hill Climbing
-
-> [!INFO] Function
-> `random_hill_climb`(_problem_, _max\_attempts=10_, _max\_iters=inf_, _restarts=0_, _init\_state=None_, _curve=False_, _random\_state=None_)
-
 Use randomized hill climbing to find the optimum for a given optimization problem.
+
+```python
+random_hill_climb(
+    problem,
+    max_attempts=10,
+    max_iters=float('inf'),
+    restarts=0,
+    init_state=None,
+    curve=False,
+    random_state=None
+)
+```
 
 **Parameters**:
 
@@ -58,11 +73,19 @@ Use randomized hill climbing to find the optimum for a given optimization proble
 Brownlee, J (2011). _Clever Algorithms: Nature-Inspired Programming Recipes_. [http://www.cleveralgorithms.com](http://www.cleveralgorithms.com/).
 
 ### Simulated Annealing
-
-> [!INFO] Function
-> `simulated_annealing`(_problem_, _schedule=<mlrose_ky.decay.GeomDecay object>_, _max\_attempts=10_, _max\_iters=inf_, _init\_state=None_, _curve=False_, _random\_state=None_)
-
 Use simulated annealing to find the optimum for a given optimization problem.
+
+```python
+simulated_annealing(
+    problem,
+    schedule=<mlrose_ky.decay.GeomDecay object>,
+    max_attempts=10,
+    max_iters=float('inf'),
+    init_state=None,
+    curve=False,
+    random_state=None
+)
+```
 
 **Parameters**:
 
@@ -85,11 +108,19 @@ Use simulated annealing to find the optimum for a given optimization problem.
 Russell, S. and P. Norvig (2010). _Artificial Intelligence: A Modern Approach_, 3rd edition. Prentice Hall, New Jersey, USA.
 
 ### Genetic Algorithms
-
-> [!INFO] Function
-> `genetic_alg`(_problem_, _pop\_size=200_, _mutation\_prob=0.1_, _max\_attempts=10_, _max\_iters=inf_, _curve=False_, _random\_state=None_)
-
 Use a standard genetic algorithm to find the optimum for a given optimization problem.
+
+```python
+genetic_alg(
+    problem,
+    pop_size=200,
+    mutation_prob=0.1,
+    max_attempts=10,
+    max_iters=float('inf'),
+    curve=False,
+    random_state=None
+)
+```
 
 **Parameters**:
 
@@ -112,11 +143,21 @@ Use a standard genetic algorithm to find the optimum for a given optimization pr
 Russell, S. and P. Norvig (2010). _Artificial Intelligence: A Modern Approach_, 3rd edition. Prentice Hall, New Jersey, USA.
 
 ### MIMIC
-
-> [!INFO] Function
-> `mimic`(_problem_, _pop\_size=200_, _keep\_pct=0.2_, _max\_attempts=10_, _max\_iters=inf_, _curve=False_, _random\_state=None_, _fast\_mimic=False_)
-
 Use MIMIC to find the optimum for a given optimization problem.
+
+```python
+mimic(
+    problem,
+    pop_size=200,
+    keep_pct=0.2,
+    max_attempts=10,
+    max_iters=float('inf'),
+    curve=False,
+    random_state=None,
+    fast_mimic=False
+)
+```
+
 > [!DANGER] Warning
 > MIMIC cannot be used for solving continuous-state optimization problems.
 
@@ -138,6 +179,5 @@ Use MIMIC to find the optimum for a given optimization problem.
 *   **fitness\_curve** (_array_) – Numpy array containing the fitness at every iteration. Only returned if input argument `curve` is `True`.
 
 #### References
-
 De Bonet, J., C. Isbell, and P. Viola (1997). MIMIC: Finding Optima by Estimating Probability Densities. In _Advances in Neural Information Processing Systems_ (NIPS) 9, pp. 424–430.
 
