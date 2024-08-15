@@ -1,5 +1,7 @@
 # mlrose-ky: Machine Learning, Randomized Optimization, and SEarch
 
+[![PyPI version](https://badge.fury.io/py/mlrose-ky.svg)](https://pypi.org/project/mlrose-ky/)
+
 mlrose-ky is a Python package for applying some of the most common randomized optimization and search algorithms to a range of different optimization problems, over both discrete- and continuous-valued parameter spaces.
 
 ## Project Background
