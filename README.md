@@ -74,3 +74,10 @@ BibTeX entry:
  note 	= {Accessed: day month year}
 }
 ```
+## Collaborators
+<!-- readme: collaborators -start -->
+<!-- readme: collaborators -end -->
+
+## Contributors
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
