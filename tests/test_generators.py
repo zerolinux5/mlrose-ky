@@ -4,15 +4,15 @@ import pytest
 import numpy as np
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
-    import mlrose_hiive
+    import mlrose_ky
 
-from mlrose_hiive import ContinuousPeaks, DiscreteOpt, FourPeaks, SixPeaks, FlipFlopOpt, QueensOpt, OneMax
-from mlrose_hiive.generators import (
+from mlrose_ky import ContinuousPeaks, DiscreteOpt, FourPeaks, SixPeaks, FlipFlopOpt, QueensOpt, OneMax
+from mlrose_ky.generators import (
     ContinuousPeaksGenerator,
     FlipFlopGenerator,
     FourPeaksGenerator,

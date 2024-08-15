@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'mlrose_hiive'
+project = 'mlrose_ky'
 copyright = '2019, Genevieve Hayes'
 author = 'Genevieve Hayes'
 
@@ -138,7 +138,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'mlrose_hiive.tex', 'mlrose_hiive Documentation',
+    (master_doc, 'mlrose_ky.tex', 'mlrose_ky Documentation',
      'Genevieve Hayes', 'manual'),
 ]
 
@@ -147,7 +147,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'mlrose_hiive', 'mlrose_hiive Documentation',
+    (master_doc, 'mlrose_ky', 'mlrose_ky Documentation',
      [author], 1)
 ]
 
@@ -157,8 +157,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'mlrose_hiive', 'mlrose_hiive Documentation',
-     author, 'mlrose_hiive', 'One line description of project.',
+    (master_doc, 'mlrose_ky', 'mlrose_ky Documentation',
+     author, 'mlrose_ky', 'One line description of project.',
      'Miscellaneous'),
 ]
 

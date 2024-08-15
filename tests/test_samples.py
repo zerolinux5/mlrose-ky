@@ -10,14 +10,14 @@ import pytest
 from sklearn.linear_model import LogisticRegression
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
-    import mlrose_hiive
+    import mlrose_ky
 
-from mlrose_hiive.samples import SyntheticDataGenerator, plot_synthetic_dataset
+from mlrose_ky.samples import SyntheticDataGenerator, plot_synthetic_dataset
 
 
 # noinspection PyMissingOrEmptyDocstring

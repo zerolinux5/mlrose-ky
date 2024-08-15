@@ -7,19 +7,19 @@ import numpy as np
 from sklearn.model_selection import StratifiedShuffleSplit, learning_curve
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
 
-from mlrose_hiive.neural.linear_regression import LinearRegression
-from mlrose_hiive.neural.logistic_regression import LogisticRegression
-from mlrose_hiive.neural.fitness.network_weights import NetworkWeights
-from mlrose_hiive.neural.neural_network import NeuralNetwork
-from mlrose_hiive.opt_probs import ContinuousOpt
-from mlrose_hiive import flatten_weights, unflatten_weights, identity, sigmoid, softmax
-from mlrose_hiive.algorithms.gd import gradient_descent
+from mlrose_ky.neural.linear_regression import LinearRegression
+from mlrose_ky.neural.logistic_regression import LogisticRegression
+from mlrose_ky.neural.fitness.network_weights import NetworkWeights
+from mlrose_ky.neural.neural_network import NeuralNetwork
+from mlrose_ky.opt_probs import ContinuousOpt
+from mlrose_ky import flatten_weights, unflatten_weights, identity, sigmoid, softmax
+from mlrose_ky.algorithms.gd import gradient_descent
 
 
 class TestNeural:

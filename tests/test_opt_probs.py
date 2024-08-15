@@ -6,17 +6,17 @@
 import numpy as np
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
-    import mlrose_hiive
+    import mlrose_ky
 
-from mlrose_hiive import OneMax, DiscreteOpt, ContinuousOpt, TSPOpt, OnePointCrossover
-from mlrose_hiive.neural import NetworkWeights
-from mlrose_hiive.neural.activation import identity
-from mlrose_hiive.opt_probs.opt_prob import OptProb
+from mlrose_ky import OneMax, DiscreteOpt, ContinuousOpt, TSPOpt, OnePointCrossover
+from mlrose_ky.neural import NetworkWeights
+from mlrose_ky.neural.activation import identity
+from mlrose_ky.opt_probs.opt_prob import OptProb
 
 
 class TestOptProb:

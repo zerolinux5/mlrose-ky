@@ -6,13 +6,13 @@
 import numpy as np
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
 
-from mlrose_hiive import (
+from mlrose_ky import (
     OneMax,
     FlipFlop,
     FourPeaks,
@@ -24,7 +24,7 @@ from mlrose_hiive import (
     MaxKColor,
     CustomFitness,
 )
-from mlrose_hiive.fitness._discrete_peaks_base import _DiscretePeaksBase
+from mlrose_ky.fitness._discrete_peaks_base import _DiscretePeaksBase
 
 
 def test_onemax():

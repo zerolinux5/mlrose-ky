@@ -6,9 +6,9 @@
 # import numpy as np
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
-    import mlrose_hiive
+    import mlrose_ky

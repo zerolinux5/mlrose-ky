@@ -3,24 +3,24 @@
 # Author: Kyle Nakamura
 # License: BSD 3 clause
 
-import inspect
-from typing import Any
-
 import pytest
+import inspect
 import numpy as np
+from typing import Any
 import sklearn.model_selection as skms
-from sklearn.datasets import make_classification
 from sklearn.dummy import DummyClassifier
+from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
+    import mlrose_ky
 
-from mlrose_hiive.gridsearch import GridSearchMixin
+from mlrose_ky.gridsearch import GridSearchMixin
 
 SEED = 12
 
@@ -55,7 +55,7 @@ class TestGridSearchMixin:
     def test_initialize_with_custom_scorer(self, grid_search_mixin):
         """Test initializing GridSearchMixin with a custom scoring method"""
 
-        # noinspection PyMissingOrEmptyDocstring
+        # noinspection PyMissingOrEmptyDocstring, PyShadowingNames
         def custom_scorer(y_true, y_pred):
             return np.mean(y_true == y_pred)
 
@@ -65,6 +65,7 @@ class TestGridSearchMixin:
         assert grid_search_mixin.scorer_method == custom_scorer
         assert grid_search_mixin.params == inspect.signature(custom_scorer)
 
+    @pytest.mark.filterwarnings("ignore::UserWarning")
     @pytest.mark.parametrize(
         "param_grid, expected_best_param",
         [({"strategy": ["most_frequent", "stratified"]}, "most_frequent"), ({"strategy": ["stratified"]}, "stratified")],
@@ -93,7 +94,7 @@ class TestGridSearchMixin:
     def test_grid_search_score_intercept_raises_value_error(self, grid_search_mixin):
         """Should raise ValueError when scoring method raises TypeError"""
 
-        # noinspection PyMissingOrEmptyDocstring
+        # noinspection PyMissingOrEmptyDocstring, PyShadowingNames
         def faulty_scorer(_, __):
             raise TypeError("Intentional TypeError for testing")
 
@@ -173,6 +174,7 @@ class TestGridSearchMixin:
 
         assert score == expected_score
 
+    @pytest.mark.filterwarnings("ignore::UserWarning")
     def test_perform_grid_search_with_verbose(self, grid_search_mixin, sample_data, dummy_classifier, grid_search_parameters):
         """Should perform grid search with verbose output enabled"""
         X_train, X_test, y_train, y_test = sample_data

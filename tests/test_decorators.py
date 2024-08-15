@@ -10,7 +10,7 @@ except ImportError:
 
     sys.path.append("..")
 
-from mlrose_hiive.decorators import short_name, get_short_name
+from mlrose_ky.decorators import short_name, get_short_name
 
 
 def test_short_name_assignment():

@@ -4,14 +4,14 @@
 # License: BSD 3 clause
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
-    import mlrose_hiive
+    import mlrose_ky
 
-from mlrose_hiive import GeometricDecay, ArithmeticDecay, ExponentialDecay, CustomDecay
+from mlrose_ky import GeometricDecay, ArithmeticDecay, ExponentialDecay, CustomDecay
 
 
 def test_geom_above_min():

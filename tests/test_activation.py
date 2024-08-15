@@ -6,14 +6,14 @@
 import numpy as np
 
 try:
-    import mlrose_hiive
+    import mlrose_ky
 except ImportError:
     import sys
 
     sys.path.append("..")
-    import mlrose_hiive
+    import mlrose_ky
 
-from mlrose_hiive.neural.activation import identity, sigmoid, softmax, tanh, relu, leaky_relu
+from mlrose_ky.neural.activation import identity, sigmoid, softmax, tanh, relu, leaky_relu
 
 
 def test_identity():

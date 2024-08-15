@@ -8,10 +8,10 @@ docs/_build/*
 docs/_static/*
 docs/_templates/*
 mlrose.egg-info/*
-mlrose_hiive.egg-info/*
-mlrose_hiive/*/*/__pycache__/*
-mlrose_hiive/*/__pycache__/*
-mlrose_hiive/__pycache__/*
+mlrose_ky.egg-info/*
+mlrose_ky/*/*/__pycache__/*
+mlrose_ky/*/__pycache__/*
+mlrose_ky/__pycache__/*
 tests/__pycache__/*
 tsp_test/*
 venvp/
