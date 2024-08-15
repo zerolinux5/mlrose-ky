@@ -171,26 +171,26 @@ BibTeX entry:
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/nkapila6">
+                    <img src="https://avatars.githubusercontent.com/u/12816113?v=4" width="100;" alt="nkapila6"/>
+                    <br />
+                    <sub><b>Nikhil Kapila</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/Agrover112">
                     <img src="https://avatars.githubusercontent.com/u/42321810?v=4" width="100;" alt="Agrover112"/>
                     <br />
                     <sub><b>Agrover112</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/domfrecent">
                     <img src="https://avatars.githubusercontent.com/u/12631209?v=4" width="100;" alt="domfrecent"/>
                     <br />
                     <sub><b>Dominic Frecentese</b></sub>
-                </a>
-            </td>
-		</tr>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/nkapila6">
-                    <img src="https://avatars.githubusercontent.com/u/12816113?v=4" width="100;" alt="nkapila6"/>
-                    <br />
-                    <sub><b>Nikhil Kapila</b></sub>
                 </a>
             </td>
             <td align="center">
