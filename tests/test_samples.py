@@ -60,7 +60,7 @@ class TestSyntheticDataGenerator:
         assert y_train.shape == (280,)
         assert y_test.shape == (120,)
 
-    @patch('matplotlib.pyplot.show')  # Mocking plt.show
+    @patch("matplotlib.pyplot.show")  # Mocking plt.show
     def test_plot_synthetic_dataset(self, mock_show, generator):
         """Test plotting synthetic dataset."""
         data, _, _, _ = generator.get_synthetic_data()

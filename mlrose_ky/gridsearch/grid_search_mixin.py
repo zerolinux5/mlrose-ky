@@ -40,14 +40,7 @@ class GridSearchMixin:
         self.get_y_argmax: bool = False
 
     def perform_grid_search(
-        self,
-        classifier: Any,
-        x_train: np.ndarray,
-        y_train: np.ndarray,
-        cv: int,
-        parameters: dict,
-        n_jobs: int = 1,
-        verbose: bool = False
+        self, classifier: Any, x_train: np.ndarray, y_train: np.ndarray, cv: int, parameters: dict, n_jobs: int = 1, verbose: bool = False
     ) -> skms.GridSearchCV:
         """
         Perform grid search with cross-validation on the provided classifier.
