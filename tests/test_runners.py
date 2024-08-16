@@ -46,28 +46,28 @@ def test_runner():
 class TestBaseRunner:
     def test_increment_spawn_count(self, test_runner):
         runner = test_runner()
-        initial_count = runner._get_spawn_count()
+        initial_count = runner.get_spawn_count()
         runner._increment_spawn_count()
 
-        assert runner._get_spawn_count() == initial_count + 1
+        assert runner.get_spawn_count() == initial_count + 1
 
     def test_decrement_spawn_count(self, test_runner):
         runner = test_runner()
         runner._increment_spawn_count()
-        initial_count = runner._get_spawn_count()
+        initial_count = runner.get_spawn_count()
         runner._decrement_spawn_count()
 
-        assert runner._get_spawn_count() == initial_count - 1
+        assert runner.get_spawn_count() == initial_count - 1
 
     def test_get_spawn_count(self, test_runner):
         runner = test_runner()
-        initial_spawn_count = runner._get_spawn_count()
+        initial_spawn_count = runner.get_spawn_count()
         runner._increment_spawn_count()
-        incremented_spawn_count = runner._get_spawn_count()
+        incremented_spawn_count = runner.get_spawn_count()
         assert incremented_spawn_count == initial_spawn_count + 1
 
         runner._decrement_spawn_count()
-        decremented_spawn_count = runner._get_spawn_count()
+        decremented_spawn_count = runner.get_spawn_count()
         assert decremented_spawn_count == initial_spawn_count
 
     def test_abort_sets_abort_flag(self, test_runner):
