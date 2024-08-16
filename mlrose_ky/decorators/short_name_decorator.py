@@ -51,4 +51,8 @@ def get_short_name(func: Any) -> str:
     str
         The short name of the function, if assigned; otherwise, returns the full function name.
     """
-    return getattr(func, "__short_name__", func.__name__)
+    try:
+        _short_name = getattr(func, "__short_name__", func.__name__)
+    except AttributeError:
+        raise AttributeError(f'func should be a Callable function, got func={func} instead')
+    return _short_name

@@ -84,7 +84,8 @@ class _RunnerBase(ABC):
         str
             Short name of the runner class.
         """
-        return get_short_name(cls)
+        runner_name = get_short_name(cls)
+        return runner_name
 
     def get_dynamic_runner_name(self) -> str:
         """
@@ -95,7 +96,10 @@ class _RunnerBase(ABC):
         str
             Dynamic or default runner name.
         """
-        return getattr(self, "_dynamic_short_name", self.get_runner_name())
+        dynamic_runner_name = self._dynamic_short_name or self.get_runner_name()
+        if not dynamic_runner_name:
+            raise ValueError('dynamic_runner_name is None')
+        return dynamic_runner_name
 
     def set_dynamic_runner_name(self, name: str) -> None:
         """
@@ -141,8 +145,10 @@ class _RunnerBase(ABC):
             sanitized_value = str(value)
         elif isinstance(value, np.ndarray):
             sanitized_value = str(list(value))
-        else:
+        elif callable(value):
             sanitized_value = get_short_name(value)
+        else:
+            sanitized_value = str(value)  # Handle non-callable types like floats, ints, etc.
         return sanitized_value
 
     @abstractmethod

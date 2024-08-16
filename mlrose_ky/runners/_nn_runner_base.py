@@ -65,17 +65,20 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         self.cv_results_df = None
         self.best_params = None
 
+    def dynamic_runner_name(self):
+        return f"{self.__class__.__name__}_{self._experiment_name}"
+
     def run(self):
         try:
             self._setup()
-            logging.info(f"Running {self.dynamic_runner_name()}")
+            logging.info(f"Running experiment: {self._experiment_name}")  # Adjusted line
             if self.replay_mode():
                 gsr_name = f"{super()._get_pickle_filename_root('grid_search_results')}.p"
                 with open(gsr_name, "rb") as pickle_file:
                     sr = pk.load(pickle_file)
             else:
                 run_start = time.perf_counter()
-                sr = self._perform_grid_search(
+                sr = self.perform_grid_search(
                     classifier=self.classifier,
                     parameters=self.grid_search_parameters,
                     x_train=self.x_train,
@@ -143,19 +146,28 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             return
 
         filename_root = super()._get_pickle_filename_root("")
+        print(f"Filename root: {filename_root}")
 
         path = os.path.join(*filename_root.split(os.sep)[:-1])
         filename_part = filename_root.split(os.sep)[-1]
+        print(f"Path: {path}")
+        print(f"Filename part: {filename_part}")
+
         if not os.path.isdir(path) and path[0] != os.sep:
             path = f"{os.sep}{path}"
 
-        # find all data frames output by this runner
+        # Ensure the directory exists
+        print(f"Final path after adjustment: {path}")
+
         filenames = [fn for fn in os.listdir(str(path)) if (filename_part in fn and fn.endswith(".p") and "_df_" in fn)]
 
-        # get the best parameters
+        print(f"Filenames found: {filenames}")
+
+        if not filenames:
+            raise Exception(f"No matching filenames found in path: {path}")
+
         df_best_params = pd.DataFrame([{k: self._sanitize_value(v) for k, v in self.best_params.items()}])
 
-        # file the files that match the best parameters (and don't)
         correct_files = []
         incorrect_files = []
         for fn in filenames:
@@ -168,23 +180,22 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
                         incorrect_files.append(filename)
                     else:
                         correct_files.append(filename)
-                except (EOFError, pk.UnpicklingError):
+                except (EOFError, pk.PickleError):
                     pass
 
-        # extract the md5s from the names for the best and non-best parameter files
+        # Extract the md5s from the names for the best and non-best parameter files
         correct_md5s = list(set([p.split("_")[-1][:-2] for p in correct_files]))
         incorrect_md5s = list(set([p.split("_")[-1][:-2] for p in incorrect_files]))
 
-        # remove the suboptimal files
+        # Remove the suboptimal files
         all_incorrect_files = []
         for incorrect_md5 in incorrect_md5s:
             all_incorrect_files.extend([os.path.join(str(path), fn) for fn in os.listdir(str(path)) if incorrect_md5 in fn])
 
         for _filename in all_incorrect_files:
-            # os.rename(filename, f'{filename}.del')
             os.remove(_filename)
 
-        # rename the best files by removing the md5 from the end
+        # Rename the best files by removing the md5 from the end
         all_correct_files = []
         for _correct_md5 in correct_md5s:
             all_correct_files.extend(
