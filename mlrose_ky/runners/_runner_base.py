@@ -98,7 +98,7 @@ class _RunnerBase(ABC):
         """
         dynamic_runner_name = self._dynamic_short_name or self.get_runner_name()
         if not dynamic_runner_name:
-            raise ValueError('dynamic_runner_name is None')
+            raise ValueError("dynamic_runner_name is None")
         return dynamic_runner_name
 
     def set_dynamic_runner_name(self, name: str) -> None:

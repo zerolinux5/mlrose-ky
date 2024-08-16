@@ -232,7 +232,7 @@ class TestNNRunnerBase:
         experiment_name = "test_experiment"
         seed = SEED
         iteration_list = [1, 2, 3]
-        grid_search_parameters = {'param1': [0.1, 0.2], 'param2': [1, 2]}
+        grid_search_parameters = {"param1": [0.1, 0.2], "param2": [1, 2]}
         grid_search_scorer_method = skmt.accuracy_score
 
         runner = _NNRunnerBase(
@@ -244,7 +244,7 @@ class TestNNRunnerBase:
             seed=seed,
             iteration_list=iteration_list,
             grid_search_parameters=grid_search_parameters,
-            grid_search_scorer_method=grid_search_scorer_method
+            grid_search_scorer_method=grid_search_scorer_method,
         )
 
         assert np.array_equal(runner.x_train, x_train)
@@ -274,7 +274,7 @@ class TestNNRunnerBase:
         y_test = np.random.randint(2, size=20)
         experiment_name = "test_experiment"
         iteration_list = [1, 2, 3]
-        grid_search_parameters = {'param1': [0.1, 0.2], 'param2': [1, 2]}
+        grid_search_parameters = {"param1": [0.1, 0.2], "param2": [1, 2]}
         grid_search_scorer_method = skmt.accuracy_score
 
         runner = _NNRunnerBase(
@@ -286,7 +286,7 @@ class TestNNRunnerBase:
             seed=SEED,
             iteration_list=iteration_list,
             grid_search_parameters=grid_search_parameters,
-            grid_search_scorer_method=grid_search_scorer_method
+            grid_search_scorer_method=grid_search_scorer_method,
         )
 
         # Create a mock GridSearchCV object
@@ -301,10 +301,12 @@ class TestNNRunnerBase:
         # Mock score method to avoid exceptions
         runner.score = MagicMock(return_value=0.8)
 
-        with patch.object(runner, '_setup', return_value=None) as mock_setup, \
-                patch.object(runner, 'perform_grid_search', return_value=mock_grid_search_result) as mock_grid_search, \
-                patch.object(runner, '_tear_down', return_value=None) as mock_tear_down, \
-                patch.object(runner, '_print_banner', return_value=None) as mock_print_banner:
+        with (
+            patch.object(runner, "_setup", return_value=None) as mock_setup,
+            patch.object(runner, "perform_grid_search", return_value=mock_grid_search_result) as mock_grid_search,
+            patch.object(runner, "_tear_down", return_value=None) as mock_tear_down,
+            patch.object(runner, "_print_banner", return_value=None) as mock_print_banner,
+        ):
             runner.run()
 
             # Verify calls
@@ -326,26 +328,27 @@ class TestNNRunnerBase:
             experiment_name="test_experiment",
             seed=SEED,
             iteration_list=[1, 2, 3],
-            grid_search_parameters={'param1': [0.1, 0.2], 'param2': [1, 2]},
+            grid_search_parameters={"param1": [0.1, 0.2], "param2": [1, 2]},
             grid_search_scorer_method=skmt.accuracy_score,
-            output_directory="test_output"
+            output_directory="test_output",
         )
 
         runner.get_runner_name = MagicMock(return_value="TestRunner")
-        runner.best_params = {'param1': 0.1, 'param2': 1}
+        runner.best_params = {"param1": 0.1, "param2": 1}
         runner._output_directory = "test_output"
         runner.replay_mode = MagicMock(return_value=False)
 
         # Mock the list of filenames
         mock_file = mock_open(read_data=b"mocked binary data")  # Note the `b` prefix for binary data
-        with patch('os.path.isdir', return_value=True), \
-                patch('os.listdir',
-                      return_value=["testrunner__test_experiment__df_.p", "testrunner__test_experiment__df_1.p"]) as mock_listdir, \
-                patch('os.remove') as mock_remove, \
-                patch('pandas.DataFrame', return_value=None) as mock_dataframe, \
-                patch.object(runner, '_check_match', return_value=False) as mock_check_match, \
-                patch("builtins.open", mock_file), \
-                patch("pickle.load", return_value=MagicMock()):
+        with (
+            patch("os.path.isdir", return_value=True),
+            patch("os.listdir", return_value=["testrunner__test_experiment__df_.p", "testrunner__test_experiment__df_1.p"]) as mock_listdir,
+            patch("os.remove") as mock_remove,
+            patch("pandas.DataFrame", return_value=None) as mock_dataframe,
+            patch.object(runner, "_check_match", return_value=False) as mock_check_match,
+            patch("builtins.open", mock_file),
+            patch("pickle.load", return_value=MagicMock()),
+        ):
             runner._tear_down()
 
             # Validate os.listdir was called the correct number of times and with the correct arguments
@@ -365,23 +368,23 @@ class TestNNRunnerBase:
             experiment_name="test_experiment",
             seed=SEED,
             iteration_list=[1, 2, 3],
-            grid_search_parameters={'param1': [0.1, 0.2], 'param2': [1, 2]},
+            grid_search_parameters={"param1": [0.1, 0.2], "param2": [1, 2]},
             grid_search_scorer_method=skmt.accuracy_score,
-            output_directory="test_output"
+            output_directory="test_output",
         )
 
-        with patch.object(runner, '_sanitize_value', return_value='sanitized_value'):
+        with patch.object(runner, "_sanitize_value", return_value="sanitized_value"):
             filename_root = runner._get_pickle_filename_root("test_file")
             assert filename_root.startswith("test_output/test_experiment/_nnrunnerbase__test_experiment__test_file")
 
     def test_nn_runner_base_check_match(self):
         """Test _NNRunnerBase _check_match static method to ensure correct match checking"""
-        df_ref = pd.DataFrame({'col1': [1], 'col2': [2]})
-        df_to_check = pd.DataFrame({'col1': [1, 1], 'col2': [2, 3]})
+        df_ref = pd.DataFrame({"col1": [1], "col2": [2]})
+        df_to_check = pd.DataFrame({"col1": [1, 1], "col2": [2, 3]})
 
         match_found = _NNRunnerBase._check_match(df_ref, df_to_check)
         assert match_found is True
 
-        df_to_check = pd.DataFrame({'col1': [3, 4], 'col2': [5, 6]})
+        df_to_check = pd.DataFrame({"col1": [3, 4], "col2": [5, 6]})
         match_found = _NNRunnerBase._check_match(df_ref, df_to_check)
         assert match_found is False

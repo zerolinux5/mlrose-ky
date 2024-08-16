@@ -11,6 +11,7 @@ try:
     import mlrose_ky
 except ImportError:
     import sys
+
     sys.path.append("..")
     import mlrose_ky
 
@@ -19,6 +20,7 @@ from mlrose_ky.runners._runner_base import _RunnerBase
 from mlrose_ky import GridSearchMixin
 
 SEED = 12
+
 
 class TestNNRunnerBase:
 
@@ -30,8 +32,8 @@ class TestNNRunnerBase:
         self.experiment_name = "test_experiment"
         self.seed = SEED
         self.iteration_list = [1, 2, 3]
-        self.grid_search_parameters = {'param1': [0.1, 0.2], 'param2': [1, 2]}
-        self.grid_search_scorer_method = 'accuracy'
+        self.grid_search_parameters = {"param1": [0.1, 0.2], "param2": [1, 2]}
+        self.grid_search_scorer_method = "accuracy"
         self.runner = _NNRunnerBase(
             x_train=self.x_train,
             y_train=self.y_train,
@@ -41,7 +43,7 @@ class TestNNRunnerBase:
             seed=self.seed,
             iteration_list=self.iteration_list,
             grid_search_parameters=self.grid_search_parameters,
-            grid_search_scorer_method=self.grid_search_scorer_method
+            grid_search_scorer_method=self.grid_search_scorer_method,
         )
 
     def test_nn_runner_base_initialization(self):
@@ -53,8 +55,8 @@ class TestNNRunnerBase:
         experiment_name = "test_experiment"
         seed = SEED
         iteration_list = [1, 2, 3]
-        grid_search_parameters = {'param1': [0.1, 0.2], 'param2': [1, 2]}
-        grid_search_scorer_method = 'accuracy'
+        grid_search_parameters = {"param1": [0.1, 0.2], "param2": [1, 2]}
+        grid_search_scorer_method = "accuracy"
 
         runner = _NNRunnerBase(
             x_train=x_train,
@@ -65,7 +67,7 @@ class TestNNRunnerBase:
             seed=seed,
             iteration_list=iteration_list,
             grid_search_parameters=grid_search_parameters,
-            grid_search_scorer_method=grid_search_scorer_method
+            grid_search_scorer_method=grid_search_scorer_method,
         )
 
         assert np.array_equal(runner.x_train, x_train)
