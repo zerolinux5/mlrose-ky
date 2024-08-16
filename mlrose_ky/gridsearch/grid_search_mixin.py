@@ -36,7 +36,7 @@ class GridSearchMixin:
             A custom scoring method for evaluating the model. Defaults to balanced accuracy.
         """
         self.scorer_method: Callable = skmt.balanced_accuracy_score if scorer_method is None else scorer_method
-        self.params = inspect.signature(self.scorer_method)
+        self.params: inspect.Signature = inspect.signature(self.scorer_method)
         self.get_y_argmax: bool = False
 
     def perform_grid_search(
