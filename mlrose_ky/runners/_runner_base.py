@@ -585,10 +585,7 @@ class _RunnerBase(ABC):
 
     @staticmethod
     def _create_curve_stat(
-        iteration: int,
-        curve_value: tuple[float, int] | dict[str, Any],
-        curve_data: dict[str, Any],
-        t: float = None
+        iteration: int, curve_value: tuple[float, int] | dict[str, Any], curve_data: dict[str, Any], t: float = None
     ) -> dict[str, Any]:
         """
         Create a single fitness curve statistic.
@@ -627,7 +624,7 @@ class _RunnerBase(ABC):
         attempt: int = 0,
         done: bool = False,
         curve: list[tuple[float, int]] = None,
-        fitness_evaluations: int = None
+        fitness_evaluations: int = None,
     ) -> bool:
         """
         Save the state of the experiment during execution.
@@ -691,7 +688,11 @@ class _RunnerBase(ABC):
         current_iteration_stats = {str(get_description(k)): self._sanitize_value(v) for k, v in self._current_logged_algorithm_args.items()}
         current_iteration_stats.update({str(get_description(k)): self._sanitize_value(v) for k, v in user_data})
 
-        additional_info = {k: self._sanitize_value(v) for info_dict in (get_info(v) for v in current_iteration_stats.values()) for k, v in info_dict.items()}
+        additional_info = {
+            k: self._sanitize_value(v)
+            for info_dict in (get_info(v) for v in current_iteration_stats.values())
+            for k, v in info_dict.items()
+        }
 
         if iteration > 0:
             remaining_iterations = [i for i in self.iteration_list if i >= iteration]
@@ -700,13 +701,7 @@ class _RunnerBase(ABC):
             iterations = [0]
 
         for i in iterations:
-            run_stat = {
-                "Iteration": i,
-                "Fitness": fitness,
-                "FEvals": fitness_evaluations,
-                "Time": t,
-                "State": self._sanitize_value(state)
-            }
+            run_stat = {"Iteration": i, "Fitness": fitness, "FEvals": fitness_evaluations, "Time": t, "State": self._sanitize_value(state)}
             run_stat.update(additional_info)
             run_stat.update(current_iteration_stats)
             self._raw_run_stats.append(run_stat)
