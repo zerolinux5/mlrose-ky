@@ -1,3 +1,5 @@
+"""Base class for managing and running optimization experiments with logging, error handling, and result saving."""
+
 from abc import ABC, abstractmethod
 import time
 import os
@@ -18,110 +20,257 @@ from mlrose_ky.runners.utils import build_data_filename
 
 
 class _RunnerBase(ABC):
-    __abort = multiprocessing.Value(ctypes.c_bool)
-    __spawn_count = multiprocessing.Value(ctypes.c_uint)
-    __replay = multiprocessing.Value(ctypes.c_bool)
-    __original_sigint_handler = None
-    __sigint_params = None
+    """
+    Abstract base class for running and managing optimization experiments.
+
+    This class provides a framework for setting up, running, and managing the lifecycle
+    of optimization experiments. It handles tasks such as logging, error handling,
+    signal interruption, dynamic naming, and result saving to both pickle and CSV files.
+    The class is designed to be extended by concrete subclasses that implement the
+    `run` method, which defines the specific behavior of the experiment.
+
+    Attributes
+    ----------
+    _abort_flag : multiprocessing.Value
+        A flag used to signal if the experiment should be aborted.
+    _spawn_count : multiprocessing.Value
+        A counter to track the number of active spawns of the runner.
+    _replay_mode : multiprocessing.Value
+        A flag to indicate if replay mode is enabled, which reuses previous results.
+    _original_sigint_handler : Any
+        The original signal handler for SIGINT, used to restore it after interruption.
+    _sigint_params : tuple[int, Any] | None
+        Parameters captured when a SIGINT is received to allow for graceful shutdown.
+
+    Parameters
+    ----------
+    problem : Any
+        The optimization problem to be solved.
+    experiment_name : str
+        A name for the experiment, used for logging and file naming.
+    seed : int
+        A random seed to ensure reproducibility.
+    iteration_list : list[int]
+        A list of iteration numbers at which to capture results.
+    max_attempts : int, optional
+        The maximum number of attempts allowed per iteration (default is 500).
+    generate_curves : bool, optional
+        Whether to generate and save fitness curves (default is True).
+    output_directory : str | None, optional
+        The directory where results will be saved. If None, results are not saved (default is None).
+    copy_zero_curve_fitness_from_first : bool, optional
+        Whether to copy the fitness value from the first curve to the zeroth iteration (default is False).
+    replay : bool, optional
+        Whether to enable replay mode, which reuses previous results if available (default is False).
+    override_ctrl_c_handler : bool, optional
+        Whether to override the Ctrl-C handler to enable graceful shutdown (default is True).
+    **kwargs : Any
+        Additional keyword arguments passed to the algorithm.
+    """
+
+    _abort_flag: multiprocessing.Value = multiprocessing.Value(ctypes.c_bool)
+    _spawn_count: multiprocessing.Value = multiprocessing.Value(ctypes.c_uint)
+    _replay_mode: multiprocessing.Value = multiprocessing.Value(ctypes.c_bool)
+    _original_sigint_handler: Any = None
+    _sigint_params: tuple[int, Any] = None
 
     @classmethod
-    def runner_name(cls):
-        return get_short_name(cls)
+    def get_runner_name(cls) -> str:
+        """
+        Get a short name for the runner class.
 
-    def dynamic_runner_name(self):
-        return self.__dynamic_short_name__ if hasattr(self, "__dynamic_short_name__") else self.runner_name()
+        Returns
+        -------
+        str
+            Short name of the runner class.
+        """
+        runner_name = get_short_name(cls)
+        return runner_name
 
-    def _set_dynamic_runner_name(self, name):
-        self.__dynamic_short_name__ = name
+    def get_dynamic_runner_name(self) -> str:
+        """
+        Get the dynamic name of the runner, if set, otherwise return the default runner name.
+
+        Returns
+        -------
+        str
+            Dynamic or default runner name.
+        """
+        dynamic_runner_name = self._dynamic_short_name or self.get_runner_name()
+        if not dynamic_runner_name:
+            raise ValueError("dynamic_runner_name is None")
+        return dynamic_runner_name
+
+    def set_dynamic_runner_name(self, name: str) -> None:
+        """
+        Set a dynamic runner name.
+
+        Parameters
+        ----------
+        name : str
+            The dynamic name to set for the runner.
+        """
+        self._dynamic_short_name = name
 
     @staticmethod
-    def _print_banner(text):
+    def _print_banner(text: str) -> None:
+        """
+        Print a banner with the provided text.
+
+        Parameters
+        ----------
+        text : str
+            The text to display in the banner.
+        """
         logging.info("*" * len(text))
         logging.info(text)
         logging.info("*" * len(text))
 
     @staticmethod
-    def _sanitize_value(value):
-        if isinstance(value, tuple) or isinstance(value, list):
-            v = str(value)
+    def _sanitize_value(value: Any) -> str:
+        """
+        Sanitize the value for logging purposes.
+
+        Parameters
+        ----------
+        value : Any
+            The value to sanitize.
+
+        Returns
+        -------
+        str
+            The sanitized string representation of the value.
+        """
+        if isinstance(value, (tuple, list)):
+            sanitized_value = str(value)
         elif isinstance(value, np.ndarray):
-            v = str(list(value))
+            sanitized_value = str(list(value))
+        elif callable(value):
+            sanitized_value = get_short_name(value)
         else:
-            v = get_short_name(value)
-        return v
+            sanitized_value = str(value)  # Handle non-callable types like floats, ints, etc.
+        return sanitized_value
 
     @abstractmethod
-    def run(self):
+    def run(self) -> None:
+        """
+        Abstract method to be implemented by subclasses.
+        """
         pass
 
     def __init__(
         self,
-        problem,
-        experiment_name,
-        seed,
-        iteration_list,
-        max_attempts=500,
-        generate_curves=True,
-        output_directory=None,
-        copy_zero_curve_fitness_from_first=False,
-        replay=False,
-        override_ctrl_c_handler=True,
-        **kwargs,
-    ):
+        problem: Any,
+        experiment_name: str,
+        seed: int,
+        iteration_list: list[int],
+        max_attempts: int = 500,
+        generate_curves: bool = True,
+        output_directory: str = None,
+        copy_zero_curve_fitness_from_first: bool = False,
+        replay: bool = False,
+        override_ctrl_c_handler: bool = True,
+        **kwargs: Any,
+    ) -> None:
         self.problem = problem
         self.seed = seed
         self.iteration_list = iteration_list
         self.max_attempts = max_attempts
         self.generate_curves = generate_curves
-        self.parameter_description_dict = {}
+        self.parameter_description_dict: dict[str, str] = {}
         self.override_ctrl_c_handler = override_ctrl_c_handler
 
-        self.run_stats_df = None
-        self.curves_df = None
-        self._raw_run_stats = []
-        self._fitness_curves = []
+        self.run_stats_df: pd.DataFrame | None = None
+        self.curves_df: pd.DataFrame | None = None
+        self._raw_run_stats: list[dict[str, Any]] = []
+        self._fitness_curves: list[dict[str, Any]] = []
         self._curve_base = 0
         self._copy_zero_curve_fitness_from_first = copy_zero_curve_fitness_from_first
         self._copy_zero_curve_fitness_from_first_original = copy_zero_curve_fitness_from_first
         self._extra_args = kwargs
-        self._output_directory = output_directory
-        self._experiment_name = experiment_name
-        self._current_logged_algorithm_args = {}
-        self._run_start_time = None
-        self._iteration_times = []
+        self._output_directory: str | None = output_directory
+        self._dynamic_short_name: str | None = None
+        self._experiment_name: str = experiment_name
+        self._current_logged_algorithm_args: dict[str, Any] = {}
+        self._run_start_time: float | None = None
+        self._iteration_times: list[float] = []
         self._first_curve_synthesized = False
         if replay:
             self.set_replay_mode()
         self._increment_spawn_count()
 
-    def _increment_spawn_count(self):
-        with self.__spawn_count.get_lock():
-            self.__spawn_count.value += 1
+    def _increment_spawn_count(self) -> None:
+        """
+        Increment the spawn count for the runner.
+        """
+        with self._spawn_count.get_lock():
+            self._spawn_count.value += 1
 
-    def _decrement_spawn_count(self):
-        with self.__spawn_count.get_lock():
-            self.__spawn_count.value -= 1
+    def _decrement_spawn_count(self) -> None:
+        """
+        Decrement the spawn count for the runner.
+        """
+        with self._spawn_count.get_lock():
+            self._spawn_count.value -= 1
 
-    def _get_spawn_count(self):
-        self._print_banner(f"*** Spawn Count Remaining: {self.__spawn_count.value} ***")
-        return self.__spawn_count.value
+    def get_spawn_count(self) -> int:
+        """
+        Get the current spawn count for the runner.
 
-    def abort(self):
+        Returns
+        -------
+        int
+            The current spawn count.
+        """
+        self._print_banner(f"*** Spawn Count Remaining: {self._spawn_count.value} ***")
+        return self._spawn_count.value
+
+    def abort(self) -> None:
+        """
+        Set the abort flag to True, indicating the runner should stop execution.
+        """
         self._print_banner("*** ABORTING ***")
-        with self.__abort.get_lock():
-            self.__abort.value = True
+        with self._abort_flag.get_lock():
+            self._abort_flag.value = True
 
-    def has_aborted(self):
-        return self.__abort.value
+    def has_aborted(self) -> bool:
+        """
+        Check if the abort flag is set.
 
-    def set_replay_mode(self, value=True):
-        with self.__replay.get_lock():
-            self.__replay.value = value
+        Returns
+        -------
+        bool
+            True if the runner has been aborted, False otherwise.
+        """
+        return self._abort_flag.value
 
-    def replay_mode(self):
-        return self.__replay.value
+    def set_replay_mode(self, value: bool = True) -> None:
+        """
+        Set the replay mode for the runner.
 
-    def _setup(self):
+        Parameters
+        ----------
+        value : bool, optional
+            Whether to enable replay mode, by default True.
+        """
+        with self._replay_mode.get_lock():
+            self._replay_mode.value = value
+
+    def replay_mode(self) -> bool:
+        """
+        Check if replay mode is enabled.
+
+        Returns
+        -------
+        bool
+            True if replay mode is enabled, False otherwise.
+        """
+        return self._replay_mode.value
+
+    def _setup(self) -> None:
+        """
+        Set up the runner before starting an experiment.
+        """
         self._raw_run_stats = []
         self._fitness_curves = []
         self._curve_base = 0
@@ -133,60 +282,110 @@ class _RunnerBase(ABC):
             if not os.path.exists(self._output_directory):
                 os.makedirs(self._output_directory)
 
-        # set up ctrl-c handler
+        # Set up Ctrl-C handler
         if self.override_ctrl_c_handler:
-            if self.__original_sigint_handler is None:
-                self.__original_sigint_handler = signal.getsignal(signal.SIGINT)
+            if self._original_sigint_handler is None:
+                self._original_sigint_handler = signal.getsignal(signal.SIGINT)
                 signal.signal(signal.SIGINT, self._ctrl_c_handler)
 
-    def _ctrl_c_handler(self, sig, frame):
+    def _ctrl_c_handler(self, sig: int, frame: Any) -> None:
+        """
+        Ctrl-C signal handler to save progress on interruption.
+
+        Parameters
+        ----------
+        sig : int
+            Signal number.
+        frame : Any
+            Current stack frame.
+        """
         logging.info("Interrupted - saving progress so far")
-        self.__sigint_params = (sig, frame)
+        self._sigint_params = (sig, frame)
         self.abort()
 
-    def _tear_down(self):
+    def _tear_down(self) -> None:
+        """
+        Tear down the runner after finishing an experiment.
+        """
         if not self.override_ctrl_c_handler:
             return
         try:
-            # restore ctrl-c handler
+            # Restore Ctrl-C handler
             self._decrement_spawn_count()
-            if self.__original_sigint_handler is not None:
-                signal.signal(signal.SIGINT, self.__original_sigint_handler)
-                if self.has_aborted() and self._get_spawn_count() == 0:
-                    sig, frame = self.__sigint_params
-                    self.__original_sigint_handler(sig, frame)
+            if self._original_sigint_handler is not None:
+                signal.signal(signal.SIGINT, self._original_sigint_handler)
+                if self.has_aborted() and self.get_spawn_count() == 0:
+                    sig, frame = self._sigint_params
+                    self._original_sigint_handler(sig, frame)
         except (ValueError, TypeError, AttributeError, Exception) as e:
-            logging.error(f"Problem restoring SIGNINT handler: {e}")
+            logging.error(f"Problem restoring SIGINT handler: {e}")
 
-    def log_current_argument(self, arg_name, arg_value):
+    def log_current_argument(self, arg_name: str, arg_value: Any) -> None:
+        """
+        Log the current argument being passed to the algorithm.
+
+        Parameters
+        ----------
+        arg_name : str
+            The name of the argument.
+        arg_value : Any
+            The value of the argument.
+        """
         self._current_logged_algorithm_args[arg_name] = arg_value
 
-    def run_experiment_(self, algorithm, **kwargs):
+    def run_experiment(self, algorithm: Any, **kwargs: Any) -> tuple[pd.DataFrame | None, pd.DataFrame | None]:
+        """
+        Run the experiment using the provided algorithm.
+
+        Parameters
+        ----------
+        algorithm : Any
+            The algorithm to run.
+        **kwargs : Any
+            Additional keyword arguments for the algorithm.
+
+        Returns
+        -------
+        tuple[pd.DataFrame | None, pd.DataFrame | None]
+            The run statistics DataFrame and fitness curves DataFrame.
+        """
         self._setup()
-        # extract loop params
+        # Extract loop params
         values = [([(k, v) for v in vs]) for (k, (n, vs)) in kwargs.items() if vs is not None]
         self.parameter_description_dict = {k: n for (k, (n, vs)) in kwargs.items() if vs is not None}
         value_sets = list(it.product(*values))
 
-        logging.info(f"Running {self.dynamic_runner_name()}")
+        logging.info(f"Running {self.get_dynamic_runner_name()}")
         run_start = time.perf_counter()
-        for vns in value_sets:
-            total_args = dict(vns)
+        for value_set in value_sets:
+            total_args = dict(value_set)
             if "max_iters" not in total_args:
                 total_args["max_iters"] = int(max(self.iteration_list))
 
             self._run_one_experiment(algorithm, total_args)
 
         run_end = time.perf_counter()
-        logging.info(f"Run time: {run_end - run_start}")
+        logging.info(f"Run time: {run_end - run_start:.2f} seconds")
 
         self._create_and_save_run_data_frames(final_save=True)
         self._tear_down()
 
         return self.run_stats_df, self.curves_df
 
-    def _run_one_experiment(self, algorithm, total_args, **params):
-        if self._extra_args is not None and len(self._extra_args) > 0:
+    def _run_one_experiment(self, algorithm: Any, total_args: dict[str, Any], **params: Any) -> None:
+        """
+        Run a single experiment iteration.
+
+        Parameters
+        ----------
+        algorithm : Any
+            The algorithm to run.
+        total_args : dict[str, Any]
+            The total arguments to pass to the algorithm.
+        **params : Any
+            Additional parameters for the experiment.
+        """
+        if self._extra_args:
             total_args.update(self._extra_args)
         total_args.update(params)
 
@@ -200,45 +399,103 @@ class _RunnerBase(ABC):
             **total_args,
         )
 
-    def _create_and_save_run_data_frames(self, extra_data_frames=None, final_save=False):
+    def _create_and_save_run_data_frames(self, extra_data_frames: dict[str, pd.DataFrame] = None, final_save: bool = False) -> None:
+        """
+        Create and save the run statistics and fitness curves as DataFrames.
+
+        Parameters
+        ----------
+        extra_data_frames : dict[str, pd.DataFrame], optional
+            Additional data frames to save, by default None.
+        final_save : bool, optional
+            Whether this is the final save, by default False.
+        """
         self.run_stats_df = pd.DataFrame(self._raw_run_stats)
         self.curves_df = pd.DataFrame(self._fitness_curves)
-        if self._output_directory is not None:
-            if len(self.run_stats_df) > 0:
+        if self._output_directory:
+            if not self.run_stats_df.empty:
                 self._dump_df_to_disk(self.run_stats_df, df_name="run_stats_df", final_save=final_save)
-            if self.generate_curves and len(self.curves_df) > 0:
+            if self.generate_curves and not self.curves_df.empty:
                 self._dump_df_to_disk(self.curves_df, df_name="curves_df", final_save=final_save)
-            # output any extra
             if isinstance(extra_data_frames, dict):
-                for n, v in extra_data_frames.items():
-                    self._dump_df_to_disk(v, df_name=n, final_save=final_save)
+                for name, df in extra_data_frames.items():
+                    self._dump_df_to_disk(df, df_name=name, final_save=final_save)
 
-    def _dump_df_to_disk(self, df, df_name, final_save=False):
+    def _dump_df_to_disk(self, df: pd.DataFrame, df_name: str, final_save: bool = False) -> None:
+        """
+        Dump the DataFrame to disk as both pickle and CSV files.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            The DataFrame to save.
+        df_name : str
+            The name of the DataFrame.
+        final_save : bool, optional
+            Whether this is the final save, by default False.
+        """
         filename_root = self._dump_pickle_to_disk(object_to_pickle=df, name=df_name)
         df.to_csv(f"{filename_root}.csv")
         if final_save:
-            logging.info(f"Saving: [{filename_root}.csv]")
+            logging.info(f"Saved: [{filename_root}.csv]")
 
-    def _get_pickle_filename_root(self, name):
+    def _get_pickle_filename_root(self, name: str) -> str:
+        """
+        Get the root filename for the pickle file.
+
+        Parameters
+        ----------
+        name : str
+            The name of the DataFrame.
+
+        Returns
+        -------
+        str
+            The root filename for the pickle file.
+        """
         filename_root = build_data_filename(
             output_directory=self._output_directory,
-            runner_name=self.dynamic_runner_name(),
+            runner_name=self.get_dynamic_runner_name(),
             experiment_name=self._experiment_name,
             df_name=name,
         )
         return filename_root
 
-    def _dump_pickle_to_disk(self, object_to_pickle, name, final_save=False):
-        if self._output_directory is None:
-            return
-        filename_root = self._get_pickle_filename_root(name)
+    def _dump_pickle_to_disk(self, object_to_pickle: Any, name: str, final_save: bool = False) -> str | None:
+        """
+        Dump an object to disk as a pickle file.
 
+        Parameters
+        ----------
+        object_to_pickle : Any
+            The object to pickle.
+        name : str
+            The name of the object.
+        final_save : bool, optional
+            Whether this is the final save, by default False.
+
+        Returns
+        -------
+        str | None
+            The root filename for the pickle file.
+        """
+        if self._output_directory is None:
+            return None
+        filename_root = self._get_pickle_filename_root(name)
         pk.dump(object_to_pickle, open(f"{filename_root}.p", "wb"))
         if final_save:
-            logging.info(f"Saving: [{filename_root}.p]")
+            logging.info(f"Saved: [{filename_root}.p]")
         return filename_root
 
-    def _load_pickles(self):
+    def _load_pickles(self) -> bool:
+        """
+        Load the fitness curves and run statistics DataFrames from pickle files.
+
+        Returns
+        -------
+        bool
+            True if both DataFrames were successfully loaded, False otherwise.
+        """
         curves_df_filename = f"{self._get_pickle_filename_root('curves_df')}.p"
         run_stats_df_filename = f"{self._get_pickle_filename_root('run_stats_df')}.p"
 
@@ -261,7 +518,41 @@ class _RunnerBase(ABC):
 
         return self.curves_df is not None and self.run_stats_df is not None
 
-    def _invoke_algorithm(self, algorithm, problem, max_attempts, curve, user_info, additional_algorithm_args=None, **total_args):
+    def _invoke_algorithm(
+        self,
+        algorithm: Any,
+        problem: Any,
+        max_attempts: int,
+        curve: bool,
+        user_info: list[tuple[str, Any]],
+        additional_algorithm_args: dict[str, Any] = None,
+        **total_args: Any,
+    ) -> tuple[None, None, None] | None:
+        """
+        Invoke the algorithm with the provided parameters.
+
+        Parameters
+        ----------
+        algorithm : Any
+            The algorithm to run.
+        problem : Any
+            The problem instance to solve.
+        max_attempts : int
+            The maximum number of attempts allowed.
+        curve : bool
+            Whether to generate fitness curves.
+        user_info : list[tuple[str, Any]]
+            Additional user information to log.
+        additional_algorithm_args : dict[str, Any] | None, optional
+            Additional arguments for the algorithm, by default None.
+        **total_args : Any
+            Total arguments to pass to the algorithm.
+
+        Returns
+        -------
+        tuple[None, None, None] | None
+            None if the algorithm was run, or the loaded pickles if replay mode was enabled.
+        """
         self._current_logged_algorithm_args.update(total_args)
         if additional_algorithm_args is not None:
             self._current_logged_algorithm_args.update(additional_algorithm_args)
@@ -277,7 +568,7 @@ class _RunnerBase(ABC):
 
         self.start_run_timing()
         problem.reset()
-        ret = algorithm(
+        result = algorithm(
             problem=problem,
             max_attempts=max_attempts,
             curve=curve,
@@ -290,13 +581,37 @@ class _RunnerBase(ABC):
         self._print_banner("*** Run END ***")
         self._curve_base = len(self._fitness_curves)
 
-        return ret
+        return result
 
-    def start_run_timing(self):
+    def start_run_timing(self) -> None:
+        """
+        Start timing the experiment run.
+        """
         self._run_start_time = time.perf_counter()
 
     @staticmethod
-    def _create_curve_stat(iteration, curve_value, curve_data, t=None):
+    def _create_curve_stat(
+        iteration: int, curve_value: tuple[float, int] | dict[str, Any], curve_data: dict[str, Any], t: float = None
+    ) -> dict[str, Any]:
+        """
+        Create a single fitness curve statistic.
+
+        Parameters
+        ----------
+        iteration : int
+            The iteration number.
+        curve_value : tuple[float, int] | dict[str, Any]
+            The curve value containing fitness and evaluations.
+        curve_data : dict[str, Any]
+            Additional data to log.
+        t : float | None, optional
+            Time elapsed, by default None.
+
+        Returns
+        -------
+        dict[str, Any]
+            The fitness curve statistic as a dictionary.
+        """
         curve_fitness_value, curve_feval_value = curve_value
         curve_stat = {"Iteration": iteration, "Time": t, "Fitness": curve_fitness_value, "FEvals": curve_feval_value}
 
@@ -306,24 +621,59 @@ class _RunnerBase(ABC):
 
         return curve_stat
 
-    def save_state(self, iteration, state, fitness, user_data, attempt=0, done=False, curve=None, fitness_evaluations=None):
+    def save_state(
+        self,
+        iteration: int,
+        state: Any,
+        fitness: float,
+        user_data: list[tuple[str, Any]],
+        attempt: int = 0,
+        done: bool = False,
+        curve: list[tuple[float, int]] = None,
+        fitness_evaluations: int = None,
+    ) -> bool:
+        """
+        Save the state of the experiment during execution.
 
-        # log iteration timing
+        Parameters
+        ----------
+        iteration : int
+            The current iteration number.
+        state : Any
+            The current state of the problem.
+        fitness : float
+            The fitness value of the state.
+        user_data : list[tuple[str, Any]]
+            Additional user data to log.
+        attempt : int, optional
+            The current attempt number, by default 0.
+        done : bool, optional
+            Whether the experiment is done, by default False.
+        curve : list[tuple[float, int]] | None, optional
+            The fitness curve, by default None.
+        fitness_evaluations : int | None, optional
+            The number of fitness evaluations, by default None.
+
+        Returns
+        -------
+        bool
+            True if the experiment should continue, False otherwise.
+        """
+        # Log iteration timing
         end = time.perf_counter()
         t = end - self._run_start_time
         self._iteration_times.append(t)
 
-        # FIXME: do we need to log anything else?
         if iteration > 0 and iteration not in self.iteration_list and not done:
             return True
 
         display_data = {**self._current_logged_algorithm_args}
-        if user_data is not None and len(user_data) > 0:
-            display_data.update({n: v for (n, v) in user_data})
+        if user_data:
+            display_data.update({n: v for n, v in user_data})
             data_desc = ", ".join([f"{n}:[{get_short_name(v)}]" for n, v in display_data.items()])
             logging.debug(data_desc)
         logging.debug(
-            f"runner_name:[{self.dynamic_runner_name()}], experiment_name:[{self._experiment_name}], "
+            f"runner_name:[{self.get_dynamic_runner_name()}], experiment_name:[{self._experiment_name}], "
             + ("" if attempt is None else f"attempt:[{attempt}], ")
             + f"iteration:[{iteration}], done:[{done}], "
             f"time:[{t:.2f}], fitness:[{fitness:.4f}]"
@@ -333,17 +683,22 @@ class _RunnerBase(ABC):
         logging.debug(f"\t{state_string}...")
         logging.debug("")
 
-        def gd(n):
-            return n if n not in self.parameter_description_dict.keys() else self.parameter_description_dict[n]
+        # noinspection PyMissingOrEmptyDocstring
+        def get_description(name: str) -> str:
+            return name if name not in self.parameter_description_dict else self.parameter_description_dict[name]
 
-        def gi(v: Any):
-            return v.get_info__(t) if hasattr(v, "get_info__") else {}
+        # noinspection PyMissingOrEmptyDocstring
+        def get_info(val: Any) -> dict[str, Any]:
+            return val.get_info__(t) if hasattr(val, "get_info__") else {}
 
-        current_iteration_stats = {str(gd(k)): self._sanitize_value(v) for k, v in self._current_logged_algorithm_args.items()}
-        current_iteration_stats.update({str(gd(k)): self._sanitize_value(v) for k, v in {k: v for (k, v) in user_data}.items()})
+        current_iteration_stats = {str(get_description(k)): self._sanitize_value(v) for k, v in self._current_logged_algorithm_args.items()}
+        current_iteration_stats.update({str(get_description(k)): self._sanitize_value(v) for k, v in user_data})
 
-        ai = (gi(v) for k, v in current_iteration_stats.items())
-        additional_info = {k: self._sanitize_value(v) for d in ai for k, v in d.items()}
+        additional_info = {
+            k: self._sanitize_value(v)
+            for info_dict in (get_info(v) for v in current_iteration_stats.values())
+            for k, v in info_dict.items()
+        }
 
         if iteration > 0:
             remaining_iterations = [i for i in self.iteration_list if i >= iteration]
@@ -358,12 +713,12 @@ class _RunnerBase(ABC):
             self._raw_run_stats.append(run_stat)
 
         if self.generate_curves and iteration == 0:
-            # capture first fitness value for iteration 0 if not already captured.
-            if curve is None or len(curve) == 0:
+            # Capture first fitness value for iteration 0 if not already captured.
+            if not curve:
                 curve = [(fitness, fitness_evaluations)]
                 self._first_curve_synthesized = True
 
-        if self.generate_curves and curve is not None:  # and (done or iteration == max(self.iteration_list)):
+        if self.generate_curves and curve:  # and (done or iteration == max(self.iteration_list)):
             curve_stats_saved = len(self._fitness_curves)
             total_curve_stats = self._curve_base + len(curve)
             curve_stats_to_save = total_curve_stats - curve_stats_saved
@@ -374,11 +729,11 @@ class _RunnerBase(ABC):
             if ix_start < 0:
                 ix_start = 0
 
-            fc = list(zip(range(ix_start, ix_end), curve[-curve_stats_to_save:]))
+            curve_tuples = list(zip(range(ix_start, ix_end), curve[-curve_stats_to_save:]))
 
             curve_stats = [
                 self._create_curve_stat(iteration=ix, curve_value=f, curve_data=current_iteration_stats, t=self._iteration_times[ix])
-                for (ix, f) in fc
+                for ix, f in curve_tuples
             ]
 
             self._fitness_curves.extend(curve_stats)

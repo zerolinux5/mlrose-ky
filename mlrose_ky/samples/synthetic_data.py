@@ -48,7 +48,9 @@ class SyntheticDataGenerator:
 
         return features, classes
 
-    def get_synthetic_data(self, x_dim: int = 20, y_dim: int = 20, add_noise: float = 0.0, add_redundant_column: bool = False) -> tuple[np.ndarray, list[str], list[str], str | None]:
+    def get_synthetic_data(
+        self, x_dim: int = 20, y_dim: int = 20, add_noise: float = 0.0, add_redundant_column: bool = False
+    ) -> tuple[np.ndarray, list[str], list[str], str | None]:
         """
         Generate synthetic data.
 
@@ -85,7 +87,9 @@ class SyntheticDataGenerator:
         features, classes = self.get_synthetic_features_and_classes(add_redundant_column)
         return synthetic_data_array, features, classes, output_directory
 
-    def setup_synthetic_data_test_train(self, data: np.ndarray, test_size: float = 0.30) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    def setup_synthetic_data_test_train(
+        self, data: np.ndarray, test_size: float = 0.30
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Split the synthetic data into training and testing sets and normalize it.
 
@@ -153,7 +157,9 @@ class SyntheticDataGenerator:
             for y in range(0, y_dim):
                 value = 0 if (x + y) < (x_dim + y_dim) / 2 else 1
                 random_value = np.random.random(1)[0]
-                if (x_mid_right_low < x < x_mid_right_high and y_mid_right_low < y < y_mid_right_high) or (x_mid_left_low < x < x_mid_left_high and y_mid_left_low < y < y_mid_left_high):
+                if (x_mid_right_low < x < x_mid_right_high and y_mid_right_low < y < y_mid_right_high) or (
+                    x_mid_left_low < x < x_mid_left_high and y_mid_left_low < y < y_mid_left_high
+                ):
                     data.append([x, y, random_value, 1 - value])
                 else:
                     data.append([x, y, random_value, value])
@@ -189,7 +195,15 @@ class SyntheticDataGenerator:
         return df
 
 
-def plot_synthetic_dataset(x_train: np.ndarray, x_test: np.ndarray, y_train: np.ndarray, y_test: np.ndarray, classifier=None, transparent_bg: bool = False, bg_color: str = "white") -> None:
+def plot_synthetic_dataset(
+    x_train: np.ndarray,
+    x_test: np.ndarray,
+    y_train: np.ndarray,
+    y_test: np.ndarray,
+    classifier=None,
+    transparent_bg: bool = False,
+    bg_color: str = "white",
+) -> None:
     """
     Plot the synthetic dataset.
 

@@ -2,5 +2,5 @@ joblib
 networkx
 numpy
 pandas
-scikit-learn
+scikit - learn
 scipy

@@ -3,7 +3,14 @@
 # Author: Kyle Nakamura
 # License: BSD 3 clause
 
-# import numpy as np
+import os
+
+import pandas as pd
+import pytest
+import signal
+import numpy as np
+import sklearn.metrics as skmt
+from unittest.mock import patch, MagicMock, mock_open
 
 try:
     import mlrose_ky
@@ -12,3 +19,372 @@ except ImportError:
 
     sys.path.append("..")
     import mlrose_ky
+
+from mlrose_ky.runners import build_data_filename
+
+# noinspection PyProtectedMember
+from mlrose_ky.runners._runner_base import _RunnerBase
+
+# noinspection PyProtectedMember
+from mlrose_ky.runners._nn_runner_base import _NNRunnerBase
+
+SEED = 12
+
+
+class TestRunnerUtils:
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_build_data_filename_default(self, mock_exists, mock_makedirs):
+        output_directory = "test_output"
+        runner_name = "TestRunner"
+        experiment_name = "experiment"
+        df_name = "results"
+
+        expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results")
+        result = build_data_filename(output_directory, runner_name, experiment_name, df_name)
+
+        assert result == expected_filename
+        mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_build_data_filename_with_params(self, mock_exists, mock_makedirs):
+        output_directory = "test_output"
+        runner_name = "TestRunner"
+        experiment_name = "experiment"
+        df_name = "results"
+        x_param = "x_value"
+        y_param = "y_value"
+
+        expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results_x_value__y_value")
+        result = build_data_filename(output_directory, runner_name, experiment_name, df_name, x_param, y_param)
+
+        assert result == expected_filename
+        mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_build_data_filename_with_extension(self, mock_exists, mock_makedirs):
+        output_directory = "test_output"
+        runner_name = "TestRunner"
+        experiment_name = "experiment"
+        df_name = "results"
+        ext = "csv"
+
+        expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results.csv")
+        result = build_data_filename(output_directory, runner_name, experiment_name, df_name, ext=ext)
+
+        assert result == expected_filename
+        mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=False)
+    def test_build_data_filename_creates_directory(self, mock_exists, mock_makedirs):
+        output_directory = "test_output"
+        runner_name = "TestRunner"
+        experiment_name = "experiment"
+        df_name = "results"
+
+        expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results")
+        result = build_data_filename(output_directory, runner_name, experiment_name, df_name)
+
+        mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
+        assert result == expected_filename
+
+
+class TestBaseRunner:
+    @pytest.fixture
+    def test_runner(self):
+        """Fixture to create a TestRunner instance for testing."""
+
+        # noinspection PyMissingOrEmptyDocstring
+        class TestRunner(_RunnerBase):
+            def run(self):
+                pass
+
+        def _create_runner(**kwargs):
+            default_kwargs = {
+                "problem": None,
+                "experiment_name": "test_experiment",
+                "seed": 1,
+                "iteration_list": [1, 2, 3],
+                "output_directory": "test_output",
+                "override_ctrl_c_handler": False,
+            }
+            # Update default_kwargs with any provided kwargs
+            default_kwargs.update(kwargs)
+            return TestRunner(**default_kwargs)
+
+        return _create_runner
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_increment_spawn_count(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner()
+        initial_count = runner.get_spawn_count()
+        runner._increment_spawn_count()
+
+        assert runner.get_spawn_count() == initial_count + 1
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_decrement_spawn_count(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner()
+        runner._increment_spawn_count()
+        initial_count = runner.get_spawn_count()
+        runner._decrement_spawn_count()
+
+        assert runner.get_spawn_count() == initial_count - 1
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_get_spawn_count(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner()
+        initial_spawn_count = runner.get_spawn_count()
+        runner._increment_spawn_count()
+        incremented_spawn_count = runner.get_spawn_count()
+        assert incremented_spawn_count == initial_spawn_count + 1
+
+        runner._decrement_spawn_count()
+        decremented_spawn_count = runner.get_spawn_count()
+        assert decremented_spawn_count == initial_spawn_count
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_abort_sets_abort_flag(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner()
+        runner.abort()
+
+        assert runner.has_aborted() is True
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_has_aborted_after_abort_called(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner(seed=42, iteration_list=[0])
+        runner.abort()
+
+        assert runner.has_aborted() is True
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_set_replay_mode(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner()
+        assert not runner.replay_mode()
+
+        runner.set_replay_mode()
+        assert runner.replay_mode()
+
+        runner.set_replay_mode(False)
+        assert not runner.replay_mode()
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_replay_mode(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner(replay=True)
+        assert runner.replay_mode() is True
+
+        runner.set_replay_mode(False)
+        assert runner.replay_mode() is False
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=False)
+    def test_setup_method(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner(problem="dummy_problem", seed=42, iteration_list=[0, 1, 2], output_directory="test_output")
+        runner._setup()
+
+        assert runner._raw_run_stats == []
+        assert runner._fitness_curves == []
+        assert runner._curve_base == 0
+        assert runner._iteration_times == []
+        assert runner._copy_zero_curve_fitness_from_first == runner._copy_zero_curve_fitness_from_first_original
+        assert runner._current_logged_algorithm_args == {}
+        mock_makedirs.assert_called_once_with("test_output")
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_tear_down_restores_original_sigint_handler(self, mock_exists, mock_makedirs, test_runner):
+        original_handler = signal.getsignal(signal.SIGINT)
+        runner = test_runner()
+        runner._tear_down()
+        restored_handler = signal.getsignal(signal.SIGINT)
+
+        assert restored_handler == original_handler
+
+    @patch("os.makedirs")
+    @patch("os.path.exists", return_value=True)
+    def test_log_current_argument(self, mock_exists, mock_makedirs, test_runner):
+        runner = test_runner(seed=42, iteration_list=[0, 1, 2])
+        arg_name = "test_arg"
+        arg_value = "test_value"
+        runner.log_current_argument(arg_name, arg_value)
+
+        assert runner._current_logged_algorithm_args[arg_name] == arg_value
+
+
+class TestNNRunnerBase:
+
+    def test_nn_runner_base_initialization(self):
+        """Test _NNRunnerBase initialization with default parameters"""
+        x_train = np.random.rand(100, 10)
+        y_train = np.random.randint(2, size=100)
+        x_test = np.random.rand(20, 10)
+        y_test = np.random.randint(2, size=20)
+        experiment_name = "test_experiment"
+        seed = SEED
+        iteration_list = [1, 2, 3]
+        grid_search_parameters = {"param1": [0.1, 0.2], "param2": [1, 2]}
+        grid_search_scorer_method = skmt.accuracy_score
+
+        runner = _NNRunnerBase(
+            x_train=x_train,
+            y_train=y_train,
+            x_test=x_test,
+            y_test=y_test,
+            experiment_name=experiment_name,
+            seed=seed,
+            iteration_list=iteration_list,
+            grid_search_parameters=grid_search_parameters,
+            grid_search_scorer_method=grid_search_scorer_method,
+        )
+
+        assert np.array_equal(runner.x_train, x_train)
+        assert np.array_equal(runner.y_train, y_train)
+        assert np.array_equal(runner.x_test, x_test)
+        assert np.array_equal(runner.y_test, y_test)
+        assert runner._experiment_name == experiment_name
+        assert runner.seed == seed
+        assert runner.iteration_list == iteration_list
+        assert runner.grid_search_parameters == runner.build_grid_search_parameters(grid_search_parameters)
+        assert runner.scorer_method == grid_search_scorer_method
+        assert runner.cv == 5
+        assert runner.generate_curves is True
+        assert runner._output_directory is None
+        assert runner.verbose_grid_search is True
+        assert runner.override_ctrl_c_handler is True
+        assert runner.n_jobs == 1
+        assert runner._replay_mode.value is False
+        assert runner.cv_results_df is None
+        assert runner.best_params is None
+
+    def test_nn_runner_base_run_method(self):
+        """Test _NNRunnerBase run method execution with mock data"""
+        x_train = np.random.rand(100, 10)
+        y_train = np.random.randint(2, size=100)
+        x_test = np.random.rand(20, 10)
+        y_test = np.random.randint(2, size=20)
+        experiment_name = "test_experiment"
+        iteration_list = [1, 2, 3]
+        grid_search_parameters = {"param1": [0.1, 0.2], "param2": [1, 2]}
+        grid_search_scorer_method = skmt.accuracy_score
+
+        runner = _NNRunnerBase(
+            x_train=x_train,
+            y_train=y_train,
+            x_test=x_test,
+            y_test=y_test,
+            experiment_name=experiment_name,
+            seed=SEED,
+            iteration_list=iteration_list,
+            grid_search_parameters=grid_search_parameters,
+            grid_search_scorer_method=grid_search_scorer_method,
+        )
+
+        # Create a mock GridSearchCV object
+        mock_grid_search_result = MagicMock()
+        mock_best_estimator = MagicMock()
+        mock_best_estimator.runner = MagicMock()
+
+        # Mock the predict method
+        mock_best_estimator.predict.return_value = np.random.randint(2, size=y_test.shape)
+        mock_grid_search_result.best_estimator_ = mock_best_estimator
+
+        # Mock score method to avoid exceptions
+        runner.score = MagicMock(return_value=0.8)
+
+        with (
+            patch.object(runner, "_setup", return_value=None) as mock_setup,
+            patch.object(runner, "perform_grid_search", return_value=mock_grid_search_result) as mock_grid_search,
+            patch.object(runner, "_tear_down", return_value=None) as mock_tear_down,
+            patch.object(runner, "_print_banner", return_value=None) as mock_print_banner,
+        ):
+            runner.run()
+
+            # Verify calls
+            mock_setup.assert_called_once()
+            mock_grid_search.assert_called_once()
+            mock_tear_down.assert_called_once()
+            mock_print_banner.assert_called()
+
+        # Additional check to ensure prediction is made
+        mock_best_estimator.predict.assert_called_once_with(runner.x_test)
+
+    def test_nn_runner_base_teardown_removes_files(self):
+        """Test _NNRunnerBase _tear_down method to ensure suboptimal files are removed"""
+        runner = _NNRunnerBase(
+            x_train=np.random.rand(100, 10),
+            y_train=np.random.randint(2, size=100),
+            x_test=np.random.rand(20, 10),
+            y_test=np.random.randint(2, size=20),
+            experiment_name="test_experiment",
+            seed=SEED,
+            iteration_list=[1, 2, 3],
+            grid_search_parameters={"param1": [0.1, 0.2], "param2": [1, 2]},
+            grid_search_scorer_method=skmt.accuracy_score,
+            output_directory="test_output",
+        )
+
+        runner.get_runner_name = MagicMock(return_value="TestRunner")
+        runner.best_params = {"param1": 0.1, "param2": 1}
+        runner._output_directory = "test_output"
+        runner.replay_mode = MagicMock(return_value=False)
+
+        # Mock the list of filenames
+        mock_file = mock_open(read_data=b"mocked binary data")  # Note the `b` prefix for binary data
+        with (
+            patch("os.path.isdir", return_value=True),
+            patch("os.listdir", return_value=["testrunner__test_experiment__df_.p", "testrunner__test_experiment__df_1.p"]) as mock_listdir,
+            patch("os.remove") as mock_remove,
+            patch("pandas.DataFrame", return_value=None) as mock_dataframe,
+            patch.object(runner, "_check_match", return_value=False) as mock_check_match,
+            patch("builtins.open", mock_file),
+            patch("pickle.load", return_value=MagicMock()),
+        ):
+            runner._tear_down()
+
+            # Validate os.listdir was called the correct number of times and with the correct arguments
+            assert mock_listdir.call_count == 3
+            mock_listdir.assert_any_call("test_output/test_experiment")
+            mock_check_match.assert_called()
+            mock_remove.assert_called()
+            mock_file.assert_called()
+
+    def test_nn_runner_base_get_pickle_filename_root(self):
+        """Test _NNRunnerBase _get_pickle_filename_root method to ensure correct filename root generation"""
+        runner = _NNRunnerBase(
+            x_train=np.random.rand(100, 10),
+            y_train=np.random.randint(2, size=100),
+            x_test=np.random.rand(20, 10),
+            y_test=np.random.randint(2, size=20),
+            experiment_name="test_experiment",
+            seed=SEED,
+            iteration_list=[1, 2, 3],
+            grid_search_parameters={"param1": [0.1, 0.2], "param2": [1, 2]},
+            grid_search_scorer_method=skmt.accuracy_score,
+            output_directory="test_output",
+        )
+
+        with patch.object(runner, "_sanitize_value", return_value="sanitized_value"):
+            filename_root = runner._get_pickle_filename_root("test_file")
+            assert filename_root.startswith("test_output/test_experiment/_nnrunnerbase__test_experiment__test_file")
+
+    def test_nn_runner_base_check_match(self):
+        """Test _NNRunnerBase _check_match static method to ensure correct match checking"""
+        df_ref = pd.DataFrame({"col1": [1], "col2": [2]})
+        df_to_check = pd.DataFrame({"col1": [1, 1], "col2": [2, 3]})
+
+        match_found = _NNRunnerBase._check_match(df_ref, df_to_check)
+        assert match_found is True
+
+        df_to_check = pd.DataFrame({"col1": [3, 4], "col2": [5, 6]})
+        match_found = _NNRunnerBase._check_match(df_ref, df_to_check)
+        assert match_found is False
