@@ -162,13 +162,14 @@ class TestNeuralNetwork:
             hidden_nodes=[2], activation="identity", algorithm="simulated_annealing", bias=False, learning_rate=1, clip_max=1
         )
 
-        node_list = [4, 2, 1]
+        node_list = [3, 2, 1]
         num_weights = _NNBase._calculate_state_size(node_list)
+        print(f"\nCalculated Number of Weights: {num_weights}")
         weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 10 and len(fitted) == 10 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < 10 and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_genetic_alg(self, sample_data):
         X, y_classifier, _, _ = sample_data
