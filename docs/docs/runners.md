@@ -2,7 +2,7 @@
 
 >[!INFO] Recommendation
 >It is highly recommended that you use the [`Runners class`](https://github.com/knakamura13/mlrose-ky/tree/main/mlrose_ky/runners) for the second assignment on randomized optimizations.
-## An example with RHC Runner
+### An example with RHC Runner
 The below example illustrates how to initialize an RHCRunner object.
 
 ```python
@@ -48,7 +48,7 @@ The output has the following items:
 >[!WARNING]- Recommendation
 > Simulated Annealing does not track `decay` types so it is best to record different `decay` types into `df_run_curves` before saving the runner.
 
-## Use runners to make your own custom wrapper
+### Use runners to make your own custom wrapper
 
 The best way to use runners would be to wrap and call the runners in your own function. One example workflow is below.
 
