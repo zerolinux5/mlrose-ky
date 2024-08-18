@@ -32,7 +32,12 @@ mlrose-ky is a Python package for applying some of the most common randomized op
   * [Data Pre-Processing](/mlrose-ky/tutorial3#data-pre-processing)
   * [Neural Networks](/mlrose-ky/tutorial3#neural-networks)
   * [Linear and Logistic Regression Models](/mlrose-ky/tutorial3#linear-and-logistic-regression-models)
-  * [Summary](/tutorial3#summary)
+  * [Summary](/mlrose-ky/tutorial3#summary)
+
+### Tutorial 4 - Using Runners
+- [An example with RHC runners](/mlrose-ky/runners/an-example-with-rhc-runner)
+- [Use runners to make your own custom wrapper](/mlrose-ky/runners/#use-runners-to-make-your-own-custom-wrapper)
+
 
 ## API Reference
 * [Algorithms](/mlrose-ky/algorithms)

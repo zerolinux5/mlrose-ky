@@ -3,8 +3,7 @@ Functions to implement the randomized optimization and search algorithms.
 
 > [!NOTE] Recommendation
 > The below functions are implemented within mlrose-ky. However, it is highly recommended to use the [Runners](/runners/) for assignment.
-
-### Hill Climbing
+### Hill Climbing 
 Use standard hill climbing to find the optimum for a given optimization problem.
 
 ```python
@@ -15,10 +14,10 @@ hill_climb(
     init_state=None,
     curve=False,
     random_state=None
-)
+) 
 ```
 
-**Parameters:**
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/hc.py#L12)
 
 *   **problem** (_optimization object_) – Object containing fitness function optimization problem to be solved. For example, `DiscreteOpt()`, `ContinuousOpt()` or `TSPOpt()`.
 *   **max\_iters** (_int, default: np.inf_) – Maximum number of iterations of the algorithm for each restart.
@@ -52,7 +51,7 @@ random_hill_climb(
 )
 ```
 
-**Parameters**:
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/rhc.py#L12)
 
 *   **problem** (_optimization object_) – Object containing fitness function optimization problem to be solved. For example, `DiscreteOpt()`, `ContinuousOpt()` or `TSPOpt()`.
 *   **max\_attempts** (_int, default: 10_) – Maximum number of attempts to find a better neighbor at each step.
@@ -87,7 +86,7 @@ simulated_annealing(
 )
 ```
 
-**Parameters**:
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/sa.py#L13)
 
 *   **problem** (_optimization object_) – Object containing fitness function optimization problem to be solved. For example, `DiscreteOpt()`, `ContinuousOpt()` or `TSPOpt()`.
 *   **schedule** (schedule object, default: `mlrose_ky.GeomDecay()`) – Schedule used to determine the value of the temperature parameter.
@@ -122,7 +121,7 @@ genetic_alg(
 )
 ```
 
-**Parameters**:
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/ga.py#L101)
 
 *   **problem** (_optimization object_) – Object containing fitness function optimization problem to be solved. For example, `DiscreteOpt()`, `ContinuousOpt()` or `TSPOpt()`.
 *   **pop\_size** (_int, default: 200_) – Size of population to be used in genetic algorithm.
@@ -157,11 +156,10 @@ mimic(
     fast_mimic=False
 )
 ```
-
 > [!DANGER] Warning
 > MIMIC cannot be used for solving continuous-state optimization problems.
 
-**Parameters**:
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/mimic.py#L12)
 
 *   **problem** (_optimization object_) – Object containing fitness function optimization problem to be solved. For example, `DiscreteOpt()` or `TSPOpt()`.
 *   **pop\_size** (_int, default: 200_) – Size of population to be used in algorithm.
