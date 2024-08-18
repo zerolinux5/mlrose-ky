@@ -195,17 +195,17 @@ BibTeX entry:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/AlexWendland">
-                    <img src="https://avatars.githubusercontent.com/u/3949212?v=4" width="100;" alt="AlexWendland"/>
-                    <br />
-                    <sub><b>Alex Wendland</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/harrisonfloam">
                     <img src="https://avatars.githubusercontent.com/u/130672912?v=4" width="100;" alt="harrisonfloam"/>
                     <br />
                     <sub><b>harrisonfloam</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/AlexWendland">
+                    <img src="https://avatars.githubusercontent.com/u/3949212?v=4" width="100;" alt="AlexWendland"/>
+                    <br />
+                    <sub><b>Alex Wendland</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -216,47 +216,33 @@ BibTeX entry:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/jfs42">
-                    <img src="https://avatars.githubusercontent.com/u/43157283?v=4" width="100;" alt="jfs42"/>
-                    <br />
-                    <sub><b>Jason Seeley</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/KevinJBoyer">
                     <img src="https://avatars.githubusercontent.com/u/31424131?v=4" width="100;" alt="KevinJBoyer"/>
                     <br />
                     <sub><b>Kevin Boyer</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/jfs42">
+                    <img src="https://avatars.githubusercontent.com/u/43157283?v=4" width="100;" alt="jfs42"/>
+                    <br />
+                    <sub><b>Jason Seeley</b></sub>
+                </a>
+            </td>
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/austin-bowen">
-                    <img src="https://avatars.githubusercontent.com/u/4653828?v=4" width="100;" alt="austin-bowen"/>
+                <a href="https://github.com/sareini">
+                    <img src="https://avatars.githubusercontent.com/u/26151060?v=4" width="100;" alt="sareini"/>
                     <br />
-                    <sub><b>Austin Bowen</b></sub>
+                    <sub><b>Muhammad Sareini</b></sub>
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/dstrube1">
-                    <img src="https://avatars.githubusercontent.com/u/7396679?v=4" width="100;" alt="dstrube1"/>
+                <a href="https://github.com/nibelungvalesti">
+                    <img src="https://avatars.githubusercontent.com/u/9278042?v=4" width="100;" alt="nibelungvalesti"/>
                     <br />
-                    <sub><b>David Strube</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/jlm429">
-                    <img src="https://avatars.githubusercontent.com/u/10093986?v=4" width="100;" alt="jlm429"/>
-                    <br />
-                    <sub><b>John Mansfield</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/mjschock">
-                    <img src="https://avatars.githubusercontent.com/u/1357197?v=4" width="100;" alt="mjschock"/>
-                    <br />
-                    <sub><b>Michael Schock</b></sub>
+                    <sub><b>nibelungvalesti</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -267,19 +253,33 @@ BibTeX entry:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/nibelungvalesti">
-                    <img src="https://avatars.githubusercontent.com/u/9278042?v=4" width="100;" alt="nibelungvalesti"/>
+                <a href="https://github.com/mjschock">
+                    <img src="https://avatars.githubusercontent.com/u/1357197?v=4" width="100;" alt="mjschock"/>
                     <br />
-                    <sub><b>nibelungvalesti</b></sub>
+                    <sub><b>Michael Schock</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/jlm429">
+                    <img src="https://avatars.githubusercontent.com/u/10093986?v=4" width="100;" alt="jlm429"/>
+                    <br />
+                    <sub><b>John Mansfield</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/dstrube1">
+                    <img src="https://avatars.githubusercontent.com/u/7396679?v=4" width="100;" alt="dstrube1"/>
+                    <br />
+                    <sub><b>David Strube</b></sub>
                 </a>
             </td>
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/sareini">
-                    <img src="https://avatars.githubusercontent.com/u/26151060?v=4" width="100;" alt="sareini"/>
+                <a href="https://github.com/austin-bowen">
+                    <img src="https://avatars.githubusercontent.com/u/4653828?v=4" width="100;" alt="austin-bowen"/>
                     <br />
-                    <sub><b>Muhammad Sareini</b></sub>
+                    <sub><b>Austin Bowen</b></sub>
                 </a>
             </td>
             <td align="center">
