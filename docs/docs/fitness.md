@@ -13,7 +13,7 @@ Fitness function for One Max optimization problem. Evaluates the fitness of a st
 ```python
 class OneMax
 ```
->[!WARNING] Note
+>[!WARNING]- Note
 > The One Max fitness function is suitable for use in either discrete or continuous-state optimization problems.
 
 #### Class method
@@ -43,7 +43,7 @@ Fitness function for Flip Flop optimization problem. Evaluates the fitness of a 
 ```python
 class FlipFlop
 ```
-> [!WARNING] Note
+> [!WARNING]- Note
 > The Flip Flop fitness function is suitable for use in discrete-state optimization problems _only_.
 #### Class method
 Evaluate the fitness of a state vector.
@@ -81,8 +81,7 @@ where:
 ```python
 class FourPeaks(t_pct=0.1)
 ```
-
-> [!WARNING] Note
+> [!WARNING]- Note
 > The Four Peaks fitness function is suitable for use in bit-string (discrete-state with `max_val = 2`) optimization problems _only_.
 
 **Parameters:**  
@@ -129,8 +128,7 @@ where:
 ```python
 class SixPeaks(t_pct=0.1)
 ```
-
-> [!WARNING] Note
+> [!WARNING]- Note
 > The Six Peaks fitness function is suitable for use in bit-string (discrete-state with `max_val = 2`) optimization problems only.
 
 **Parameters:**  
@@ -175,8 +173,7 @@ where:
 ```python
 class ContinuousPeaks(t_pct=0.1)
 ```
-
-> [!WARNING] Note
+> [!WARNING]- Note
 > The Continuous Peaks fitness function is suitable for use in bit-string (discrete-state with `max_val = 2`) optimization problems _only_.
 
 **Parameters:**  
@@ -216,12 +213,10 @@ where \( x_i \) denotes the number of copies of item \( i \) included in the kna
 ```python
 class Knapsack(weights, values, max_weight_pct=0.35)
 ```
-
-> [!WARNING] Info
+> [!WARNING]- Info
 > The Knapsack fitness function is suitable for use in discrete-state optimization problems _only_.
 
 **Parameters:**
-
 - **`weights`** (*list*) – List of weights for each of the \( n \) items.
 - **`values`** (*list*) – List of values for each of the \( n \) items.
 - **`max_weight_pct`** (*float*, *default: 0.35*) – Parameter used to set maximum capacity of knapsack (\( W \)) as a percentage of the total of the weights list (\( W = \text{max_weight_pct} \times \text{total_weight} \)).
@@ -256,13 +251,11 @@ Evaluates the fitness of a tour of n nodes, represented by state vector \[x\], g
 ```python
 class TravellingSales(coords=None, distances=None)
 ```
-
-> [!WARNING] Note
+> [!WARNING]- Note
 > 1.  The TravellingSales fitness function is suitable for use in travelling salesperson (tsp) optimization problems _only_.
 > 2.  It is necessary to specify at least one of `coords` and `distances` in initializing a TravellingSales fitness function object.
 
 **Parameters**:
-
 *   `coords` (_list of pairs, default: None_) – Ordered list of the (x, y) coordinates of all nodes (where element i gives the coordinates of node i). This assumes that travel between all pairs of nodes is possible. If this is not the case, then use `distances` instead.
 *   `distances` (_list of triples, default: None_) – List giving the distances, d, between all pairs of nodes, u and v, for which travel is possible, with each list item in the form (u, v, d). Order of the nodes does not matter, so (u, v, d) and (v, u, d) are considered to be the same. If a pair is missing from the list, it is assumed that travel between the two nodes is not possible. This argument is ignored if coords is not `None`.
 #### Class method
@@ -299,8 +292,7 @@ Evaluates the fitness of an n-dimensional state vector \( x = [x_0, x_1, \dots, 
 ```python
 class Queens
 ```
-
-> [!WARNING] Note
+> [!WARNING]- Note
 > The Queens fitness function is suitable for use in discrete-state optimization problem only.
 #### Class method
 ```python
@@ -332,8 +324,7 @@ Fitness function for Max-k color optimization problem. Evaluates the fitness of 
 ```python
 class MaxKColor(edges)
 ```
-
-> [!WARNING] Note
+> [!WARNING]- Note
 > The MaxKColor fitness function is suitable for use in discrete-state optimization problems _only_.
 
 **Parameters**:

@@ -8,19 +8,17 @@ Schedule for geometrically decaying the simulated annealing temperature paramete
 #### Formula
 \[ T(t) = \max(T_0 \times r^t, T_{min}) \]
 
-where:
-
+where
 - \( T_0 \) is the initial temperature (at time \( t = 0 \));
 - \( r \) is the rate of geometric decay; and
 - \( T_{min} \) is the minimum temperature value.
 
 #### Class declaration
-
 ```python
 class GeomDecay(init_temp=1.0, decay=0.99, min_temp=0.001)
 ```
 
-**Parameters**:
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/decay/geometric_decay.py#L7)
 
 - **init\_temp** (_float, default: 1.0_) – Initial value of temperature parameter T. Must be greater than 0.
 - **decay** (_float, default: 0.99_) – Temperature decay parameter, r. Must be between 0 and 1.
@@ -32,7 +30,7 @@ Evaluate the temperature parameter at time t.
 evaluate(t)
 ```
 
-**Parameters**: **t** (_int_) – Time at which the temperature paramter T is evaluated.
+**Parameters**: **t** (_int_) – Time at which the temperature parameter T is evaluated.
 
 **Returns**: **temp** (_float_) – Temperature parameter at time t.
 
@@ -45,29 +43,24 @@ evaluate(t)
 ```
 ### Arithmetic Decay
 Schedule for arithmetically decaying the simulated annealing temperature parameter T according to the formula:
-
 #### Formula
 \[ T(t) = \max(T_{0} - rt, T_{min}) \]
 
-where:
-
+where
 *   \( T_{0} \) is the initial temperature (at time t = 0);
 *   \( r \) is the rate of arithmetic decay; and
 *   \( T_{min} \) is the minimum temperature value.
 
 #### Class declaration
-
 ```python
 class ArithDecay(init_temp=1.0, decay= 0.0001, min_temp=0.001)
 ```
 
-**Parameters**:
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/decay/arithmetic_decay.py#L7)
 
 *   **init\_temp** (_float, default: 1.0_) – Initial value of temperature parameter T. Must be greater than 0.
 *   **decay** (_float, default: 0.0001_) – Temperature decay parameter, r. Must be greater than 0.
 *   **min\_temp** (_float, default: 0.001_) – Minimum value of temperature parameter. Must be greater than 0.
-
-
 #### Class method
 Evaluate the temperature parameter at time t.
 ```python
@@ -88,12 +81,10 @@ evaluate(t)
 
 ### Exponential Decay
 Schedule for exponentially decaying the simulated annealing temperature parameter T according to the formula.
-
 #### Formula
 \[ T(t) = \max(T_{0} e^{-rt}, T_{min}) \]
 
 where:
-
 *   \( T_{0} \) is the initial temperature (at time t = 0);
 *   \( r \) is the rate of arithmetic decay; and
 *   \( T_{min} \) is the minimum temperature value.
@@ -103,8 +94,7 @@ where:
 class ExpDecay(init_temp=1.0, exp_const=0.005, min_temp=0.001)
 ```
 
-**Parameters**:
-
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/decay/exponential_decay.py#L9)
 *   **init\_temp** (_float, default: 1.0_) – Initial value of temperature parameter T. Must be greater than 0.
 *   **exp\_const** (_float, default: 0.005_) – Exponential constant parameter, r. Must be greater than 0.
 *   **min\_temp** (_float, default: 0.001_) – Minimum value of temperature parameter. Must be greater than 0.
@@ -132,8 +122,7 @@ Class for generating your own temperature schedule.
 class CustomSchedule(schedule, **kwargs)
 ```
 
-**Parameters**:
-
+**Parameters** [[source]](https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/decay/custom_decay.py#L9)
 *   **schedule** (_callable_) – Function for calculating the temperature at time t with the signature `schedule(t, **kwargs)`.
 *   **kwargs** (_additional arguments_) – Additional parameters to be passed to schedule.
 
