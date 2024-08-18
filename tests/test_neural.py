@@ -1,27 +1,48 @@
+"""Unit tests for neural/"""
+
+# Author: Kyle Nakamura
+# License: BSD 3 clause
+
 import pytest
 import numpy as np
 from sklearn.model_selection import StratifiedShuffleSplit, learning_curve
+
 from mlrose_ky.neural.linear_regression import LinearRegression
 from mlrose_ky.neural.logistic_regression import LogisticRegression
 from mlrose_ky.neural.fitness.network_weights import NetworkWeights
 from mlrose_ky.neural.neural_network import NeuralNetwork
 from mlrose_ky.opt_probs import ContinuousOpt
-from mlrose_ky.neural._nn_base import _NNBase
 from mlrose_ky import flatten_weights, unflatten_weights, identity, sigmoid, softmax
 from mlrose_ky.algorithms.gd import gradient_descent
+
+# noinspection PyProtectedMember
+from mlrose_ky.neural._nn_base import _NNBase
 
 
 @pytest.fixture
 def sample_data():
-    X = np.array([[0, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 1, 1], [1, 0, 0, 0]])
-    y_classifier = np.reshape(np.array([1, 1, 0, 0, 1, 1]), [6, 1])
+    """Return sample data for testing."""
+    X = np.array([
+        [0, 1, 0, 1],
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [0, 0, 1, 1],
+        [1, 0, 0, 0]
+    ])  # X.shape = (6, 4)
+
+    y_classifier = np.reshape(np.array([1, 1, 0, 0, 1, 1]), (X.shape[0], 1))
     y_multiclass = np.array([[1, 1], [1, 0], [0, 0], [0, 0], [1, 0], [1, 1]])
     y_regressor = y_classifier.copy()
+
     return X, y_classifier, y_multiclass, y_regressor
 
 
 class TestNeural:
+    """Test cases for neural network-related utilities."""
+
     def test_flatten_weights(self):
+        """Test flatten_weights function."""
         x = np.arange(12)
         y = np.arange(6)
         z = np.arange(16)
@@ -36,6 +57,7 @@ class TestNeural:
         assert np.array_equal(np.array(flatten_weights(weights)), np.array(flat))
 
     def test_unflatten_weights(self):
+        """Test unflatten_weights function."""
         x = np.arange(12)
         y = np.arange(6)
         z = np.arange(16)
@@ -51,41 +73,49 @@ class TestNeural:
         assert np.array_equal(weights[0], a) and np.array_equal(weights[1], b) and np.array_equal(weights[2], c)
 
     def test_gradient_descent(self, sample_data):
+        """Test gradient descent algorithm on sample data."""
         X, y_classifier, _, _ = sample_data
-        node_list = [4, 2, 1]
-        nodes = 0
-        for i in range(len(node_list) - 1):
-            nodes += node_list[i] * node_list[i + 1]
-        fitness = NetworkWeights(X, y_classifier, node_list, activation=identity, bias=False, is_classifier=False)
+        hidden_nodes = [2]
+        bias = False
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
+        fitness = NetworkWeights(X, y_classifier, node_list, activation=identity, bias=bias, is_classifier=False)
 
-        problem = ContinuousOpt(nodes, fitness, maximize=False, min_val=-1)
+        num_weights = _NNBase._calculate_state_size(node_list)
+        test_weights = np.ones(num_weights)
 
-        test_weights = np.ones(nodes)
+        problem = ContinuousOpt(num_weights, fitness, maximize=False, min_val=-1)
         test_fitness = -1 * problem.eval_fitness(test_weights)
         best_state, best_fitness, _ = gradient_descent(problem)
 
-        assert len(best_state) == nodes and min(best_state) >= -1 and max(best_state) <= 1 and best_fitness < test_fitness
+        assert len(best_state) == num_weights and min(best_state) >= -1 and max(best_state) <= 1 and best_fitness < test_fitness
 
     def test_gradient_descent_iter1(self, sample_data):
+        """Test gradient descent with one iteration."""
         X, y_classifier, _, _ = sample_data
-        nodes = [4, 2, 1]
-        fitness = NetworkWeights(X, y_classifier, nodes, activation=identity, bias=False, is_classifier=False)
+        hidden_nodes = [2]
+        bias = False
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
+        fitness = NetworkWeights(X, y_classifier, node_list, activation=identity, bias=bias, is_classifier=False)
 
-        problem = ContinuousOpt(10, fitness, maximize=False, min_val=-1)
-        node_list = [4, 2, 1]
         num_weights = _NNBase._calculate_state_size(node_list)
+        problem = ContinuousOpt(num_weights, fitness, maximize=False, min_val=-1)
         init_weights = np.ones(num_weights)
         best_state, best_fitness, _ = gradient_descent(problem, max_iters=1, init_state=init_weights)
-        x = np.array([-0.7, -0.7, -0.9, -0.9, -0.9, -0.9, -1, -1, -1, -1])
 
+        x = np.array([-0.7, -0.7, -0.9, -0.9, -0.9, -0.9, -1, -1, -1, -1])
         assert np.allclose(best_state, x, atol=0.001) and round(best_fitness, 2) == 19.14
 
 
 class TestNeuralWeights:
+    """Test cases for neural network weights evaluation."""
+
     def test_evaluate_no_bias_classifier(self, sample_data):
+        """Test evaluation of network weights without bias for classification."""
         X, y_classifier, _, _ = sample_data
-        nodes = [4, 2, 1]
-        fitness = NetworkWeights(X, y_classifier, nodes, activation=identity, bias=False)
+        hidden_nodes = [2]
+        bias = False
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
+        fitness = NetworkWeights(X, y_classifier, node_list, activation=identity, bias=bias)
 
         a = list(np.arange(8) + 1)
         b = list(0.01 * (np.arange(2) + 1))
@@ -94,9 +124,12 @@ class TestNeuralWeights:
         assert round(fitness.evaluate(np.asarray(weights)), 4) == 0.7393
 
     def test_evaluate_no_bias_multi(self, sample_data):
+        """Test evaluation of network weights without bias for multiclass classification."""
         X, _, y_multiclass, _ = sample_data
-        nodes = [4, 2, 2]
-        fitness = NetworkWeights(X, y_multiclass, nodes, activation=identity, bias=False)
+        hidden_nodes = [2]
+        bias = False
+        node_list = [X.shape[1], *hidden_nodes, 2]  # Unsure why last layer needs 2 nodes even though bias is False
+        fitness = NetworkWeights(X, y_multiclass, node_list, activation=identity, bias=bias)
 
         a = list(np.arange(8) + 1)
         b = list(0.01 * (np.arange(4) + 1))
@@ -105,9 +138,12 @@ class TestNeuralWeights:
         assert round(fitness.evaluate(np.asarray(weights)), 4) == 0.7183
 
     def test_evaluate_no_bias_regressor(self, sample_data):
+        """Test evaluation of network weights without bias for regression."""
         X, _, _, y_regressor = sample_data
-        nodes = [4, 2, 1]
-        fitness = NetworkWeights(X, y_regressor, nodes, activation=identity, bias=False, is_classifier=False)
+        hidden_nodes = [2]
+        bias = False
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
+        fitness = NetworkWeights(X, y_regressor, node_list, activation=identity, bias=bias, is_classifier=False)
 
         a = list(np.arange(8) + 1)
         b = list(0.01 * (np.arange(2) + 1))
@@ -116,9 +152,12 @@ class TestNeuralWeights:
         assert round(fitness.evaluate(np.asarray(weights)), 4) == 0.5542
 
     def test_evaluate_bias_regressor(self, sample_data):
+        """Test evaluation of network weights with bias for regression."""
         X, _, _, y_regressor = sample_data
-        nodes = [5, 2, 1]
-        fitness = NetworkWeights(X, y_regressor, nodes, activation=identity, is_classifier=False)
+        hidden_nodes = [2]
+        bias = True
+        node_list = [5, *hidden_nodes, 1]  # Unsure why this first number needs to be 5 even though X.shape[1] is 6
+        fitness = NetworkWeights(X, y_regressor, node_list, bias=bias, activation=identity, is_classifier=False)
 
         a = list(np.arange(10) + 1)
         b = list(0.01 * (np.arange(2) + 1))
@@ -127,9 +166,12 @@ class TestNeuralWeights:
         assert round(fitness.evaluate(np.asarray(weights)), 4) == 0.4363
 
     def test_calculate_updates(self, sample_data):
+        """Test calculation of weight updates for the network."""
         X, y_classifier, _, _ = sample_data
-        nodes = [4, 2, 1]
-        fitness = NetworkWeights(X, y_classifier, nodes, activation=identity, bias=False, is_classifier=False, learning_rate=1)
+        hidden_nodes = [2]
+        bias = False
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
+        fitness = NetworkWeights(X, y_classifier, node_list, activation=identity, bias=bias, is_classifier=False, learning_rate=1)
 
         a = list(np.arange(8) + 1)
         b = list(0.01 * (np.arange(2) + 1))
@@ -144,86 +186,108 @@ class TestNeuralWeights:
 
 
 class TestNeuralNetwork:
-    def test_fit_random_hill_climb(self, sample_data):
-        X, y_classifier, _, _ = sample_data
-        network = NeuralNetwork(hidden_nodes=[2], activation="identity", bias=False, learning_rate=1, clip_max=1)
+    """Test cases for the NeuralNetwork class."""
 
-        node_list = [4, 2, 1]
+    def test_fit_random_hill_climb(self, sample_data):
+        """Test fitting the network using random hill climb."""
+        X, y_classifier, _, _ = sample_data
+        hidden_nodes = [2]
+        bias = False
+        network = NeuralNetwork(hidden_nodes=hidden_nodes, activation="identity", bias=bias, learning_rate=1, clip_max=1)
+
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
         num_weights = _NNBase._calculate_state_size(node_list)
+
         weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 10 and len(fitted) == 10 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_simulated_annealing(self, sample_data):
+        """Test fitting the network using simulated annealing."""
         X, y_classifier, _, _ = sample_data
+        hidden_nodes = [2]
+        bias = False
         network = NeuralNetwork(
-            hidden_nodes=[2], activation="identity", algorithm="simulated_annealing", bias=False, learning_rate=1, clip_max=1
+            hidden_nodes=hidden_nodes, activation="identity", algorithm="simulated_annealing", bias=bias, learning_rate=1, clip_max=1
         )
 
-        node_list = [3, 2, 1]
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
         num_weights = _NNBase._calculate_state_size(node_list)
-        print(f"\nCalculated Number of Weights: {num_weights}")
+
         weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 10 and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_genetic_alg(self, sample_data):
+        """Test fitting the network using genetic algorithm."""
         X, y_classifier, _, _ = sample_data
+        hidden_nodes = [2]
+        bias = False
         network = NeuralNetwork(
-            hidden_nodes=[2], activation="identity", algorithm="genetic_alg", bias=False, learning_rate=1, clip_max=1, max_attempts=1
+            hidden_nodes=hidden_nodes, activation="identity", algorithm="genetic_alg", bias=bias, learning_rate=1, clip_max=1, max_attempts=1
         )
+
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
+        num_weights = _NNBase._calculate_state_size(node_list)
 
         network.fit(X, y_classifier)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 10 and len(fitted) == 10 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_gradient_descent(self, sample_data):
+        """Test fitting the network using gradient descent."""
         X, y_classifier, _, _ = sample_data
+        hidden_nodes = [2]
+        bias = False
         network = NeuralNetwork(
-            hidden_nodes=[2], activation="identity", algorithm="gradient_descent", bias=False, learning_rate=1, clip_max=1
+            hidden_nodes=hidden_nodes, activation="identity", algorithm="gradient_descent", bias=bias, learning_rate=1, clip_max=1
         )
 
-        node_list = [4, 2, 1]
+        node_list = [X.shape[1], *hidden_nodes, 2 if bias else 1]
         num_weights = _NNBase._calculate_state_size(node_list)
+
         weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 10 and len(fitted) == 10 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_predict_no_bias(self, sample_data):
-        X, _, _, _ = sample_data
-        network = NeuralNetwork(hidden_nodes=[2], activation="identity", bias=False, learning_rate=1, clip_max=1)
+        """Test prediction without bias."""
+        X, y_classifier, _, _ = sample_data
+        hidden_nodes = [2]
+        bias = False
+        network = NeuralNetwork(hidden_nodes=hidden_nodes, activation="identity", bias=bias, learning_rate=1, clip_max=1)
 
-        node_list = [4, 2, 2]
+        node_list = [X.shape[1], *hidden_nodes, 2]  # Unsure why this last number needs to be 2 even though bias is False
         network.fitted_weights = np.array([0.2, 0.5, 0.3, 0.4, 0.4, 0.3, 0.5, 0.2, -1, 1, 1, -1])
         network.node_list = node_list
         network.output_activation = softmax
 
-        probs = np.array([[0.40131, 0.59869], [0.5, 0.5], [0.5, 0.5], [0.5, 0.5], [0.31003, 0.68997], [0.64566, 0.35434]])
         labels = np.array([[0, 1], [1, 0], [1, 0], [1, 0], [0, 1], [1, 0]])
-
+        probs = np.array([[0.40131, 0.59869], [0.5, 0.5], [0.5, 0.5], [0.5, 0.5], [0.31003, 0.68997], [0.64566, 0.35434]])
         assert np.array_equal(network.predict(X), labels) and np.allclose(network.predicted_probs, probs, atol=0.0001)
 
     def test_predict_bias(self, sample_data):
-        X, _, _, _ = sample_data
-        network = NeuralNetwork(hidden_nodes=[2], activation="identity", learning_rate=1, clip_max=1)
+        """Test prediction with bias."""
+        X, y_classifier, _, _ = sample_data
+        hidden_nodes = [2]
+        network = NeuralNetwork(hidden_nodes=hidden_nodes, activation="identity", learning_rate=1, clip_max=1)
 
-        node_list = [5, 2, 2]
+        node_list = [5, *hidden_nodes, 2]  # Unsure why this first number needs to be 5 even though X.shape[1] is 6
         network.fitted_weights = np.array([0.2, 0.5, 0.3, 0.4, 0.4, 0.3, 0.5, 0.2, 1, -1, -0.1, 0.1, 0.1, -0.1])
         network.node_list = node_list
         network.output_activation = softmax
 
+        labels = np.array([[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]])
         probs = np.array(
             [[0.39174, 0.60826], [0.40131, 0.59869], [0.40131, 0.59869], [0.40131, 0.59869], [0.38225, 0.61775], [0.41571, 0.58419]]
         )
-        labels = np.array([[0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]])
-
         assert np.array_equal(network.predict(X), labels) and np.allclose(network.predicted_probs, probs, atol=0.0001)
 
     def test_learning_curve(self):
@@ -268,115 +332,153 @@ class TestNeuralNetwork:
 
 
 class TestLinearRegression:
+    """Test cases for the LinearRegression class."""
+
     def test_fit_random_hill_climb(self, sample_data):
+        """Test fitting LinearRegression using random hill climb."""
         X, y_classifier, _, _ = sample_data
         network = LinearRegression(bias=False, learning_rate=1, clip_max=1)
 
-        weights = np.ones(4)
+        num_weights = X.shape[1]
+        weights = np.ones(num_weights)
+
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_simulated_annealing(self, sample_data):
+        """Test fitting LinearRegression using simulated annealing."""
         X, y_classifier, _, _ = sample_data
         network = LinearRegression(algorithm="simulated_annealing", bias=False, learning_rate=1, clip_max=1)
 
-        weights = np.ones(4)
+        num_weights = X.shape[1]
+        weights = np.ones(num_weights)
+
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_genetic_alg(self, sample_data):
+        """Test fitting LinearRegression using genetic algorithm."""
         X, y_classifier, _, _ = sample_data
         network = LinearRegression(algorithm="genetic_alg", bias=False, learning_rate=1, clip_max=1, max_attempts=1)
 
-        network.fit(X, y_classifier)
-        fitted = network.fitted_weights
+        num_weights = X.shape[1]
+        weights = np.ones(num_weights)
 
-        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
-
-    def test_fit_gradient_descent(self, sample_data):
-        X, y_classifier, _, _ = sample_data
-        network = LinearRegression(algorithm="gradient_descent", bias=False, clip_max=1)
-
-        weights = np.ones(4)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) <= 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
+
+    def test_fit_gradient_descent(self, sample_data):
+        """Test fitting LinearRegression using gradient descent."""
+        X, y_classifier, _, _ = sample_data
+        network = LinearRegression(algorithm="gradient_descent", bias=False, clip_max=1)
+
+        num_weights = X.shape[1]
+        weights = np.ones(num_weights)
+
+        network.fit(X, y_classifier, init_weights=weights)
+        fitted = network.fitted_weights
+
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_predict_no_bias(self, sample_data):
+        """Test prediction without bias in LinearRegression."""
         X, _, _, _ = sample_data
-        network = LinearRegression(bias=False, learning_rate=1, clip_max=1)
+        bias = False
+        network = LinearRegression(bias=bias, learning_rate=1, clip_max=1)
 
-        network.fitted_weights = np.ones(4)
-        network.node_list = [4, 1]
+        first_layer_size = X.shape[1] + (1 if bias else 0)
+
+        network.fitted_weights = np.ones(first_layer_size)
+        network.node_list = [first_layer_size, 1]
         network.output_activation = identity
 
         x = np.reshape(np.array([2, 0, 4, 4, 2, 1]), [6, 1])
-
         assert np.array_equal(network.predict(X), x)
 
     def test_predict_bias(self, sample_data):
+        """Test prediction with bias in LinearRegression."""
         X, _, _, _ = sample_data
-        network = LinearRegression(learning_rate=1, clip_max=1)
+        bias = True
+        network = LinearRegression(bias=bias, learning_rate=1, clip_max=1)
 
-        network.fitted_weights = np.ones(5)
-        network.node_list = [5, 1]
+        first_layer_size = X.shape[1] + (1 if bias else 0)
+
+        network.fitted_weights = np.ones(first_layer_size)
+        network.node_list = [first_layer_size, 1]
         network.output_activation = identity
 
         x = np.reshape(np.array([3, 1, 5, 5, 3, 2]), [6, 1])
-
         assert np.array_equal(network.predict(X), x)
 
 
 class TestLogisticRegression:
-    def test_fit_random_hill_climb(self, sample_data):
-        X, y_classifier, _, _ = sample_data
-        network = LogisticRegression(bias=False, learning_rate=1, clip_max=1)
+    """Test cases for the LogisticRegression class."""
 
-        weights = np.ones(4)
+    def test_fit_random_hill_climb(self, sample_data):
+        """Test fitting LogisticRegression using random hill climb."""
+        X, y_classifier, _, _ = sample_data
+        bias = False
+        network = LogisticRegression(bias=bias, learning_rate=1, clip_max=1)
+
+        num_weights = X.shape[1] + (1 if bias else 0)
+        weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_simulated_annealing(self, sample_data):
+        """Test fitting LogisticRegression using simulated annealing."""
         X, y_classifier, _, _ = sample_data
-        network = LogisticRegression(algorithm="simulated_annealing", bias=False, learning_rate=1, clip_max=1)
+        bias = True
+        network = LogisticRegression(algorithm="simulated_annealing", bias=bias, learning_rate=1, clip_max=1)
 
-        weights = np.ones(4)
+        num_weights = X.shape[1] + (1 if bias else 0)
+        weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_genetic_alg(self, sample_data):
+        """Test fitting LogisticRegression using genetic algorithm."""
         X, y_classifier, _, _ = sample_data
-        network = LogisticRegression(algorithm="genetic_alg", bias=False, learning_rate=1, clip_max=1, max_iters=2)
+        bias = False
+        network = LogisticRegression(algorithm="genetic_alg", bias=bias, learning_rate=1, clip_max=1, max_iters=2)
 
+        num_weights = X.shape[1] + (1 if bias else 0)
         network.fit(X, y_classifier)
         fitted = network.fitted_weights
 
-        assert sum(fitted) < 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) < num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_fit_gradient_descent(self, sample_data):
+        """Test fitting LogisticRegression using gradient descent."""
         X, y_classifier, _, _ = sample_data
-        network = LogisticRegression(algorithm="gradient_descent", bias=False, clip_max=1)
+        bias = False
+        network = LogisticRegression(algorithm="gradient_descent", bias=bias, clip_max=1)
 
-        weights = np.ones(4)
+        num_weights = X.shape[1] + (1 if bias else 0)
+        weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
-        assert sum(fitted) <= 4 and len(fitted) == 4 and min(fitted) >= -1 and max(fitted) <= 1
+        assert sum(fitted) <= num_weights and len(fitted) == num_weights and min(fitted) >= -1 and max(fitted) <= 1
 
     def test_predict_no_bias(self, sample_data):
+        """Test prediction without bias in LogisticRegression."""
         X, _, _, _ = sample_data
-        network = LogisticRegression(bias=False, learning_rate=1, clip_max=1)
+        bias = False
+        network = LogisticRegression(bias=bias, learning_rate=1, clip_max=1)
 
-        node_list = [4, 1]
+        first_layer_size = X.shape[1] + (1 if bias else 0)
+        node_list = [first_layer_size, 1]
         network.fitted_weights = np.array([-1, 1, 1, 1])
         network.node_list = node_list
         network.output_activation = sigmoid
@@ -387,10 +489,13 @@ class TestLogisticRegression:
         assert np.array_equal(network.predict(X), labels) and np.allclose(network.predicted_probs, probs, atol=0.0001)
 
     def test_predict_bias(self, sample_data):
+        """Test prediction with bias in LogisticRegression."""
         X, _, _, _ = sample_data
-        network = LogisticRegression(learning_rate=1, clip_max=1)
+        bias = True
+        network = LogisticRegression(bias=bias, learning_rate=1, clip_max=1)
 
-        node_list = [5, 1]
+        first_layer_size = X.shape[1] + (1 if bias else 0)
+        node_list = [first_layer_size, 1]
         network.fitted_weights = np.array([-1, 1, 1, 1, -1])
         network.node_list = node_list
         network.output_activation = sigmoid
