@@ -6,6 +6,7 @@ from mlrose_ky.neural.logistic_regression import LogisticRegression
 from mlrose_ky.neural.fitness.network_weights import NetworkWeights
 from mlrose_ky.neural.neural_network import NeuralNetwork
 from mlrose_ky.opt_probs import ContinuousOpt
+from mlrose_ky.neural._nn_base import _NNBase
 from mlrose_ky import flatten_weights, unflatten_weights, identity, sigmoid, softmax
 from mlrose_ky.algorithms.gd import gradient_descent
 
@@ -145,7 +146,9 @@ class TestNeuralNetwork:
         X, y_classifier, _, _ = sample_data
         network = NeuralNetwork(hidden_nodes=[2], activation="identity", bias=False, learning_rate=1, clip_max=1)
 
-        weights = np.ones(10)
+        node_list = [4, 2, 1]
+        num_weights = _NNBase._calculate_state_size(node_list)
+        weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
@@ -157,7 +160,9 @@ class TestNeuralNetwork:
             hidden_nodes=[2], activation="identity", algorithm="simulated_annealing", bias=False, learning_rate=1, clip_max=1
         )
 
-        weights = np.ones(10)
+        node_list = [4, 2, 1]
+        num_weights = _NNBase._calculate_state_size(node_list)
+        weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
@@ -180,7 +185,9 @@ class TestNeuralNetwork:
             hidden_nodes=[2], activation="identity", algorithm="gradient_descent", bias=False, learning_rate=1, clip_max=1
         )
 
-        weights = np.ones(10)
+        node_list = [4, 2, 1]
+        num_weights = _NNBase._calculate_state_size(node_list)
+        weights = np.ones(num_weights)
         network.fit(X, y_classifier, init_weights=weights)
         fitted = network.fitted_weights
 
@@ -190,8 +197,9 @@ class TestNeuralNetwork:
         X, _, _, _ = sample_data
         network = NeuralNetwork(hidden_nodes=[2], activation="identity", bias=False, learning_rate=1, clip_max=1)
 
+        node_list = [4, 2, 2]
         network.fitted_weights = np.array([0.2, 0.5, 0.3, 0.4, 0.4, 0.3, 0.5, 0.2, -1, 1, 1, -1])
-        network.node_list = [4, 2, 2]
+        network.node_list = node_list
         network.output_activation = softmax
 
         probs = np.array([[0.40131, 0.59869], [0.5, 0.5], [0.5, 0.5], [0.5, 0.5], [0.31003, 0.68997], [0.64566, 0.35434]])
@@ -203,8 +211,9 @@ class TestNeuralNetwork:
         X, _, _, _ = sample_data
         network = NeuralNetwork(hidden_nodes=[2], activation="identity", learning_rate=1, clip_max=1)
 
+        node_list = [5, 2, 2]
         network.fitted_weights = np.array([0.2, 0.5, 0.3, 0.4, 0.4, 0.3, 0.5, 0.2, 1, -1, -0.1, 0.1, 0.1, -0.1])
-        network.node_list = [5, 2, 2]
+        network.node_list = node_list
         network.output_activation = softmax
 
         probs = np.array(
@@ -364,8 +373,9 @@ class TestLogisticRegression:
         X, _, _, _ = sample_data
         network = LogisticRegression(bias=False, learning_rate=1, clip_max=1)
 
+        node_list = [4, 1]
         network.fitted_weights = np.array([-1, 1, 1, 1])
-        network.node_list = [4, 1]
+        network.node_list = node_list
         network.output_activation = sigmoid
 
         probs = np.reshape(np.array([0.88080, 0.5, 0.88080, 0.88080, 0.88080, 0.26894]), [6, 1])
@@ -377,8 +387,9 @@ class TestLogisticRegression:
         X, _, _, _ = sample_data
         network = LogisticRegression(learning_rate=1, clip_max=1)
 
+        node_list = [5, 1]
         network.fitted_weights = np.array([-1, 1, 1, 1, -1])
-        network.node_list = [5, 1]
+        network.node_list = node_list
         network.output_activation = sigmoid
 
         probs = np.reshape(np.array([0.73106, 0.26894, 0.73106, 0.73106, 0.73106, 0.11920]), [6, 1])
