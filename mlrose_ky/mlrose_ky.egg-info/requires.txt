@@ -1,6 +1,0 @@
-joblib
-networkx
-numpy
-pandas
-scikit - learn
-scipy

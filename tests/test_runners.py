@@ -1,8 +1,3 @@
-"""Unit tests for runners/"""
-
-# Author: Kyle Nakamura
-# License: BSD 3 clause
-
 import os
 
 import pandas as pd
@@ -32,64 +27,60 @@ SEED = 12
 
 
 class TestRunnerUtils:
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_build_data_filename_default(self, mock_exists, mock_makedirs):
-        output_directory = "test_output"
-        runner_name = "TestRunner"
-        experiment_name = "experiment"
-        df_name = "results"
+    def test_build_data_filename_default(self):
+        with patch("os.makedirs") as mock_makedirs, patch("os.path.exists", return_value=True):
+            output_directory = "test_output"
+            runner_name = "TestRunner"
+            experiment_name = "experiment"
+            df_name = "results"
 
-        expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results")
-        result = build_data_filename(output_directory, runner_name, experiment_name, df_name)
+            expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results")
+            result = build_data_filename(output_directory, runner_name, experiment_name, df_name)
 
-        assert result == expected_filename
-        mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
+            assert result == expected_filename
+            mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_build_data_filename_with_params(self, mock_exists, mock_makedirs):
-        output_directory = "test_output"
-        runner_name = "TestRunner"
-        experiment_name = "experiment"
-        df_name = "results"
-        x_param = "x_value"
-        y_param = "y_value"
+    def test_build_data_filename_with_params(self):
+        with patch("os.makedirs") as mock_makedirs, patch("os.path.exists", return_value=True):
+            output_directory = "test_output"
+            runner_name = "TestRunner"
+            experiment_name = "experiment"
+            df_name = "results"
+            x_param = "x_value"
+            y_param = "y_value"
 
-        expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results_x_value__y_value")
-        result = build_data_filename(output_directory, runner_name, experiment_name, df_name, x_param, y_param)
+            expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results_x_value__y_value")
+            result = build_data_filename(output_directory, runner_name, experiment_name, df_name, x_param, y_param)
 
-        assert result == expected_filename
-        mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
+            assert result == expected_filename
+            mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_build_data_filename_with_extension(self, mock_exists, mock_makedirs):
-        output_directory = "test_output"
-        runner_name = "TestRunner"
-        experiment_name = "experiment"
-        df_name = "results"
-        ext = "csv"
+    def test_build_data_filename_with_extension(self):
+        with patch("os.makedirs") as mock_makedirs, patch("os.path.exists", return_value=True):
+            output_directory = "test_output"
+            runner_name = "TestRunner"
+            experiment_name = "experiment"
+            df_name = "results"
+            ext = "csv"
 
-        expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results.csv")
-        result = build_data_filename(output_directory, runner_name, experiment_name, df_name, ext=ext)
+            expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results.csv")
+            result = build_data_filename(output_directory, runner_name, experiment_name, df_name, ext=ext)
 
-        assert result == expected_filename
-        mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
+            assert result == expected_filename
+            mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=False)
-    def test_build_data_filename_creates_directory(self, mock_exists, mock_makedirs):
-        output_directory = "test_output"
-        runner_name = "TestRunner"
-        experiment_name = "experiment"
-        df_name = "results"
+    def test_build_data_filename_creates_directory(self):
+        with patch("os.makedirs") as mock_makedirs, patch("os.path.exists", return_value=False):
+            output_directory = "test_output"
+            runner_name = "TestRunner"
+            experiment_name = "experiment"
+            df_name = "results"
 
-        expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results")
-        result = build_data_filename(output_directory, runner_name, experiment_name, df_name)
+            expected_filename = os.path.join(output_directory, experiment_name, "testrunner__experiment__results")
+            result = build_data_filename(output_directory, runner_name, experiment_name, df_name)
 
-        mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
-        assert result == expected_filename
+            mock_makedirs.assert_called_once_with(os.path.join(output_directory, experiment_name), exist_ok=True)
+            assert result == expected_filename
 
 
 class TestBaseRunner:
@@ -117,108 +108,98 @@ class TestBaseRunner:
 
         return _create_runner
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_increment_spawn_count(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner()
-        initial_count = runner.get_spawn_count()
-        runner._increment_spawn_count()
+    def test_increment_spawn_count(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            runner = test_runner()
+            initial_count = runner.get_spawn_count()
+            runner._increment_spawn_count()
 
-        assert runner.get_spawn_count() == initial_count + 1
+            assert runner.get_spawn_count() == initial_count + 1
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_decrement_spawn_count(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner()
-        runner._increment_spawn_count()
-        initial_count = runner.get_spawn_count()
-        runner._decrement_spawn_count()
+    def test_decrement_spawn_count(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            runner = test_runner()
+            runner._increment_spawn_count()
+            initial_count = runner.get_spawn_count()
+            runner._decrement_spawn_count()
 
-        assert runner.get_spawn_count() == initial_count - 1
+            assert runner.get_spawn_count() == initial_count - 1
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_get_spawn_count(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner()
-        initial_spawn_count = runner.get_spawn_count()
-        runner._increment_spawn_count()
-        incremented_spawn_count = runner.get_spawn_count()
-        assert incremented_spawn_count == initial_spawn_count + 1
+    def test_get_spawn_count(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            runner = test_runner()
+            initial_spawn_count = runner.get_spawn_count()
+            runner._increment_spawn_count()
+            incremented_spawn_count = runner.get_spawn_count()
+            assert incremented_spawn_count == initial_spawn_count + 1
 
-        runner._decrement_spawn_count()
-        decremented_spawn_count = runner.get_spawn_count()
-        assert decremented_spawn_count == initial_spawn_count
+            runner._decrement_spawn_count()
+            decremented_spawn_count = runner.get_spawn_count()
+            assert decremented_spawn_count == initial_spawn_count
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_abort_sets_abort_flag(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner()
-        runner.abort()
+    def test_abort_sets_abort_flag(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            runner = test_runner()
+            runner.abort()
 
-        assert runner.has_aborted() is True
+            assert runner.has_aborted() is True
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_has_aborted_after_abort_called(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner(seed=42, iteration_list=[0])
-        runner.abort()
+    def test_has_aborted_after_abort_called(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            runner = test_runner(seed=42, iteration_list=[0])
+            runner.abort()
 
-        assert runner.has_aborted() is True
+            assert runner.has_aborted() is True
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_set_replay_mode(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner()
-        assert not runner.replay_mode()
+    def test_set_replay_mode(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            runner = test_runner()
+            assert not runner.replay_mode()
 
-        runner.set_replay_mode()
-        assert runner.replay_mode()
+            runner.set_replay_mode()
+            assert runner.replay_mode()
 
-        runner.set_replay_mode(False)
-        assert not runner.replay_mode()
+            runner.set_replay_mode(False)
+            assert not runner.replay_mode()
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_replay_mode(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner(replay=True)
-        assert runner.replay_mode() is True
+    def test_replay_mode(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            runner = test_runner(replay=True)
+            assert runner.replay_mode() is True
 
-        runner.set_replay_mode(False)
-        assert runner.replay_mode() is False
+            runner.set_replay_mode(False)
+            assert runner.replay_mode() is False
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=False)
-    def test_setup_method(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner(problem="dummy_problem", seed=42, iteration_list=[0, 1, 2], output_directory="test_output")
-        runner._setup()
+    def test_setup_method(self, test_runner):
+        with patch("os.makedirs") as mock_makedirs, patch("os.path.exists", return_value=False):
+            runner = test_runner(problem="dummy_problem", seed=42, iteration_list=[0, 1, 2], output_directory="test_output")
+            runner._setup()
 
-        assert runner._raw_run_stats == []
-        assert runner._fitness_curves == []
-        assert runner._curve_base == 0
-        assert runner._iteration_times == []
-        assert runner._copy_zero_curve_fitness_from_first == runner._copy_zero_curve_fitness_from_first_original
-        assert runner._current_logged_algorithm_args == {}
-        mock_makedirs.assert_called_once_with("test_output")
+            assert runner._raw_run_stats == []
+            assert runner._fitness_curves == []
+            assert runner._curve_base == 0
+            assert runner._iteration_times == []
+            assert runner._copy_zero_curve_fitness_from_first == runner._copy_zero_curve_fitness_from_first_original
+            assert runner._current_logged_algorithm_args == {}
+            mock_makedirs.assert_called_once_with("test_output")
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_tear_down_restores_original_sigint_handler(self, mock_exists, mock_makedirs, test_runner):
-        original_handler = signal.getsignal(signal.SIGINT)
-        runner = test_runner()
-        runner._tear_down()
-        restored_handler = signal.getsignal(signal.SIGINT)
+    def test_tear_down_restores_original_sigint_handler(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            original_handler = signal.getsignal(signal.SIGINT)
+            runner = test_runner()
+            runner._tear_down()
+            restored_handler = signal.getsignal(signal.SIGINT)
 
-        assert restored_handler == original_handler
+            assert restored_handler == original_handler
 
-    @patch("os.makedirs")
-    @patch("os.path.exists", return_value=True)
-    def test_log_current_argument(self, mock_exists, mock_makedirs, test_runner):
-        runner = test_runner(seed=42, iteration_list=[0, 1, 2])
-        arg_name = "test_arg"
-        arg_value = "test_value"
-        runner.log_current_argument(arg_name, arg_value)
+    def test_log_current_argument(self, test_runner):
+        with patch("os.makedirs"), patch("os.path.exists", return_value=True):
+            runner = test_runner(seed=42, iteration_list=[0, 1, 2])
+            arg_name = "test_arg"
+            arg_value = "test_value"
+            runner.log_current_argument(arg_name, arg_value)
 
-        assert runner._current_logged_algorithm_args[arg_name] == arg_value
+            assert runner._current_logged_algorithm_args[arg_name] == arg_value
 
 
 class TestNNRunnerBase:
@@ -320,62 +301,66 @@ class TestNNRunnerBase:
 
     def test_nn_runner_base_teardown_removes_files(self):
         """Test _NNRunnerBase _tear_down method to ensure suboptimal files are removed"""
-        runner = _NNRunnerBase(
-            x_train=np.random.rand(100, 10),
-            y_train=np.random.randint(2, size=100),
-            x_test=np.random.rand(20, 10),
-            y_test=np.random.randint(2, size=20),
-            experiment_name="test_experiment",
-            seed=SEED,
-            iteration_list=[1, 2, 3],
-            grid_search_parameters={"param1": [0.1, 0.2], "param2": [1, 2]},
-            grid_search_scorer_method=skmt.accuracy_score,
-            output_directory="test_output",
-        )
+        with patch("os.makedirs"):
+            runner = _NNRunnerBase(
+                x_train=np.random.rand(100, 10),
+                y_train=np.random.randint(2, size=100),
+                x_test=np.random.rand(20, 10),
+                y_test=np.random.randint(2, size=20),
+                experiment_name="test_experiment",
+                seed=SEED,
+                iteration_list=[1, 2, 3],
+                grid_search_parameters={"param1": [0.1, 0.2], "param2": [1, 2]},
+                grid_search_scorer_method=skmt.accuracy_score,
+                output_directory="test_output",
+            )
 
-        runner.get_runner_name = MagicMock(return_value="TestRunner")
-        runner.best_params = {"param1": 0.1, "param2": 1}
-        runner._output_directory = "test_output"
-        runner.replay_mode = MagicMock(return_value=False)
+            runner.get_runner_name = MagicMock(return_value="TestRunner")
+            runner.best_params = {"param1": 0.1, "param2": 1}
+            runner._output_directory = "test_output"
+            runner.replay_mode = MagicMock(return_value=False)
 
-        # Mock the list of filenames
-        mock_file = mock_open(read_data=b"mocked binary data")  # Note the `b` prefix for binary data
-        with (
-            patch("os.path.isdir", return_value=True),
-            patch("os.listdir", return_value=["testrunner__test_experiment__df_.p", "testrunner__test_experiment__df_1.p"]) as mock_listdir,
-            patch("os.remove") as mock_remove,
-            patch("pandas.DataFrame", return_value=None) as mock_dataframe,
-            patch.object(runner, "_check_match", return_value=False) as mock_check_match,
-            patch("builtins.open", mock_file),
-            patch("pickle.load", return_value=MagicMock()),
-        ):
-            runner._tear_down()
+            # Mock the list of filenames
+            mock_file = mock_open(read_data=b"mocked binary data")  # Note the `b` prefix for binary data
+            with (
+                patch("os.path.isdir", return_value=True),
+                patch(
+                    "os.listdir", return_value=["testrunner__test_experiment__df_.p", "testrunner__test_experiment__df_1.p"]
+                ) as mock_listdir,
+                patch("os.remove") as mock_remove,
+                patch("pandas.DataFrame", return_value=None) as mock_dataframe,
+                patch.object(runner, "_check_match", return_value=False) as mock_check_match,
+                patch("builtins.open", mock_file),
+                patch("pickle.load", return_value=MagicMock()),
+            ):
+                runner._tear_down()
 
-            # Validate os.listdir was called the correct number of times and with the correct arguments
-            assert mock_listdir.call_count == 3
-            mock_listdir.assert_any_call("test_output/test_experiment")
-            mock_check_match.assert_called()
-            mock_remove.assert_called()
-            mock_file.assert_called()
+                # Validate os.listdir was called the correct number of times and with the correct arguments
+                assert mock_listdir.call_count == 3
+                mock_listdir.assert_any_call("test_output/test_experiment")
+                mock_check_match.assert_called()
+                mock_remove.assert_called()
+                mock_file.assert_called()
 
     def test_nn_runner_base_get_pickle_filename_root(self):
         """Test _NNRunnerBase _get_pickle_filename_root method to ensure correct filename root generation"""
-        runner = _NNRunnerBase(
-            x_train=np.random.rand(100, 10),
-            y_train=np.random.randint(2, size=100),
-            x_test=np.random.rand(20, 10),
-            y_test=np.random.randint(2, size=20),
-            experiment_name="test_experiment",
-            seed=SEED,
-            iteration_list=[1, 2, 3],
-            grid_search_parameters={"param1": [0.1, 0.2], "param2": [1, 2]},
-            grid_search_scorer_method=skmt.accuracy_score,
-            output_directory="test_output",
-        )
+        with patch("os.makedirs"):
+            runner = _NNRunnerBase(
+                x_train=np.random.rand(100, 10),
+                y_train=np.random.randint(2, size=100),
+                x_test=np.random.rand(20, 10),
+                y_test=np.random.randint(2, size=20),
+                experiment_name="test_experiment",
+                seed=SEED,
+                iteration_list=[1, 2, 3],
+                grid_search_parameters={"param1": [0.1, 0.2], "param2": [1, 2]},
+                grid_search_scorer_method=skmt.accuracy_score,
+                output_directory="test_output",
+            )
 
-        with patch.object(runner, "_sanitize_value", return_value="sanitized_value"):
-            filename_root = runner._get_pickle_filename_root("test_file")
-            assert filename_root.startswith("test_output/test_experiment/_nnrunnerbase__test_experiment__test_file")
+            with patch.object(runner, "_sanitize_value", return_value="sanitized_value"):
+                filename_root = runner._get_pickle_filename_root("test_file")
+                assert filename_root.startswith("test_output/test_experiment/_nnrunnerbase__test_experiment__test_file")
 
     def test_nn_runner_base_check_match(self):
         """Test _NNRunnerBase _check_match static method to ensure correct match checking"""

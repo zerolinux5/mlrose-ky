@@ -112,7 +112,33 @@ BibTeX entry:
 }
 ```
 
+## Collaborators
+
+<!-- readme: collaborators -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/nkapila6">
+                    <img src="https://avatars.githubusercontent.com/u/12816113?v=4" width="100;" alt="nkapila6"/>
+                    <br />
+                    <sub><b>Nikhil Kapila</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/knakamura13">
+                    <img src="https://avatars.githubusercontent.com/u/20162718?v=4" width="100;" alt="knakamura13"/>
+                    <br />
+                    <sub><b>Kyle Nakamura</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
+<!-- readme: collaborators -end -->
+
 ## Contributors
+
 <!-- readme: contributors -start -->
 <table>
 	<tbody>
