@@ -72,7 +72,9 @@ class TestNeural:
         fitness = NetworkWeights(X, y_classifier, nodes, activation=identity, bias=False, is_classifier=False)
 
         problem = ContinuousOpt(10, fitness, maximize=False, min_val=-1)
-        init_weights = np.ones(10)
+        node_list = [4, 2, 1]
+        num_weights = _NNBase._calculate_state_size(node_list)
+        init_weights = np.ones(num_weights)
         best_state, best_fitness, _ = gradient_descent(problem, max_iters=1, init_state=init_weights)
         x = np.array([-0.7, -0.7, -0.9, -0.9, -0.9, -0.9, -1, -1, -1, -1])
 
