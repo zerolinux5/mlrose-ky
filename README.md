@@ -103,9 +103,12 @@
 | tests/test\_gridsearch.py                                 |      114 |        7 |     94% |17-21, 60, 99, 165 |
 | tests/test\_neural.py                                     |      307 |        0 |    100% |           |
 | tests/test\_opt\_probs.py                                 |      339 |        4 |     99% |     10-14 |
-| tests/test\_runners.py                                    |      226 |        5 |     98% | 12-16, 94 |
+| tests/test\_runners/\_\_init\_\_.py                       |        0 |        0 |    100% |           |
+| tests/test\_runners/test\_nn\_runner\_base.py             |       94 |        4 |     96% |     13-17 |
+| tests/test\_runners/test\_runner\_base.py                 |       94 |        5 |     95% | 12-16, 32 |
+| tests/test\_runners/test\_runner\_utils.py                |       54 |        4 |     93% |     12-16 |
 | tests/test\_samples.py                                    |       45 |        4 |     91% |     14-18 |
-|                                                 **TOTAL** | **4832** |  **862** | **82%** |           |
+|                                                 **TOTAL** | **4848** |  **870** | **82%** |           |
 
 
 ## Setup coverage badge
