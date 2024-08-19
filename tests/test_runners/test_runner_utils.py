@@ -6,7 +6,6 @@
 import os
 
 from unittest.mock import patch
-from .base import SEED
 
 try:
     import mlrose_ky
@@ -17,8 +16,6 @@ except ImportError:
     import mlrose_ky
 
 from mlrose_ky.runners import build_data_filename
-
-SEED = 12
 
 
 class TestRunnerUtils:

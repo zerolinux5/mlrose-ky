@@ -7,7 +7,8 @@ import pandas as pd
 import numpy as np
 import sklearn.metrics as skmt
 from unittest.mock import patch, MagicMock, mock_open
-from .base import SEED
+
+from tests.globals import SEED
 
 try:
     import mlrose_ky
@@ -20,8 +21,6 @@ except ImportError:
 # noinspection PyProtectedMember
 from mlrose_ky.runners._nn_runner_base import _NNRunnerBase
 
-SEED = 12
-
 
 class TestNNRunnerBase:
 
@@ -32,7 +31,6 @@ class TestNNRunnerBase:
         x_test = np.random.rand(20, 10)
         y_test = np.random.randint(2, size=20)
         experiment_name = "test_experiment"
-        seed = SEED
         iteration_list = [1, 2, 3]
         grid_search_parameters = {"param1": [0.1, 0.2], "param2": [1, 2]}
         grid_search_scorer_method = skmt.accuracy_score
@@ -43,7 +41,7 @@ class TestNNRunnerBase:
             x_test=x_test,
             y_test=y_test,
             experiment_name=experiment_name,
-            seed=seed,
+            seed=SEED,
             iteration_list=iteration_list,
             grid_search_parameters=grid_search_parameters,
             grid_search_scorer_method=grid_search_scorer_method,
@@ -54,7 +52,7 @@ class TestNNRunnerBase:
         assert np.array_equal(runner.x_test, x_test)
         assert np.array_equal(runner.y_test, y_test)
         assert runner._experiment_name == experiment_name
-        assert runner.seed == seed
+        assert runner.seed == SEED
         assert runner.iteration_list == iteration_list
         assert runner.grid_search_parameters == runner.build_grid_search_parameters(grid_search_parameters)
         assert runner.scorer_method == grid_search_scorer_method

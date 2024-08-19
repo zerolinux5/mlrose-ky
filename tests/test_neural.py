@@ -7,6 +7,8 @@ import pytest
 import numpy as np
 from sklearn.model_selection import StratifiedShuffleSplit, learning_curve
 
+from tests.globals import SEED
+
 from mlrose_ky.neural.linear_regression import LinearRegression
 from mlrose_ky.neural.logistic_regression import LogisticRegression
 from mlrose_ky.neural.fitness.network_weights import NetworkWeights
@@ -325,7 +327,7 @@ class TestNeuralNetwork:
         y = np.array([1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0])
 
         train_sizes = [0.5, 1.0]
-        cv = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+        cv = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=SEED)
         train_sizes, train_scores, test_scores = learning_curve(network, X, y, train_sizes=train_sizes, cv=cv, scoring="accuracy")
 
         assert not np.isnan(train_scores).any() and not np.isnan(test_scores).any()

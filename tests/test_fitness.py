@@ -24,6 +24,8 @@ from mlrose_ky import (
     MaxKColor,
     CustomFitness,
 )
+
+# noinspection PyProtectedMember
 from mlrose_ky.fitness._discrete_peaks_base import _DiscretePeaksBase
 
 

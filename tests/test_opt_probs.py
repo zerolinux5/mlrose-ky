@@ -378,7 +378,7 @@ class TestContinuousOpt:
 
         problem = ContinuousOpt(10, fitness, maximize=False)
 
-        updates = problem.calculate_updates()
+        updates = list(problem.calculate_updates())
         update1 = np.array([[-0.0017, -0.0034], [-0.0046, -0.0092], [-0.0052, -0.0104], [0.0014, 0.0028]])
         update2 = np.array([[-3.17], [-4.18]])
 

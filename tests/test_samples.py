@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import pytest
 from sklearn.linear_model import LogisticRegression
 
+from tests.globals import SEED
+
 try:
     import mlrose_ky
 except ImportError:
@@ -23,7 +25,7 @@ from mlrose_ky.samples import SyntheticDataGenerator, plot_synthetic_dataset
 # noinspection PyMissingOrEmptyDocstring
 @pytest.fixture
 def generator():
-    return SyntheticDataGenerator(seed=42)
+    return SyntheticDataGenerator(seed=SEED)
 
 
 class TestSyntheticDataGenerator:

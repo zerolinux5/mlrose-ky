@@ -3,6 +3,8 @@
 import pytest
 import numpy as np
 
+from tests.globals import SEED
+
 try:
     import mlrose_ky
 except ImportError:
@@ -23,8 +25,6 @@ from mlrose_ky.generators import (
     TSPGenerator,
     OneMaxGenerator,
 )
-
-SEED = 12
 
 
 # noinspection PyTypeChecker

@@ -6,7 +6,8 @@
 import pytest
 import signal
 from unittest.mock import patch
-from .base import SEED
+
+from tests.globals import SEED
 
 try:
     import mlrose_ky
@@ -18,8 +19,6 @@ except ImportError:
 
 # noinspection PyProtectedMember
 from mlrose_ky.runners._runner_base import _RunnerBase
-
-SEED = 12
 
 
 class TestRunnerBase:
@@ -85,7 +84,7 @@ class TestRunnerBase:
 
     def test_has_aborted_after_abort_called(self, test_runner):
         with patch("os.makedirs"), patch("os.path.exists", return_value=True):
-            runner = test_runner(seed=42, iteration_list=[0])
+            runner = test_runner(seed=SEED, iteration_list=[0])
             runner.abort()
 
             assert runner.has_aborted() is True
@@ -111,7 +110,7 @@ class TestRunnerBase:
 
     def test_setup_method(self, test_runner):
         with patch("os.makedirs") as mock_makedirs, patch("os.path.exists", return_value=False):
-            runner = test_runner(problem="dummy_problem", seed=42, iteration_list=[0, 1, 2], output_directory="test_output")
+            runner = test_runner(problem="dummy_problem", seed=SEED, iteration_list=[0, 1, 2], output_directory="test_output")
             runner._setup()
 
             assert runner._raw_run_stats == []
@@ -133,7 +132,7 @@ class TestRunnerBase:
 
     def test_log_current_argument(self, test_runner):
         with patch("os.makedirs"), patch("os.path.exists", return_value=True):
-            runner = test_runner(seed=42, iteration_list=[0, 1, 2])
+            runner = test_runner(seed=SEED, iteration_list=[0, 1, 2])
             arg_name = "test_arg"
             arg_value = "test_value"
             runner.log_current_argument(arg_name, arg_value)

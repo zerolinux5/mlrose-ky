@@ -12,6 +12,8 @@ from sklearn.dummy import DummyClassifier
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 
+from tests.globals import SEED
+
 try:
     import mlrose_ky
 except ImportError:
@@ -21,8 +23,6 @@ except ImportError:
     import mlrose_ky
 
 from mlrose_ky.gridsearch import GridSearchMixin
-
-SEED = 12
 
 
 @pytest.fixture
