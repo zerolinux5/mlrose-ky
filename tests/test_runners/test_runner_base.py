@@ -6,6 +6,7 @@
 import pytest
 import signal
 from unittest.mock import patch
+from .base import SEED
 
 try:
     import mlrose_ky

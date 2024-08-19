@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 import sklearn.metrics as skmt
 from unittest.mock import patch, MagicMock, mock_open
+from .base import SEED
 
 try:
     import mlrose_ky
