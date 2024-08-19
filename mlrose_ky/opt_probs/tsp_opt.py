@@ -12,7 +12,7 @@ from mlrose_ky.opt_probs.discrete_opt import DiscreteOpt
 
 
 class TSPOpt(DiscreteOpt):
-    """Class for defining travelling salesperson optimisation problems.
+    """Class for defining travelling salesperson optimization problems.
 
     Parameters
     ----------

@@ -1,7 +1,7 @@
-## Optimisation Problem Types
+## Optimization Problem Types
 Classes for defining optimization problem objects.
 
-#### Discrete Optimisation Problem
+#### Discrete Optimization Problem
 Class for defining discrete-state optimization problems.
 
 >[!INFO] class
@@ -14,8 +14,8 @@ Class for defining discrete-state optimization problems.
 *   **maximize** (_bool, default: True_) – Whether to maximize the fitness function. Set `False` for minimization problem.
 *   **max\_val** (_int, default: 2_) – Number of unique values that each element in the state vector can take. Assumes values are integers in the range 0 to (max\_val - 1), inclusive.
 
-#### Continuous Optimisation Problem
-Class for defining continuous-state optimisation problems.
+#### Continuous Optimization Problem
+Class for defining continuous-state optimization problems.
 >[!INFO] class
 >_class_ `ContinuousOpt`(_length_, _fitness\_fn_, _maximize=True_, _min\_val=0_, _max\_val=1_, _step=0.1_)
 
@@ -28,8 +28,8 @@ Class for defining continuous-state optimisation problems.
 *   **max\_val** (_float, default: 1_) – Maximum value that each element of the state vector can take.
 *   **step** (_float, default: 0.1_) – Step size used in determining neighbors of current state.
 
-#### Travelling Salesperson Optimisation Problem
-Class for defining travelling salesperson optimisation problems.
+#### Travelling Salesperson Optimization Problem
+Class for defining travelling salesperson optimization problems.
 >[!INFO] class
 >_class_ `TSPOpt`(_length_, _fitness\_fn=None_, _maximize=False_, _coords=None_, _distances=None_)
 

@@ -9,7 +9,7 @@ from mlrose_ky.opt_probs.opt_prob import OptProb
 
 
 class ContinuousOpt(OptProb):
-    """Class for defining continuous-state optimisation problems.
+    """Class for defining continuous-state optimization problems.
 
     Parameters
     ----------
