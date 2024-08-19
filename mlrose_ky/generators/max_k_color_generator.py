@@ -1,7 +1,7 @@
 """Class defining a Max-K Color optimization problem generator."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 import numpy as np
 import networkx as nx

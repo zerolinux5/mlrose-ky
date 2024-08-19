@@ -1,7 +1,7 @@
 """Unit tests for neural/decay/"""
 
 # Authors: Genevieve Hayes (modified by Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 try:
     import mlrose_ky

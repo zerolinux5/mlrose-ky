@@ -1,7 +1,7 @@
 """Classes for defining neural network weight optimization problems."""
 
 # Author: Genevieve Hayes
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 import numpy as np
 import sklearn.metrics as skm

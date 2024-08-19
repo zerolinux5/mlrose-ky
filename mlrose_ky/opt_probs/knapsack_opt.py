@@ -1,7 +1,7 @@
 """Classes for defining optimization problem objects."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 from mlrose_ky.algorithms.crossovers import UniformCrossover
 from mlrose_ky.algorithms.mutators import SingleGeneMutator

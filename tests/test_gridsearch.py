@@ -1,7 +1,7 @@
 """Unit tests for gridsearch/"""
 
 # Author: Kyle Nakamura
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 import pytest
 import inspect

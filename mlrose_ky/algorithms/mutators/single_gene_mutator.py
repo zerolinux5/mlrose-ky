@@ -1,7 +1,7 @@
 """Single Gene (Change One) Mutator for Genetic Algorithms (GA)."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 import numpy as np
 from typing import Any

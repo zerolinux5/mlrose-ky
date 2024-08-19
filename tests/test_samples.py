@@ -1,7 +1,7 @@
 """Unit tests for generators/"""
 
 # Author: Kyle Nakamura
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 from unittest.mock import patch
 

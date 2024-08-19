@@ -1,7 +1,7 @@
 """Classes for generating optimization problem objects."""
 
 # Authors: Genevieve Hayes (modified by Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 from .continuous_peaks_generator import ContinuousPeaksGenerator
 from .flip_flop_generator import FlipFlopGenerator

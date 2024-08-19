@@ -5,7 +5,7 @@ where a single crossover point is chosen randomly to combine two parent solution
 """
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 Clause
+# License: BSD 3-clause
 
 import numpy as np
 from typing import Any, Sequence

@@ -1,7 +1,7 @@
 """Class for defining an arithmetic decay schedule for Simulated Annealing (SA)."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 
 class ArithmeticDecay:

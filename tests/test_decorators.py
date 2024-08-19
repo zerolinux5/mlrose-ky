@@ -1,7 +1,7 @@
 """Unit tests for algorithms/decorators"""
 
 # Author: Kyle Nakamura
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 try:
     import ga_framework

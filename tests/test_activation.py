@@ -1,7 +1,7 @@
 """Unit tests for neural/activation/"""
 
 # Author: Genevieve Hayes (modified by Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 import numpy as np
 

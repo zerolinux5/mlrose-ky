@@ -5,7 +5,7 @@ detailing how two parent solutions can be combined to create offspring.
 """
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 Clause
+# License: BSD 3-clause
 
 from abc import ABC, abstractmethod
 from typing import Any

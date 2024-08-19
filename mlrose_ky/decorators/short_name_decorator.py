@@ -9,7 +9,7 @@ It also includes a function to retrieve the assigned short name of a function.
 """
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 from typing import Callable, Any
 

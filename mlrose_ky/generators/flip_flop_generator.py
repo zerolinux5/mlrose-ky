@@ -1,7 +1,7 @@
 """Class defining a FlipFlop optimization problem generator."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 import numpy as np
 from mlrose_ky import FlipFlopOpt

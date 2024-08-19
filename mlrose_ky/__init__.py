@@ -1,7 +1,7 @@
 """MLROSe initialization file."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 from .algorithms.ga import genetic_alg
 from .algorithms.sa import simulated_annealing

@@ -1,7 +1,7 @@
 """Unit tests for neural/"""
 
 # Author: Kyle Nakamura
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 import pytest
 import numpy as np

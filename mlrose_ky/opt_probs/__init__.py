@@ -1,7 +1,7 @@
 """Classes for defining optimization problem objects."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 from .continuous_opt import ContinuousOpt
 from .discrete_opt import DiscreteOpt

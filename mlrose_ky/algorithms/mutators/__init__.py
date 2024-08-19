@@ -1,7 +1,7 @@
 """Classes for defining mutation strategies for Genetic Algorithms (GA)."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 from .discrete_mutator import DiscreteGeneMutator
 from .gene_swap_mutator import GeneSwapMutator

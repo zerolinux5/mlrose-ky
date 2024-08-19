@@ -1,7 +1,7 @@
 """Class defining the Discrete Peaks base fitness function for use with the Four Peaks, Six Peaks, and Custom fitness functions."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 clause
+# License: BSD 3-clause
 
 import numpy as np
 

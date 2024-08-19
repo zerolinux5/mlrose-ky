@@ -5,7 +5,7 @@ detailing how individual solutions (chromosomes) can be altered to introduce gen
 """
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3 Clause
+# License: BSD 3-clause
 
 import numpy as np
 from typing import Any
