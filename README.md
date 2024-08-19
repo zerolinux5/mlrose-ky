@@ -94,21 +94,22 @@
 | mlrose\_ky/samples/\_\_init\_\_.py                        |        1 |        0 |    100% |           |
 | mlrose\_ky/samples/synthetic\_data.py                     |      122 |       28 |     77% |78-85, 168-188, 242, 256, 261-263, 272 |
 | tests/\_\_init\_\_.py                                     |        0 |        0 |    100% |           |
+| tests/globals.py                                          |        1 |        0 |    100% |           |
 | tests/test\_activation.py                                 |       50 |        4 |     92% |     10-14 |
-| tests/test\_algorithms.py                                 |      114 |        4 |     96% |     10-14 |
+| tests/test\_algorithms.py                                 |      114 |        4 |     96% |     12-16 |
 | tests/test\_decay.py                                      |       38 |        4 |     89% |      8-12 |
 | tests/test\_decorators.py                                 |       21 |        3 |     86% |22, 34, 44 |
 | tests/test\_fitness.py                                    |       95 |        3 |     97% |     10-13 |
-| tests/test\_generators.py                                 |      450 |        4 |     99% |      8-12 |
-| tests/test\_gridsearch.py                                 |      114 |        7 |     94% |17-21, 60, 99, 165 |
-| tests/test\_neural.py                                     |      307 |        0 |    100% |           |
+| tests/test\_generators.py                                 |      450 |        4 |     99% |     10-14 |
+| tests/test\_gridsearch.py                                 |      114 |        7 |     94% |19-23, 60, 99, 165 |
+| tests/test\_neural.py                                     |      308 |        0 |    100% |           |
 | tests/test\_opt\_probs.py                                 |      339 |        4 |     99% |     10-14 |
 | tests/test\_runners/\_\_init\_\_.py                       |        0 |        0 |    100% |           |
-| tests/test\_runners/test\_nn\_runner\_base.py             |       94 |        4 |     96% |     13-17 |
-| tests/test\_runners/test\_runner\_base.py                 |       94 |        5 |     95% | 12-16, 32 |
-| tests/test\_runners/test\_runner\_utils.py                |       54 |        4 |     93% |     12-16 |
-| tests/test\_samples.py                                    |       45 |        4 |     91% |     14-18 |
-|                                                 **TOTAL** | **4848** |  **870** | **82%** |           |
+| tests/test\_runners/test\_nn\_runner\_base.py             |       93 |        4 |     96% |     15-19 |
+| tests/test\_runners/test\_runner\_base.py                 |       94 |        5 |     95% | 14-18, 32 |
+| tests/test\_runners/test\_runner\_utils.py                |       53 |        4 |     92% |     12-16 |
+| tests/test\_samples.py                                    |       46 |        4 |     91% |     16-20 |
+|                                                 **TOTAL** | **4849** |  **870** | **82%** |           |
 
 
 ## Setup coverage badge
