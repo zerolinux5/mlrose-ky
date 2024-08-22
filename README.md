@@ -15,7 +15,7 @@
 | src/mlrose\_ky/algorithms/decay/arithmetic\_decay.py             |       28 |       13 |     54% |50, 52, 54, 57, 64, 67-69, 109-121 |
 | src/mlrose\_ky/algorithms/decay/custom\_decay.py                 |       21 |       10 |     52% |37, 40, 43-45, 79-90 |
 | src/mlrose\_ky/algorithms/decay/exponential\_decay.py            |       29 |       13 |     55% |52, 54, 56, 59, 66, 69-71, 110-122 |
-| src/mlrose\_ky/algorithms/decay/geometric\_decay.py              |       28 |       13 |     54% |50, 52, 54, 57, 64, 67-69, 108-120 |
+| src/mlrose\_ky/algorithms/decay/geometric\_decay.py              |       32 |       15 |     53% |52, 54, 56, 59, 66, 69-71, 107-119, 129-135 |
 | src/mlrose\_ky/algorithms/ga.py                                  |       87 |       27 |     69% |29, 48, 79-91, 198, 208-212, 220-221, 252-253, 269, 273-274, 287-288, 292 |
 | src/mlrose\_ky/algorithms/gd.py                                  |       42 |        7 |     83% |70, 79, 108, 112-113, 124, 133 |
 | src/mlrose\_ky/algorithms/hc.py                                  |       49 |       11 |     78% |95-97, 110, 114-126, 140-141, 145, 150 |
@@ -127,7 +127,7 @@
 | tests/test\_runners/test\_runner\_base.py                        |       94 |        5 |     95% | 14-18, 32 |
 | tests/test\_runners/test\_runner\_utils.py                       |       53 |        4 |     92% |     12-16 |
 | tests/test\_samples.py                                           |       46 |        4 |     91% |     16-20 |
-|                                                        **TOTAL** | **4888** |  **891** | **82%** |           |
+|                                                        **TOTAL** | **4892** |  **893** | **82%** |           |
 
 
 ## Setup coverage badge
