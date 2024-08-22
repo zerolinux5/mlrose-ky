@@ -32,3 +32,5 @@ venvp/
 
 # Aider tool
 .aider*
+
+.env
