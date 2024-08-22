@@ -3,6 +3,8 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
+import warnings
+
 
 class GeometricDecay:
     """
@@ -66,11 +68,9 @@ class GeometricDecay:
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, GeometricDecay):
             return False
-        return (
-            self.initial_temperature == other.initial_temperature
-            and self.decay_rate == other.decay_rate
-            and self.minimum_temperature == other.minimum_temperature
-        )
+        return (self.initial_temperature == other.initial_temperature
+                and self.decay_rate == other.decay_rate
+                and self.minimum_temperature == other.minimum_temperature)
 
     def evaluate(self, time: int) -> float:
         """
@@ -86,8 +86,7 @@ class GeometricDecay:
         float
             The temperature parameter at the given time, respecting the minimum temperature.
         """
-        temperature = max(self.initial_temperature * (self.decay_rate**time), self.minimum_temperature)
-        return temperature
+        return max(self.initial_temperature * (self.decay_rate ** time), self.minimum_temperature)
 
     def get_info(self, time: int | None = None, prefix: str = "") -> dict:
         """
@@ -118,3 +117,19 @@ class GeometricDecay:
             info[f"{info_prefix}current_value"] = self.evaluate(time)
 
         return info
+
+
+# Enable backward compatibility for renamed 'GeomDecay'.
+class GeomDecay(GeometricDecay):
+    def __new__(cls, *args, **kwargs):
+        """
+        The class 'GeomDecay' is deprecated and will be removed in a future release.
+        Please use 'GeometricDecay' instead.
+        """
+        warnings.warn(
+            "The class 'GeomDecay' is deprecated and will be removed in a future release. "
+            "Please use 'GeometricDecay' instead.",
+            DeprecationWarning,
+            stacklevel=2
+        )
+        return super(GeomDecay, cls).__new__(cls)
