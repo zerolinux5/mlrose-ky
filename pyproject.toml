@@ -66,6 +66,7 @@ skip_magic_trailing_comma = true
 
 [tool.setuptools.packages.find]
 where = ["mlrose_ky"]
+include = ["mlrose_ky*"]
 
 [tool.coverage.run]
 relative_files = true
