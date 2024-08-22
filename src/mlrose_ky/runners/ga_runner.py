@@ -54,7 +54,7 @@ class GARunner(_RunnerBase):
         self.hamming_factor_decays = hamming_factor_decays
 
     def run(self):
-        return super().run_experiment_(
+        return super().run_experiment(
             algorithm=mlrose_ky.genetic_alg,
             pop_size=("Population Size", self.population_sizes),
             mutation_prob=("Mutation Rate", self.mutation_rates),

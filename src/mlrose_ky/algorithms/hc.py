@@ -63,14 +63,14 @@ def hill_climb(
     Russell, S. and P. Norvig (2010). *Artificial Intelligence: A Modern Approach*, 3rd edition.
     Prentice Hall, New Jersey, USA.
     """
-    if not (isinstance(max_iters, int) or max_iters == np.inf or max_iters.is_integer()) or max_iters < 0:
-        raise ValueError(f"max_iters must be a positive integer. Got {max_iters}")
-    if not (isinstance(restarts, int) or restarts.is_integer()) or restarts < 0:
-        raise ValueError(f"restarts must be a positive integer. Got {restarts}")
-    if init_state is not None and len(init_state) != problem.get_length():
-        raise ValueError(
-            f"init_state must have the same length as the problem. " f"Expected length {problem.get_length()}, got {len(init_state)}"
-        )
+    # if not (isinstance(max_iters, int) or max_iters == np.inf or max_iters.is_integer()) or max_iters < 0:
+    #     raise ValueError(f"max_iters must be a positive integer. Got {max_iters}")
+    # if not (isinstance(restarts, int) or restarts.is_integer()) or restarts < 0:
+    #     raise ValueError(f"restarts must be a positive integer. Got {restarts}")
+    # if init_state is not None and len(init_state) != problem.get_length():
+    #     raise ValueError(
+    #         f"init_state must have the same length as the problem. " f"Expected length {problem.get_length()}, got {len(init_state)}"
+    #     )
 
     # Set random seed
     if isinstance(random_state, int) and random_state > 0:

@@ -65,4 +65,4 @@ class SARunner(_RunnerBase):
             if self.use_raw_temp
             else [d(initial_temperature=t) for t in self.temperature_list for d in self.decay_list]
         )
-        return super().run_experiment_(algorithm=mlrose_ky.simulated_annealing, schedule=("Temperature", temperatures))
+        return super().run_experiment(algorithm=mlrose_ky.simulated_annealing, schedule=("Temperature", temperatures))

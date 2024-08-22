@@ -59,7 +59,7 @@ class MIMICRunner(_RunnerBase):
             self.log_current_argument("use_fast_mimic", self._use_fast_mimic)
 
     def run(self):
-        return super().run_experiment_(
+        return super().run_experiment(
             algorithm=mlrose_ky.mimic,
             pop_size=("Population Size", self.population_sizes),
             keep_pct=("Keep Percent", self.keep_percent_list),

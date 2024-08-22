@@ -74,16 +74,16 @@ def mimic(
     De Bonet, J., C. Isbell, and P. Viola (1997). MIMIC: Finding Optima by Estimating Probability Densities.
     In *Advances in Neural Information Processing Systems* (NIPS) 9, pp. 424–430.
     """
-    if problem.get_problem_type() == "continuous":
-        raise ValueError("problem type must be discrete or tsp.")
-    if not isinstance(pop_size, int) or pop_size < 0:
-        raise ValueError(f"pop_size must be a positive integer. Got {pop_size}")
-    if keep_pct < 0 or keep_pct > 1:
-        raise ValueError(f"keep_pct must be between 0 and 1. Got {keep_pct}")
-    if not isinstance(max_attempts, int) or max_attempts < 0:
-        raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
-    if not (isinstance(max_iters, int) or max_iters == np.inf) or max_iters < 0:
-        raise ValueError(f"max_iters must be a positive integer or np.inf. Got {max_iters}")
+    # if problem.get_problem_type() == "continuous":
+    #     raise ValueError("problem type must be discrete or tsp.")
+    # if not isinstance(pop_size, int) or pop_size < 0:
+    #     raise ValueError(f"pop_size must be a positive integer. Got {pop_size}")
+    # if keep_pct < 0 or keep_pct > 1:
+    #     raise ValueError(f"keep_pct must be between 0 and 1. Got {keep_pct}")
+    # if not isinstance(max_attempts, int) or max_attempts < 0:
+    #     raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
+    # if not (isinstance(max_iters, int) or max_iters == np.inf) or max_iters < 0:
+    #     raise ValueError(f"max_iters must be a positive integer or np.inf. Got {max_iters}")
     if noise < 0 or noise > 0.1:
         raise ValueError(f"noise must be between 0 and 0.1. Got {noise}")
     else:

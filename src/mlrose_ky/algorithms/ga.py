@@ -172,18 +172,18 @@ def genetic_alg(
     Russell, S. and P. Norvig (2010). *Artificial Intelligence: A Modern Approach*, 3rd edition.
     Prentice Hall, New Jersey, USA.
     """
-    if not isinstance(pop_size, int) or pop_size < 0:
-        raise ValueError(f"pop_size must be a positive integer. Got {pop_size}")
-    if not 0 <= pop_breed_percent <= 1:
-        raise ValueError(f"pop_breed_percent must be between 0 and 1. Got {pop_breed_percent}")
-    if not 0 <= elite_dreg_ratio <= 1:
-        raise ValueError(f"elite_dreg_ratio must be between 0 and 1. Got {elite_dreg_ratio}")
-    if not 0 <= mutation_prob <= 1:
-        raise ValueError(f"mutation_prob must be between 0 and 1. Got {mutation_prob}")
-    if not isinstance(max_attempts, int) or max_attempts < 0:
-        raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
-    if not (isinstance(max_iters, int) or max_iters == np.inf) or max_iters < 0:
-        raise ValueError(f"max_iters must be a positive integer or np.inf. Got {max_iters}")
+    # if not isinstance(pop_size, int) or pop_size < 0:
+    #     raise ValueError(f"pop_size must be a positive integer. Got {pop_size}")
+    # if not 0 <= pop_breed_percent <= 1:
+    #     raise ValueError(f"pop_breed_percent must be between 0 and 1. Got {pop_breed_percent}")
+    # if not 0 <= elite_dreg_ratio <= 1:
+    #     raise ValueError(f"elite_dreg_ratio must be between 0 and 1. Got {elite_dreg_ratio}")
+    # if not 0 <= mutation_prob <= 1:
+    #     raise ValueError(f"mutation_prob must be between 0 and 1. Got {mutation_prob}")
+    # if not isinstance(max_attempts, int) or max_attempts < 0:
+    #     raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
+    # if not (isinstance(max_iters, int) or max_iters == np.inf) or max_iters < 0:
+    #     raise ValueError(f"max_iters must be a positive integer or np.inf. Got {max_iters}")
 
     # Set random seed
     if isinstance(random_state, int) and random_state > 0:

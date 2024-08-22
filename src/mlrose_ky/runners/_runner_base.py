@@ -714,11 +714,11 @@ class _RunnerBase(ABC):
 
         if self.generate_curves and iteration == 0:
             # Capture first fitness value for iteration 0 if not already captured.
-            if not curve:
+            if curve is None:
                 curve = [(fitness, fitness_evaluations)]
                 self._first_curve_synthesized = True
 
-        if self.generate_curves and curve:  # and (done or iteration == max(self.iteration_list)):
+        if self.generate_curves and curve is not None:  # and (done or iteration == max(self.iteration_list)):
             curve_stats_saved = len(self._fitness_curves)
             total_curve_stats = self._curve_base + len(curve)
             curve_stats_to_save = total_curve_stats - curve_stats_saved

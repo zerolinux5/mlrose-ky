@@ -58,12 +58,12 @@ def gradient_descent(
         Numpy array containing the fitness at every iteration.
         Only returned if input argument :code:`curve` is :code:`True`.
     """
-    if not isinstance(max_attempts, int) or max_attempts < 0:
-        raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
-    if not (isinstance(max_iters, int) or max_iters == np.inf) or (isinstance(max_iters, int) and max_iters < 0):
-        raise ValueError(f"max_iters must be a positive integer or np.inf. Got {max_iters}")
-    if init_state is not None and len(init_state) != problem.get_length():
-        raise ValueError(f"init_state must have the same length as problem. Got {len(init_state)}")
+    # if not isinstance(max_attempts, int) or max_attempts < 0:
+    #     raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
+    # if not (isinstance(max_iters, int) or max_iters == np.inf) or (isinstance(max_iters, int) and max_iters < 0):
+    #     raise ValueError(f"max_iters must be a positive integer or np.inf. Got {max_iters}")
+    # if init_state is not None and len(init_state) != problem.get_length():
+    #     raise ValueError(f"init_state must have the same length as problem. Got {len(init_state)}")
 
     # Set random seed
     if isinstance(random_state, int) and random_state > 0:
