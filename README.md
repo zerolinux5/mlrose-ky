@@ -4,8 +4,10 @@
 [![Coverage badge](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=coverage&query=%24.message&url=https%3A%2F%2Fraw.githubusercontent.com%2Fnkapila6%2Fmlrose-ky%2Fpython-coverage-comment-action-data%2Fendpoint.json)](https://htmlpreview.github.io/?https://github.com/nkapila6/mlrose-ky/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
 **Usage Warning (updated Aug. 22, 2024)**
+
 This project is not fully backwards compatible with mlrose-hiive at this time. You should not expect existing mlrose-hiive example code to work right out of the box when using mlrose-ky. 
-Progress is currently being made towards supporting backwards compatibility.
+
+Progress is currently being made ([issue #7](https://github.com/knakamura13/mlrose-ky/issues/7)) towards supporting backwards compatibility.
 
 mlrose-ky is a Python package for applying some of the most common randomized optimization and search algorithms to a range of different optimization problems, over both discrete- and continuous-valued parameter spaces.
 
