@@ -19,7 +19,7 @@
 | src/mlrose\_ky/algorithms/ga.py                                  |       87 |       22 |     75% |29, 48, 79-91, 208-212, 220-221, 252-253, 287-288 |
 | src/mlrose\_ky/algorithms/gd.py                                  |       42 |        7 |     83% |70, 79, 108, 112-113, 124, 133 |
 | src/mlrose\_ky/algorithms/hc.py                                  |       49 |       11 |     78% |95-97, 110, 114-126, 140-141, 145, 150 |
-| src/mlrose\_ky/algorithms/mimic.py                               |       44 |        7 |     84% |88, 102, 141, 145-146, 158, 164 |
+| src/mlrose\_ky/algorithms/mimic.py                               |       44 |        1 |     98% |        88 |
 | src/mlrose\_ky/algorithms/mutators/\_\_init\_\_.py               |        4 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/mutators/\_mutator\_base.py            |       11 |        1 |     91% |        62 |
 | src/mlrose\_ky/algorithms/mutators/discrete\_mutator.py          |       17 |       11 |     35% |33-34, 55-66 |
@@ -68,25 +68,25 @@
 | src/mlrose\_ky/neural/linear\_regression.py                      |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/logistic\_regression.py                    |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/neural\_network.py                         |        6 |        0 |    100% |           |
-| src/mlrose\_ky/neural/nn\_classifier.py                          |       74 |       65 |     12% |29-65, 68-73, 76, 80-134, 137-150, 153-154 |
+| src/mlrose\_ky/neural/nn\_classifier.py                          |       74 |       41 |     45% |63-65, 68-73, 76, 80-134, 137-150, 153-154 |
 | src/mlrose\_ky/neural/nn\_core.py                                |      134 |       20 |     85% |50, 80, 83, 86, 89, 92, 95, 98, 101, 103-106, 109, 112, 118, 159, 163, 192, 207, 292 |
 | src/mlrose\_ky/neural/utils/\_\_init\_\_.py                      |        1 |        0 |    100% |           |
 | src/mlrose\_ky/neural/utils/weights.py                           |       54 |        8 |     85% |54, 99, 102, 105, 109, 113, 143, 148 |
 | src/mlrose\_ky/opt\_probs/\_\_init\_\_.py                        |        7 |        0 |    100% |           |
 | src/mlrose\_ky/opt\_probs/continuous\_opt.py                     |       94 |       15 |     84% |41, 49, 52, 55, 101, 149, 151-154, 190, 193, 201-204, 235 |
-| src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      201 |       66 |     67% |43, 51, 53-56, 108-113, 122-136, 148-208, 242, 261, 291, 335, 337-340, 373, 376, 408, 410-413 |
+| src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      201 |       27 |     87% |43, 51, 53-56, 108-113, 134-136, 150-151, 242, 261, 291, 335, 337-340, 373, 376, 408, 410-413 |
 | src/mlrose\_ky/opt\_probs/flip\_flop\_opt.py                     |       38 |        6 |     84% |18, 21, 50, 52-55 |
 | src/mlrose\_ky/opt\_probs/knapsack\_opt.py                       |       22 |        7 |     68% | 28, 31-36 |
 | src/mlrose\_ky/opt\_probs/max\_k\_color\_opt.py                  |       44 |        8 |     82% |22, 25-28, 47-49, 71 |
 | src/mlrose\_ky/opt\_probs/opt\_prob.py                           |       79 |        6 |     92% |26, 28-31, 96, 237 |
 | src/mlrose\_ky/opt\_probs/queens\_opt.py                         |       24 |        3 |     88% |18, 21, 40 |
 | src/mlrose\_ky/opt\_probs/tsp\_opt.py                            |       80 |        9 |     89% |51, 59-60, 67, 142, 184, 186-189 |
-| src/mlrose\_ky/runners/\_\_init\_\_.py                           |        7 |        0 |    100% |           |
+| src/mlrose\_ky/runners/\_\_init\_\_.py                           |        8 |        0 |    100% |           |
 | src/mlrose\_ky/runners/\_nn\_runner\_base.py                     |      150 |       28 |     81% |163, 179-181, 209-210, 217-218, 221-223, 290-291, 302, 312, 328-330, 347, 352-355, 380-382, 436-439 |
-| src/mlrose\_ky/runners/\_runner\_base.py                         |      275 |       52 |     81% |101, 113, 145, 149, 159, 302-304, 318-321, 389, 416-422, 437-440, 484-488, 499-519, 558, 561, 620, 668, 742-743 |
+| src/mlrose\_ky/runners/\_runner\_base.py                         |      275 |       51 |     81% |101, 145, 149, 159, 302-304, 318-321, 389, 416-422, 437-440, 484-488, 499-519, 558, 561, 620, 668, 742-743 |
 | src/mlrose\_ky/runners/ga\_runner.py                             |       14 |        0 |    100% |           |
-| src/mlrose\_ky/runners/mimic\_runner.py                          |       20 |       11 |     45% |40-54, 57-59, 62 |
-| src/mlrose\_ky/runners/nngs\_runner.py                           |       21 |       12 |     43% |64-92, 103-110 |
+| src/mlrose\_ky/runners/mimic\_runner.py                          |       20 |        0 |    100% |           |
+| src/mlrose\_ky/runners/nngs\_runner.py                           |       21 |        7 |     67% |67, 102-109 |
 | src/mlrose\_ky/runners/rhc\_runner.py                            |       11 |        3 |     73% | 29-38, 41 |
 | src/mlrose\_ky/runners/sa\_runner.py                             |       19 |       10 |     47% |45-60, 63-68 |
 | src/mlrose\_ky/runners/skmlp\_runner.py                          |      101 |       80 |     21% |14-34, 37-39, 42-44, 47-51, 54-58, 61, 64-72, 75-80, 83-97, 130-169, 174-191 |
@@ -124,11 +124,13 @@
 | tests/test\_opt\_probs/test\_tsp\_opt.py                         |       75 |        4 |     95% |     10-14 |
 | tests/test\_runners/\_\_init\_\_.py                              |        0 |        0 |    100% |           |
 | tests/test\_runners/test\_ga\_runner.py                          |       74 |        8 |     89% |10-14, 82-83, 94-95 |
+| tests/test\_runners/test\_mimic\_runner.py                       |       67 |        8 |     88% |10-14, 79-80, 89-90 |
 | tests/test\_runners/test\_nn\_runner\_base.py                    |       93 |        4 |     96% |     15-19 |
+| tests/test\_runners/test\_nngs\_runner.py                        |       55 |        4 |     93% |     11-15 |
 | tests/test\_runners/test\_runner\_base.py                        |       94 |        5 |     95% | 14-18, 32 |
 | tests/test\_runners/test\_runner\_utils.py                       |       53 |        4 |     92% |     12-16 |
 | tests/test\_samples.py                                           |       46 |        4 |     91% |     16-20 |
-|                                                        **TOTAL** | **4966** |  **774** | **84%** |           |
+|                                                        **TOTAL** | **5089** |  **700** | **86%** |           |
 
 
 ## Setup coverage badge
