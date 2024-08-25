@@ -138,6 +138,13 @@ BibTeX entry:
                     <sub><b>Kyle Nakamura</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/gitongah">
+                    <img src="https://avatars.githubusercontent.com/u/39062444?v=4" width="100;" alt="gitongah"/>
+                    <br />
+                    <sub><b>Edwin Mbaabu</b></sub>
+                </a>
+            </td>
 		</tr>
 	<tbody>
 </table>

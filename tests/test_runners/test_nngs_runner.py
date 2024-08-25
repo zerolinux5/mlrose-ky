@@ -5,8 +5,6 @@ from unittest.mock import patch
 
 import sklearn.metrics as skmt
 
-from decorators import get_short_name
-from mlrose_ky import NNGSRunner
 
 try:
     import mlrose_ky
@@ -15,6 +13,9 @@ except ImportError:
 
     sys.path.append("..")
     import mlrose_ky
+
+from mlrose_ky import NNGSRunner
+from mlrose_ky.decorators import get_short_name
 
 
 class TestNNGSRunner:
