@@ -59,10 +59,6 @@ class NNGSRunner(_NNRunnerBase):
         output_directory=None,
         **kwargs,
     ):
-
-        # update short name based on algorithm
-        self._set_dynamic_runner_name(f"{get_short_name(self)}_{get_short_name(algorithm)}")
-
         # take a copy of the grid search parameters
         grid_search_parameters = {**grid_search_parameters}
 
@@ -98,6 +94,9 @@ class NNGSRunner(_NNRunnerBase):
             seed=seed,
             bias=bias,
         )
+
+        # update short name based on algorithm
+        self.set_dynamic_runner_name(f"{get_short_name(self)}_{get_short_name(algorithm)}")
 
     def run_one_experiment_(self, algorithm, total_args, **params):
         if self._extra_args is not None and len(self._extra_args) > 0:
