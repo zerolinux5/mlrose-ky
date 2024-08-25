@@ -23,6 +23,7 @@ from mlrose_ky.runners._nn_runner_base import _NNRunnerBase
 
 
 class TestNNRunnerBase:
+    """Tests for _NNRunnerBase."""
 
     def test_nn_runner_base_initialization(self):
         """Test _NNRunnerBase initialization with default parameters"""
