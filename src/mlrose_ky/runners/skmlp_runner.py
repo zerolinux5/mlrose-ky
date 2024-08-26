@@ -1,8 +1,9 @@
-import mlrose_ky.neural.activation as act
+import inspect
 import sklearn.metrics as skmt
-
-from sklearn.neural_network import MLPClassifier
 from sklearn.base import BaseEstimator
+from sklearn.neural_network import MLPClassifier
+
+import mlrose_ky.neural.activation as act
 from mlrose_ky.decorators import short_name
 from mlrose_ky.runners._nn_runner_base import _NNRunnerBase
 
@@ -12,7 +13,12 @@ class SKMLPRunner(_NNRunnerBase):
     class _MLPClassifier(BaseEstimator):
         def __init__(self, runner, **kwargs):
             self.runner = runner
-            self.mlp = MLPClassifier(**kwargs)
+
+            # Filter out invalid kwargs using inspect.signature
+            valid_args = inspect.signature(MLPClassifier.__init__).parameters
+            mlp_kwargs = {k: v for k, v in kwargs.items() if k in valid_args}
+
+            self.mlp = MLPClassifier(**mlp_kwargs)
             self.state_callback = self.runner.save_state
             self.fit_started_ = False
             self.user_info_ = None
@@ -105,25 +111,25 @@ class SKMLPRunner(_NNRunnerBase):
             )
 
     def __init__(
-        self,
-        x_train,
-        y_train,
-        x_test,
-        y_test,
-        experiment_name,
-        seed,
-        iteration_list,
-        grid_search_parameters,
-        grid_search_scorer_method=skmt.balanced_accuracy_score,
-        early_stopping=True,
-        max_attempts=500,
-        n_jobs=1,
-        cv=5,
-        override_ctrl_c_handler=True,
-        generate_curves=True,
-        output_directory=None,
-        replay=False,
-        **kwargs,
+            self,
+            x_train,
+            y_train,
+            x_test,
+            y_test,
+            experiment_name,
+            seed,
+            iteration_list,
+            grid_search_parameters,
+            grid_search_scorer_method=skmt.balanced_accuracy_score,
+            early_stopping=True,
+            max_attempts=500,
+            n_jobs=1,
+            cv=5,
+            override_ctrl_c_handler=True,
+            generate_curves=True,
+            output_directory=None,
+            replay=False,
+            **kwargs,
     ):
 
         # take a copy of the grid search parameters
