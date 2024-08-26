@@ -38,7 +38,7 @@ class TestNNGSRunner:
             "max_iters": [1, 2],
             "learning_rate": [0.001, 0.002],
             "hidden_layer_sizes": [[2], [2, 2]],
-            "activation": [mlrose_ky.relu, mlrose_ky.sigmoid]
+            "activation": [mlrose_ky.relu, mlrose_ky.sigmoid],
         }
 
         return {

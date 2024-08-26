@@ -58,4 +58,3 @@ class TestFlipFlopGenerator:
         problem = FlipFlopGenerator.generate(SEED, size=size)
 
         assert problem.length == size
-

@@ -51,8 +51,8 @@ def get_short_name(v: Any) -> str:
     str
         The short name of the variable, if assigned; otherwise, returns the full variable name or the variable itself as a fallback.
     """
-    if hasattr(v, '__short_name__'):
+    if hasattr(v, "__short_name__"):
         return v.__short_name__
-    elif hasattr(v, '__name__'):
+    elif hasattr(v, "__name__"):
         return v.__name__
     return v
