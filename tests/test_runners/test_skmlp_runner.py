@@ -1,7 +1,9 @@
 """Unit tests for runners/skmlp_runner.py"""
 
 import pytest
+import warnings
 from unittest.mock import patch
+
 import sklearn.metrics as skmt
 
 from tests.globals import SEED
@@ -75,10 +77,17 @@ class TestSKMLPRunner:
 
     def test_run_with_grid_search_parameters(self, runner_kwargs):
         """Test run with grid search parameters."""
-        with patch.object(SKMLPRunner._MLPClassifier, "fit", return_value=None) as mock_fit:
+        with (
+            patch.object(SKMLPRunner._MLPClassifier, "fit", autospec=True) as mock_fit,
+            patch.object(SKMLPRunner._MLPClassifier, "predict", autospec=True) as mock_predict,
+            warnings.catch_warnings(),
+        ):
+            warnings.simplefilter("ignore", category=UserWarning)
             runner = SKMLPRunner(**runner_kwargs)
             runner.run()
-            mock_fit.assert_called()
+
+        mock_fit.assert_called()
+        mock_predict.assert_called()
 
     def test_dynamic_runner_name(self, runner_kwargs):
         """Test that the runner name is set dynamically based on the algorithm."""
