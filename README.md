@@ -131,9 +131,9 @@
 | tests/test\_runners/test\_runner\_base.py                        |       94 |        5 |     95% | 14-18, 32 |
 | tests/test\_runners/test\_runner\_utils.py                       |       53 |        4 |     92% |     12-16 |
 | tests/test\_runners/test\_sa\_runner.py                          |       52 |        4 |     92% |     10-14 |
-| tests/test\_runners/test\_skmlp\_runner.py                       |       60 |        4 |     93% |     14-18 |
+| tests/test\_runners/test\_skmlp\_runner.py                       |       59 |        4 |     93% |     13-17 |
 | tests/test\_samples.py                                           |       46 |        4 |     91% |     16-20 |
-|                                                        **TOTAL** | **5252** |  **649** | **88%** |           |
+|                                                        **TOTAL** | **5251** |  **649** | **88%** |           |
 
 
 ## Setup coverage badge
