@@ -9,7 +9,7 @@ from typing import Any
 from mlrose_ky.algorithms.mutators._mutator_base import _MutatorBase
 
 
-class SingleGeneMutator(_MutatorBase):
+class ChangeOneMutator(_MutatorBase):
     """
     A mutator class that performs the 'Change One' mutation strategy in a genetic algorithm.
 

@@ -9,7 +9,7 @@ from typing import Any
 from mlrose_ky.algorithms.mutators._mutator_base import _MutatorBase
 
 
-class DiscreteGeneMutator(_MutatorBase):
+class DiscreteMutator(_MutatorBase):
     """
     A mutator class that performs discrete mutation on individual genes in a genetic algorithm.
 

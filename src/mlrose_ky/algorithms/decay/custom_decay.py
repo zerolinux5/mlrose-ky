@@ -6,7 +6,7 @@
 from typing import Callable
 
 
-class CustomDecay:
+class CustomSchedule:
     """
     Class for generating a customizable temperature schedule for simulated annealing.
 
@@ -24,7 +24,7 @@ class CustomDecay:
     -------
     >>> def custom_decay_function(time: int, offset: int) -> float: return time + offset
     >>> kwargs = {'offset': 10}
-    >>> schedule = CustomDecay(custom_decay_function, **kwargs)
+    >>> schedule = CustomSchedule(custom_decay_function, **kwargs)
     >>> schedule.evaluate(5)
     15
     """
@@ -40,7 +40,7 @@ class CustomDecay:
         return self.__str__()
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, CustomDecay):
+        if not isinstance(other, CustomSchedule):
             return False
         return self.decay_function == other.decay_function and self.kwargs == other.kwargs
 

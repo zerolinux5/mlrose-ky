@@ -9,7 +9,7 @@ from typing import Any
 from mlrose_ky.algorithms.mutators._mutator_base import _MutatorBase
 
 
-class GeneSwapMutator(_MutatorBase):
+class SwapMutator(_MutatorBase):
     """
     A mutator class that implements the 'Gene Swap' mutation strategy in genetic algorithms.
 

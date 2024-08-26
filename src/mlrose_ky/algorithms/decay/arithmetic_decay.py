@@ -4,7 +4,7 @@
 # License: BSD 3-clause
 
 
-class ArithmeticDecay:
+class ArithDecay:
     """
     Schedule for arithmetically decaying the temperature parameter T in a
     simulated annealing process, calculated using the formula:
@@ -36,7 +36,7 @@ class ArithmeticDecay:
 
     Examples
     --------
-    >>> schedule = ArithmeticDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
+    >>> schedule = ArithDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
     >>> schedule.evaluate(5)
     5.25
     """
@@ -64,7 +64,7 @@ class ArithmeticDecay:
         return self.__str__()
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, ArithmeticDecay):
+        if not isinstance(other, ArithDecay):
             return False
         return (
             self.initial_temperature == other.initial_temperature

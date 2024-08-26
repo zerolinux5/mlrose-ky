@@ -9,7 +9,7 @@ from typing import Any
 from mlrose_ky.algorithms.mutators._mutator_base import _MutatorBase
 
 
-class SingleShiftMutator(_MutatorBase):
+class ShiftOneMutator(_MutatorBase):
     """
     A mutator class that implements the 'Shift One' mutation strategy in a genetic algorithm.
 

@@ -4,7 +4,8 @@
 # License: BSD 3-clause
 
 
-class GeometricDecay:
+
+class GeomDecay:
     """
     Defines a geometric decay schedule for the temperature parameter T in simulated annealing,
     using the formula:
@@ -36,7 +37,7 @@ class GeometricDecay:
 
     Examples
     --------
-    >>> schedule = GeometricDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
+    >>> schedule = GeomDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
     >>> print(schedule.evaluate(5))
     7.737809374999998
     """
@@ -64,13 +65,11 @@ class GeometricDecay:
         return self.__str__()
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, GeometricDecay):
+        if not isinstance(other, GeomDecay):
             return False
-        return (
-            self.initial_temperature == other.initial_temperature
-            and self.decay_rate == other.decay_rate
-            and self.minimum_temperature == other.minimum_temperature
-        )
+        return (self.initial_temperature == other.initial_temperature
+                and self.decay_rate == other.decay_rate
+                and self.minimum_temperature == other.minimum_temperature)
 
     def evaluate(self, time: int) -> float:
         """
@@ -86,8 +85,7 @@ class GeometricDecay:
         float
             The temperature parameter at the given time, respecting the minimum temperature.
         """
-        temperature = max(self.initial_temperature * (self.decay_rate**time), self.minimum_temperature)
-        return temperature
+        return max(self.initial_temperature * (self.decay_rate ** time), self.minimum_temperature)
 
     def get_info(self, time: int | None = None, prefix: str = "") -> dict:
         """
@@ -118,3 +116,6 @@ class GeometricDecay:
             info[f"{info_prefix}current_value"] = self.evaluate(time)
 
         return info
+
+
+
