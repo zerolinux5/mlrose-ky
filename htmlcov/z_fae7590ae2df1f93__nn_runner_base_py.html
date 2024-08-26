@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Coverage for src/mlrose_ky/runners/_nn_runner_base.py: 81%</title>
+    <title>Coverage for src/mlrose_ky/runners/_nn_runner_base.py: 86%</title>
     <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
     <link rel="stylesheet" href="style_cb_8e611ae1.css" type="text/css">
     <script src="coverage_html_cb_6fb7b396.js" defer></script>
@@ -12,7 +12,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>src/mlrose_ky/runners/_nn_runner_base.py</b>:
-            <span class="pc_cov">81%</span>
+            <span class="pc_cov">86%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -55,8 +55,8 @@
         </aside>
         <h2>
             <span class="text">150 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">122<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">28<span class="text"> missing</span></button>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">129<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">21<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_fae7590ae2df1f93__runner_base_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-08-25 23:04 +0000
+            created at 2024-08-26 06:27 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -296,8 +296,8 @@
     <p class="run"><span class="n"><a id="t214" href="#t214">214</a></span><span class="t">                <span class="nam">y_pred</span> <span class="op">=</span> <span class="nam">search_results</span><span class="op">.</span><span class="nam">best_estimator_</span><span class="op">.</span><span class="nam">predict</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">x_test</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t215" href="#t215">215</a></span><span class="t">                <span class="nam">score</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">score</span><span class="op">(</span><span class="nam">y_pred</span><span class="op">=</span><span class="nam">y_pred</span><span class="op">,</span> <span class="nam">y_true</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">y_train</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t216" href="#t216">216</a></span><span class="t">                <span class="nam">self</span><span class="op">.</span><span class="nam">_print_banner</span><span class="op">(</span><span class="fst">f"</span><span class="fst">Score: </span><span class="op">{</span><span class="nam">score</span><span class="op">}</span><span class="fst">"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t217" href="#t217">217</a></span><span class="t">            <span class="key">except</span> <span class="nam">Exception</span> <span class="key">as</span> <span class="nam">e</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t218" href="#t218">218</a></span><span class="t">                <span class="nam">logging</span><span class="op">.</span><span class="nam">error</span><span class="op">(</span><span class="fst">f"</span><span class="fst">An error occurred while predicting: </span><span class="op">{</span><span class="nam">e</span><span class="op">}</span><span class="fst">"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t217" href="#t217">217</a></span><span class="t">            <span class="key">except</span> <span class="nam">Exception</span> <span class="key">as</span> <span class="nam">e</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t218" href="#t218">218</a></span><span class="t">                <span class="nam">logging</span><span class="op">.</span><span class="nam">error</span><span class="op">(</span><span class="fst">f"</span><span class="fst">An error occurred while predicting: </span><span class="op">{</span><span class="nam">e</span><span class="op">}</span><span class="fst">"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t219" href="#t219">219</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t220" href="#t220">220</a></span><span class="t">            <span class="key">return</span> <span class="nam">self</span><span class="op">.</span><span class="nam">run_stats_df</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">curves_df</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">cv_results_df</span><span class="op">,</span> <span class="nam">search_results</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t221" href="#t221">221</a></span><span class="t">        <span class="key">except</span> <span class="nam">KeyboardInterrupt</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -369,8 +369,8 @@
     <p class="pln"><span class="n"><a id="t287" href="#t287">287</a></span><span class="t"><span class="str">            Filename to clean up, by default None.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t288" href="#t288">288</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t289" href="#t289">289</a></span><span class="t">        <span class="key">if</span> <span class="nam">self</span><span class="op">.</span><span class="nam">best_params</span> <span class="key">is</span> <span class="key">None</span> <span class="key">or</span> <span class="nam">self</span><span class="op">.</span><span class="nam">replay_mode</span><span class="op">(</span><span class="op">)</span> <span class="key">is</span> <span class="key">None</span> <span class="key">or</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_output_directory</span> <span class="key">is</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t290" href="#t290">290</a></span><span class="t">            <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">_tear_down</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t291" href="#t291">291</a></span><span class="t">            <span class="key">return</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t290" href="#t290">290</a></span><span class="t">            <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">_tear_down</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t291" href="#t291">291</a></span><span class="t">            <span class="key">return</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t292" href="#t292">292</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t293" href="#t293">293</a></span><span class="t">        <span class="nam">filename_root</span> <span class="op">=</span> <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">_get_pickle_filename_root</span><span class="op">(</span><span class="str">""</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t294" href="#t294">294</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="fst">f"</span><span class="fst">Filename root: </span><span class="op">{</span><span class="nam">filename_root</span><span class="op">}</span><span class="fst">"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -459,9 +459,9 @@
     <p class="pln"><span class="n"><a id="t377" href="#t377">377</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t378" href="#t378">378</a></span><span class="t">        <span class="nam">new_param_values</span> <span class="op">=</span> <span class="op">{</span><span class="nam">p</span><span class="op">:</span> <span class="op">[</span><span class="op">]</span> <span class="key">for</span> <span class="nam">p</span> <span class="key">in</span> <span class="nam">param_labels</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t379" href="#t379">379</a></span><span class="t">        <span class="key">for</span> <span class="nam">v</span> <span class="key">in</span> <span class="nam">cv_results</span><span class="op">[</span><span class="str">"params"</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t380" href="#t380">380</a></span><span class="t">            <span class="key">for</span> <span class="nam">p</span> <span class="key">in</span> <span class="nam">param_labels</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t381" href="#t381">381</a></span><span class="t">                <span class="nam">param_label</span> <span class="op">=</span> <span class="nam">p</span><span class="op">.</span><span class="nam">replace</span><span class="op">(</span><span class="nam">param_prefix</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t382" href="#t382">382</a></span><span class="t">                <span class="nam">new_param_values</span><span class="op">[</span><span class="nam">p</span><span class="op">]</span><span class="op">.</span><span class="nam">append</span><span class="op">(</span><span class="nam">_NNRunnerBase</span><span class="op">.</span><span class="nam">_sanitize_value</span><span class="op">(</span><span class="nam">v</span><span class="op">[</span><span class="nam">param_label</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t380" href="#t380">380</a></span><span class="t">            <span class="key">for</span> <span class="nam">p</span> <span class="key">in</span> <span class="nam">param_labels</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t381" href="#t381">381</a></span><span class="t">                <span class="nam">param_label</span> <span class="op">=</span> <span class="nam">p</span><span class="op">.</span><span class="nam">replace</span><span class="op">(</span><span class="nam">param_prefix</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t382" href="#t382">382</a></span><span class="t">                <span class="nam">new_param_values</span><span class="op">[</span><span class="nam">p</span><span class="op">]</span><span class="op">.</span><span class="nam">append</span><span class="op">(</span><span class="nam">_NNRunnerBase</span><span class="op">.</span><span class="nam">_sanitize_value</span><span class="op">(</span><span class="nam">v</span><span class="op">[</span><span class="nam">param_label</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t383" href="#t383">383</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t384" href="#t384">384</a></span><span class="t">        <span class="com"># Replace original parameter values with sanitized values</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t385" href="#t385">385</a></span><span class="t">        <span class="nam">cv_results</span><span class="op">.</span><span class="nam">update</span><span class="op">(</span><span class="nam">new_param_values</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -528,7 +528,7 @@
             <a class="nav" href="z_fae7590ae2df1f93__runner_base_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-08-25 23:04 +0000
+            created at 2024-08-26 06:27 +0000
         </p>
     </div>
 </footer>
