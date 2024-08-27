@@ -3,6 +3,8 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
+import warnings
+
 
 
 class GeomDecay:
@@ -116,6 +118,3 @@ class GeomDecay:
             info[f"{info_prefix}current_value"] = self.evaluate(time)
 
         return info
-
-
-

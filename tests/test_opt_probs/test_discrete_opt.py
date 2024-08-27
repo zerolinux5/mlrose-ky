@@ -185,4 +185,3 @@ class TestDiscreteOpt:
         problem.eval_node_probs()
         sample = problem.sample_pop(100)
         assert np.shape(sample)[0] == 100 and np.shape(sample)[1] == 5 and 0 < np.sum(sample) < 500
-

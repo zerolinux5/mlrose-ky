@@ -3,6 +3,7 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
+from ._nn_runner_base import _NNRunnerBase
 from .ga_runner import GARunner
 from .mimic_runner import MIMICRunner
 from .nngs_runner import NNGSRunner
