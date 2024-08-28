@@ -72,7 +72,7 @@ import mlrose_ky
 
 ## Documentation
 
-The official mlrose-ky documentation can be found [here](https://mlrose.readthedocs.io/).
+The official mlrose-ky documentation can be found [here](https://nkapila6.github.io/mlrose-ky/).
 
 A Jupyter notebook containing the examples used in the documentation is also available [here](https://github.com/gkhayes/mlrose/blob/master/tutorial_examples.ipynb).
 
@@ -83,7 +83,7 @@ mlrose-ky was forked from the `mlrose-hiive` repository, which was a fork of the
 The original `mlrose` was written by Genevieve Hayes and is distributed under the [3-Clause BSD license](https://github.com/gkhayes/mlrose/blob/master/LICENSE). 
 
 You can cite mlrose-ky in research publications and reports as follows:
-* Nakamura, K. (2024). ***mlrose-ky: Machine Learning, Randomized Optimization, and SEarch package for Python***. https://github.com/your-repo-url. Accessed: *day month year*.
+* Nakamura, K. (2024). ***mlrose-ky: Machine Learning, Randomized Optimization, and SEarch package for Python***. https://github.com/knakamura13/mlrose-ky/. Accessed: *day month year*.
 
 Please also keep the original authors' citations:
 * Rollings, A. (2020). ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix***. https://github.com/hiive/mlrose. Accessed: *day month year*.
@@ -97,7 +97,7 @@ BibTeX entry:
  author = {Nakamura, K.},
  title  = {{mlrose-ky: Machine Learning, Randomized Optimization and SEarch package for Python}},
  year   = 2024,
- howpublished = {\url{https://github.com/your-repo-url}},
+ howpublished = {\url{https://github.com/knakamura13/mlrose-ky/}},
  note   = {Accessed: day month year}
 }
 
@@ -105,7 +105,7 @@ BibTeX entry:
  author = {Rollings, A.},
  title 	= {{mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix}},
  year 	= 2020,
- howpublished = {\url{https://github.com/hiive/mlrose}},
+ howpublished = {\url{https://github.com/hiive/mlrose/}},
  note 	= {Accessed: day month year}
 }
 
@@ -113,7 +113,7 @@ BibTeX entry:
  author = {Hayes, G.},
  title 	= {{mlrose: Machine Learning, Randomized Optimization and SEarch package for Python}},
  year 	= 2019,
- howpublished = {\url{https://github.com/gkhayes/mlrose}},
+ howpublished = {\url{https://github.com/gkhayes/mlrose/}},
  note 	= {Accessed: day month year}
 }
 ```
