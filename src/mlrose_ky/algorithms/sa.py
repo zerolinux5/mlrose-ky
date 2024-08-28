@@ -6,13 +6,13 @@
 import numpy as np
 from typing import Callable, Any
 from mlrose_ky.decorators import short_name
-from mlrose_ky.algorithms.decay import GeometricDecay
+from mlrose_ky.algorithms.decay import GeomDecay
 
 
 @short_name("sa")
 def simulated_annealing(
     problem: Any,
-    schedule: Any = GeometricDecay(),
+    schedule: Any = GeomDecay(),
     max_attempts: int = 10,
     max_iters: int = np.inf,
     init_state: np.ndarray = None,

@@ -12,6 +12,6 @@ from .mimic import mimic
 
 from .crossovers import UniformCrossover, TSPCrossover, OnePointCrossover
 
-from .decay import ArithmeticDecay, CustomDecay, ExponentialDecay, GeometricDecay
+from .decay import ArithDecay, CustomSchedule, ExpDecay, GeomDecay
 
-from .mutators import SingleGeneMutator, DiscreteGeneMutator, SingleShiftMutator, GeneSwapMutator
+from .mutators import ChangeOneMutator, DiscreteMutator, ShiftOneMutator, SwapMutator

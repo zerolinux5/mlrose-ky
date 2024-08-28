@@ -6,7 +6,6 @@
 import warnings
 
 
-
 class GeomDecay:
     """
     Defines a geometric decay schedule for the temperature parameter T in simulated annealing,
@@ -44,7 +43,8 @@ class GeomDecay:
     7.737809374999998
     """
 
-    def __init__(self, initial_temperature: float = 1.0, decay_rate: float = 0.99, minimum_temperature: float = 0.001) -> None:
+    def __init__(self, initial_temperature: float = 1.0, decay_rate: float = 0.99,
+                 minimum_temperature: float = 0.001) -> None:
         self.initial_temperature: float = initial_temperature
         self.decay_rate: float = decay_rate
         self.minimum_temperature: float = minimum_temperature
