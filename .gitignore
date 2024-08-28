@@ -29,7 +29,7 @@ tsp_test/
 
 # Virtual environments
 venvp/
-
+venv
 # Aider tool
 .aider*
 
