@@ -229,12 +229,21 @@ BibTeX entry:
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/gitongah">
+                    <img src="https://avatars.githubusercontent.com/u/39062444?v=4" width="100;" alt="gitongah"/>
+                    <br />
+                    <sub><b>Edwin Mbaabu</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/KevinJBoyer">
                     <img src="https://avatars.githubusercontent.com/u/31424131?v=4" width="100;" alt="KevinJBoyer"/>
                     <br />
                     <sub><b>Kevin Boyer</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/jfs42">
                     <img src="https://avatars.githubusercontent.com/u/43157283?v=4" width="100;" alt="jfs42"/>
@@ -242,8 +251,6 @@ BibTeX entry:
                     <sub><b>Jason Seeley</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/sareini">
                     <img src="https://avatars.githubusercontent.com/u/26151060?v=4" width="100;" alt="sareini"/>
@@ -279,6 +286,8 @@ BibTeX entry:
                     <sub><b>John Mansfield</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/dstrube1">
                     <img src="https://avatars.githubusercontent.com/u/7396679?v=4" width="100;" alt="dstrube1"/>
@@ -286,8 +295,6 @@ BibTeX entry:
                     <sub><b>David Strube</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/austin-bowen">
                     <img src="https://avatars.githubusercontent.com/u/4653828?v=4" width="100;" alt="austin-bowen"/>
@@ -323,6 +330,8 @@ BibTeX entry:
                     <sub><b>Keith Beattie</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/cbhyphen">
                     <img src="https://avatars.githubusercontent.com/u/12734117?v=4" width="100;" alt="cbhyphen"/>
@@ -330,8 +339,6 @@ BibTeX entry:
                     <sub><b>cbhyphen</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/dsctt">
                     <img src="https://avatars.githubusercontent.com/u/45729071?v=4" width="100;" alt="dsctt"/>
