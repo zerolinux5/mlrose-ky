@@ -1,11 +1,11 @@
 """Neural network activation functions."""
 
-import warnings
-
-import numpy as np
-
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
+
+import warnings
+import numpy as np
+
 from mlrose_ky.decorators import short_name
 
 warnings.filterwarnings("ignore")
