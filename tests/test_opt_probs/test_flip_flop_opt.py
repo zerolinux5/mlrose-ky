@@ -57,7 +57,7 @@ class TestFlipFlopOpt:
         )
         problem.set_population(pop)
         x = problem.best_child()
-        assert np.array_equal(x, np.array([1, 1, 1, 1, 1]))
+        assert np.array_equal(x, np.array([1, 0, 1, 0, 1]))
 
     def test_best_neighbor(self):
         """Test best_neighbor method"""
@@ -74,7 +74,7 @@ class TestFlipFlopOpt:
         )
         problem.neighbors = pop
         x = problem.best_neighbor()
-        assert np.array_equal(x, np.array([1, 1, 1, 1, 1]))
+        assert np.array_equal(x, np.array([1, 0, 1, 0, 1]))
 
     def test_eval_fitness(self):
         """Test eval_fitness method"""
