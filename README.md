@@ -164,17 +164,17 @@ BibTeX entry:
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/gkhayes">
-                    <img src="https://avatars.githubusercontent.com/u/24857299?v=4" width="100;" alt="gkhayes"/>
-                    <br />
-                    <sub><b>Dr Genevieve Hayes</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/knakamura13">
                     <img src="https://avatars.githubusercontent.com/u/20162718?v=4" width="100;" alt="knakamura13"/>
                     <br />
                     <sub><b>Kyle Nakamura</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/gkhayes">
+                    <img src="https://avatars.githubusercontent.com/u/24857299?v=4" width="100;" alt="gkhayes"/>
+                    <br />
+                    <sub><b>Dr Genevieve Hayes</b></sub>
                 </a>
             </td>
             <td align="center">

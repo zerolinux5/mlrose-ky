@@ -47,7 +47,7 @@ class DiscreteOpt(OptProb):
                 + """ fitness function."""
             )
 
-        if max_val < 0:
+        if not max_val or max_val < 0:
             raise ValueError(f"max_val must be a positive integer. Got {max_val}")
         elif not isinstance(max_val, int):
             if max_val.is_integer():

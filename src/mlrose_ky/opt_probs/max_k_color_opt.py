@@ -13,10 +13,7 @@ from mlrose_ky.opt_probs.discrete_opt import DiscreteOpt
 
 
 class MaxKColorOpt(DiscreteOpt):
-    def __init__(
-        self, edges=None, length=None, fitness_fn=None, maximize=False, max_colors=None, crossover=None, mutator=None, source_graph=None
-    ):
-
+    def __init__(self, edges=None, length=None, fitness_fn=None, maximize=False, max_colors=None, crossover=None, mutator=None, source_graph=None):
         if (fitness_fn is None) and (edges is None):
             raise Exception("fitness_fn or edges must be specified.")
 
@@ -31,7 +28,6 @@ class MaxKColorOpt(DiscreteOpt):
         if fitness_fn is None:
             fitness_fn = MaxKColor(edges, maximize)
 
-        # Handle single node case
         if length == 1:
             self.max_val = 1
             self.source_graph = nx.Graph()
@@ -41,10 +37,14 @@ class MaxKColorOpt(DiscreteOpt):
             self.set_state(np.array([0]))
             return
 
-        # set up initial state (everything painted one color)
+        # Create or update the graph to include all nodes up to `length`
         if source_graph is None:
             g = nx.Graph()
             g.add_edges_from(edges)
+            # Ensure all nodes up to `length` are added
+            for i in range(length):
+                if i not in g:
+                    g.add_node(i)
             self.source_graph = g
         else:
             self.source_graph = source_graph
@@ -55,7 +55,10 @@ class MaxKColorOpt(DiscreteOpt):
 
         if max_colors is None:
             total_neighbor_count = [len([*self.source_graph.neighbors(n)]) for n in range(length)]
-            max_colors = 1 + max(total_neighbor_count)
+            if total_neighbor_count:
+                max_colors = 1 + max(total_neighbor_count)
+            else:
+                max_colors = 1  # Default to 1 when there are no edges
         self.max_val = max_colors
 
         crossover = UniformCrossover(self) if crossover is None else crossover
