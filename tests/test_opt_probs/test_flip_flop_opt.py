@@ -101,7 +101,51 @@ class TestFlipFlopOpt:
         pop = problem.get_population()
         assert pop.shape == (10, 5) and np.all((pop == 0) | (pop == 1))
 
-    def test_can_stop(self):
+    def test_random_pop_edge_cases(self):
+        """Test random_pop method with edge cases"""
+        problem = FlipFlopOpt(5)
+        # Test with population size 0
+        try:
+            problem.random_pop(0)
+            assert False, "Expected an exception for population size 0"
+        except Exception as e:
+            assert str(e) == "pop_size must be a positive integer."
+
+        # Test with a large population size
+        problem.random_pop(10000)
+        pop = problem.get_population()
+        assert pop.shape == (10000, 5) and np.all((pop == 0) | (pop == 1))
+
+    def test_set_state_boundary_conditions(self):
+        """Test set_state method with boundary conditions"""
+        problem = FlipFlopOpt(5)
+        # Test with minimum state vector
+        min_state = np.array([0, 0, 0, 0, 0])
+        problem.set_state(min_state)
+        assert np.array_equal(problem.get_state(), min_state)
+
+        # Test with maximum state vector
+        max_state = np.array([1, 1, 1, 1, 1])
+        problem.set_state(max_state)
+        assert np.array_equal(problem.get_state(), max_state)
+
+    def test_invalid_inputs(self):
+        """Test methods with invalid inputs"""
+        problem = FlipFlopOpt(5)
+        # Test set_state with invalid length
+        invalid_state = np.array([1, 1, 1])
+        try:
+            problem.set_state(invalid_state)
+            assert False, "Expected an exception for invalid state length"
+        except Exception as e:
+            assert str(e) == "new_state length must match problem length"
+
+        # Test random_pop with negative size
+        try:
+            problem.random_pop(-1)
+            assert False, "Expected an exception for negative population size"
+        except Exception as e:
+            assert str(e) == "pop_size must be a positive integer."
         """Test can_stop method"""
         problem = FlipFlopOpt(5)
         x = np.array([1, 1, 1, 1, 1])
