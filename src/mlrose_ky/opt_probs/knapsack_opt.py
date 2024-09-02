@@ -23,9 +23,8 @@ class KnapsackOpt(DiscreteOpt):
         mutator=None,
         multiply_by_max_item_count=False,
     ):
-
         if (fitness_fn is None) and (weights is None and values is None):
-            raise Exception("""fitness_fn or both weights and""" + """ values must be specified.""")
+            raise Exception("""fitness_fn or both weights and values must be specified.""")
 
         if length is None:
             if weights is not None:

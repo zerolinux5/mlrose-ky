@@ -70,14 +70,14 @@ class Knapsack:
 
         if len(self.weights) != len(self.values):
             raise ValueError("The weights and values lists must be the same size.")
-        if min(self.weights) <= 0:
+        if len(self.weights) and min(self.weights) <= 0:
             raise ValueError("All weights must be greater than 0.")
-        if min(self.values) <= 0:
+        if len(self.values) and min(self.values) <= 0:
             raise ValueError("All values must be greater than 0.")
         if max_item_count <= 0:
             raise ValueError("max_item_count must be greater than 0.")
-        if max_weight_pct <= 0:
-            raise ValueError("max_weight_pct must be greater than 0.")
+        if max_weight_pct <= 0 or max_weight_pct > 1.0:
+            raise ValueError("max_weight_pct must be between 0 and 1.")
 
     def evaluate(self, state_vector: np.ndarray) -> float:
         """Evaluate the fitness of a state vector.

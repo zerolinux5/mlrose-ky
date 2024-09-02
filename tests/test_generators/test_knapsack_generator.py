@@ -95,4 +95,4 @@ class TestKnapsackGenerator:
 
         with pytest.raises(ValueError) as excinfo:
             KnapsackGenerator.generate(seed=SEED, max_weight_percentage=max_weight_percentage)
-        assert str(excinfo.value) == "max_weight_pct must be greater than 0."
+        assert str(excinfo.value) == "max_weight_pct must be between 0 and 1."
