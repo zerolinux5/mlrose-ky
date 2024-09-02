@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_3b3e5079573c909e_flip_flop_opt_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-08-28 21:56 +0000
+            created at 2024-09-02 07:19 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -86,12 +86,12 @@
     <p class="pln"><span class="n"><a id="t4" href="#t4">4</a></span><span class="t"><span class="com"># License: BSD 3-clause</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t5" href="#t5">5</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t6" href="#t6">6</a></span><span class="t"><span class="key">import</span> <span class="nam">numpy</span> <span class="key">as</span> <span class="nam">np</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t7" href="#t7">7</a></span><span class="t"><span class="key">from</span> <span class="nam">sklearn</span><span class="op">.</span><span class="nam">metrics</span> <span class="key">import</span> <span class="nam">mutual_info_score</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">from</span> <span class="nam">scipy</span><span class="op">.</span><span class="nam">sparse</span> <span class="key">import</span> <span class="nam">csr_matrix</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t9" href="#t9">9</a></span><span class="t"><span class="key">from</span> <span class="nam">scipy</span><span class="op">.</span><span class="nam">sparse</span><span class="op">.</span><span class="nam">csgraph</span> <span class="key">import</span> <span class="nam">minimum_spanning_tree</span><span class="op">,</span> <span class="nam">depth_first_tree</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t7" href="#t7">7</a></span><span class="t"><span class="key">from</span> <span class="nam">scipy</span><span class="op">.</span><span class="nam">sparse</span> <span class="key">import</span> <span class="nam">csr_matrix</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">from</span> <span class="nam">scipy</span><span class="op">.</span><span class="nam">sparse</span><span class="op">.</span><span class="nam">csgraph</span> <span class="key">import</span> <span class="nam">minimum_spanning_tree</span><span class="op">,</span> <span class="nam">depth_first_tree</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t9" href="#t9">9</a></span><span class="t"><span class="key">from</span> <span class="nam">sklearn</span><span class="op">.</span><span class="nam">metrics</span> <span class="key">import</span> <span class="nam">mutual_info_score</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t10" href="#t10">10</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">algorithms</span><span class="op">.</span><span class="nam">crossovers</span> <span class="key">import</span> <span class="nam">UniformCrossover</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">algorithms</span><span class="op">.</span><span class="nam">mutators</span> <span class="key">import</span> <span class="nam">GeneSwapMutator</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t12" href="#t12">12</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">algorithms</span><span class="op">.</span><span class="nam">mutators</span> <span class="key">import</span> <span class="nam">SwapMutator</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t13" href="#t13">13</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">opt_probs</span><span class="op">.</span><span class="nam">opt_prob</span> <span class="key">import</span> <span class="nam">OptProb</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t14" href="#t14">14</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t15" href="#t15">15</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -147,7 +147,7 @@
     <p class="run"><span class="n"><a id="t65" href="#t65">65</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">noise</span> <span class="op">=</span> <span class="num">0</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t66" href="#t66">66</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t67" href="#t67">67</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">_crossover</span> <span class="op">=</span> <span class="nam">UniformCrossover</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="key">if</span> <span class="nam">crossover</span> <span class="key">is</span> <span class="key">None</span> <span class="key">else</span> <span class="nam">crossover</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t68" href="#t68">68</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">_mutator</span> <span class="op">=</span> <span class="nam">GeneSwapMutator</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="key">if</span> <span class="nam">mutator</span> <span class="key">is</span> <span class="key">None</span> <span class="key">else</span> <span class="nam">mutator</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t68" href="#t68">68</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">_mutator</span> <span class="op">=</span> <span class="nam">SwapMutator</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="key">if</span> <span class="nam">mutator</span> <span class="key">is</span> <span class="key">None</span> <span class="key">else</span> <span class="nam">mutator</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t69" href="#t69">69</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t70" href="#t70">70</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">_mut_mask</span> <span class="op">=</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t71" href="#t71">71</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">_mut_inf</span> <span class="op">=</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
@@ -522,7 +522,7 @@
             <a class="nav" href="z_3b3e5079573c909e_flip_flop_opt_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-08-28 21:56 +0000
+            created at 2024-09-02 07:19 +0000
         </p>
     </div>
 </footer>
