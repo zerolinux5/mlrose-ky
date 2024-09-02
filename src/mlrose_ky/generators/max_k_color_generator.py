@@ -3,8 +3,8 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-import numpy as np
 import networkx as nx
+import numpy as np
 
 from mlrose_ky.opt_probs import MaxKColorOpt
 

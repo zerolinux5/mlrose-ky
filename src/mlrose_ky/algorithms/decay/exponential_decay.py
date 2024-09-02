@@ -6,7 +6,7 @@
 import numpy as np
 
 
-class ExponentialDecay:
+class ExpDecay:
     """
     Defines an exponential decay schedule for the temperature parameter T in simulated annealing,
     using the formula:
@@ -38,7 +38,7 @@ class ExponentialDecay:
 
     Examples
     --------
-    >>> schedule = ExponentialDecay(initial_temperature=10, decay_rate=0.05, minimum_temperature=1)
+    >>> schedule = ExpDecay(initial_temperature=10, decay_rate=0.05, minimum_temperature=1)
     >>> print(schedule.evaluate(5))
     7.788007830714049
     """
@@ -57,7 +57,7 @@ class ExponentialDecay:
 
     def __str__(self) -> str:
         return (
-            f"ExponentialDecay(initial_temperature={self.initial_temperature}, "
+            f"ExpDecay(initial_temperature={self.initial_temperature}, "
             f"decay_rate={self.decay_rate}, "
             f"minimum_temperature={self.minimum_temperature})"
         )
@@ -66,7 +66,7 @@ class ExponentialDecay:
         return self.__str__()
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, ExponentialDecay):
+        if not isinstance(other, ExpDecay):
             return False
         return (
             self.initial_temperature == other.initial_temperature

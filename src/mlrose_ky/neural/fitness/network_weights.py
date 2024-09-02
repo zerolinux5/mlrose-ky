@@ -6,8 +6,8 @@
 import numpy as np
 import sklearn.metrics as skm
 
-from mlrose_ky.neural.utils import unflatten_weights
 from mlrose_ky.neural import activation as act
+from mlrose_ky.neural.utils import unflatten_weights
 
 
 class NetworkWeights:

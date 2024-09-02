@@ -6,10 +6,11 @@ GridSearchCV for cross-validated search over parameter grids.
 """
 
 import inspect
+from typing import Callable, Any
+
 import numpy as np
 import sklearn.metrics as skmt
 import sklearn.model_selection as skms
-from typing import Callable, Any
 
 
 class GridSearchMixin:

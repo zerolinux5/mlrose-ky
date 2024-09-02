@@ -3,10 +3,11 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-from mlrose_ky.decorators import short_name
-
 import warnings
+
 import numpy as np
+
+from mlrose_ky.decorators import short_name
 
 warnings.filterwarnings("ignore")
 

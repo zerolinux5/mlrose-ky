@@ -5,8 +5,7 @@
 
 from sklearn.base import RegressorMixin
 
-
-from mlrose_ky.algorithms.decay import GeometricDecay
+from mlrose_ky.algorithms.decay import GeomDecay
 from .nn_core import _NNCore
 
 
@@ -44,7 +43,7 @@ class LinearRegression(_NNCore, RegressorMixin):
         Number of random restarts.
         Only required if :code:`algorithm = 'random_hill_climb'`.
 
-    schedule: schedule object, default = mlrose_ky.GeometricDecay()
+    schedule: schedule object, default = mlrose_ky.GeomDecay()
         Schedule used to determine the value of the temperature parameter.
         Only required if :code:`algorithm = 'simulated_annealing'`.
 
@@ -90,7 +89,7 @@ class LinearRegression(_NNCore, RegressorMixin):
         early_stopping=False,
         clip_max=1e10,
         restarts=0,
-        schedule=GeometricDecay(),
+        schedule=GeomDecay(),
         pop_size=200,
         mutation_prob=0.1,
         max_attempts=10,

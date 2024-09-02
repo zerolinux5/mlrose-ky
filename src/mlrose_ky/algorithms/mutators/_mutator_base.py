@@ -7,9 +7,10 @@ detailing how individual solutions (chromosomes) can be altered to introduce gen
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-import numpy as np
-from typing import Any
 from abc import ABC, abstractmethod
+from typing import Any
+
+import numpy as np
 
 
 class _MutatorBase(ABC):

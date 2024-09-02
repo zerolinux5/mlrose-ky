@@ -1,19 +1,19 @@
 """Base class for managing and running optimization experiments with logging, error handling, and result saving."""
 
-from abc import ABC, abstractmethod
-import time
-import os
-import logging
+import ctypes
+import inspect as lk
 import itertools as it
+import logging
+import multiprocessing
+import os
+import pickle as pk
+import signal
+import time
+from abc import ABC, abstractmethod
 from typing import Any
 
 import numpy as np
 import pandas as pd
-import pickle as pk
-import inspect as lk
-import signal
-import multiprocessing
-import ctypes
 
 from mlrose_ky.decorators import get_short_name
 from mlrose_ky.runners.utils import build_data_filename

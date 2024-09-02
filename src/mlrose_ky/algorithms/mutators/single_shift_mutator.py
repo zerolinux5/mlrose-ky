@@ -3,13 +3,14 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-import numpy as np
 from typing import Any
+
+import numpy as np
 
 from mlrose_ky.algorithms.mutators._mutator_base import _MutatorBase
 
 
-class SingleShiftMutator(_MutatorBase):
+class ShiftOneMutator(_MutatorBase):
     """
     A mutator class that implements the 'Shift One' mutation strategy in a genetic algorithm.
 

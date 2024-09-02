@@ -3,14 +3,13 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
+import networkx as nx
 import numpy as np
 
 from mlrose_ky.algorithms.crossovers import UniformCrossover
-from mlrose_ky.algorithms.mutators import SingleGeneMutator
+from mlrose_ky.algorithms.mutators import ChangeOneMutator
 from mlrose_ky.fitness import MaxKColor
 from mlrose_ky.opt_probs.discrete_opt import DiscreteOpt
-
-import networkx as nx
 
 
 class MaxKColorOpt(DiscreteOpt):
@@ -60,7 +59,7 @@ class MaxKColorOpt(DiscreteOpt):
         self.max_val = max_colors
 
         crossover = UniformCrossover(self) if crossover is None else crossover
-        mutator = SingleGeneMutator(self) if mutator is None else mutator
+        mutator = ChangeOneMutator(self) if mutator is None else mutator
         super().__init__(length, fitness_fn, maximize, max_colors, crossover, mutator)
 
         state = np.random.randint(max_colors, size=self.length)

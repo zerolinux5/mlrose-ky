@@ -4,12 +4,12 @@
 # License: BSD 3-clause
 
 import numpy as np
-from sklearn.metrics import mutual_info_score
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import minimum_spanning_tree, depth_first_tree
+from sklearn.metrics import mutual_info_score
 
 from mlrose_ky.algorithms.crossovers import UniformCrossover
-from mlrose_ky.algorithms.mutators import GeneSwapMutator
+from mlrose_ky.algorithms.mutators import SwapMutator
 from mlrose_ky.opt_probs.opt_prob import OptProb
 
 
@@ -65,7 +65,7 @@ class DiscreteOpt(OptProb):
         self.noise = 0
 
         self._crossover = UniformCrossover(self) if crossover is None else crossover
-        self._mutator = GeneSwapMutator(self) if mutator is None else mutator
+        self._mutator = SwapMutator(self) if mutator is None else mutator
 
         self._mut_mask = None
         self._mut_inf = None
