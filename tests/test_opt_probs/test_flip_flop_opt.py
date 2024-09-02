@@ -76,9 +76,37 @@ class TestFlipFlopOpt:
         x = problem.best_neighbor()
         assert np.array_equal(x, np.array([1, 0, 1, 0, 1]))
 
-    def test_eval_fitness(self):
-        """Test eval_fitness method"""
+    def test_evaluate_population_fitness(self):
+        """Test evaluate_population_fitness method"""
         problem = FlipFlopOpt(5)
-        x = np.array([0, 1, 0, 1, 0])
-        fitness = problem.eval_fitness(x)
-        assert fitness == 4
+        pop = np.array(
+            [
+                [0, 0, 0, 0, 1],
+                [1, 0, 1, 0, 1],
+                [1, 1, 1, 1, 0],
+                [1, 0, 0, 0, 1],
+                [0, 0, 0, 0, 0],
+                [1, 1, 1, 1, 1],
+            ]
+        )
+        problem.set_population(pop)
+        problem.evaluate_population_fitness()
+        expected_fitness = np.array([1, 3, 4, 2, 0, 5])
+        assert np.array_equal(problem.get_pop_fitness(), expected_fitness)
+
+    def test_random_pop(self):
+        """Test random_pop method"""
+        problem = FlipFlopOpt(5)
+        problem.random_pop(10)
+        pop = problem.get_population()
+        assert pop.shape == (10, 5) and np.all((pop == 0) | (pop == 1))
+
+    def test_can_stop(self):
+        """Test can_stop method"""
+        problem = FlipFlopOpt(5)
+        x = np.array([1, 1, 1, 1, 0])
+        problem.set_state(x)
+        assert not problem.can_stop()
+        x = np.array([1, 1, 1, 1, 1])
+        problem.set_state(x)
+        assert problem.can_stop()
