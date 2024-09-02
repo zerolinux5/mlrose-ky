@@ -77,7 +77,7 @@
 | src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      201 |       27 |     87% |43, 51, 53-56, 108-113, 134-136, 150-151, 242, 261, 291, 335, 337-340, 373, 376, 408, 410-413 |
 | src/mlrose\_ky/opt\_probs/flip\_flop\_opt.py                     |       38 |        5 |     87% |18, 21, 52-55 |
 | src/mlrose\_ky/opt\_probs/knapsack\_opt.py                       |       22 |        5 |     77% | 27, 32-35 |
-| src/mlrose\_ky/opt\_probs/max\_k\_color\_opt.py                  |       44 |        8 |     82% |21, 24-27, 46-48, 70 |
+| src/mlrose\_ky/opt\_probs/max\_k\_color\_opt.py                  |       49 |       12 |     76% |18, 21-24, 42-48, 61, 73 |
 | src/mlrose\_ky/opt\_probs/opt\_prob.py                           |       79 |        5 |     94% |26, 28-31, 96 |
 | src/mlrose\_ky/opt\_probs/queens\_opt.py                         |       24 |        2 |     92% |    18, 21 |
 | src/mlrose\_ky/opt\_probs/tsp\_opt.py                            |       80 |        9 |     89% |51, 59-60, 65, 140, 182, 184-187 |
@@ -136,7 +136,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       52 |        4 |     92% |     10-14 |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       59 |        4 |     93% |     13-17 |
 | tests/test\_samples.py                                           |       46 |        4 |     91% |     16-20 |
-|                                                        **TOTAL** | **5441** |  **656** | **88%** |           |
+|                                                        **TOTAL** | **5446** |  **660** | **88%** |           |
 
 
 ## Setup coverage badge
