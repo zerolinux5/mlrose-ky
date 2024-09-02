@@ -29,32 +29,14 @@ class TestFlipFlopOpt:
     def test_set_population(self):
         """Test set_population method"""
         problem = FlipFlopOpt(5)
-        pop = np.array(
-            [
-                [0, 0, 0, 0, 1],
-                [1, 0, 1, 0, 1],
-                [1, 1, 1, 1, 0],
-                [1, 0, 0, 0, 1],
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 1, 1],
-            ]
-        )
+        pop = np.array([[0, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [0, 0, 0, 0, 0], [1, 1, 1, 1, 1]])
         problem.set_population(pop)
         assert np.array_equal(problem.get_population(), pop)
 
     def test_best_child(self):
         """Test best_child method"""
         problem = FlipFlopOpt(5)
-        pop = np.array(
-            [
-                [0, 0, 0, 0, 1],
-                [1, 0, 1, 0, 1],
-                [1, 1, 1, 1, 0],
-                [1, 0, 0, 0, 1],
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 1, 1],
-            ]
-        )
+        pop = np.array([[0, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [0, 0, 0, 0, 0], [1, 1, 1, 1, 1]])
         problem.set_population(pop)
         x = problem.best_child()
         assert np.array_equal(x, np.array([1, 0, 1, 0, 1]))
@@ -62,16 +44,7 @@ class TestFlipFlopOpt:
     def test_best_neighbor(self):
         """Test best_neighbor method"""
         problem = FlipFlopOpt(5)
-        pop = np.array(
-            [
-                [0, 0, 0, 0, 1],
-                [1, 0, 1, 0, 1],
-                [1, 1, 1, 1, 0],
-                [1, 0, 0, 0, 1],
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 1, 1],
-            ]
-        )
+        pop = np.array([[0, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [0, 0, 0, 0, 0], [1, 1, 1, 1, 1]])
         problem.neighbors = pop
         x = problem.best_neighbor()
         assert np.array_equal(x, np.array([1, 0, 1, 0, 1]))
@@ -79,16 +52,7 @@ class TestFlipFlopOpt:
     def test_evaluate_population_fitness(self):
         """Test evaluate_population_fitness method"""
         problem = FlipFlopOpt(5)
-        pop = np.array(
-            [
-                [0, 0, 0, 0, 1],
-                [1, 0, 1, 0, 1],
-                [1, 1, 1, 1, 0],
-                [1, 0, 0, 0, 1],
-                [0, 0, 0, 0, 0],
-                [1, 1, 1, 1, 1],
-            ]
-        )
+        pop = np.array([[0, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [0, 0, 0, 0, 0], [1, 1, 1, 1, 1]])
         problem.set_population(pop)
         problem.evaluate_population_fitness()
         expected_fitness = np.array([1, 4, 1, 2, 0, 0])
@@ -132,7 +96,6 @@ class TestFlipFlopOpt:
     def test_invalid_inputs(self):
         """Test methods with invalid inputs"""
         problem = FlipFlopOpt(5)
-        # Test set_state with invalid length
         invalid_state = np.array([1, 1, 1])
         try:
             problem.set_state(invalid_state)
@@ -146,11 +109,14 @@ class TestFlipFlopOpt:
             assert False, "Expected an exception for negative population size"
         except Exception as e:
             assert str(e) == "pop_size must be a positive integer."
-        """Test can_stop method"""
+
+    def test_can_stop_with_sub_optimal_state(self):
+        """Test can_stop method given a sub-optimal state"""
         problem = FlipFlopOpt(5)
-        x = np.array([1, 1, 1, 1, 1])
-        problem.set_state(x)
+        problem.set_state(np.array([1, 1, 1, 1, 1]))
         assert not problem.can_stop()
-        x = np.array([1, 0, 1, 0, 1])
-        problem.set_state(x)
+
+    def test_can_stop_with_optimal_state(self):
+        problem = FlipFlopOpt(5)
+        problem.set_state(np.array([1, 0, 1, 0, 1]))
         assert problem.can_stop()
