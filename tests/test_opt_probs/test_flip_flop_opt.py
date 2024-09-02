@@ -3,6 +3,8 @@
 # Author: Genevieve Hayes (modified by Kyle Nakamura)
 # License: BSD 3-clause
 
+import numpy as np
+
 try:
     import mlrose_ky
 except ImportError:
