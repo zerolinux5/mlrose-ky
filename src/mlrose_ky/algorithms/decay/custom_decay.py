@@ -34,7 +34,7 @@ class CustomSchedule:
         self.kwargs: dict = kwargs
 
     def __str__(self) -> str:
-        return f"CustomDecay(function={self.decay_function.__name__}, parameters={self.kwargs})"
+        return f"CustomSchedule(function={self.decay_function.__name__}, parameters={self.kwargs})"
 
     def __repr__(self) -> str:
         return self.__str__()

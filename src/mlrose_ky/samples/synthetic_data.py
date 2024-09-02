@@ -1,6 +1,7 @@
 """Class defining a synthetic dataset generator and a function to visualize a dataset."""
 
 from os import makedirs
+
 import matplotlib.colors as mpl
 import matplotlib.pyplot as plt
 import numpy as np

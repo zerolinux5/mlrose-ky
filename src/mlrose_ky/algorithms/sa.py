@@ -3,10 +3,12 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-import numpy as np
 from typing import Callable, Any
-from mlrose_ky.decorators import short_name
+
+import numpy as np
+
 from mlrose_ky.algorithms.decay import GeomDecay
+from mlrose_ky.decorators import short_name
 
 
 @short_name("sa")
@@ -29,7 +31,7 @@ def simulated_annealing(
         Object containing fitness function optimization problem to be solved.
         For example, :code:`DiscreteOpt()`, :code:`ContinuousOpt()` or
         :code:`TSPOpt()`.
-    schedule: schedule object, default: :code:`mlrose_ky.GeometricDecay()`
+    schedule: schedule object, default: :code:`mlrose_ky.GeomDecay()`
         Schedule used to determine the value of the temperature parameter.
     max_attempts: int, default: 10
         Maximum number of attempts to find a better neighbor at each step.

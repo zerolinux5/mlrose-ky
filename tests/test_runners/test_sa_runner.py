@@ -34,7 +34,7 @@ class TestSARunner:
             "seed": SEED,
             "iteration_list": [1, 2, 3],
             "temperature_list": [1, 10, 50, 100],
-            "decay_list": [mlrose_ky.GeometricDecay],
+            "decay_list": [mlrose_ky.GeomDecay],
             "max_attempts": 500,
             "generate_curves": True,
         }
@@ -52,7 +52,7 @@ class TestSARunner:
     def test_sarunner_initialization_sets_decay_list(self, runner_kwargs):
         """Test SARunner initialization sets the decay list."""
         runner = SARunner(**runner_kwargs)
-        assert runner.decay_list == [mlrose_ky.GeometricDecay]
+        assert runner.decay_list == [mlrose_ky.GeomDecay]
 
     def test_run_with_temperature_and_decay_list(self, runner_kwargs):
         """Test run with temperature and decay list."""
@@ -63,16 +63,16 @@ class TestSARunner:
 
             # Ensure that temperatures were processed correctly
             expected_temperatures = [
-                mlrose_ky.GeometricDecay(initial_temperature=1),
-                mlrose_ky.GeometricDecay(initial_temperature=10),
-                mlrose_ky.GeometricDecay(initial_temperature=50),
-                mlrose_ky.GeometricDecay(initial_temperature=100),
+                mlrose_ky.GeomDecay(initial_temperature=1),
+                mlrose_ky.GeomDecay(initial_temperature=10),
+                mlrose_ky.GeomDecay(initial_temperature=50),
+                mlrose_ky.GeomDecay(initial_temperature=100),
             ]
 
             # Check that the schedules used in the call match the expected temperatures
             for call, expected_schedule in zip(mock_sa.call_args_list, expected_temperatures):
                 schedule = dict(call[1]["callback_user_info"])["schedule"]
-                assert isinstance(schedule, mlrose_ky.GeometricDecay)
+                assert isinstance(schedule, mlrose_ky.GeomDecay)
                 assert schedule.__getattribute__("initial_temperature") == expected_schedule.__getattribute__("initial_temperature")
 
     def test_max_attempts_respected_during_initialization(self, runner_kwargs):

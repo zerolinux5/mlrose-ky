@@ -1,7 +1,8 @@
+import numpy as np
+
 import mlrose_ky
 from mlrose_ky.decorators import short_name
 from mlrose_ky.runners._runner_base import _RunnerBase
-import numpy as np
 
 """
 Example usage:
@@ -10,7 +11,7 @@ Example usage:
     problem = TSPGenerator.generate(seed=SEED, number_of_cities=22)
     
     # note that you can also initialize a temperature_list this way
-    # temperature_list = [mlrose_ky.GeometricDecay(init_temp=t, decay=d) for (t, d) in [(1, 0.99), (1e2, 0.999)]]
+    # temperature_list = [mlrose_ky.GeomDecay(init_temp=t, decay=d) for (t, d) in [(1, 0.99), (1e2, 0.999)]]
     # if you use this form, the decay_list parameter is ignored.
 
     sa = SARunner(problem=problem,
@@ -20,7 +21,7 @@ Example usage:
                   iteration_list=2 ** np.arange(14),
                   max_attempts=5000,
                   temperature_list=[1, 10, 50, 100, 250, 500, 1000, 2500, 5000, 10000],
-                  decay_list=[mlrose_ky.GeometricDecay])
+                  decay_list=[mlrose_ky.GeomDecay])
 
     # the two data frames will contain the results
     df_run_stats, df_run_curves = sa.run()                  
@@ -55,7 +56,7 @@ class SARunner(_RunnerBase):
         self.temperature_list = temperature_list
         if all([np.isscalar(x) for x in temperature_list]):
             if decay_list is None:
-                decay_list = [mlrose_ky.GeometricDecay]
+                decay_list = [mlrose_ky.GeomDecay]
             self.decay_list = decay_list
             self.use_raw_temp = False
 

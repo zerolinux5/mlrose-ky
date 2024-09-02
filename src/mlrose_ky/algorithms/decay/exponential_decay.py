@@ -57,7 +57,7 @@ class ExpDecay:
 
     def __str__(self) -> str:
         return (
-            f"ExponentialDecay(initial_temperature={self.initial_temperature}, "
+            f"ExpDecay(initial_temperature={self.initial_temperature}, "
             f"decay_rate={self.decay_rate}, "
             f"minimum_temperature={self.minimum_temperature})"
         )

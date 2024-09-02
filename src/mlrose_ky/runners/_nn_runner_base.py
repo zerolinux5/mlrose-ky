@@ -1,15 +1,15 @@
 """This module implements a base runner class for neural network experiments, including grid search functionality."""
 
-import os
-import time
 import hashlib
 import logging
+import os
+import pickle as pk
+import time
 from abc import ABC
 from typing import Callable
 
 import numpy as np
 import pandas as pd
-import pickle as pk
 
 from mlrose_ky.gridsearch import GridSearchMixin
 from mlrose_ky.runners._runner_base import _RunnerBase

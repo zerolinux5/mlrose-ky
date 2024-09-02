@@ -55,7 +55,7 @@ class ArithDecay:
 
     def __str__(self) -> str:
         return (
-            f"ArithmeticDecay(initial_temperature={self.initial_temperature}, "
+            f"ArithDecay(initial_temperature={self.initial_temperature}, "
             f"decay_rate={self.decay_rate}, "
             f"minimum_temperature={self.minimum_temperature})"
         )

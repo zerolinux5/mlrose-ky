@@ -4,14 +4,15 @@
 # License: BSD 3-clause
 
 
-import numpy as np
 from abc import abstractmethod
+
+import numpy as np
 from sklearn.preprocessing import LabelBinarizer
-from mlrose_ky.algorithms.decay import GeometricDecay
+
+from mlrose_ky.algorithms.decay import GeomDecay
+from mlrose_ky.algorithms.ga import genetic_alg
 from mlrose_ky.algorithms.rhc import random_hill_climb
 from mlrose_ky.algorithms.sa import simulated_annealing
-from mlrose_ky.algorithms.ga import genetic_alg
-
 from mlrose_ky.neural._nn_base import _NNBase
 from mlrose_ky.neural.activation import identity, relu, sigmoid, tanh
 from mlrose_ky.neural.utils.weights import gradient_descent_original
@@ -37,7 +38,7 @@ class _NNCore(_NNBase):
         early_stopping=False,
         clip_max=1e10,
         restarts=0,
-        schedule=GeometricDecay(),
+        schedule=GeomDecay(),
         pop_size=200,
         mutation_prob=0.1,
         max_attempts=10,

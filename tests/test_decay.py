@@ -11,47 +11,47 @@ except ImportError:
     sys.path.append("..")
     import mlrose_ky
 
-from mlrose_ky import GeometricDecay, ArithmeticDecay, ExponentialDecay, CustomDecay
+from mlrose_ky import GeomDecay, ArithDecay, ExpDecay, CustomSchedule
 
 
 def test_geom_above_min():
     """Test geometric decay evaluation function for case where result is above the minimum"""
-    schedule = GeometricDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
+    schedule = GeomDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
     x = schedule.evaluate(5)
     assert round(x, 5) == 7.73781
 
 
 def test_geom_below_min():
     """Test geometric decay evaluation function for case where result is below the minimum"""
-    schedule = GeometricDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
+    schedule = GeomDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
     x = schedule.evaluate(50)
     assert x == 1
 
 
 def test_arith_above_min():
     """Test arithmetic decay evaluation function for case where result is above the minimum"""
-    schedule = ArithmeticDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
+    schedule = ArithDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
     x = schedule.evaluate(5)
     assert x == 5.25
 
 
 def test_arith_below_min():
     """Test arithmetic decay evaluation function for case where result is below the minimum"""
-    schedule = ArithmeticDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
+    schedule = ArithDecay(initial_temperature=10, decay_rate=0.95, minimum_temperature=1)
     x = schedule.evaluate(50)
     assert x == 1
 
 
 def test_exp_above_min():
     """Test exponential decay evaluation function for case where result is above the minimum"""
-    schedule = ExponentialDecay(initial_temperature=10, decay_rate=0.05, minimum_temperature=1)
+    schedule = ExpDecay(initial_temperature=10, decay_rate=0.05, minimum_temperature=1)
     x = schedule.evaluate(5)
     assert round(x, 5) == 7.78801
 
 
 def test_exp_below_min():
     """Test exponential decay evaluation function for case where result is below the minimum"""
-    schedule = ExponentialDecay(initial_temperature=10, decay_rate=0.05, minimum_temperature=1)
+    schedule = ExpDecay(initial_temperature=10, decay_rate=0.05, minimum_temperature=1)
     x = schedule.evaluate(50)
     assert x == 1
 
@@ -64,6 +64,6 @@ def test_custom():
         return time + offset
 
     kwargs = {"offset": 10}
-    schedule = CustomDecay(custom_decay_function, **kwargs)
+    schedule = CustomSchedule(custom_decay_function, **kwargs)
     x = schedule.evaluate(5)
     assert x == 15

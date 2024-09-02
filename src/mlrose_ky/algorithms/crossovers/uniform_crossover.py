@@ -8,8 +8,9 @@ genes of the parents.
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-import numpy as np
 from typing import Any, Sequence
+
+import numpy as np
 
 from mlrose_ky.algorithms.crossovers._crossover_base import _CrossoverBase
 

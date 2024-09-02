@@ -3,8 +3,6 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-import warnings
-
 
 class GeomDecay:
     """
@@ -43,8 +41,7 @@ class GeomDecay:
     7.737809374999998
     """
 
-    def __init__(self, initial_temperature: float = 1.0, decay_rate: float = 0.99,
-                 minimum_temperature: float = 0.001) -> None:
+    def __init__(self, initial_temperature: float = 1.0, decay_rate: float = 0.99, minimum_temperature: float = 0.001) -> None:
         self.initial_temperature: float = initial_temperature
         self.decay_rate: float = decay_rate
         self.minimum_temperature: float = minimum_temperature
@@ -58,7 +55,7 @@ class GeomDecay:
 
     def __str__(self) -> str:
         return (
-            f"GeometricDecay(initial_temperature={self.initial_temperature}, "
+            f"GeomDecay(initial_temperature={self.initial_temperature}, "
             f"decay_rate={self.decay_rate}, "
             f"minimum_temperature={self.minimum_temperature})"
         )
@@ -69,9 +66,11 @@ class GeomDecay:
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, GeomDecay):
             return False
-        return (self.initial_temperature == other.initial_temperature
-                and self.decay_rate == other.decay_rate
-                and self.minimum_temperature == other.minimum_temperature)
+        return (
+            self.initial_temperature == other.initial_temperature
+            and self.decay_rate == other.decay_rate
+            and self.minimum_temperature == other.minimum_temperature
+        )
 
     def evaluate(self, time: int) -> float:
         """
@@ -87,7 +86,7 @@ class GeomDecay:
         float
             The temperature parameter at the given time, respecting the minimum temperature.
         """
-        return max(self.initial_temperature * (self.decay_rate ** time), self.minimum_temperature)
+        return max(self.initial_temperature * (self.decay_rate**time), self.minimum_temperature)
 
     def get_info(self, time: int | None = None, prefix: str = "") -> dict:
         """

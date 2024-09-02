@@ -6,7 +6,7 @@
 import numpy as np
 
 from mlrose_ky.algorithms.crossovers import TSPCrossover
-from mlrose_ky.algorithms.mutators import GeneSwapMutator
+from mlrose_ky.algorithms.mutators import SwapMutator
 from mlrose_ky.fitness import TravellingSalesperson
 from mlrose_ky.opt_probs.discrete_opt import DiscreteOpt
 
@@ -59,9 +59,7 @@ class TSPOpt(DiscreteOpt):
             elif distances is not None:
                 length = len(set([x for (x, _, _) in distances] + [x for (_, x, _) in distances]))
         self.length: int = length
-        DiscreteOpt.__init__(
-            self, length, fitness_fn, maximize, max_val=length, crossover=TSPCrossover(self), mutator=GeneSwapMutator(self)
-        )
+        DiscreteOpt.__init__(self, length, fitness_fn, maximize, max_val=length, crossover=TSPCrossover(self), mutator=SwapMutator(self))
 
         if self.fitness_fn.get_problem_type() != "tsp":
             raise Exception("""fitness_fn must have problem type 'tsp'.""")

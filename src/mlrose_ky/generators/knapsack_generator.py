@@ -4,6 +4,7 @@
 # License: BSD 3-clause
 
 import numpy as np
+
 from mlrose_ky import KnapsackOpt
 
 
