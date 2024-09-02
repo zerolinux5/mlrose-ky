@@ -39,7 +39,7 @@
 | src/mlrose\_ky/fitness/knapsack.py                               |       30 |        6 |     80% |72, 74, 76, 78, 104, 106 |
 | src/mlrose\_ky/fitness/max\_k\_color.py                          |       18 |        2 |     89% |    92, 98 |
 | src/mlrose\_ky/fitness/one\_max.py                               |       11 |        1 |     91% |        53 |
-| src/mlrose\_ky/fitness/queens.py                                 |       36 |        8 |     78% |72, 95, 116, 144-150 |
+| src/mlrose\_ky/fitness/queens.py                                 |       36 |        4 |     89% |72, 95, 145, 148 |
 | src/mlrose\_ky/fitness/six\_peaks.py                             |       23 |        2 |     91% |    67, 88 |
 | src/mlrose\_ky/fitness/travelling\_salesperson.py                |       54 |        8 |     85% |59, 82, 84, 86, 111, 113, 115, 117 |
 | src/mlrose\_ky/generators/\_\_init\_\_.py                        |        9 |        0 |    100% |           |
@@ -75,11 +75,11 @@
 | src/mlrose\_ky/opt\_probs/\_\_init\_\_.py                        |        7 |        0 |    100% |           |
 | src/mlrose\_ky/opt\_probs/continuous\_opt.py                     |       94 |       15 |     84% |41, 49, 52, 55, 101, 149, 151-154, 190, 193, 201-204, 235 |
 | src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      201 |       27 |     87% |43, 51, 53-56, 108-113, 134-136, 150-151, 242, 261, 291, 335, 337-340, 373, 376, 408, 410-413 |
-| src/mlrose\_ky/opt\_probs/flip\_flop\_opt.py                     |       38 |        6 |     84% |18, 21, 50, 52-55 |
-| src/mlrose\_ky/opt\_probs/knapsack\_opt.py                       |       22 |        7 |     68% | 28, 31-36 |
+| src/mlrose\_ky/opt\_probs/flip\_flop\_opt.py                     |       38 |        5 |     87% |18, 21, 52-55 |
+| src/mlrose\_ky/opt\_probs/knapsack\_opt.py                       |       22 |        5 |     77% | 27, 32-35 |
 | src/mlrose\_ky/opt\_probs/max\_k\_color\_opt.py                  |       44 |        8 |     82% |21, 24-27, 46-48, 70 |
-| src/mlrose\_ky/opt\_probs/opt\_prob.py                           |       79 |        6 |     92% |26, 28-31, 96, 237 |
-| src/mlrose\_ky/opt\_probs/queens\_opt.py                         |       24 |        3 |     88% |18, 21, 40 |
+| src/mlrose\_ky/opt\_probs/opt\_prob.py                           |       79 |        5 |     94% |26, 28-31, 96 |
+| src/mlrose\_ky/opt\_probs/queens\_opt.py                         |       24 |        2 |     92% |    18, 21 |
 | src/mlrose\_ky/opt\_probs/tsp\_opt.py                            |       80 |        9 |     89% |51, 59-60, 65, 140, 182, 184-187 |
 | src/mlrose\_ky/runners/\_\_init\_\_.py                           |        8 |        0 |    100% |           |
 | src/mlrose\_ky/runners/\_nn\_runner\_base.py                     |      150 |       21 |     86% |163, 179-181, 209-210, 217-218, 221-223, 302, 312, 328-330, 347, 352-355, 439 |
@@ -120,7 +120,10 @@
 | tests/test\_opt\_probs/\_\_init\_\_.py                           |        0 |        0 |    100% |           |
 | tests/test\_opt\_probs/test\_continous\_opt.py                   |       99 |        4 |     96% |     10-14 |
 | tests/test\_opt\_probs/test\_discrete\_opt.py                    |      105 |        4 |     96% |     10-14 |
+| tests/test\_opt\_probs/test\_flip\_flop\_opt.py                  |       82 |        7 |     91% |10-14, 74, 102, 109 |
+| tests/test\_opt\_probs/test\_knapsack\_opt.py                    |       46 |        7 |     85% |10-14, 62-63, 68 |
 | tests/test\_opt\_probs/test\_opt\_prob.py                        |       87 |        4 |     95% |     10-14 |
+| tests/test\_opt\_probs/test\_queens\_opt.py                      |       67 |        4 |     94% |     10-14 |
 | tests/test\_opt\_probs/test\_tsp\_opt.py                         |       75 |        4 |     95% |     10-14 |
 | tests/test\_runners/\_\_init\_\_.py                              |        0 |        0 |    100% |           |
 | tests/test\_runners/test\_ga\_runner.py                          |       74 |        8 |     89% |10-14, 82-83, 94-95 |
@@ -133,7 +136,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       52 |        4 |     92% |     10-14 |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       59 |        4 |     93% |     13-17 |
 | tests/test\_samples.py                                           |       46 |        4 |     91% |     16-20 |
-|                                                        **TOTAL** | **5246** |  **647** | **88%** |           |
+|                                                        **TOTAL** | **5441** |  **656** | **88%** |           |
 
 
 ## Setup coverage badge
