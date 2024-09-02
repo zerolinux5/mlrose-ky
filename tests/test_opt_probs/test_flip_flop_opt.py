@@ -91,7 +91,7 @@ class TestFlipFlopOpt:
         )
         problem.set_population(pop)
         problem.evaluate_population_fitness()
-        expected_fitness = np.array([1, 3, 3, 2, 0, 4])
+        expected_fitness = np.array([1, 4, 1, 2, 0, 0])
         assert np.array_equal(problem.get_pop_fitness(), expected_fitness)
 
     def test_random_pop(self):
@@ -107,6 +107,6 @@ class TestFlipFlopOpt:
         x = np.array([1, 1, 1, 1, 1])
         problem.set_state(x)
         assert not problem.can_stop()
-        x = np.array([1, 1, 1, 1, 0])
+        x = np.array([1, 0, 1, 0, 1])
         problem.set_state(x)
         assert problem.can_stop()
