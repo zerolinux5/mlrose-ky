@@ -40,6 +40,17 @@ class NetworkWeights:
     """
 
     def __init__(self, X, y, node_list: list[int], activation, bias=True, is_classifier=True, learning_rate=0.1):
+        # Ensure the activation function has the correct signature
+        if not callable(activation):
+            raise TypeError("Activation function must be callable.")
+        try:
+            activation(np.array([0.1]), deriv=False)  # Test the function signature
+        except TypeError:
+            raise TypeError("Activation function must accept two arguments: 'x' and 'deriv'.")
+
+        # Check for empty dataset
+        if X.size == 0 or y.size == 0:
+            raise ValueError("X and y cannot be empty.")
 
         # Make sure y is an array and not a list
         y = np.array(y)
