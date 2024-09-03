@@ -64,7 +64,7 @@
 | src/mlrose\_ky/neural/activation/softmax.py                      |       11 |        0 |    100% |           |
 | src/mlrose\_ky/neural/activation/tanh.py                         |       10 |        0 |    100% |           |
 | src/mlrose\_ky/neural/fitness/\_\_init\_\_.py                    |        1 |        0 |    100% |           |
-| src/mlrose\_ky/neural/fitness/network\_weights.py                |       80 |        9 |     89% |49, 53, 56, 59, 62, 65, 68, 71, 118 |
+| src/mlrose\_ky/neural/fitness/network\_weights.py                |       88 |        8 |     91% |45, 60, 64, 67, 73, 76, 79, 82 |
 | src/mlrose\_ky/neural/linear\_regression.py                      |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/logistic\_regression.py                    |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/neural\_network.py                         |        6 |        0 |    100% |           |
@@ -77,7 +77,7 @@
 | src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      201 |       27 |     87% |43, 51, 53-56, 108-113, 134-136, 150-151, 242, 261, 291, 335, 337-340, 373, 376, 408, 410-413 |
 | src/mlrose\_ky/opt\_probs/flip\_flop\_opt.py                     |       38 |        5 |     87% |18, 21, 52-55 |
 | src/mlrose\_ky/opt\_probs/knapsack\_opt.py                       |       22 |        5 |     77% | 27, 32-35 |
-| src/mlrose\_ky/opt\_probs/max\_k\_color\_opt.py                  |       49 |        3 |     94% |18, 24, 47 |
+| src/mlrose\_ky/opt\_probs/max\_k\_color\_opt.py                  |       49 |        3 |     94% |20, 26, 49 |
 | src/mlrose\_ky/opt\_probs/opt\_prob.py                           |       79 |        5 |     94% |26, 28-31, 96 |
 | src/mlrose\_ky/opt\_probs/queens\_opt.py                         |       24 |        2 |     92% |    18, 21 |
 | src/mlrose\_ky/opt\_probs/tsp\_opt.py                            |       80 |        9 |     89% |51, 59-60, 65, 140, 182, 184-187 |
@@ -114,7 +114,9 @@
 | tests/test\_neural/test\_linear\_regression.py                   |       57 |        0 |    100% |           |
 | tests/test\_neural/test\_logistic\_regression.py                 |       64 |        0 |    100% |           |
 | tests/test\_neural/test\_neural\_activation.py                   |       44 |        0 |    100% |           |
+| tests/test\_neural/test\_neural\_fitness.py                      |      133 |        1 |     99% |       158 |
 | tests/test\_neural/test\_neural\_network.py                      |       81 |        0 |    100% |           |
+| tests/test\_neural/test\_neural\_utils.py                        |        1 |        0 |    100% |           |
 | tests/test\_neural/test\_nn\_base.py                             |       53 |        0 |    100% |           |
 | tests/test\_neural/test\_nn\_network\_weights.py                 |       59 |        0 |    100% |           |
 | tests/test\_opt\_probs/\_\_init\_\_.py                           |        0 |        0 |    100% |           |
@@ -137,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5330** |  **527** | **90%** |           |
+|                                                        **TOTAL** | **5472** |  **527** | **90%** |           |
 
 
 ## Setup coverage badge
