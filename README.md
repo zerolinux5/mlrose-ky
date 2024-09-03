@@ -16,18 +16,18 @@
 | src/mlrose\_ky/algorithms/decay/custom\_decay.py                 |       21 |       10 |     52% |37, 40, 43-45, 79-90 |
 | src/mlrose\_ky/algorithms/decay/exponential\_decay.py            |       28 |       13 |     54% |52, 54, 56, 59, 62, 65-67, 101-113 |
 | src/mlrose\_ky/algorithms/decay/geometric\_decay.py              |       27 |       13 |     52% |50, 52, 54, 57, 60, 63-65, 99-111 |
-| src/mlrose\_ky/algorithms/ga.py                                  |       87 |       22 |     75% |29, 48, 79-91, 208-212, 220-221, 252-253, 287-288 |
-| src/mlrose\_ky/algorithms/gd.py                                  |       42 |        7 |     83% |72, 81, 110, 114-115, 126, 135 |
-| src/mlrose\_ky/algorithms/hc.py                                  |       49 |       11 |     78% |97-99, 112, 116-128, 142-143, 147, 152 |
-| src/mlrose\_ky/algorithms/mimic.py                               |       44 |        1 |     98% |        90 |
+| src/mlrose\_ky/algorithms/ga.py                                  |       87 |       22 |     75% |29, 48, 79-91, 209-213, 221-222, 253-254, 288-289 |
+| src/mlrose\_ky/algorithms/gd.py                                  |       40 |        6 |     85% |73, 82, 111, 115-116, 127 |
+| src/mlrose\_ky/algorithms/hc.py                                  |       47 |       10 |     79% |98-100, 113, 117-129, 143-144, 148 |
+| src/mlrose\_ky/algorithms/mimic.py                               |       42 |        1 |     98% |        92 |
 | src/mlrose\_ky/algorithms/mutators/\_\_init\_\_.py               |        4 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/mutators/\_mutator\_base.py            |       11 |        1 |     91% |        63 |
 | src/mlrose\_ky/algorithms/mutators/discrete\_mutator.py          |       17 |       11 |     35% |34-35, 56-67 |
 | src/mlrose\_ky/algorithms/mutators/gene\_swap\_mutator.py        |       11 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/mutators/single\_gene\_mutator.py      |       14 |        1 |     93% |        60 |
 | src/mlrose\_ky/algorithms/mutators/single\_shift\_mutator.py     |       14 |        8 |     43% |34-35, 55-61 |
-| src/mlrose\_ky/algorithms/rhc.py                                 |       56 |       13 |     77% |105-107, 135-138, 142-155, 163, 167, 172 |
-| src/mlrose\_ky/algorithms/sa.py                                  |       44 |        5 |     89% |94, 111, 135-136, 149 |
+| src/mlrose\_ky/algorithms/rhc.py                                 |       54 |       12 |     78% |106-108, 136-139, 143-156, 164, 168 |
+| src/mlrose\_ky/algorithms/sa.py                                  |       42 |        5 |     88% |95, 112, 136-137, 150 |
 | src/mlrose\_ky/decorators/\_\_init\_\_.py                        |        1 |        0 |    100% |           |
 | src/mlrose\_ky/decorators/short\_name\_decorator.py              |       12 |        0 |    100% |           |
 | src/mlrose\_ky/fitness/\_\_init\_\_.py                           |       10 |        0 |    100% |           |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5602** |  **519** | **91%** |           |
+|                                                        **TOTAL** | **5592** |  **516** | **91%** |           |
 
 
 ## Setup coverage badge
