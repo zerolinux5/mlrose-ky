@@ -1,6 +1,7 @@
 """Class defining a synthetic dataset generator and a function to visualize a dataset."""
 
 from os import makedirs
+from typing import Any
 
 import matplotlib.colors as mpl
 import matplotlib.pyplot as plt
@@ -202,7 +203,7 @@ def plot_synthetic_dataset(
     x_test: np.ndarray,
     y_train: np.ndarray,
     y_test: np.ndarray,
-    classifier=None,
+    classifier: Any = None,
     transparent_bg: bool = False,
     bg_color: str = "white",
 ) -> None:
@@ -219,7 +220,7 @@ def plot_synthetic_dataset(
         Training labels.
     y_test : np.ndarray
         Testing labels.
-    classifier : optional
+    classifier : Any, optional
         Classifier to plot decision boundary, by default None.
     transparent_bg : bool, optional
         Whether to make the background transparent, by default False.
