@@ -71,7 +71,7 @@
 | src/mlrose\_ky/neural/nn\_classifier.py                          |       74 |       41 |     45% |63-65, 68-73, 76, 80-134, 137-150, 153-154 |
 | src/mlrose\_ky/neural/nn\_core.py                                |      134 |       20 |     85% |51, 81, 84, 87, 90, 93, 96, 99, 102, 104-107, 110, 113, 119, 160, 164, 193, 208, 293 |
 | src/mlrose\_ky/neural/utils/\_\_init\_\_.py                      |        1 |        0 |    100% |           |
-| src/mlrose\_ky/neural/utils/weights.py                           |       54 |        8 |     85% |54, 99, 102, 105, 109, 113, 143, 148 |
+| src/mlrose\_ky/neural/utils/weights.py                           |       54 |        0 |    100% |           |
 | src/mlrose\_ky/opt\_probs/\_\_init\_\_.py                        |        7 |        0 |    100% |           |
 | src/mlrose\_ky/opt\_probs/continuous\_opt.py                     |       94 |       15 |     84% |41, 49, 52, 55, 101, 149, 151-154, 190, 193, 201-204, 235 |
 | src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      201 |       27 |     87% |43, 51, 53-56, 108-113, 134-136, 150-151, 242, 261, 291, 335, 337-340, 373, 376, 408, 410-413 |
@@ -116,7 +116,7 @@
 | tests/test\_neural/test\_neural\_activation.py                   |       44 |        0 |    100% |           |
 | tests/test\_neural/test\_neural\_fitness.py                      |      133 |        1 |     99% |       158 |
 | tests/test\_neural/test\_neural\_network.py                      |       81 |        0 |    100% |           |
-| tests/test\_neural/test\_neural\_utils.py                        |        1 |        0 |    100% |           |
+| tests/test\_neural/test\_neural\_utils.py                        |      135 |        0 |    100% |           |
 | tests/test\_neural/test\_nn\_base.py                             |       53 |        0 |    100% |           |
 | tests/test\_neural/test\_nn\_network\_weights.py                 |       59 |        0 |    100% |           |
 | tests/test\_opt\_probs/\_\_init\_\_.py                           |        0 |        0 |    100% |           |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5472** |  **527** | **90%** |           |
+|                                                        **TOTAL** | **5606** |  **519** | **91%** |           |
 
 
 ## Setup coverage badge
