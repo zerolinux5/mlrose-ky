@@ -56,17 +56,17 @@ class TestSARunner:
 
             # Ensure that temperatures were processed correctly
             expected_temperatures = [
-                mlrose_ky.GeomDecay(initial_temperature=1),
-                mlrose_ky.GeomDecay(initial_temperature=10),
-                mlrose_ky.GeomDecay(initial_temperature=50),
-                mlrose_ky.GeomDecay(initial_temperature=100),
+                mlrose_ky.GeomDecay(init_temp=1),
+                mlrose_ky.GeomDecay(init_temp=10),
+                mlrose_ky.GeomDecay(init_temp=50),
+                mlrose_ky.GeomDecay(init_temp=100),
             ]
 
             # Check that the schedules used in the call match the expected temperatures
             for call, expected_schedule in zip(mock_sa.call_args_list, expected_temperatures):
                 schedule = dict(call[1]["callback_user_info"])["schedule"]
                 assert isinstance(schedule, mlrose_ky.GeomDecay)
-                assert schedule.__getattribute__("initial_temperature") == expected_schedule.__getattribute__("initial_temperature")
+                assert schedule.__getattribute__("init_temp") == expected_schedule.__getattribute__("init_temp")
 
     def test_max_attempts_respected_during_initialization(self, runner_kwargs):
         """Test max attempts respected during initialization."""
