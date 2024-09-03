@@ -43,15 +43,15 @@
 | src/mlrose\_ky/fitness/six\_peaks.py                             |       22 |        2 |     91% |    66, 87 |
 | src/mlrose\_ky/fitness/travelling\_salesperson.py                |       54 |        8 |     85% |57, 79, 81, 83, 108, 110, 112, 114 |
 | src/mlrose\_ky/generators/\_\_init\_\_.py                        |        9 |        0 |    100% |           |
-| src/mlrose\_ky/generators/continuous\_peaks\_generator.py        |       15 |        0 |    100% |           |
-| src/mlrose\_ky/generators/flip\_flop\_generator.py               |       10 |        0 |    100% |           |
-| src/mlrose\_ky/generators/four\_peaks\_generator.py              |       13 |        0 |    100% |           |
-| src/mlrose\_ky/generators/knapsack\_generator.py                 |       24 |        0 |    100% |           |
-| src/mlrose\_ky/generators/max\_k\_color\_generator.py            |       38 |        4 |     89% |     93-98 |
-| src/mlrose\_ky/generators/one\_max\_generator.py                 |       13 |        0 |    100% |           |
-| src/mlrose\_ky/generators/queens\_generator.py                   |       14 |        0 |    100% |           |
-| src/mlrose\_ky/generators/six\_peaks\_generator.py               |       13 |        0 |    100% |           |
-| src/mlrose\_ky/generators/tsp\_generator.py                      |       45 |        7 |     84% |63-68, 104 |
+| src/mlrose\_ky/generators/continuous\_peaks\_generator.py        |       14 |        0 |    100% |           |
+| src/mlrose\_ky/generators/flip\_flop\_generator.py               |        9 |        0 |    100% |           |
+| src/mlrose\_ky/generators/four\_peaks\_generator.py              |       12 |        0 |    100% |           |
+| src/mlrose\_ky/generators/knapsack\_generator.py                 |       23 |        0 |    100% |           |
+| src/mlrose\_ky/generators/max\_k\_color\_generator.py            |       37 |        4 |     89% |     93-98 |
+| src/mlrose\_ky/generators/one\_max\_generator.py                 |       11 |        0 |    100% |           |
+| src/mlrose\_ky/generators/queens\_generator.py                   |       13 |        0 |    100% |           |
+| src/mlrose\_ky/generators/six\_peaks\_generator.py               |       12 |        0 |    100% |           |
+| src/mlrose\_ky/generators/tsp\_generator.py                      |       45 |        7 |     84% |64-69, 106 |
 | src/mlrose\_ky/gridsearch/\_\_init\_\_.py                        |        1 |        0 |    100% |           |
 | src/mlrose\_ky/gridsearch/grid\_search\_mixin.py                 |       33 |        2 |     94% |   129-130 |
 | src/mlrose\_ky/neural/\_\_init\_\_.py                            |        7 |        0 |    100% |           |
@@ -108,7 +108,7 @@
 | tests/test\_generators/test\_max\_k\_color\_generator.py         |       86 |        0 |    100% |           |
 | tests/test\_generators/test\_one\_max\_generator.py              |       35 |        0 |    100% |           |
 | tests/test\_generators/test\_queens\_generator.py                |       39 |        0 |    100% |           |
-| tests/test\_generators/test\_tsp\_generator.py                   |       49 |        0 |    100% |           |
+| tests/test\_generators/test\_tsp\_generator.py                   |       50 |        0 |    100% |           |
 | tests/test\_gridsearch.py                                        |      108 |        3 |     97% |52, 91, 157 |
 | tests/test\_neural/\_\_init\_\_.py                               |        0 |        0 |    100% |           |
 | tests/test\_neural/test\_linear\_regression.py                   |       57 |        0 |    100% |           |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5587** |  **516** | **91%** |           |
+|                                                        **TOTAL** | **5579** |  **516** | **91%** |           |
 
 
 ## Setup coverage badge
