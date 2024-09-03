@@ -84,7 +84,7 @@ class TestNNGSRunner:
 
     def test_grid_search_scorer_method(self, runner):
         """Test that the grid search scorer method is set correctly."""
-        assert runner.scorer_method == skmt.balanced_accuracy_score
+        assert runner._scorer_method == skmt.balanced_accuracy_score
 
     def test_max_attempts_respected_during_initialization(self, runner):
         """Test max attempts respected during initialization."""

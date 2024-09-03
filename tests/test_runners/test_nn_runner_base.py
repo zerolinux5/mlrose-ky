@@ -48,7 +48,7 @@ class TestNNRunnerBase:
         assert runner.seed == SEED
         assert runner.iteration_list == iteration_list
         assert runner.grid_search_parameters == runner.build_grid_search_parameters(grid_search_parameters)
-        assert runner.scorer_method == grid_search_scorer_method
+        assert runner._scorer_method == grid_search_scorer_method
         assert runner.cv == 5
         assert runner.generate_curves is True
         assert runner._output_directory is None
