@@ -95,49 +95,49 @@
 | src/mlrose\_ky/samples/synthetic\_data.py                        |      122 |       28 |     77% |79-86, 169-189, 243, 257, 262-264, 273 |
 | tests/\_\_init\_\_.py                                            |        0 |        0 |    100% |           |
 | tests/globals.py                                                 |       10 |        0 |    100% |           |
-| tests/test\_activation.py                                        |       50 |        4 |     92% |     10-14 |
-| tests/test\_algorithms.py                                        |      114 |        4 |     96% |     12-16 |
-| tests/test\_decay.py                                             |       38 |        4 |     89% |      8-12 |
-| tests/test\_decorators.py                                        |       21 |        3 |     86% |22, 34, 44 |
-| tests/test\_fitness.py                                           |       95 |        3 |     97% |     10-13 |
+| tests/test\_algorithms.py                                        |      108 |        0 |    100% |           |
+| tests/test\_decay.py                                             |       32 |        0 |    100% |           |
+| tests/test\_decorators.py                                        |       16 |        3 |     81% |15, 27, 37 |
+| tests/test\_fitness.py                                           |       90 |        0 |    100% |           |
 | tests/test\_generators/\_\_init\_\_.py                           |        0 |        0 |    100% |           |
-| tests/test\_generators/test\_continuous\_peaks\_generator.py     |       58 |        4 |     93% |     10-14 |
-| tests/test\_generators/test\_discrete\_four\_peaks\_generator.py |       56 |        4 |     93% |     10-14 |
-| tests/test\_generators/test\_discrete\_six\_peaks\_generator.py  |       56 |        4 |     93% |     10-14 |
-| tests/test\_generators/test\_flip\_flop\_generator.py            |       36 |        4 |     89% |     10-14 |
-| tests/test\_generators/test\_knapsack\_generator.py              |       57 |        4 |     93% |      9-13 |
-| tests/test\_generators/test\_max\_k\_color\_generator.py         |       91 |        4 |     96% |      9-13 |
-| tests/test\_generators/test\_one\_max\_generator.py              |       41 |        4 |     90% |     10-14 |
-| tests/test\_generators/test\_queens\_generator.py                |       45 |        4 |     91% |     10-14 |
-| tests/test\_generators/test\_tsp\_generator.py                   |       55 |        4 |     93% |     10-14 |
-| tests/test\_gridsearch.py                                        |      114 |        7 |     94% |19-23, 60, 99, 165 |
+| tests/test\_generators/test\_continuous\_peaks\_generator.py     |       52 |        0 |    100% |           |
+| tests/test\_generators/test\_discrete\_four\_peaks\_generator.py |       50 |        0 |    100% |           |
+| tests/test\_generators/test\_discrete\_six\_peaks\_generator.py  |       51 |        0 |    100% |           |
+| tests/test\_generators/test\_flip\_flop\_generator.py            |       31 |        0 |    100% |           |
+| tests/test\_generators/test\_knapsack\_generator.py              |       52 |        0 |    100% |           |
+| tests/test\_generators/test\_max\_k\_color\_generator.py         |       86 |        0 |    100% |           |
+| tests/test\_generators/test\_one\_max\_generator.py              |       35 |        0 |    100% |           |
+| tests/test\_generators/test\_queens\_generator.py                |       39 |        0 |    100% |           |
+| tests/test\_generators/test\_tsp\_generator.py                   |       49 |        0 |    100% |           |
+| tests/test\_gridsearch.py                                        |      108 |        3 |     97% |52, 91, 157 |
 | tests/test\_neural/\_\_init\_\_.py                               |        0 |        0 |    100% |           |
 | tests/test\_neural/test\_linear\_regression.py                   |       57 |        0 |    100% |           |
 | tests/test\_neural/test\_logistic\_regression.py                 |       64 |        0 |    100% |           |
+| tests/test\_neural/test\_neural\_activation.py                   |       44 |        0 |    100% |           |
 | tests/test\_neural/test\_neural\_network.py                      |       81 |        0 |    100% |           |
 | tests/test\_neural/test\_nn\_base.py                             |       53 |        0 |    100% |           |
 | tests/test\_neural/test\_nn\_network\_weights.py                 |       59 |        0 |    100% |           |
 | tests/test\_opt\_probs/\_\_init\_\_.py                           |        0 |        0 |    100% |           |
-| tests/test\_opt\_probs/test\_continous\_opt.py                   |       99 |        4 |     96% |     10-14 |
-| tests/test\_opt\_probs/test\_discrete\_opt.py                    |      105 |        4 |     96% |     10-14 |
-| tests/test\_opt\_probs/test\_flip\_flop\_opt.py                  |       82 |        7 |     91% |10-14, 74, 102, 109 |
-| tests/test\_opt\_probs/test\_knapsack\_opt.py                    |       46 |        7 |     85% |10-14, 62-63, 68 |
-| tests/test\_opt\_probs/test\_max\_k\_color\_opt.py               |       71 |        4 |     94% |     10-14 |
-| tests/test\_opt\_probs/test\_opt\_prob.py                        |       87 |        4 |     95% |     10-14 |
-| tests/test\_opt\_probs/test\_queens\_opt.py                      |       67 |        4 |     94% |     10-14 |
-| tests/test\_opt\_probs/test\_tsp\_opt.py                         |       75 |        4 |     95% |     10-14 |
+| tests/test\_opt\_probs/test\_continous\_opt.py                   |       93 |        0 |    100% |           |
+| tests/test\_opt\_probs/test\_discrete\_opt.py                    |      100 |        0 |    100% |           |
+| tests/test\_opt\_probs/test\_flip\_flop\_opt.py                  |       76 |        3 |     96% |66, 94, 101 |
+| tests/test\_opt\_probs/test\_knapsack\_opt.py                    |       40 |        3 |     92% | 54-55, 60 |
+| tests/test\_opt\_probs/test\_max\_k\_color\_opt.py               |       66 |        0 |    100% |           |
+| tests/test\_opt\_probs/test\_opt\_prob.py                        |       81 |        0 |    100% |           |
+| tests/test\_opt\_probs/test\_queens\_opt.py                      |       62 |        0 |    100% |           |
+| tests/test\_opt\_probs/test\_tsp\_opt.py                         |       69 |        0 |    100% |           |
 | tests/test\_runners/\_\_init\_\_.py                              |        0 |        0 |    100% |           |
-| tests/test\_runners/test\_ga\_runner.py                          |       74 |        8 |     89% |10-14, 82-83, 94-95 |
-| tests/test\_runners/test\_mimic\_runner.py                       |       67 |        8 |     88% |10-14, 79-80, 89-90 |
-| tests/test\_runners/test\_nn\_runner\_base.py                    |       93 |        4 |     96% |     15-19 |
-| tests/test\_runners/test\_nngs\_runner.py                        |       55 |        4 |     93% |     11-15 |
-| tests/test\_runners/test\_rhc\_runner.py                         |       48 |        4 |     92% |     10-14 |
-| tests/test\_runners/test\_runner\_base.py                        |       94 |        5 |     95% | 14-18, 32 |
-| tests/test\_runners/test\_runner\_utils.py                       |       53 |        4 |     92% |     12-16 |
-| tests/test\_runners/test\_sa\_runner.py                          |       52 |        4 |     92% |     10-14 |
-| tests/test\_runners/test\_skmlp\_runner.py                       |       59 |        4 |     93% |     13-17 |
-| tests/test\_samples.py                                           |       46 |        4 |     91% |     16-20 |
-|                                                        **TOTAL** | **5517** |  **654** | **88%** |           |
+| tests/test\_runners/test\_ga\_runner.py                          |       68 |        4 |     94% |74-75, 86-87 |
+| tests/test\_runners/test\_mimic\_runner.py                       |       61 |        4 |     93% |71-72, 81-82 |
+| tests/test\_runners/test\_nn\_runner\_base.py                    |       87 |        0 |    100% |           |
+| tests/test\_runners/test\_nngs\_runner.py                        |       50 |        0 |    100% |           |
+| tests/test\_runners/test\_rhc\_runner.py                         |       42 |        0 |    100% |           |
+| tests/test\_runners/test\_runner\_base.py                        |       88 |        1 |     99% |        24 |
+| tests/test\_runners/test\_runner\_utils.py                       |       47 |        0 |    100% |           |
+| tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
+| tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
+| tests/test\_samples.py                                           |       40 |        0 |    100% |           |
+|                                                        **TOTAL** | **5330** |  **527** | **90%** |           |
 
 
 ## Setup coverage badge
