@@ -97,6 +97,4 @@ class MaxKColorGenerator:
                 if remaining_unreachable == 0:
                     break
 
-        return MaxKColorOpt(
-            edges=list(graph.edges()), length=number_of_nodes, maximize=maximize, max_colors=max_colors, source_graph=graph
-        )
+        return MaxKColorOpt(edges=list(graph.edges()), length=number_of_nodes, maximize=maximize, max_colors=max_colors, source_graph=graph)
