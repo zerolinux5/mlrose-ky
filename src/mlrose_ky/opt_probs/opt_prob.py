@@ -6,7 +6,7 @@
 import numpy as np
 
 
-class OptProb:
+class _OptProb:
     """Base class for optimization problems.
 
     Parameters

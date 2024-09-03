@@ -10,10 +10,10 @@ from sklearn.metrics import mutual_info_score
 
 from mlrose_ky.algorithms.crossovers import UniformCrossover
 from mlrose_ky.algorithms.mutators import SwapMutator
-from mlrose_ky.opt_probs.opt_prob import OptProb
+from mlrose_ky.opt_probs.opt_prob import _OptProb
 
 
-class DiscreteOpt(OptProb):
+class DiscreteOpt(_OptProb):
     """Class for defining discrete-state optimization problems.
 
     Parameters
@@ -37,7 +37,7 @@ class DiscreteOpt(OptProb):
     def __init__(self, length, fitness_fn, maximize=True, max_val=2, crossover=None, mutator=None):
         self._get_mutual_info_impl = self._get_mutual_info_slow
 
-        OptProb.__init__(self, length, fitness_fn, maximize)
+        _OptProb.__init__(self, length, fitness_fn, maximize)
 
         if self.fitness_fn.get_prob_type() == "continuous":
             raise ValueError(

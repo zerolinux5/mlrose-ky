@@ -5,10 +5,10 @@
 
 import numpy as np
 
-from mlrose_ky.opt_probs.opt_prob import OptProb
+from mlrose_ky.opt_probs.opt_prob import _OptProb
 
 
-class ContinuousOpt(OptProb):
+class ContinuousOpt(_OptProb):
     """Class for defining continuous-state optimization problems.
 
     Parameters
@@ -35,7 +35,7 @@ class ContinuousOpt(OptProb):
 
     def __init__(self, length, fitness_fn, maximize=True, min_val=0, max_val=1, step=0.1):
 
-        OptProb.__init__(self, length, fitness_fn, maximize=maximize)
+        _OptProb.__init__(self, length, fitness_fn, maximize=maximize)
 
         if (self.fitness_fn.get_prob_type() != "continuous") and (self.fitness_fn.get_prob_type() != "either"):
             raise Exception(
