@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_3b3e5079573c909e_flip_flop_opt_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-09-03 04:53 +0000
+            created at 2024-09-03 05:35 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -121,7 +121,7 @@
     <p class="pln"><span class="n"><a id="t39" href="#t39">39</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t">        <span class="nam">OptProb</span><span class="op">.</span><span class="nam">__init__</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">length</span><span class="op">,</span> <span class="nam">fitness_fn</span><span class="op">,</span> <span class="nam">maximize</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t42" href="#t42">42</a></span><span class="t">        <span class="key">if</span> <span class="nam">self</span><span class="op">.</span><span class="nam">fitness_fn</span><span class="op">.</span><span class="nam">get_problem_type</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="str">"continuous"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t42" href="#t42">42</a></span><span class="t">        <span class="key">if</span> <span class="nam">self</span><span class="op">.</span><span class="nam">fitness_fn</span><span class="op">.</span><span class="nam">get_prob_type</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="str">"continuous"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t43" href="#t43">43</a></span><span class="t">            <span class="key">raise</span> <span class="nam">ValueError</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t44" href="#t44">44</a></span><span class="t">                <span class="str">"""fitness_fn must have problem type 'discrete',"""</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t45" href="#t45">45</a></span><span class="t">                <span class="op">+</span> <span class="str">""" 'either' or 'tsp'. Define problem as"""</span>&nbsp;</span><span class="r"></span></p>
@@ -362,7 +362,7 @@
     <p class="pln"><span class="n"><a id="t280" href="#t280">280</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t281" href="#t281">281</a></span><span class="t">        <span class="key">return</span> <span class="nam">self</span><span class="op">.</span><span class="nam">keep_sample</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t282" href="#t282">282</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t283" href="#t283">283</a></span><span class="t">    <span class="key">def</span> <span class="nam">get_problem_type</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t283" href="#t283">283</a></span><span class="t">    <span class="key">def</span> <span class="nam">get_prob_type</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t284" href="#t284">284</a></span><span class="t">        <span class="str">"""Return the problem type.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t285" href="#t285">285</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t286" href="#t286">286</a></span><span class="t"><span class="str">        Returns</span>&nbsp;</span><span class="r"></span></p>
@@ -522,7 +522,7 @@
             <a class="nav" href="z_3b3e5079573c909e_flip_flop_opt_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-09-03 04:53 +0000
+            created at 2024-09-03 05:35 +0000
         </p>
     </div>
 </footer>

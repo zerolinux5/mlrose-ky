@@ -32,16 +32,16 @@
 | src/mlrose\_ky/decorators/short\_name\_decorator.py              |       12 |        0 |    100% |           |
 | src/mlrose\_ky/fitness/\_\_init\_\_.py                           |       10 |        0 |    100% |           |
 | src/mlrose\_ky/fitness/\_discrete\_peaks\_base.py                |       14 |        2 |     86% |    38, 66 |
-| src/mlrose\_ky/fitness/continuous\_peaks.py                      |       33 |        3 |     91% |45, 105, 124 |
+| src/mlrose\_ky/fitness/continuous\_peaks.py                      |       32 |        3 |     91% |45, 104, 123 |
 | src/mlrose\_ky/fitness/custom\_fitness.py                        |       15 |        3 |     80% |60, 85, 97 |
-| src/mlrose\_ky/fitness/flip\_flop.py                             |       20 |        2 |     90% |    52, 78 |
-| src/mlrose\_ky/fitness/four\_peaks.py                            |       20 |        2 |     90% |    65, 86 |
+| src/mlrose\_ky/fitness/flip\_flop.py                             |       18 |        2 |     89% |    52, 77 |
+| src/mlrose\_ky/fitness/four\_peaks.py                            |       19 |        2 |     89% |    65, 86 |
 | src/mlrose\_ky/fitness/knapsack.py                               |       30 |        6 |     80% |72, 74, 76, 78, 104, 106 |
 | src/mlrose\_ky/fitness/max\_k\_color.py                          |       18 |        1 |     94% |        92 |
 | src/mlrose\_ky/fitness/one\_max.py                               |       11 |        1 |     91% |        53 |
 | src/mlrose\_ky/fitness/queens.py                                 |       36 |        4 |     89% |72, 95, 145, 148 |
-| src/mlrose\_ky/fitness/six\_peaks.py                             |       23 |        2 |     91% |    67, 88 |
-| src/mlrose\_ky/fitness/travelling\_salesperson.py                |       54 |        8 |     85% |59, 82, 84, 86, 111, 113, 115, 117 |
+| src/mlrose\_ky/fitness/six\_peaks.py                             |       22 |        2 |     91% |    66, 87 |
+| src/mlrose\_ky/fitness/travelling\_salesperson.py                |       54 |        8 |     85% |57, 79, 81, 83, 108, 110, 112, 114 |
 | src/mlrose\_ky/generators/\_\_init\_\_.py                        |        9 |        0 |    100% |           |
 | src/mlrose\_ky/generators/continuous\_peaks\_generator.py        |       15 |        0 |    100% |           |
 | src/mlrose\_ky/generators/flip\_flop\_generator.py               |       10 |        0 |    100% |           |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5592** |  **516** | **91%** |           |
+|                                                        **TOTAL** | **5587** |  **516** | **91%** |           |
 
 
 ## Setup coverage badge
