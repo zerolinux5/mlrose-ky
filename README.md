@@ -8,9 +8,9 @@
 | src/mlrose\_ky/algorithms/\_\_init\_\_.py                        |        9 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/crossovers/\_\_init\_\_.py             |        3 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/crossovers/\_crossover\_base.py        |       10 |        1 |     90% |        71 |
-| src/mlrose\_ky/algorithms/crossovers/one\_point\_crossover.py    |       10 |        0 |    100% |           |
-| src/mlrose\_ky/algorithms/crossovers/tsp\_crossover.py           |       48 |       31 |     35% |86, 110-148 |
-| src/mlrose\_ky/algorithms/crossovers/uniform\_crossover.py       |       11 |        0 |    100% |           |
+| src/mlrose\_ky/algorithms/crossovers/one\_point\_crossover.py    |        9 |        0 |    100% |           |
+| src/mlrose\_ky/algorithms/crossovers/tsp\_crossover.py           |       48 |       31 |     35% |86, 111-149 |
+| src/mlrose\_ky/algorithms/crossovers/uniform\_crossover.py       |       10 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/decay/\_\_init\_\_.py                  |        4 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/decay/arithmetic\_decay.py             |       28 |       13 |     54% |50, 52, 54, 57, 64, 67-69, 109-121 |
 | src/mlrose\_ky/algorithms/decay/custom\_decay.py                 |       21 |       10 |     52% |37, 40, 43-45, 79-90 |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5606** |  **519** | **91%** |           |
+|                                                        **TOTAL** | **5604** |  **519** | **91%** |           |
 
 
 ## Setup coverage badge
