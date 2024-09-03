@@ -14,8 +14,8 @@
 | src/mlrose\_ky/algorithms/decay/\_\_init\_\_.py                  |        4 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/decay/arithmetic\_decay.py             |       27 |       13 |     52% |50, 52, 54, 57, 60, 63-65, 100-112 |
 | src/mlrose\_ky/algorithms/decay/custom\_decay.py                 |       21 |       10 |     52% |37, 40, 43-45, 79-90 |
-| src/mlrose\_ky/algorithms/decay/exponential\_decay.py            |       28 |       13 |     54% |52, 54, 56, 59, 62, 65-67, 105-117 |
-| src/mlrose\_ky/algorithms/decay/geometric\_decay.py              |       27 |       13 |     52% |50, 52, 54, 57, 60, 63-65, 103-115 |
+| src/mlrose\_ky/algorithms/decay/exponential\_decay.py            |       28 |       13 |     54% |52, 54, 56, 59, 62, 65-67, 101-113 |
+| src/mlrose\_ky/algorithms/decay/geometric\_decay.py              |       27 |       13 |     52% |50, 52, 54, 57, 60, 63-65, 99-111 |
 | src/mlrose\_ky/algorithms/ga.py                                  |       87 |       22 |     75% |29, 48, 79-91, 208-212, 220-221, 252-253, 287-288 |
 | src/mlrose\_ky/algorithms/gd.py                                  |       42 |        7 |     83% |72, 81, 110, 114-115, 126, 135 |
 | src/mlrose\_ky/algorithms/hc.py                                  |       49 |       11 |     78% |97-99, 112, 116-128, 142-143, 147, 152 |
