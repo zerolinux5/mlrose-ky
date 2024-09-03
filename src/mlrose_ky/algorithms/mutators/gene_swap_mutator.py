@@ -19,17 +19,17 @@ class SwapMutator(_MutatorBase):
 
     Attributes
     ----------
-    optimization_problem : Any
+    _opt_prob : Any
         The optimization problem instance associated with the mutation operations.
 
     Parameters
     ----------
-    optimization_problem : OptimizationProblem
+    opt_prob : OptimizationProblem
         An instance of an optimization problem that the mutator will operate on.
     """
 
-    def __init__(self, optimization_problem: Any) -> None:
-        super().__init__(optimization_problem)
+    def __init__(self, opt_prob: Any) -> None:
+        super().__init__(opt_prob)
 
     def mutate(self, child: np.ndarray, mutation_probability: float) -> np.ndarray:
         """
