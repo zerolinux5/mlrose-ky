@@ -57,7 +57,7 @@
 | src/mlrose\_ky/neural/\_\_init\_\_.py                            |        7 |        0 |    100% |           |
 | src/mlrose\_ky/neural/\_nn\_base.py                              |       64 |        3 |     95% |39, 56, 82 |
 | src/mlrose\_ky/neural/activation/\_\_init\_\_.py                 |        6 |        0 |    100% |           |
-| src/mlrose\_ky/neural/activation/identity.py                     |       10 |        0 |    100% |           |
+| src/mlrose\_ky/neural/activation/identity.py                     |        7 |        0 |    100% |           |
 | src/mlrose\_ky/neural/activation/leaky\_relu.py                  |       12 |        0 |    100% |           |
 | src/mlrose\_ky/neural/activation/relu.py                         |       11 |        0 |    100% |           |
 | src/mlrose\_ky/neural/activation/sigmoid.py                      |       10 |        0 |    100% |           |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5579** |  **516** | **91%** |           |
+|                                                        **TOTAL** | **5576** |  **516** | **91%** |           |
 
 
 ## Setup coverage badge
