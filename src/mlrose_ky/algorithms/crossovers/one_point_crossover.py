@@ -56,6 +56,5 @@ class OnePointCrossover(_CrossoverBase):
         np.ndarray
             The offspring chromosome resulting from the crossover.
         """
-        crossover_point = 1 + np.random.randint(self.chromosome_length - 1)
-        offspring = np.array([*parent1[:crossover_point], *parent2[crossover_point:]])
-        return offspring
+        crossover_point = 1 + np.random.randint(self._length - 1)
+        return np.array([*parent1[:crossover_point], *parent2[crossover_point:]])

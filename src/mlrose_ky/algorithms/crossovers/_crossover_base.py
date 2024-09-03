@@ -27,9 +27,9 @@ class _CrossoverBase(ABC):
 
     Attributes
     ----------
-    optimization_problem : Any
+    _opt_prob : Any
         The optimization problem instance.
-    chromosome_length : int
+    _length : int
         Length of the chromosome, typically derived from the optimization problem's
         'length' property.
     """
@@ -44,8 +44,8 @@ class _CrossoverBase(ABC):
             An instance of the optimization problem related to the GA.
         """
         super().__init__()
-        self.optimization_problem = optimization_problem
-        self.chromosome_length: int = optimization_problem.length
+        self._opt_prob: Any = optimization_problem
+        self._length: int = optimization_problem.length
 
     @abstractmethod
     def mate(self, parent1: Any, parent2: Any) -> Any:
