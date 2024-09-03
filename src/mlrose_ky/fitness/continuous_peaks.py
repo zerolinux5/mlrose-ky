@@ -15,7 +15,7 @@ class ContinuousPeaks:
     ----------
     t_pct : float, default=0.1
         Threshold parameter (T) for Continuous Peaks fitness function, expressed as a
-        percentage of the state space dimension, n (i.e., `T = threshold_percentage * n`).
+        percentage of the state space dimension, n (i.e., `T = t_pct * n`).
 
     Attributes
     ----------
@@ -42,7 +42,7 @@ class ContinuousPeaks:
         self.prob_type: str = "discrete"
 
         if not (0 <= self.t_pct <= 1):
-            raise ValueError(f"threshold_percentage must be between 0 and 1, got {self.t_pct} instead.")
+            raise ValueError(f"t_pct must be between 0 and 1, got {self.t_pct} instead.")
 
     def evaluate(self, state: np.ndarray) -> float:
         """

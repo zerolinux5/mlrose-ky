@@ -164,4 +164,4 @@ def mimic(
     best_fitness = problem.get_maximize() * problem.get_fitness()
     best_state = problem.get_state().astype(int)
 
-    return best_state, best_fitness, np.asarray(fitness_curve)  if curve else None
+    return best_state, best_fitness, np.asarray(fitness_curve) if curve else None

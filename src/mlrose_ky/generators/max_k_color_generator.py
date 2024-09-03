@@ -14,14 +14,14 @@ class MaxKColorGenerator:
 
     @staticmethod
     def generate(
-        seed: int, number_of_nodes: int = 20, max_connections_per_node: int = 4, max_colors: int | None = None, maximize: bool = False
+        seed: int = 42, number_of_nodes: int = 20, max_connections_per_node: int = 4, max_colors: int | None = None, maximize: bool = False
     ) -> MaxKColorOpt:
         """
         Generate a Max-K Color optimization problem instance.
 
         Parameters
         ----------
-        seed : int
+        seed : int, optional, default=42
             Seed for the random number generator.
         number_of_nodes : int, optional, default=20
             The number of nodes in the graph.
@@ -62,7 +62,7 @@ class MaxKColorGenerator:
         if not isinstance(maximize, bool):
             raise ValueError(f"Maximize must be a boolean. Got {maximize}")
 
-        # Handle single node case
+        # Handle single-node edge case
         if number_of_nodes == 1:
             return MaxKColorOpt(edges=[], length=1, maximize=maximize, max_colors=max_colors)
 
@@ -97,8 +97,6 @@ class MaxKColorGenerator:
                 if remaining_unreachable == 0:
                     break
 
-        problem = MaxKColorOpt(
+        return MaxKColorOpt(
             edges=list(graph.edges()), length=number_of_nodes, maximize=maximize, max_colors=max_colors, source_graph=graph
         )
-
-        return problem
