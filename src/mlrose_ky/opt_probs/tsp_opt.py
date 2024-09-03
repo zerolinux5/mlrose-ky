@@ -61,7 +61,7 @@ class TSPOpt(DiscreteOpt):
         self.length: int = length
         DiscreteOpt.__init__(self, length, fitness_fn, maximize, max_val=length, crossover=TSPCrossover(self), mutator=SwapMutator(self))
 
-        if self.fitness_fn.get_problem_type() != "tsp":
+        if self.fitness_fn.get_prob_type() != "tsp":
             raise Exception("""fitness_fn must have problem type 'tsp'.""")
 
         self.source_graph = source_graph

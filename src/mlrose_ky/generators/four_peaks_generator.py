@@ -42,7 +42,7 @@ class FourPeaksGenerator:
 
         np.random.seed(seed)
 
-        fitness = FourPeaks(threshold_percentage=threshold_percentage)
+        fitness = FourPeaks(t_pct=threshold_percentage)
         problem = DiscreteOpt(length=size, fitness_fn=fitness)
 
         return problem

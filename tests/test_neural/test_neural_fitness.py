@@ -69,14 +69,14 @@ class TestNeuralFitness:
 
         assert output_activation == sigmoid
 
-    def test_get_problem_type(self):
+    def test_get_prob_type(self):
         X = np.array([[0.1], [0.3]])
         y = np.array([[1], [0]])
         node_list = [2, 1]
         activation = sigmoid
 
         nw = NetworkWeights(X, y, node_list, activation)
-        prob_type = nw.get_problem_type()
+        prob_type = nw.get_prob_type()
 
         assert prob_type == "continuous"
 

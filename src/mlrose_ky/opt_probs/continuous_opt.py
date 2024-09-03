@@ -37,7 +37,7 @@ class ContinuousOpt(OptProb):
 
         OptProb.__init__(self, length, fitness_fn, maximize=maximize)
 
-        if (self.fitness_fn.get_problem_type() != "continuous") and (self.fitness_fn.get_problem_type() != "either"):
+        if (self.fitness_fn.get_prob_type() != "continuous") and (self.fitness_fn.get_prob_type() != "either"):
             raise Exception(
                 "fitness_fn must have problem type 'continuous'"
                 + """ or 'either'. Define problem as"""
@@ -90,7 +90,7 @@ class ContinuousOpt(OptProb):
                 if not np.array_equal(np.array(neighbor), self.state):
                     self.neighbors.append(neighbor)
 
-    def get_problem_type(self):
+    def get_prob_type(self):
         """Return the problem type.
 
         Returns

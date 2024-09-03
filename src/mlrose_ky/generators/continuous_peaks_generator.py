@@ -44,7 +44,7 @@ class ContinuousPeaksGenerator:
 
         np.random.seed(seed)
 
-        fitness = ContinuousPeaks(threshold_percentage=threshold_percentage)
+        fitness = ContinuousPeaks(t_pct=threshold_percentage)
         problem = DiscreteOpt(length=size, fitness_fn=fitness)
 
         return problem

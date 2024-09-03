@@ -59,7 +59,7 @@ class TestSixPeaksGenerator:
         problem = SixPeaksGenerator.generate(SEED, size)
 
         assert problem.length == size
-        assert problem.fitness_fn.threshold_percentage == 0.1
+        assert problem.fitness_fn.t_pct == 0.1
 
     def test_generate_with_seed(self):
         """Test generate method with a specified SEED."""
@@ -70,7 +70,7 @@ class TestSixPeaksGenerator:
 
         assert problem.length == expected_problem.length
         assert problem.fitness_fn.__class__ == expected_problem.fitness_fn.__class__
-        assert problem.fitness_fn.threshold_percentage == expected_problem.fitness_fn.threshold_percentage
+        assert problem.fitness_fn.t_pct == expected_problem.fitness_fn.t_pct
 
     def test_generate_custom_size_and_threshold(self):
         """Test generate method with custom size and threshold_percentage."""
@@ -79,4 +79,4 @@ class TestSixPeaksGenerator:
         problem = SixPeaksGenerator.generate(SEED, size=size, threshold_percentage=threshold_percentage)
 
         assert problem.length == size
-        assert problem.fitness_fn.threshold_percentage == threshold_percentage
+        assert problem.fitness_fn.t_pct == threshold_percentage

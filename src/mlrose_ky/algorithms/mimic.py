@@ -77,7 +77,7 @@ def mimic(
     In *Advances in Neural Information Processing Systems* (NIPS) 9, pp. 424–430.
     """
     # TODO: fix and uncomment these problematic raise statements
-    # if problem.get_problem_type() == "continuous":
+    # if problem.get_prob_type() == "continuous":
     #     raise ValueError("problem type must be discrete or tsp.")
     # if not isinstance(pop_size, int) or pop_size < 0:
     #     raise ValueError(f"pop_size must be a positive integer. Got {pop_size}")

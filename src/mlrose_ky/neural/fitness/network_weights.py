@@ -166,7 +166,7 @@ class NetworkWeights:
         """
         return self.output_activation
 
-    def get_problem_type(self):
+    def get_prob_type(self):
         """Return the problem type.
 
         Returns

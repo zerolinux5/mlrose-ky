@@ -42,7 +42,7 @@ class SixPeaksGenerator:
 
         np.random.seed(seed)
 
-        fitness = SixPeaks(threshold_percentage=threshold_percentage)
+        fitness = SixPeaks(t_pct=threshold_percentage)
         problem = DiscreteOpt(length=size, fitness_fn=fitness)
 
         return problem
