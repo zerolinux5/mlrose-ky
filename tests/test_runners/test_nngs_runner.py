@@ -5,15 +5,7 @@ from unittest.mock import patch
 
 import sklearn.metrics as skmt
 
-
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
+import mlrose_ky
 from mlrose_ky import NNGSRunner
 from mlrose_ky.decorators import get_short_name
 

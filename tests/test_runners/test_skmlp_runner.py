@@ -3,19 +3,9 @@
 import pytest
 import warnings
 from unittest.mock import patch
-
 import sklearn.metrics as skmt
 
 from tests.globals import SEED
-
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 from mlrose_ky import SKMLPRunner
 from mlrose_ky.neural import activation
 

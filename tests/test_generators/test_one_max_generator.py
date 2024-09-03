@@ -5,14 +5,6 @@ import numpy as np
 
 from tests.globals import SEED
 
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("../..")
-    import mlrose_ky
-
 from mlrose_ky import DiscreteOpt, OneMax
 from mlrose_ky.generators import OneMaxGenerator
 

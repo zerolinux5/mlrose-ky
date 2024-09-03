@@ -14,14 +14,6 @@ from sklearn.model_selection import train_test_split
 
 from tests.globals import SEED
 
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 from mlrose_ky.gridsearch import GridSearchMixin
 
 

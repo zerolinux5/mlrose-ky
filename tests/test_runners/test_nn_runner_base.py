@@ -10,14 +10,6 @@ from unittest.mock import patch, MagicMock, mock_open
 
 from tests.globals import SEED
 
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 # noinspection PyProtectedMember
 from mlrose_ky.runners._nn_runner_base import _NNRunnerBase
 
