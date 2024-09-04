@@ -64,14 +64,14 @@
 | src/mlrose\_ky/neural/activation/softmax.py                      |       11 |        0 |    100% |           |
 | src/mlrose\_ky/neural/activation/tanh.py                         |       10 |        0 |    100% |           |
 | src/mlrose\_ky/neural/fitness/\_\_init\_\_.py                    |        1 |        0 |    100% |           |
-| src/mlrose\_ky/neural/fitness/network\_weights.py                |       81 |        8 |     90% |53, 65, 68, 71, 77, 80, 83, 86 |
+| src/mlrose\_ky/neural/fitness/network\_weights.py                |       81 |        8 |     90% |54, 66, 69, 72, 78, 81, 84, 87 |
 | src/mlrose\_ky/neural/linear\_regression.py                      |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/logistic\_regression.py                    |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/neural\_network.py                         |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/nn\_classifier.py                          |       74 |       41 |     45% |63-65, 68-73, 76, 80-134, 137-150, 153-154 |
 | src/mlrose\_ky/neural/nn\_core.py                                |      134 |       20 |     85% |51, 81, 84, 87, 90, 93, 96, 99, 102, 104-107, 110, 113, 119, 160, 164, 193, 208, 293 |
 | src/mlrose\_ky/neural/utils/\_\_init\_\_.py                      |        1 |        0 |    100% |           |
-| src/mlrose\_ky/neural/utils/weights.py                           |       54 |        0 |    100% |           |
+| src/mlrose\_ky/neural/utils/weights.py                           |       52 |        0 |    100% |           |
 | src/mlrose\_ky/opt\_probs/\_\_init\_\_.py                        |        7 |        0 |    100% |           |
 | src/mlrose\_ky/opt\_probs/continuous\_opt.py                     |       94 |       15 |     84% |41, 49, 52, 55, 101, 149, 151-154, 190, 193, 201-204, 235 |
 | src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      201 |       27 |     87% |43, 51, 53-56, 108-113, 134-136, 150-151, 242, 261, 291, 335, 337-340, 373, 376, 408, 410-413 |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5570** |  **516** | **91%** |           |
+|                                                        **TOTAL** | **5568** |  **516** | **91%** |           |
 
 
 ## Setup coverage badge
