@@ -55,7 +55,8 @@
 | src/mlrose\_ky/gridsearch/\_\_init\_\_.py                        |        1 |        0 |    100% |           |
 | src/mlrose\_ky/gridsearch/grid\_search\_mixin.py                 |       33 |        2 |     94% |   129-130 |
 | src/mlrose\_ky/neural/\_\_init\_\_.py                            |        7 |        0 |    100% |           |
-| src/mlrose\_ky/neural/\_nn\_base.py                              |       64 |        3 |     95% |39, 56, 82 |
+| src/mlrose\_ky/neural/\_nn\_base.py                              |       61 |        3 |     95% |46, 64, 140 |
+| src/mlrose\_ky/neural/\_nn\_core.py                              |      123 |       15 |     88% |77, 80, 83, 86, 89, 92, 95, 98, 101, 104, 107, 153, 156, 183, 262 |
 | src/mlrose\_ky/neural/activation/\_\_init\_\_.py                 |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/activation/identity.py                     |        7 |        0 |    100% |           |
 | src/mlrose\_ky/neural/activation/leaky\_relu.py                  |       12 |        0 |    100% |           |
@@ -68,8 +69,7 @@
 | src/mlrose\_ky/neural/linear\_regression.py                      |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/logistic\_regression.py                    |        6 |        0 |    100% |           |
 | src/mlrose\_ky/neural/neural\_network.py                         |        6 |        0 |    100% |           |
-| src/mlrose\_ky/neural/nn\_classifier.py                          |       74 |       41 |     45% |63-65, 68-73, 76, 80-134, 137-150, 153-154 |
-| src/mlrose\_ky/neural/nn\_core.py                                |      134 |       20 |     85% |51, 81, 84, 87, 90, 93, 96, 99, 102, 104-107, 110, 113, 119, 160, 164, 193, 208, 293 |
+| src/mlrose\_ky/neural/nn\_classifier.py                          |       75 |       41 |     45% |90-92, 108-115, 133, 153-210, 226-240, 256-257 |
 | src/mlrose\_ky/neural/utils/\_\_init\_\_.py                      |        1 |        0 |    100% |           |
 | src/mlrose\_ky/neural/utils/weights.py                           |       52 |        0 |    100% |           |
 | src/mlrose\_ky/opt\_probs/\_\_init\_\_.py                        |        7 |        0 |    100% |           |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5568** |  **516** | **91%** |           |
+|                                                        **TOTAL** | **5555** |  **511** | **91%** |           |
 
 
 ## Setup coverage badge
