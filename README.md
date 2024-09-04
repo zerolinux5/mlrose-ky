@@ -92,7 +92,7 @@
 | src/mlrose\_ky/runners/skmlp\_runner.py                          |      104 |       36 |     65% |61-65, 68, 71-79, 82-87, 90-104, 144, 191-196 |
 | src/mlrose\_ky/runners/utils.py                                  |       14 |        2 |     86% |     37-38 |
 | src/mlrose\_ky/samples/\_\_init\_\_.py                           |        1 |        0 |    100% |           |
-| src/mlrose\_ky/samples/synthetic\_data.py                        |      123 |       28 |     77% |80-87, 171-191, 245, 259, 264-266, 275 |
+| src/mlrose\_ky/samples/synthetic\_data.py                        |      123 |       28 |     77% |80-87, 171-190, 246, 260, 265-267, 276 |
 | tests/\_\_init\_\_.py                                            |        0 |        0 |    100% |           |
 | tests/globals.py                                                 |       10 |        0 |    100% |           |
 | tests/test\_algorithms.py                                        |      108 |        0 |    100% |           |
