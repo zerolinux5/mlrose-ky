@@ -74,7 +74,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         grid_search_scorer_method: Callable,
         cv: int = 5,
         generate_curves: bool = True,
-        output_directory: str | None = None,
+        output_directory: str = None,
         verbose_grid_search: bool = True,
         override_ctrl_c_handler: bool = True,
         n_jobs: int = 1,
@@ -412,7 +412,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         return all_grid_search_parameters
 
     def _grid_search_score_intercept(
-        self, y_true: np.ndarray, y_pred: np.ndarray, sample_weight: np.ndarray | None = None, adjusted: bool = False
+        self, y_true: np.ndarray, y_pred: np.ndarray, sample_weight: np.ndarray = None, adjusted: bool = False
     ) -> float:
         """
         Intercepts the grid search scoring process to handle special cases, particularly in aborted runs.

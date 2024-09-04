@@ -68,9 +68,9 @@ def gradient_descent_original(
     problem,
     max_attempts: int = 10,
     max_iters: int | float = np.inf,
-    init_state: np.ndarray | None = None,
+    init_state: np.ndarray = None,
     curve: bool = False,
-    random_state: int | None = None,
+    random_state: int = None,
 ) -> Tuple[np.ndarray, float, np.ndarray | None]:
     """
     Use gradient descent to find the optimal neural network weights.

@@ -80,7 +80,7 @@ class GeomDecay:
         """
         return float(max(self.init_temp * (self.decay**t), self.min_temp))
 
-    def get_info__(self, t: int | None = None, prefix: str = "") -> dict:
+    def get_info__(self, t: int = None, prefix: str = "") -> dict:
         """
         Retrieve a dictionary containing the configuration and optionally the current value of the decay schedule.
 

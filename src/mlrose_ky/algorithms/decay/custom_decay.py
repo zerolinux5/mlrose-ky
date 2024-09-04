@@ -60,7 +60,7 @@ class CustomSchedule:
         """
         return self.schedule(t, **self.kwargs)
 
-    def get_info__(self, t: int | None = None, prefix: str = "") -> dict:
+    def get_info__(self, t: int = None, prefix: str = "") -> dict:
         """
         Retrieve a dictionary containing the configuration of the decay schedule and optionally the current value.
 

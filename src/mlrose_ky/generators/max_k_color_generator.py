@@ -14,7 +14,7 @@ class MaxKColorGenerator:
 
     @staticmethod
     def generate(
-        seed: int = 42, number_of_nodes: int = 20, max_connections_per_node: int = 4, max_colors: int | None = None, maximize: bool = False
+        seed: int = 42, number_of_nodes: int = 20, max_connections_per_node: int = 4, max_colors: int = None, maximize: bool = False
     ) -> MaxKColorOpt:
         """
         Generate a Max-K Color optimization problem instance.
