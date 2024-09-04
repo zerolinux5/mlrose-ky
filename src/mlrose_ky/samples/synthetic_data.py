@@ -23,7 +23,7 @@ class SyntheticDataGenerator:
         Directory to save the generated data.
     """
 
-    def __init__(self, seed: int = 42, root_directory: str | None = None):
+    def __init__(self, seed: int = 42, root_directory: str = None):
         self.seed: int = seed
         self.root_directory: str | None = root_directory
 
@@ -58,14 +58,14 @@ class SyntheticDataGenerator:
 
         Parameters
         ----------
-        x_dim : int, optional
-            Dimension of the x-axis, by default 20.
-        y_dim : int, optional
-            Dimension of the y-axis, by default 20.
-        add_noise : float, optional
-            Amount of noise to add, by default 0.0.
-        add_redundant_column : bool, optional
-            Whether to add a redundant column, by default False.
+        x_dim : int, optional, default=20
+            Dimension of the x-axis.
+        y_dim : int, optional, default=20
+            Dimension of the y-axis.
+        add_noise : float, optional, default=0.0
+            Amount of noise to add.
+        add_redundant_column : bool, optional, default=False
+            Whether to add a redundant column.
 
         Returns
         -------
@@ -100,15 +100,15 @@ class SyntheticDataGenerator:
         ----------
         data : np.ndarray
             The synthetic data.
-        test_size : float, optional
-            Proportion of the dataset to include in the test split, by default 0.30.
+        test_size : float, optional, default=0.30
+            Proportion of the dataset to include in the test split.
 
         Returns
         -------
         tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]
             A tuple containing the normalized full dataset, labels, training data, testing data, training labels, and testing labels.
         """
-        x = np.array(data[:, 0:-1])
+        x = np.array(data[:, :-1])
         y = np.array(data[:, -1])
 
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=self.seed, stratify=y)
@@ -131,10 +131,10 @@ class SyntheticDataGenerator:
             Dimension of the x-axis.
         y_dim : int
             Dimension of the y-axis.
-        add_noise : float, optional
-            Amount of noise to add, by default 0.0.
-        add_redundant_column : bool, optional
-            Whether to add a redundant column, by default False.
+        add_noise : float, optional, default=0.0
+            Amount of noise to add.
+        add_redundant_column : bool, optional, default=False
+            Whether to add a redundant column.
 
         Returns
         -------
@@ -180,7 +180,6 @@ class SyntheticDataGenerator:
 
             # duplicate some rows and randomly flip the data for those rows
             for _ in range(0, noise_count * 2):
-                # duplicate a random row and flip the data
                 x = np.random.randint(x_dim)
                 y = np.random.randint(y_dim)
                 random_value = np.random.random(1)[0]
@@ -220,18 +219,20 @@ def plot_synthetic_dataset(
         Training labels.
     y_test : np.ndarray
         Testing labels.
-    classifier : Any, optional
-        Classifier to plot decision boundary, by default None.
-    transparent_bg : bool, optional
-        Whether to make the background transparent, by default False.
-    bg_color : str, optional
-        Background color, by default "white".
+    classifier : Any, optional, default=None
+        Classifier to plot decision boundary.
+    transparent_bg : bool, optional, default=False
+        Whether to make the background transparent.
+    bg_color : str, optional, default="white"
+        Background color.
     """
     offset = 0.05
+
     x_min_train, x_max_train = x_train[:, 0].min() - offset, x_train[:, 0].max() + offset
     y_min_train, y_max_train = x_train[:, 1].min() - offset, x_train[:, 1].max() + offset
     x_min_test, x_max_test = x_test[:, 0].min() - offset, x_test[:, 0].max() + offset
     y_min_test, y_max_test = x_test[:, 1].min() - offset, x_test[:, 1].max() + offset
+
     x_min = min(x_min_test, x_min_train)
     y_min = max(y_min_test, y_min_train)
     x_max = min(x_max_test, x_max_train)
