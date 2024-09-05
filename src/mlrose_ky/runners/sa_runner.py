@@ -1,3 +1,8 @@
+"""Class for running optimization experiments using Simulated Annealing (SA), including grid search functionality."""
+
+# Authors: Andrew Rollings (modified by Kyle Nakamura)
+# License: BSD 3-clause
+
 import numpy as np
 
 import mlrose_ky

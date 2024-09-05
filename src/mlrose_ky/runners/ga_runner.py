@@ -1,3 +1,8 @@
+"""Class for running optimization experiments using Genetic Algorithms (GA), including grid search functionality."""
+
+# Authors: Andrew Rollings (modified by Kyle Nakamura)
+# License: BSD 3-clause
+
 import mlrose_ky
 from mlrose_ky.decorators import short_name
 from mlrose_ky.runners._runner_base import _RunnerBase

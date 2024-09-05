@@ -1,4 +1,7 @@
-"""This module implements a base runner class for neural network experiments, including grid search functionality."""
+"""Base class for running neural network weights optimization experiments, including grid search functionality."""
+
+# Authors: Andrew Rollings (modified by Kyle Nakamura)
+# License: BSD 3-clause
 
 import hashlib
 import logging

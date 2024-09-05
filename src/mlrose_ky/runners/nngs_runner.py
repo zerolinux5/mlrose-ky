@@ -1,6 +1,11 @@
+"""Class for running optimization experiments using mlrose_ky.NNClassifier, including grid search functionality."""
+
+# Authors: Andrew Rollings (modified by Kyle Nakamura)
+# License: BSD 3-clause
+
 import sklearn.metrics as skmt
 
-from mlrose_ky import NNClassifier
+from mlrose_ky.neural import NNClassifier
 from mlrose_ky.decorators import short_name, get_short_name
 from mlrose_ky.runners._nn_runner_base import _NNRunnerBase
 

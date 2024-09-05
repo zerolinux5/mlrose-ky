@@ -1,3 +1,8 @@
+"""Class for running optimization experiments using sklearn's MLPClassifier, including grid search functionality."""
+
+# Authors: Andrew Rollings (modified by Kyle Nakamura)
+# License: BSD 3-clause
+
 import inspect
 
 import sklearn.metrics as skmt
