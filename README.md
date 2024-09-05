@@ -82,14 +82,14 @@
 | src/mlrose\_ky/opt\_probs/queens\_opt.py                         |       25 |        2 |     92% |    60, 64 |
 | src/mlrose\_ky/opt\_probs/tsp\_opt.py                            |       79 |        9 |     89% |53, 66-68, 77, 150, 192, 194-197 |
 | src/mlrose\_ky/runners/\_\_init\_\_.py                           |        8 |        0 |    100% |           |
-| src/mlrose\_ky/runners/\_nn\_runner\_base.py                     |      150 |       21 |     86% |163, 179-181, 209-210, 217-218, 221-223, 302, 312, 328-330, 347, 352-355, 439 |
-| src/mlrose\_ky/runners/\_runner\_base.py                         |      275 |       51 |     81% |101, 145, 149, 159, 302-304, 318-321, 389, 416-422, 437-440, 484-488, 499-519, 558, 561, 620, 668, 742-743 |
+| src/mlrose\_ky/runners/\_nn\_runner\_base.py                     |      150 |       21 |     86% |166, 182-184, 212-213, 220-221, 224-226, 305, 315, 331-333, 350, 355-358, 442 |
+| src/mlrose\_ky/runners/\_runner\_base.py                         |      274 |       51 |     81% |52, 71, 75, 84, 201-203, 216-219, 279, 308-314, 329-332, 365-371, 375-395, 434, 438, 498, 547, 626-627 |
 | src/mlrose\_ky/runners/ga\_runner.py                             |       14 |        0 |    100% |           |
 | src/mlrose\_ky/runners/mimic\_runner.py                          |       20 |        0 |    100% |           |
-| src/mlrose\_ky/runners/nngs\_runner.py                           |       21 |        7 |     67% |67, 102-109 |
+| src/mlrose\_ky/runners/nngs\_runner.py                           |       21 |        7 |     67% |72, 107-114 |
 | src/mlrose\_ky/runners/rhc\_runner.py                            |       11 |        0 |    100% |           |
-| src/mlrose\_ky/runners/sa\_runner.py                             |       19 |        1 |     95% |        59 |
-| src/mlrose\_ky/runners/skmlp\_runner.py                          |      104 |       36 |     65% |61-65, 68, 71-79, 82-87, 90-104, 144, 191-196 |
+| src/mlrose\_ky/runners/sa\_runner.py                             |       19 |        1 |     95% |        64 |
+| src/mlrose\_ky/runners/skmlp\_runner.py                          |      104 |       36 |     65% |66-70, 73, 76-84, 87-92, 95-109, 149, 196-201 |
 | src/mlrose\_ky/runners/utils.py                                  |       14 |        2 |     86% |     37-38 |
 | src/mlrose\_ky/samples/\_\_init\_\_.py                           |        1 |        0 |    100% |           |
 | src/mlrose\_ky/samples/synthetic\_data.py                        |      123 |       28 |     77% |80-87, 171-190, 246, 260, 265-267, 276 |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5532** |  **500** | **91%** |           |
+|                                                        **TOTAL** | **5531** |  **500** | **91%** |           |
 
 
 ## Setup coverage badge
