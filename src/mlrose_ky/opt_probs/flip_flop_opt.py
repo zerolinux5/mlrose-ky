@@ -80,11 +80,11 @@ class FlipFlopOpt(DiscreteOpt):
         state = np.random.randint(2, size=self.length)
         self.set_state(state)
 
-    def evaluate_population_fitness(self) -> None:
+    def evaluate_population_fitness(self):
         """Calculate fitness for the current population."""
         self.pop_fitness = self.fitness_fn.evaluate_many(self.population)
 
-    def random_pop(self, pop_size: int) -> None:
+    def random_pop(self, pop_size: int):
         """Create a population of random state vectors.
 
         Parameters

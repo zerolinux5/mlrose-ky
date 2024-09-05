@@ -83,7 +83,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         n_jobs: int = 1,
         replay: bool = False,
         **kwargs,
-    ) -> None:
+    ):
         """
         Initializes the _NNRunnerBase class.
 
@@ -272,7 +272,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
 
         return False
 
-    def _tear_down(self, filename: str | None = None) -> None:
+    def _tear_down(self, filename: str | None = None):
         """
         Finalizes the runner, ensuring that the proper files are saved or cleaned up.
 

@@ -77,7 +77,7 @@ class NNGSRunner(_NNRunnerBase):
         generate_curves: bool = True,
         output_directory: str = None,
         **kwargs: Any,
-    ) -> None:
+    ):
         """
         Initialize the NNGSRunner class with training and testing data and various experiment parameters.
 
@@ -119,10 +119,6 @@ class NNGSRunner(_NNRunnerBase):
             Whether to generate learning curves.
         output_directory : str, optional
             Directory to save output.
-
-        Returns
-        -------
-        None
         """
         # Take a copy of the grid search parameters
         grid_search_parameters = {**grid_search_parameters}

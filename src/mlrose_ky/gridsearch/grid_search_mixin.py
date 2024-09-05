@@ -27,7 +27,7 @@ class GridSearchMixin:
         Flag indicating whether to apply argmax to predictions and ground truths before scoring.
     """
 
-    def __init__(self, scorer_method: Callable = None) -> None:
+    def __init__(self, scorer_method: Callable = None):
         """
         Initializes the GridSearchMixin with a specified scoring method.
 

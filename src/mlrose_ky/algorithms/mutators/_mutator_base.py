@@ -33,8 +33,9 @@ class _MutatorBase(ABC):
         An instance of an optimization problem that the mutator will operate on.
     """
 
-    def __init__(self, opt_prob: Any) -> None:
+    def __init__(self, opt_prob: Any):
         super().__init__()
+
         self._opt_prob: Any = opt_prob
         self._length: int = opt_prob.length
 

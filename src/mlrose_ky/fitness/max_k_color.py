@@ -110,7 +110,7 @@ class MaxKColor:
         """
         return self.prob_type
 
-    def set_graph(self, graph) -> None:
+    def set_graph(self, graph):
         """Set the graph edges from an external graph representation.
 
         Parameters

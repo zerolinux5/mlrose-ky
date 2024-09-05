@@ -37,7 +37,7 @@ class ContinuousPeaks:
     with `max_val = 2`) optimization problems only.
     """
 
-    def __init__(self, t_pct: float = 0.1) -> None:
+    def __init__(self, t_pct: float = 0.1):
         self.t_pct: float = t_pct
         self.prob_type: str = "discrete"
 

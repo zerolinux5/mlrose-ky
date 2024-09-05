@@ -43,7 +43,7 @@ class SKMLPRunner(_NNRunnerBase):
             Additional keyword arguments to be passed to MLPClassifier.
         """
 
-        def __init__(self, runner: "SKMLPRunner", **kwargs) -> None:
+        def __init__(self, runner: "SKMLPRunner", **kwargs):
             """
             Initialize the _MLPClassifier wrapper.
 
@@ -87,7 +87,7 @@ class SKMLPRunner(_NNRunnerBase):
 
             return self.__dict__[item] if item in self.__dict__ else default
 
-        def __setattr__(self, item: str, value: Any) -> None:
+        def __setattr__(self, item: str, value: Any):
             """Set an attribute on the MLPClassifier if it exists, otherwise set it on the class instance."""
             if "mlp" in self.__dict__ and hasattr(self.__dict__["mlp"], item):
                 self.__dict__["mlp"].__setattr__(item, value)
@@ -243,7 +243,7 @@ class SKMLPRunner(_NNRunnerBase):
 
             return f, g
 
-        def _invoke_runner_callback(self) -> None:
+        def _invoke_runner_callback(self):
             """Invoke the runner callback to save the current state of training."""
             # noinspection PyProtectedMember
             no_improvement_count = self.mlp._no_improvement_count if hasattr(self.mlp, "_no_improvement_count") else 0
@@ -290,7 +290,7 @@ class SKMLPRunner(_NNRunnerBase):
         output_directory: str = None,
         replay: bool = False,
         **kwargs: dict,
-    ) -> None:
+    ):
         """
         Initialize the SKMLPRunner class with training and testing data and various experiment parameters.
 
@@ -330,10 +330,6 @@ class SKMLPRunner(_NNRunnerBase):
             Directory to save output.
         replay : bool, optional
             Whether to replay the experiment.
-
-        Returns
-        -------
-        None
         """
         grid_search_parameters = {**grid_search_parameters}
 

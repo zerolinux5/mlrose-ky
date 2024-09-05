@@ -96,7 +96,7 @@ class TSPOpt(DiscreteOpt):
         sp = np.sum(probs)
         return np.zeros(np.shape(probs)) if sp == 0 else probs / sp
 
-    def find_neighbors(self) -> None:
+    def find_neighbors(self):
         """Find all neighbors of the current state."""
         self.neighbors = []
 

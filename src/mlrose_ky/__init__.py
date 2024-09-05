@@ -1,4 +1,4 @@
-"""MLROSe initialization file."""
+"""mlrose-ky initialization file."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause

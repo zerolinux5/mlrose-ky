@@ -66,12 +66,12 @@ class _RunnerBase(ABC):
 
         return dynamic_runner_name
 
-    def set_dynamic_runner_name(self, name: str) -> None:
+    def set_dynamic_runner_name(self, name: str):
         """Set a dynamic runner name."""
         self._dynamic_short_name = name
 
     @staticmethod
-    def _print_banner(text: str) -> None:
+    def _print_banner(text: str):
         """Print a formatted banner for logging."""
         logging.info("*" * len(text))
         logging.info(text)
@@ -92,7 +92,7 @@ class _RunnerBase(ABC):
         return sanitized_value
 
     @abstractmethod
-    def run(self) -> None:
+    def run(self):
         """Abstract method to be implemented by subclasses."""
         pass
 
@@ -109,7 +109,7 @@ class _RunnerBase(ABC):
         replay: bool = False,
         override_ctrl_c_handler: bool = True,
         **kwargs: Any,
-    ) -> None:
+    ):
         """
         Initialize the runner with required parameters, including problem setup,
         iteration controls, and output settings.
@@ -169,12 +169,12 @@ class _RunnerBase(ABC):
 
         self._increment_spawn_count()
 
-    def _increment_spawn_count(self) -> None:
+    def _increment_spawn_count(self):
         """Increment the spawn count for the runner (used in parallel execution)."""
         with self._spawn_count.get_lock():
             self._spawn_count.value += 1
 
-    def _decrement_spawn_count(self) -> None:
+    def _decrement_spawn_count(self):
         """Decrement the spawn count for the runner."""
         with self._spawn_count.get_lock():
             self._spawn_count.value -= 1
@@ -184,7 +184,7 @@ class _RunnerBase(ABC):
         self._print_banner(f"*** Spawn Count Remaining: {self._spawn_count.value} ***")
         return self._spawn_count.value
 
-    def abort(self) -> None:
+    def abort(self):
         """Set the abort flag to signal that the runner should stop execution."""
         self._print_banner("*** ABORTING ***")
 
@@ -195,7 +195,7 @@ class _RunnerBase(ABC):
         """Return whether the abort flag has been set."""
         return self._abort_flag.value
 
-    def set_replay_mode(self, value: bool = True) -> None:
+    def set_replay_mode(self, value: bool = True):
         """Enable or disable replay mode, which reuses previous results."""
         with self._replay_mode.get_lock():
             self._replay_mode.value = value
@@ -204,7 +204,7 @@ class _RunnerBase(ABC):
         """Check if replay mode is enabled."""
         return self._replay_mode.value
 
-    def _setup(self) -> None:
+    def _setup(self):
         """Prepare the runner by clearing stats, setting up directories, and handling Ctrl-C interrupts."""
         self._raw_run_stats = []
         self._fitness_curves = []
@@ -225,7 +225,7 @@ class _RunnerBase(ABC):
                 self._original_sigint_handler = signal.getsignal(signal.SIGINT)
                 signal.signal(signal.SIGINT, self._ctrl_c_handler)
 
-    def _ctrl_c_handler(self, sig: int, frame: Any) -> None:
+    def _ctrl_c_handler(self, sig: int, frame: Any):
         """
         Handle Ctrl-C interruptions by saving progress and aborting the run.
 
@@ -240,7 +240,7 @@ class _RunnerBase(ABC):
         self._sigint_params = (sig, frame)
         self.abort()
 
-    def _tear_down(self) -> None:
+    def _tear_down(self):
         """Clean up after the experiment, restoring signal handlers and managing resources."""
         if not self.override_ctrl_c_handler:
             return
@@ -256,7 +256,7 @@ class _RunnerBase(ABC):
         except (ValueError, TypeError, AttributeError, Exception) as e:
             logging.error(f"Problem restoring SIGINT handler: {e}")
 
-    def log_current_argument(self, arg_name: str, arg_value: Any) -> None:
+    def log_current_argument(self, arg_name: str, arg_value: Any):
         """Log the current argument passed to the algorithm."""
         self._current_logged_algorithm_args[arg_name] = arg_value
 
@@ -304,7 +304,7 @@ class _RunnerBase(ABC):
 
         return self.run_stats_df, self.curves_df
 
-    def _run_one_experiment(self, algorithm: Any, total_args: dict[str, Any], **params: Any) -> None:
+    def _run_one_experiment(self, algorithm: Any, total_args: dict[str, Any], **params: Any):
         """
         Execute a single iteration of the experiment.
 
@@ -332,14 +332,14 @@ class _RunnerBase(ABC):
             **total_args,
         )
 
-    def _create_and_save_run_data_frames(self, extra_data_frames: dict[str, pd.DataFrame] = None, final_save: bool = False) -> None:
+    def _create_and_save_run_data_frames(self, extra_data_frames: dict[str, pd.DataFrame] = None, final_save: bool = False):
         """
         Save the collected run statistics and fitness curves to disk.
 
         Parameters
         ----------
         extra_data_frames : dict[str, pd.DataFrame], optional
-            Additional data frames to save.
+            Additional DataFrames to save.
         final_save : bool, optional
             Whether this is the final save of the experiment (default False).
         """
@@ -357,7 +357,7 @@ class _RunnerBase(ABC):
                 for name, df in extra_data_frames.items():
                     self._dump_df_to_disk(df, df_name=name, final_save=final_save)
 
-    def _dump_df_to_disk(self, df: pd.DataFrame, df_name: str, final_save: bool = False) -> None:
+    def _dump_df_to_disk(self, df: pd.DataFrame, df_name: str, final_save: bool = False):
         """
         Save the DataFrame to disk as both a pickle and CSV file.
 
@@ -507,7 +507,7 @@ class _RunnerBase(ABC):
 
         return result
 
-    def start_run_timing(self) -> None:
+    def start_run_timing(self):
         """Start timing the experiment's execution."""
         self._run_start_time = time.perf_counter()
 

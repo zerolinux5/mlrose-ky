@@ -27,7 +27,7 @@ class OneMax:
     The One Max fitness function is suitable for use in either discrete or continuous-state optimization problems.
     """
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.prob_type: str = "either"
 
     @staticmethod

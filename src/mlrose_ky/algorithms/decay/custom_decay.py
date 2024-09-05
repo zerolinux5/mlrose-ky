@@ -29,7 +29,7 @@ class CustomSchedule:
     15
     """
 
-    def __init__(self, schedule: Callable[..., float], **kwargs) -> None:
+    def __init__(self, schedule: Callable[..., float], **kwargs):
         self.schedule: Callable[..., float] = schedule
         self.kwargs: dict = kwargs
 

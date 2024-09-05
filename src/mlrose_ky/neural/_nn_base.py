@@ -27,7 +27,7 @@ class _NNBase(BaseEstimator, ABC):
         pass
 
     @abstractmethod
-    def fit(self, X: np.ndarray, y: np.ndarray = None, init_weights: np.ndarray = None) -> None:
+    def fit(self, X: np.ndarray, y: np.ndarray = None, init_weights: np.ndarray = None):
         """
         Fit the neural network to the data.
 

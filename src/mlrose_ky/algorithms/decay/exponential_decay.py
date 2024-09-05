@@ -43,7 +43,7 @@ class ExpDecay:
     7.788007830714049
     """
 
-    def __init__(self, init_temp: float = 1.0, exp_const: float = 0.005, min_temp: float = 0.001) -> None:
+    def __init__(self, init_temp: float = 1.0, exp_const: float = 0.005, min_temp: float = 0.001):
         self.init_temp: float = init_temp
         self.exp_const: float = exp_const
         self.min_temp: float = min_temp

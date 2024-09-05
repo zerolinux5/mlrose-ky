@@ -4,6 +4,7 @@
 # License: BSD 3-clause
 
 from typing import Any
+
 import numpy as np
 
 from mlrose_ky.algorithms.crossovers import UniformCrossover

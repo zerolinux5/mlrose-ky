@@ -2,12 +2,13 @@
 
 from typing import Any
 
-# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
-# License: BSD 3-clause
-
 import numpy as np
 
 from mlrose_ky.opt_probs.opt_prob import _OptProb
+
+
+# Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
+# License: BSD 3-clause
 
 
 class ContinuousOpt(_OptProb):
@@ -77,7 +78,7 @@ class ContinuousOpt(_OptProb):
         """
         return self.fitness_fn.calculate_updates()
 
-    def find_neighbors(self) -> None:
+    def find_neighbors(self):
         """Find all neighbors of the current state."""
         # Pre-allocate a NumPy array for neighbors (maximum of 2 * length neighbors)
         neighbors_matrix = np.zeros((2 * self.length, self.length))
@@ -145,7 +146,7 @@ class ContinuousOpt(_OptProb):
 
         return neighbor
 
-    def random_pop(self, pop_size: int) -> None:
+    def random_pop(self, pop_size: int):
         """Create a population of random state vectors.
 
         Parameters
@@ -221,7 +222,7 @@ class ContinuousOpt(_OptProb):
 
         return child
 
-    def reset(self) -> None:
+    def reset(self):
         """Set the current state vector to a random value and reset its fitness."""
         self.state = self.random()
         self.fitness_evaluations = 0

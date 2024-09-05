@@ -34,7 +34,7 @@ class _CrossoverBase(ABC):
         'length' property.
     """
 
-    def __init__(self, optimization_problem: Any) -> None:
+    def __init__(self, optimization_problem: Any):
         """
         Initialize the CrossoverBase with the given optimization problem.
 

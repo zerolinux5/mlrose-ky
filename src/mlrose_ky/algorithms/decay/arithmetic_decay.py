@@ -41,7 +41,7 @@ class ArithDecay:
     5.25
     """
 
-    def __init__(self, init_temp: float = 1.0, decay: float = 0.0001, min_temp: float = 0.001) -> None:
+    def __init__(self, init_temp: float = 1.0, decay: float = 0.0001, min_temp: float = 0.001):
         self.init_temp: float = init_temp
         self.decay: float = decay
         self.min_temp: float = min_temp

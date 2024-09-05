@@ -205,7 +205,7 @@ def plot_synthetic_dataset(
     classifier: Any = None,
     transparent_bg: bool = False,
     bg_color: str = "white",
-) -> None:
+):
     """
     Plot the synthetic dataset.
 

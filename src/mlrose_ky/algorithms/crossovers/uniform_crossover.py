@@ -27,7 +27,7 @@ class UniformCrossover(_CrossoverBase):
     _CrossoverBase : Abstract base class for crossover operations.
     """
 
-    def __init__(self, optimization_problem: Any) -> None:
+    def __init__(self, optimization_problem: Any):
         """
         Initialize the UniformCrossover with the given optimization problem.
 

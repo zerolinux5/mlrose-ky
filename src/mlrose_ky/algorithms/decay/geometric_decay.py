@@ -41,7 +41,7 @@ class GeomDecay:
     7.737809374999998
     """
 
-    def __init__(self, init_temp: float = 1.0, decay: float = 0.99, min_temp: float = 0.001) -> None:
+    def __init__(self, init_temp: float = 1.0, decay: float = 0.99, min_temp: float = 0.001):
         self.init_temp: float = init_temp
         self.decay: float = decay
         self.min_temp: float = min_temp

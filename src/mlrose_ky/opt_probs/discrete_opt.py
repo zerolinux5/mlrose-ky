@@ -106,7 +106,7 @@ class DiscreteOpt(_OptProb):
         self._mut_mask: np.ndarray | None = None
         self._mut_inf: np.ndarray | None = None
 
-    def eval_node_probs(self) -> None:
+    def eval_node_probs(self):
         """Update probability density estimates."""
         mutual_info = self._get_mutual_info_impl()
 
@@ -143,7 +143,7 @@ class DiscreteOpt(_OptProb):
         self.node_probs = probs
         self.parent_nodes = parent
 
-    def set_mimic_fast_mode(self, fast_mode: bool) -> None:
+    def set_mimic_fast_mode(self, fast_mode: bool):
         """Enable or disable MIMIC fast mode."""
         if fast_mode:
             mut_mask = np.zeros([self.length, self.length], dtype=bool)
@@ -214,7 +214,7 @@ class DiscreteOpt(_OptProb):
 
         return mutual_info
 
-    def find_neighbors(self) -> None:
+    def find_neighbors(self):
         """Find all neighbors of the current state."""
         self.neighbors = []
 
@@ -233,7 +233,7 @@ class DiscreteOpt(_OptProb):
                     neighbor[i] = j
                     self.neighbors.append(neighbor)
 
-    def find_sample_order(self) -> None:
+    def find_sample_order(self):
         """Determine order in which to generate sample vector elements."""
         sample_order = []
         last = [0]
@@ -253,7 +253,7 @@ class DiscreteOpt(_OptProb):
 
         self.sample_order = sample_order
 
-    def find_top_pct(self, keep_pct: float) -> None:
+    def find_top_pct(self, keep_pct: float):
         """Select samples with fitness in the top keep_pct percentile.
 
         Parameters
@@ -318,7 +318,7 @@ class DiscreteOpt(_OptProb):
 
         return neighbor
 
-    def random_pop(self, pop_size: int) -> None:
+    def random_pop(self, pop_size: int):
         """Create a population of random state vectors.
 
         Parameters
@@ -367,7 +367,7 @@ class DiscreteOpt(_OptProb):
         child = self._crossover.mate(parent_1, parent_2)
         return self._mutator.mutate(child, mutation_prob)
 
-    def reset(self) -> None:
+    def reset(self):
         """Set the current state vector to a random value and get its fitness."""
         self.state = self.random()
         self.fitness = self.eval_fitness(self.state)

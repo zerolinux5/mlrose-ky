@@ -3,9 +3,11 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-import numpy as np
-from mlrose_ky.neural._nn_base import _NNBase
 from typing import Any, Optional, Callable
+
+import numpy as np
+
+from mlrose_ky.neural._nn_base import _NNBase
 
 
 class NNClassifier(_NNBase):

@@ -8,6 +8,7 @@ from typing import Callable, Optional
 
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer
+
 from mlrose_ky.algorithms.decay import GeomDecay
 from mlrose_ky.algorithms.ga import genetic_alg
 from mlrose_ky.algorithms.rhc import random_hill_climb
@@ -71,7 +72,7 @@ class _NNCore(_NNBase):
         self.predicted_probs: np.ndarray = np.array([])
         self.fitness_curve: list[float] = []
 
-    def _validate(self) -> None:
+    def _validate(self):
         """Validate the model parameters."""
         if (not isinstance(self.max_iters, int) and self.max_iters != np.inf) or self.max_iters < 0:
             raise ValueError(f"max_iters must be a positive integer, got {self.max_iters}.")
@@ -109,7 +110,7 @@ class _NNCore(_NNBase):
                 f"'random_hill_climb', 'simulated_annealing', 'genetic_alg', 'gradient_descent', got {self.algorithm}."
             )
 
-    def _validate_input(self, y: np.ndarray) -> None:
+    def _validate_input(self, y: np.ndarray):
         """
         Add classes_ attribute based on classes present in y.
 

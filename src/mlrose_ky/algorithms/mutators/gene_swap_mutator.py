@@ -28,7 +28,7 @@ class SwapMutator(_MutatorBase):
         An instance of an optimization problem that the mutator will operate on.
     """
 
-    def __init__(self, opt_prob: Any) -> None:
+    def __init__(self, opt_prob: Any):
         super().__init__(opt_prob)
 
     def mutate(self, child: np.ndarray, mutation_probability: float) -> np.ndarray:

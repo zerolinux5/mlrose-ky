@@ -4,6 +4,7 @@
 # License: BSD 3-clause
 
 from sklearn.base import RegressorMixin
+
 from mlrose_ky.algorithms.decay import GeomDecay
 from ._nn_core import _NNCore
 
