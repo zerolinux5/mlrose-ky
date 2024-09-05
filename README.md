@@ -73,14 +73,14 @@
 | src/mlrose\_ky/neural/utils/\_\_init\_\_.py                      |        1 |        0 |    100% |           |
 | src/mlrose\_ky/neural/utils/weights.py                           |       52 |        0 |    100% |           |
 | src/mlrose\_ky/opt\_probs/\_\_init\_\_.py                        |        7 |        0 |    100% |           |
-| src/mlrose\_ky/opt\_probs/continuous\_opt.py                     |       94 |       15 |     84% |41, 49, 52, 55, 101, 149, 151-154, 190, 193, 201-204, 235 |
-| src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      201 |       27 |     87% |43, 51, 53-56, 108-113, 134-136, 150-151, 242, 261, 291, 335, 337-340, 373, 376, 408, 410-413 |
-| src/mlrose\_ky/opt\_probs/flip\_flop\_opt.py                     |       38 |        5 |     87% |18, 21, 52-55 |
-| src/mlrose\_ky/opt\_probs/knapsack\_opt.py                       |       22 |        5 |     77% | 27, 32-35 |
-| src/mlrose\_ky/opt\_probs/max\_k\_color\_opt.py                  |       49 |        3 |     94% |20, 26, 49 |
-| src/mlrose\_ky/opt\_probs/opt\_prob.py                           |       79 |        5 |     94% |26, 28-31, 96 |
-| src/mlrose\_ky/opt\_probs/queens\_opt.py                         |       24 |        2 |     92% |    18, 21 |
-| src/mlrose\_ky/opt\_probs/tsp\_opt.py                            |       80 |        9 |     89% |51, 59-60, 65, 140, 182, 184-187 |
+| src/mlrose\_ky/opt\_probs/continuous\_opt.py                     |       88 |       10 |     89% |53, 59, 61, 63, 113, 162, 202, 205, 213, 249 |
+| src/mlrose\_ky/opt\_probs/discrete\_opt.py                       |      192 |       21 |     89% |81, 87, 89-92, 137-140, 162-164, 177-178, 246, 265, 289, 330, 362, 365, 392 |
+| src/mlrose\_ky/opt\_probs/flip\_flop\_opt.py                     |       37 |        5 |     86% |63, 66, 103-106 |
+| src/mlrose\_ky/opt\_probs/knapsack\_opt.py                       |       23 |        5 |     78% | 75, 80-83 |
+| src/mlrose\_ky/opt\_probs/max\_k\_color\_opt.py                  |       50 |        3 |     94% |77, 84, 109 |
+| src/mlrose\_ky/opt\_probs/opt\_prob.py                           |       69 |        5 |     93% |54, 56-59, 110 |
+| src/mlrose\_ky/opt\_probs/queens\_opt.py                         |       25 |        2 |     92% |    60, 64 |
+| src/mlrose\_ky/opt\_probs/tsp\_opt.py                            |       79 |        9 |     89% |53, 66-68, 77, 150, 192, 194-197 |
 | src/mlrose\_ky/runners/\_\_init\_\_.py                           |        8 |        0 |    100% |           |
 | src/mlrose\_ky/runners/\_nn\_runner\_base.py                     |      150 |       21 |     86% |163, 179-181, 209-210, 217-218, 221-223, 302, 312, 328-330, 347, 352-355, 439 |
 | src/mlrose\_ky/runners/\_runner\_base.py                         |      275 |       51 |     81% |101, 145, 149, 159, 302-304, 318-321, 389, 416-422, 437-440, 484-488, 499-519, 558, 561, 620, 668, 742-743 |
@@ -122,7 +122,7 @@
 | tests/test\_opt\_probs/\_\_init\_\_.py                           |        0 |        0 |    100% |           |
 | tests/test\_opt\_probs/test\_continous\_opt.py                   |       93 |        0 |    100% |           |
 | tests/test\_opt\_probs/test\_discrete\_opt.py                    |      100 |        0 |    100% |           |
-| tests/test\_opt\_probs/test\_flip\_flop\_opt.py                  |       76 |        3 |     96% |66, 94, 101 |
+| tests/test\_opt\_probs/test\_flip\_flop\_opt.py                  |       77 |        3 |     96% |66, 95, 102 |
 | tests/test\_opt\_probs/test\_knapsack\_opt.py                    |       40 |        3 |     92% | 54-55, 60 |
 | tests/test\_opt\_probs/test\_max\_k\_color\_opt.py               |       66 |        0 |    100% |           |
 | tests/test\_opt\_probs/test\_opt\_prob.py                        |       81 |        0 |    100% |           |
@@ -139,7 +139,7 @@
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
 | tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5555** |  **511** | **91%** |           |
+|                                                        **TOTAL** | **5532** |  **500** | **91%** |           |
 
 
 ## Setup coverage badge
