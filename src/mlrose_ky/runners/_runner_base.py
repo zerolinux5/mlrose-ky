@@ -5,7 +5,7 @@
 
 import ctypes
 import inspect
-import itertools as it
+import itertools
 import logging
 import multiprocessing
 import os
@@ -31,6 +31,19 @@ class _RunnerBase(ABC):
     signal interruption, dynamic naming, and result saving to both pickle and CSV files.
     The class is designed to be extended by concrete subclasses that implement the
     `run` method, which defines the specific behavior of the experiment.
+
+    Attributes
+    ----------
+    _abort_flag : multiprocessing.Value
+        Flag to signal abortion of the experiment.
+    _spawn_count : multiprocessing.Value
+        Tracks the number of spawned processes in parallel execution.
+    _replay_mode : multiprocessing.Value
+        Indicates whether replay mode is active.
+    _original_sigint_handler : Any
+        Stores the original signal handler for Ctrl-C.
+    _sigint_params : tuple[int, Any] | None
+        Stores the signal and frame parameters when Ctrl-C is triggered.
     """
 
     _abort_flag: multiprocessing.Value = multiprocessing.Value(ctypes.c_bool)
@@ -100,6 +113,31 @@ class _RunnerBase(ABC):
         """
         Initialize the runner with required parameters, including problem setup,
         iteration controls, and output settings.
+
+        Parameters
+        ----------
+        problem : Any
+            The optimization problem instance to solve.
+        experiment_name : str
+            The name of the experiment.
+        seed : int
+            Seed for random number generation.
+        iteration_list : list[int]
+            List of iterations to log results.
+        max_attempts : int, optional
+            Maximum number of attempts for optimization, default=500.
+        generate_curves : bool, optional
+            Whether to generate fitness curves, default=True.
+        output_directory : str, optional
+            Directory to save experiment result, default=None.
+        copy_zero_curve_fitness_from_first : bool, optional, default=False
+            Whether to copy the first curve fitness value to the zeroth iteration.
+        replay : bool, optional
+            Whether to enable replay mode, default=False.
+        override_ctrl_c_handler : bool, optional, default=True
+            Whether to override the Ctrl-C signal handler.
+        **kwargs : Any
+            Additional keyword arguments for experiment configuration.
         """
         self.problem: Any = problem
         self.seed: int = seed
@@ -242,13 +280,17 @@ class _RunnerBase(ABC):
 
         # Generate all combinations of parameter values for the experiment
         values = [([(k, v) for v in vs]) for (k, (n, vs)) in kwargs.items() if vs is not None]
+
         self.parameter_description_dict = {k: n for (k, (n, vs)) in kwargs.items() if vs is not None}
-        value_sets = list(it.product(*values))
+
+        value_sets = list(itertools.product(*values))
 
         logging.info(f"Running {self.get_dynamic_runner_name()}")
         run_start = time.perf_counter()
+
         for value_set in value_sets:
             total_args = dict(value_set)
+
             if "max_iters" not in total_args:
                 total_args["max_iters"] = int(max(self.iteration_list))
 
@@ -307,8 +349,10 @@ class _RunnerBase(ABC):
         if self._output_directory:
             if not self.run_stats_df.empty:
                 self._dump_df_to_disk(self.run_stats_df, df_name="run_stats_df", final_save=final_save)
+
             if self.generate_curves and not self.curves_df.empty:
                 self._dump_df_to_disk(self.curves_df, df_name="curves_df", final_save=final_save)
+
             if isinstance(extra_data_frames, dict):
                 for name, df in extra_data_frames.items():
                     self._dump_df_to_disk(df, df_name=name, final_save=final_save)
@@ -328,18 +372,18 @@ class _RunnerBase(ABC):
         """
         filename_root = self._dump_pickle_to_disk(object_to_pickle=df, name=df_name)
         df.to_csv(f"{filename_root}.csv")
+
         if final_save:
             logging.info(f"Saved: [{filename_root}.csv]")
 
     def _get_pickle_filename_root(self, name: str) -> str:
         """Generate the root filename for the pickle file based on experiment metadata."""
-        filename_root = build_data_filename(
+        return build_data_filename(
             output_directory=self._output_directory,
             runner_name=self.get_dynamic_runner_name(),
             experiment_name=self._experiment_name,
             df_name=name,
         )
-        return filename_root
 
     def _dump_pickle_to_disk(self, object_to_pickle: Any, name: str, final_save: bool = False) -> str | None:
         """
@@ -403,7 +447,7 @@ class _RunnerBase(ABC):
         user_info: list[tuple[str, Any]],
         additional_algorithm_args: dict[str, Any] = None,
         **total_args: Any,
-    ) -> tuple[None, None, None] | None:
+    ) -> tuple | None:
         """
         Invoke the algorithm with the given parameters, either running it or loading previous results.
 
@@ -426,7 +470,7 @@ class _RunnerBase(ABC):
 
         Returns
         -------
-        tuple[None, None, None] | None
+        tuple | None
             None if the algorithm was run, or previously loaded results if replay mode is enabled.
         """
         self._current_logged_algorithm_args.update(total_args)
@@ -443,7 +487,7 @@ class _RunnerBase(ABC):
 
         # Filter arguments to those accepted by the algorithm function signature
         valid_args = [k for k in inspect.signature(algorithm).parameters]
-        args_to_pass = {k: v for k, v in total_args.items() if k in valid_args}
+        kwargs = {k: v for k, v in total_args.items() if k in valid_args}
 
         # Reset the problem instance and run the algorithm
         self.start_run_timing()
@@ -455,7 +499,7 @@ class _RunnerBase(ABC):
             random_state=self.seed,
             state_fitness_callback=self.save_state,
             callback_user_info=user_info,
-            **args_to_pass,
+            **kwargs,
         )
 
         self._print_banner("*** Run END ***")
@@ -567,9 +611,11 @@ class _RunnerBase(ABC):
 
         # Sanitize and log additional user data
         def get_description(name: str) -> str:
+            """Return the description for a parameter name."""
             return name if name not in self.parameter_description_dict else self.parameter_description_dict[name]
 
         def get_info(val: Any) -> dict[str, Any]:
+            """Return additional info for a value if available."""
             return val.get_info__(t) if hasattr(val, "get_info__") else {}
 
         current_iteration_stats = {str(get_description(k)): self._sanitize_value(v) for k, v in self._current_logged_algorithm_args.items()}
@@ -605,8 +651,10 @@ class _RunnerBase(ABC):
             curve_stats_saved = len(self._fitness_curves)
             total_curve_stats = self._curve_base + len(curve)
             curve_stats_to_save = total_curve_stats - curve_stats_saved
+
             if self._first_curve_synthesized:
                 curve_stats_to_save += 1
+
             ix_end = iteration + 1
             ix_start = ix_end - curve_stats_to_save
             if ix_start < 0:
