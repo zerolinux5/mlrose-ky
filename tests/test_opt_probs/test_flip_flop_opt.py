@@ -87,13 +87,14 @@ class TestFlipFlopOpt:
 
     def test_invalid_inputs(self):
         """Test methods with invalid inputs"""
-        problem = FlipFlopOpt(5)
-        invalid_state = np.array([1, 1, 1])
+        problem_size, invalid_size = 5, 3
+        problem = FlipFlopOpt(problem_size)
+        invalid_state = np.ones((invalid_size,))
         try:
             problem.set_state(invalid_state)
-            assert False, "Expected an exception for invalid state length"
-        except Exception as e:
-            assert str(e) == "new_state length must match problem length"
+            assert False, "Expected a ValueError exception for invalid state length"
+        except ValueError as e:
+            assert str(e) == f"new_state length {invalid_size} must match problem length {problem_size}"
 
         # Test random_pop with negative size
         try:
