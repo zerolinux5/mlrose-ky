@@ -14,13 +14,13 @@ It also includes a function to retrieve the assigned short name of a function.
 from typing import Callable, Any
 
 
-def short_name(name_expression: str) -> Callable:
+def short_name(expr: str) -> Callable:
     """
     Decorator to assign a short name to a function.
 
     Parameters
     ----------
-    name_expression : str
+    expr : str
         The short name to be assigned to the function.
 
     Returns
@@ -31,7 +31,7 @@ def short_name(name_expression: str) -> Callable:
 
     def decorator(func: Callable) -> Callable:
         """Assign a short name to the given function."""
-        func.__short_name__ = name_expression
+        func.__short_name__ = expr
         return func
 
     return decorator

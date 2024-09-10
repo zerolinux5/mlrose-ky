@@ -19,20 +19,21 @@ class DiscreteMutator(_MutatorBase):
 
     Attributes
     ----------
-    optimization_problem : Any
+    _opt_prob : Any
         The optimization problem instance associated with the mutation operations.
-    max_gene_value : int
+    _max_val : int
         The maximum allowable value for any gene in the chromosome.
 
     Parameters
     ----------
-    optimization_problem : Any
+    opt_prob : Any
         An instance of an optimization problem that the mutator will operate on.
     """
 
-    def __init__(self, optimization_problem: Any) -> None:
-        super().__init__(optimization_problem)
-        self.max_gene_value = optimization_problem.max_val
+    def __init__(self, opt_prob: Any):
+        super().__init__(opt_prob)
+
+        self._max_val: int = opt_prob.max_val
 
     def mutate(self, child: np.ndarray, mutation_probability: float) -> np.ndarray:
         """
@@ -53,14 +54,14 @@ class DiscreteMutator(_MutatorBase):
         np.ndarray
             The mutated chromosome.
         """
-        random_thresholds = np.random.uniform(size=self.chromosome_length)
+        random_thresholds = np.random.uniform(size=self._length)
         mutation_indices = np.where(random_thresholds < mutation_probability)[0]
 
-        if self.max_gene_value == 2:
+        if self._max_val == 2:
             child[mutation_indices] = 1 - child[mutation_indices]
         else:
             for index in mutation_indices:
-                possible_values = list(range(self.max_gene_value))
+                possible_values = list(range(self._max_val))
                 possible_values.remove(child[index])
                 child[index] = np.random.choice(possible_values)
 

@@ -1,4 +1,4 @@
-"""Classes for defining neural network weight optimization problems."""
+"""Definitions for various neural network activation functions."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause

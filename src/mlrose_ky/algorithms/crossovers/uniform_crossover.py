@@ -27,7 +27,7 @@ class UniformCrossover(_CrossoverBase):
     _CrossoverBase : Abstract base class for crossover operations.
     """
 
-    def __init__(self, optimization_problem: Any) -> None:
+    def __init__(self, optimization_problem: Any):
         """
         Initialize the UniformCrossover with the given optimization problem.
 
@@ -57,7 +57,6 @@ class UniformCrossover(_CrossoverBase):
         np.ndarray
             The offspring chromosome resulting from the crossover.
         """
-        gene_selector = np.random.randint(2, size=self.chromosome_length)
+        gene_selector = np.random.randint(2, size=self._length)
         stacked_parents = np.vstack((parent1, parent2))
-        offspring = stacked_parents[gene_selector, np.arange(self.chromosome_length)]
-        return offspring
+        return stacked_parents[gene_selector, np.arange(self._length)]

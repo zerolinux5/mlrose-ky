@@ -70,6 +70,7 @@ def simulated_annealing(
     Russell, S. and P. Norvig (2010). *Artificial Intelligence: A Modern Approach*, 3rd edition.
     Prentice Hall, New Jersey, USA.
     """
+    # TODO: fix and uncomment these problematic raise statements
     # if not isinstance(max_attempts, int) or max_attempts < 0:
     #     raise ValueError(f"max_attempts must be a positive integer. Got {max_attempts}")
     # if not (isinstance(max_iters, int) or max_iters == np.inf) or max_iters < 0:
@@ -151,7 +152,4 @@ def simulated_annealing(
     best_fitness = problem.get_maximize() * problem.get_fitness()
     best_state = problem.get_state()
 
-    if curve:
-        return best_state, best_fitness, np.asarray(fitness_curve)
-
-    return best_state, best_fitness, None
+    return best_state, best_fitness, np.asarray(fitness_curve) if curve else None

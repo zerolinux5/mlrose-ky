@@ -1,4 +1,4 @@
-"""MLROSe initialization file."""
+"""mlrose-ky initialization file."""
 
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
@@ -45,7 +45,7 @@ from .fitness import (
 )
 
 # noinspection PyUnresolvedReferences
-from .neural import NeuralNetwork, LinearRegression, LogisticRegression, NNClassifier, nn_core
+from .neural import NeuralNetwork, LinearRegression, LogisticRegression, NNClassifier, _nn_core
 
 # noinspection PyUnresolvedReferences
 from .neural.activation import identity, relu, leaky_relu, sigmoid, softmax, tanh
