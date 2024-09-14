@@ -8,10 +8,12 @@ detailing how two parent solutions can be combined to create offspring.
 # License: BSD 3-clause
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Sequence
+
+import numpy as np
 
 
-class _CrossoverBase(ABC):
+class _CrossOverBase(ABC):
     """
     Base class for crossover operations in a genetic algorithm.
 
@@ -20,7 +22,7 @@ class _CrossoverBase(ABC):
 
     Parameters
     ----------
-    optimization_problem : Any
+    opt_prob : Any
         An instance of the optimization problem related to the genetic algorithm.
         This problem instance should provide necessary properties like 'length'
         that might be needed for the crossover operation.
@@ -34,21 +36,21 @@ class _CrossoverBase(ABC):
         'length' property.
     """
 
-    def __init__(self, optimization_problem: Any):
+    def __init__(self, opt_prob: Any):
         """
-        Initialize the CrossoverBase with the given optimization problem.
+        Initialize the _CrossOverBase with the given optimization problem.
 
         Parameters
         ----------
-        optimization_problem : Any
+        opt_prob : Any
             An instance of the optimization problem related to the GA.
         """
         super().__init__()
-        self._opt_prob: Any = optimization_problem
-        self._length: int = optimization_problem.length
+        self._opt_prob: Any = opt_prob
+        self._length: int = opt_prob.length
 
     @abstractmethod
-    def mate(self, parent1: Any, parent2: Any) -> Any:
+    def mate(self, p1: Sequence[int | float], p2: Sequence[int | float]) -> np.ndarray:
         """
         Perform the crossover (mating) between two parents to produce offspring.
 
@@ -57,14 +59,14 @@ class _CrossoverBase(ABC):
 
         Parameters
         ----------
-        parent1 : Any
+        p1 : Sequence[int | float]
             The first parent participating in the crossover.
-        parent2 : Any
+        p2 : Sequence[int | float]
             The second parent participating in the crossover.
 
         Returns
         -------
-        Any
+        np.ndarray
             The offspring resulting from the crossover. The type of this result
             can vary depending on the specific GA implementation.
         """

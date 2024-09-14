@@ -41,30 +41,30 @@ class TestRunnerBase:
     def test_increment_spawn_count(self, test_runner):
         with patch("os.makedirs"), patch("os.path.exists", return_value=True):
             runner = test_runner()
-            initial_count = runner.get_spawn_count()
+            initial_count = runner._get_spawn_count()
             runner._increment_spawn_count()
 
-            assert runner.get_spawn_count() == initial_count + 1
+            assert runner._get_spawn_count() == initial_count + 1
 
     def test_decrement_spawn_count(self, test_runner):
         with patch("os.makedirs"), patch("os.path.exists", return_value=True):
             runner = test_runner()
             runner._increment_spawn_count()
-            initial_count = runner.get_spawn_count()
+            initial_count = runner._get_spawn_count()
             runner._decrement_spawn_count()
 
-            assert runner.get_spawn_count() == initial_count - 1
+            assert runner._get_spawn_count() == initial_count - 1
 
     def test_get_spawn_count(self, test_runner):
         with patch("os.makedirs"), patch("os.path.exists", return_value=True):
             runner = test_runner()
-            initial_spawn_count = runner.get_spawn_count()
+            initial_spawn_count = runner._get_spawn_count()
             runner._increment_spawn_count()
-            incremented_spawn_count = runner.get_spawn_count()
+            incremented_spawn_count = runner._get_spawn_count()
             assert incremented_spawn_count == initial_spawn_count + 1
 
             runner._decrement_spawn_count()
-            decremented_spawn_count = runner.get_spawn_count()
+            decremented_spawn_count = runner._get_spawn_count()
             assert decremented_spawn_count == initial_spawn_count
 
     def test_abort_sets_abort_flag(self, test_runner):
@@ -127,6 +127,6 @@ class TestRunnerBase:
             runner = test_runner(seed=SEED, iteration_list=[0, 1, 2])
             arg_name = "test_arg"
             arg_value = "test_value"
-            runner.log_current_argument(arg_name, arg_value)
+            runner._log_current_argument(arg_name, arg_value)
 
             assert runner._current_logged_algorithm_args[arg_name] == arg_value
