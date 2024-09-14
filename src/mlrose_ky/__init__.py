@@ -33,7 +33,7 @@ from .algorithms.mutators import ChangeOneMutator, DiscreteMutator, SwapMutator,
 # noinspection PyUnresolvedReferences
 from .fitness import OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks, Knapsack, TravellingSales, Queens, MaxKColor, CustomFitness
 
-# noinspection PyUnresolvedReferences
+# noinspection PyUnresolvedReferences,PyProtectedMember
 from .neural import NeuralNetwork, LinearRegression, LogisticRegression, NNClassifier, _nn_core
 
 # noinspection PyUnresolvedReferences

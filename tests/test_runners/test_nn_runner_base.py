@@ -55,7 +55,7 @@ class TestNNRunnerBase:
         assert runner.verbose_grid_search is True
         assert runner.override_ctrl_c_handler is True
         assert runner.n_jobs == 1
-        assert runner._replay_mode.value is False
+        assert runner.replay_mode() is False
         assert runner.cv_results_df is None
         assert runner.best_params is None
 
