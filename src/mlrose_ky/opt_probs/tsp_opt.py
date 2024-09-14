@@ -44,8 +44,8 @@ class TSPOpt(DiscreteOpt):
         length: int = None,
         fitness_fn: Any = None,
         maximize: bool = False,
-        coords: list[tuple[float, float]] = None,
-        distances: list[tuple[int, int, float]] = None,
+        coords: list[tuple] = None,
+        distances: list[tuple] = None,
         source_graph: Any = None,
     ):
         # Ensure that at least one of fitness_fn, coords, or distances is provided
@@ -56,8 +56,8 @@ class TSPOpt(DiscreteOpt):
         if fitness_fn is None:
             fitness_fn = TravellingSales(coords=coords, distances=distances)
 
-        self.distances: list[tuple[int, int, float]] | None = distances
-        self.coords: list[tuple[float, float]] | None = coords
+        self.distances: list[tuple] | None = distances
+        self.coords: list[tuple] | None = coords
 
         # If length is not provided, infer it from coords or distances
         if length is None:
