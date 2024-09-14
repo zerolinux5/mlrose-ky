@@ -7,7 +7,7 @@ from typing import Any
 
 import numpy as np
 
-from mlrose_ky.algorithms.crossovers import TSPCrossover
+from mlrose_ky.algorithms.crossovers import TSPCrossOver
 from mlrose_ky.algorithms.mutators import SwapMutator
 from mlrose_ky.fitness import TravellingSales
 from mlrose_ky.opt_probs.discrete_opt import DiscreteOpt
@@ -69,8 +69,8 @@ class TSPOpt(DiscreteOpt):
 
         self.length: int = length
 
-        # Initialize the parent class with the TSPCrossover and SwapMutator
-        super().__init__(length, fitness_fn, maximize, max_val=length, crossover=TSPCrossover(self), mutator=SwapMutator(self))
+        # Initialize the parent class with the TSPCrossOver and SwapMutator
+        super().__init__(length, fitness_fn, maximize, max_val=length, crossover=TSPCrossOver(self), mutator=SwapMutator(self))
 
         # Ensure that the fitness function type is 'tsp'
         if self.fitness_fn.get_prob_type() != "tsp":

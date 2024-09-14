@@ -10,7 +10,7 @@ from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import minimum_spanning_tree, depth_first_tree
 from sklearn.metrics import mutual_info_score
 
-from mlrose_ky.algorithms.crossovers import UniformCrossover, TSPCrossover
+from mlrose_ky.algorithms.crossovers import UniformCrossOver, TSPCrossOver
 from mlrose_ky.algorithms.mutators import SwapMutator
 from mlrose_ky.opt_probs.opt_prob import _OptProb
 
@@ -34,8 +34,8 @@ class DiscreteOpt(_OptProb):
         Number of unique values that each element in the state vector can take.
         Assumes values are integers in the range 0 to (max_val - 1), inclusive.
 
-    crossover : UniformCrossover | TSPCrossover, default=None
-        Crossover operation used for reproduction. If None, defaults to `UniformCrossover`.
+    crossover : UniformCrossOver | TSPCrossOver, default=None
+        Crossover operation used for reproduction. If None, defaults to `UniformCrossOver`.
 
     mutator : SwapMutator, default=None
         Mutation operation used for reproduction. If None, defaults to `SwapMutator`.
@@ -54,7 +54,7 @@ class DiscreteOpt(_OptProb):
         Problem type; always 'discrete' for this class.
     noise : float
         Noise factor for probability density estimation.
-    _crossover : UniformCrossover
+    _crossover : UniformCrossOver
         Crossover operation for reproduction.
     _mutator : SwapMutator
         Mutation operation for reproduction.
@@ -70,7 +70,7 @@ class DiscreteOpt(_OptProb):
         fitness_fn: Any,
         maximize: bool = True,
         max_val: int = 2,
-        crossover: UniformCrossover | TSPCrossover = None,
+        crossover: UniformCrossOver | TSPCrossOver = None,
         mutator: "SwapMutator" = None,
     ):
         self._get_mutual_info_impl = self._get_mutual_info_slow
@@ -100,7 +100,7 @@ class DiscreteOpt(_OptProb):
         self.prob_type: str = "discrete"
         self.noise: float = 0
 
-        self._crossover: UniformCrossover | TSPCrossover = UniformCrossover(self) if crossover is None else crossover
+        self._crossover: UniformCrossOver | TSPCrossOver = UniformCrossOver(self) if crossover is None else crossover
         self._mutator: SwapMutator = SwapMutator(self) if mutator is None else mutator
 
         self._mut_mask: np.ndarray | None = None

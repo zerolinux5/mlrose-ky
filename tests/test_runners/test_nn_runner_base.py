@@ -96,7 +96,7 @@ class TestNNRunnerBase:
 
         with (
             patch.object(runner, "_setup", return_value=None) as mock_setup,
-            patch.object(runner, "perform_grid_search", return_value=mock_grid_search_result) as mock_grid_search,
+            patch.object(runner, "_perform_grid_search", return_value=mock_grid_search_result) as mock_grid_search,
             patch.object(runner, "_tear_down", return_value=None) as mock_tear_down,
             patch.object(runner, "_print_banner", return_value=None) as mock_print_banner,
         ):
@@ -127,7 +127,7 @@ class TestNNRunnerBase:
                 output_directory="test_output",
             )
 
-            runner.get_runner_name = MagicMock(return_value="TestRunner")
+            runner.runner_name = MagicMock(return_value="TestRunner")
             runner.best_params = {"param1": 0.1, "param2": 1}
             runner._output_directory = "test_output"
             runner.replay_mode = MagicMock(return_value=False)

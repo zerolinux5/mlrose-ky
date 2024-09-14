@@ -40,7 +40,7 @@ class _MutatorBase(ABC):
         self._length: int = opt_prob.length
 
     @abstractmethod
-    def mutate(self, child: np.ndarray, mutation_probability: float) -> Any:
+    def mutate(self, child: np.ndarray, mutation_probability: float) -> np.ndarray:
         """
         Apply mutation operation to a given child chromosome based on a mutation probability.
 

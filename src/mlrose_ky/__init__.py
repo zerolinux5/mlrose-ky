@@ -25,24 +25,13 @@ from .algorithms.mimic import mimic
 from .algorithms.decay import GeomDecay, ArithDecay, ExpDecay, CustomSchedule
 
 # noinspection PyUnresolvedReferences
-from .algorithms.crossovers import OnePointCrossover, UniformCrossover, TSPCrossover
+from .algorithms.crossovers import OnePointCrossOver, UniformCrossOver, TSPCrossOver
 
 # noinspection PyUnresolvedReferences
 from .algorithms.mutators import ChangeOneMutator, DiscreteMutator, SwapMutator, ShiftOneMutator
 
 # noinspection PyUnresolvedReferences
-from .fitness import (
-    OneMax,
-    FlipFlop,
-    FourPeaks,
-    SixPeaks,
-    ContinuousPeaks,
-    Knapsack,
-    TravellingSales,
-    Queens,
-    MaxKColor,
-    CustomFitness,
-)
+from .fitness import OneMax, FlipFlop, FourPeaks, SixPeaks, ContinuousPeaks, Knapsack, TravellingSales, Queens, MaxKColor, CustomFitness
 
 # noinspection PyUnresolvedReferences
 from .neural import NeuralNetwork, LinearRegression, LogisticRegression, NNClassifier, _nn_core
