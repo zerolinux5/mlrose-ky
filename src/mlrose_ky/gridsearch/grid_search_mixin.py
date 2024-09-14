@@ -58,10 +58,10 @@ class GridSearchMixin:
             Number of cross-validation folds.
         parameters : dict
             Dictionary with parameters names as keys and lists of parameter settings to try as values.
-        n_jobs : int, optional
-            Number of jobs to run in parallel. Defaults to 1.
-        verbose : bool, optional
-            Whether to display verbose output during grid search. Defaults to False.
+        n_jobs : int, optional, default=1
+            Number of jobs to run in parallel.
+        verbose : bool, optional, default=1
+            Whether to display verbose output during grid search.
 
         Returns
         -------
