@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_3b3e5079573c909e_max_k_color_opt_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-09-10 06:24 +0000
+            created at 2024-09-14 13:49 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -87,7 +87,7 @@
     <p class="pln"><span class="n"><a id="t5" href="#t5">5</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t6" href="#t6">6</a></span><span class="t"><span class="key">from</span> <span class="nam">typing</span> <span class="key">import</span> <span class="nam">Any</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t7" href="#t7">7</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">algorithms</span><span class="op">.</span><span class="nam">crossovers</span> <span class="key">import</span> <span class="nam">UniformCrossover</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t8" href="#t8">8</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">algorithms</span><span class="op">.</span><span class="nam">crossovers</span> <span class="key">import</span> <span class="nam">UniformCrossOver</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t9" href="#t9">9</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">algorithms</span><span class="op">.</span><span class="nam">mutators</span> <span class="key">import</span> <span class="nam">ChangeOneMutator</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t10" href="#t10">10</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">fitness</span><span class="op">.</span><span class="nam">knapsack</span> <span class="key">import</span> <span class="nam">Knapsack</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t11" href="#t11">11</a></span><span class="t"><span class="key">from</span> <span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">opt_probs</span><span class="op">.</span><span class="nam">discrete_opt</span> <span class="key">import</span> <span class="nam">DiscreteOpt</span>&nbsp;</span><span class="r"></span></p>
@@ -119,8 +119,8 @@
     <p class="pln"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t"><span class="str">    max_weight_pct : float, default=0.35</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t38" href="#t38">38</a></span><span class="t"><span class="str">        Maximum allowable weight as a percentage of the total weight.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t39" href="#t39">39</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t"><span class="str">    crossover : UniformCrossover, default=None</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t"><span class="str">        Crossover operation used for reproduction. If None, defaults to `UniformCrossover`.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t"><span class="str">    crossover : UniformCrossOver, default=None</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t41" href="#t41">41</a></span><span class="t"><span class="str">        Crossover operation used for reproduction. If None, defaults to `UniformCrossOver`.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t42" href="#t42">42</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t43" href="#t43">43</a></span><span class="t"><span class="str">    mutator : ChangeOneMutator, default=None</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t44" href="#t44">44</a></span><span class="t"><span class="str">        Mutation operation used for reproduction. If None, defaults to `ChangeOneMutator`.</span>&nbsp;</span><span class="r"></span></p>
@@ -149,7 +149,7 @@
     <p class="pln"><span class="n"><a id="t67" href="#t67">67</a></span><span class="t">        <span class="nam">weights</span><span class="op">:</span> <span class="nam">list</span><span class="op">[</span><span class="nam">float</span><span class="op">]</span> <span class="op">=</span> <span class="key">None</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t68" href="#t68">68</a></span><span class="t">        <span class="nam">values</span><span class="op">:</span> <span class="nam">list</span><span class="op">[</span><span class="nam">float</span><span class="op">]</span> <span class="op">=</span> <span class="key">None</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t69" href="#t69">69</a></span><span class="t">        <span class="nam">max_weight_pct</span><span class="op">:</span> <span class="nam">float</span> <span class="op">=</span> <span class="num">0.35</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t70" href="#t70">70</a></span><span class="t">        <span class="nam">crossover</span><span class="op">:</span> <span class="str">"UniformCrossover"</span> <span class="op">=</span> <span class="key">None</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t70" href="#t70">70</a></span><span class="t">        <span class="nam">crossover</span><span class="op">:</span> <span class="str">"UniformCrossOver"</span> <span class="op">=</span> <span class="key">None</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t71" href="#t71">71</a></span><span class="t">        <span class="nam">mutator</span><span class="op">:</span> <span class="str">"ChangeOneMutator"</span> <span class="op">=</span> <span class="key">None</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t72" href="#t72">72</a></span><span class="t">        <span class="nam">multiply_by_max_item_count</span><span class="op">:</span> <span class="nam">bool</span> <span class="op">=</span> <span class="key">False</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t73" href="#t73">73</a></span><span class="t">    <span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -176,7 +176,7 @@
     <p class="pln"><span class="n"><a id="t94" href="#t94">94</a></span><span class="t">                <span class="nam">multiply_by_max_item_count</span><span class="op">=</span><span class="nam">multiply_by_max_item_count</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t95" href="#t95">95</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t96" href="#t96">96</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t97" href="#t97">97</a></span><span class="t">        <span class="nam">crossover</span> <span class="op">=</span> <span class="nam">UniformCrossover</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="key">if</span> <span class="nam">crossover</span> <span class="key">is</span> <span class="key">None</span> <span class="key">else</span> <span class="nam">crossover</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t97" href="#t97">97</a></span><span class="t">        <span class="nam">crossover</span> <span class="op">=</span> <span class="nam">UniformCrossOver</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="key">if</span> <span class="nam">crossover</span> <span class="key">is</span> <span class="key">None</span> <span class="key">else</span> <span class="nam">crossover</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t98" href="#t98">98</a></span><span class="t">        <span class="nam">mutator</span> <span class="op">=</span> <span class="nam">ChangeOneMutator</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="key">if</span> <span class="nam">mutator</span> <span class="key">is</span> <span class="key">None</span> <span class="key">else</span> <span class="nam">mutator</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t99" href="#t99">99</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t100" href="#t100">100</a></span><span class="t">        <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">__init__</span><span class="op">(</span><span class="nam">length</span><span class="op">,</span> <span class="nam">fitness_fn</span><span class="op">,</span> <span class="nam">maximize</span><span class="op">,</span> <span class="nam">max_val</span><span class="op">,</span> <span class="nam">crossover</span><span class="op">,</span> <span class="nam">mutator</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -189,7 +189,7 @@
             <a class="nav" href="z_3b3e5079573c909e_max_k_color_opt_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-09-10 06:24 +0000
+            created at 2024-09-14 13:49 +0000
         </p>
     </div>
 </footer>

@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_fae7590ae2df1f93_nngs_runner_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-09-10 06:24 +0000
+            created at 2024-09-14 13:49 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -194,7 +194,7 @@
     <p class="run"><span class="n"><a id="t112" href="#t112">112</a></span><span class="t">        <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">_setup</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t113" href="#t113">113</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t114" href="#t114">114</a></span><span class="t">        <span class="key">if</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_use_fast_mimic</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t115" href="#t115">115</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">log_current_argument</span><span class="op">(</span><span class="str">"use_fast_mimic"</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_use_fast_mimic</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t115" href="#t115">115</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">_log_current_argument</span><span class="op">(</span><span class="str">"use_fast_mimic"</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">_use_fast_mimic</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t116" href="#t116">116</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t117" href="#t117">117</a></span><span class="t">    <span class="key">def</span> <span class="nam">run</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">tuple</span><span class="op">[</span><span class="nam">pd</span><span class="op">.</span><span class="nam">DataFrame</span> <span class="op">|</span> <span class="key">None</span><span class="op">,</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">DataFrame</span> <span class="op">|</span> <span class="key">None</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t118" href="#t118">118</a></span><span class="t">        <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
@@ -208,7 +208,7 @@
     <p class="pln"><span class="n"><a id="t126" href="#t126">126</a></span><span class="t"><span class="str">        tuple</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t127" href="#t127">127</a></span><span class="t"><span class="str">            A tuple containing two DataFrames: run statistics and run curves</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t128" href="#t128">128</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t129" href="#t129">129</a></span><span class="t">        <span class="key">return</span> <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">run_experiment</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t129" href="#t129">129</a></span><span class="t">        <span class="key">return</span> <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">run_experiment_</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t130" href="#t130">130</a></span><span class="t">            <span class="nam">algorithm</span><span class="op">=</span><span class="nam">mlrose_ky</span><span class="op">.</span><span class="nam">mimic</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t131" href="#t131">131</a></span><span class="t">            <span class="nam">pop_size</span><span class="op">=</span><span class="op">(</span><span class="str">"Population Size"</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">population_sizes</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t132" href="#t132">132</a></span><span class="t">            <span class="nam">keep_pct</span><span class="op">=</span><span class="op">(</span><span class="str">"Keep Percent"</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">keep_percent_list</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -222,7 +222,7 @@
             <a class="nav" href="z_fae7590ae2df1f93_nngs_runner_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-09-10 06:24 +0000
+            created at 2024-09-14 13:49 +0000
         </p>
     </div>
 </footer>

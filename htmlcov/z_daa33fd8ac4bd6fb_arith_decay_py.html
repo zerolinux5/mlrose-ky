@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Coverage for src/mlrose_ky/algorithms/decay/arithmetic_decay.py: 52%</title>
+    <title>Coverage for src/mlrose_ky/algorithms/decay/arith_decay.py: 52%</title>
     <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
     <link rel="stylesheet" href="style_cb_8e611ae1.css" type="text/css">
     <script src="coverage_html_cb_6fb7b396.js" defer></script>
@@ -11,7 +11,7 @@
 <header>
     <div class="content">
         <h1>
-            <span class="text">Coverage for </span><b>src/mlrose_ky/algorithms/decay/arithmetic_decay.py</b>:
+            <span class="text">Coverage for </span><b>src/mlrose_ky/algorithms/decay/arith_decay.py</b>:
             <span class="pc_cov">52%</span>
         </h1>
         <aside id="help_panel_wrapper">
@@ -62,10 +62,10 @@
         <p class="text">
             <a id="prevFileLink" class="nav" href="z_daa33fd8ac4bd6fb___init___py.html">&#xab; prev</a> &nbsp; &nbsp;
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
-            <a id="nextFileLink" class="nav" href="z_daa33fd8ac4bd6fb_custom_decay_py.html">&#xbb; next</a>
+            <a id="nextFileLink" class="nav" href="z_daa33fd8ac4bd6fb_custom_schedule_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-09-10 06:24 +0000
+            created at 2024-09-14 13:49 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -146,13 +146,13 @@
     <p class="mis show_mis"><span class="n"><a id="t64" href="#t64">64</a></span><span class="t">            <span class="key">return</span> <span class="key">False</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t65" href="#t65">65</a></span><span class="t">        <span class="key">return</span> <span class="nam">self</span><span class="op">.</span><span class="nam">init_temp</span> <span class="op">==</span> <span class="nam">other</span><span class="op">.</span><span class="nam">init_temp</span> <span class="key">and</span> <span class="nam">self</span><span class="op">.</span><span class="nam">decay</span> <span class="op">==</span> <span class="nam">other</span><span class="op">.</span><span class="nam">decay</span> <span class="key">and</span> <span class="nam">self</span><span class="op">.</span><span class="nam">min_temp</span> <span class="op">==</span> <span class="nam">other</span><span class="op">.</span><span class="nam">min_temp</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t66" href="#t66">66</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t67" href="#t67">67</a></span><span class="t">    <span class="key">def</span> <span class="nam">evaluate</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">time</span><span class="op">:</span> <span class="nam">int</span><span class="op">)</span> <span class="op">-></span> <span class="nam">float</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t67" href="#t67">67</a></span><span class="t">    <span class="key">def</span> <span class="nam">evaluate</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">t</span><span class="op">:</span> <span class="nam">int</span><span class="op">)</span> <span class="op">-></span> <span class="nam">float</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t68" href="#t68">68</a></span><span class="t">        <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t69" href="#t69">69</a></span><span class="t"><span class="str">        Calculate and return the temperature parameter at the given time.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t70" href="#t70">70</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t71" href="#t71">71</a></span><span class="t"><span class="str">        Parameters</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t72" href="#t72">72</a></span><span class="t"><span class="str">        ----------</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t73" href="#t73">73</a></span><span class="t"><span class="str">        time : int</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t73" href="#t73">73</a></span><span class="t"><span class="str">        t : int</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t74" href="#t74">74</a></span><span class="t"><span class="str">            The time at which to evaluate the temperature parameter.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t75" href="#t75">75</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t76" href="#t76">76</a></span><span class="t"><span class="str">        Returns</span>&nbsp;</span><span class="r"></span></p>
@@ -160,15 +160,15 @@
     <p class="pln"><span class="n"><a id="t78" href="#t78">78</a></span><span class="t"><span class="str">        float</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t79" href="#t79">79</a></span><span class="t"><span class="str">            The temperature parameter at the given time, respecting the minimum temperature.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t80" href="#t80">80</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t81" href="#t81">81</a></span><span class="t">        <span class="key">return</span> <span class="nam">max</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">init_temp</span> <span class="op">-</span> <span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">decay</span> <span class="op">*</span> <span class="nam">time</span><span class="op">)</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">min_temp</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t81" href="#t81">81</a></span><span class="t">        <span class="key">return</span> <span class="nam">max</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">init_temp</span> <span class="op">-</span> <span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">decay</span> <span class="op">*</span> <span class="nam">t</span><span class="op">)</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">min_temp</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t82" href="#t82">82</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t83" href="#t83">83</a></span><span class="t">    <span class="key">def</span> <span class="nam">get_info</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">time</span><span class="op">:</span> <span class="nam">int</span> <span class="op">=</span> <span class="key">None</span><span class="op">,</span> <span class="nam">prefix</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">""</span><span class="op">)</span> <span class="op">-></span> <span class="nam">dict</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t83" href="#t83">83</a></span><span class="t">    <span class="key">def</span> <span class="nam">get_info__</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">t</span><span class="op">:</span> <span class="nam">int</span> <span class="op">=</span> <span class="key">None</span><span class="op">,</span> <span class="nam">prefix</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">""</span><span class="op">)</span> <span class="op">-></span> <span class="nam">dict</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t84" href="#t84">84</a></span><span class="t">        <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t85" href="#t85">85</a></span><span class="t"><span class="str">        Generate a dictionary containing the decay schedule's settings and optionally its current value.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t86" href="#t86">86</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t87" href="#t87">87</a></span><span class="t"><span class="str">        Parameters</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t88" href="#t88">88</a></span><span class="t"><span class="str">        ----------</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t89" href="#t89">89</a></span><span class="t"><span class="str">        time : int, optional</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t89" href="#t89">89</a></span><span class="t"><span class="str">        t : int, optional</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t90" href="#t90">90</a></span><span class="t"><span class="str">            The time at which to evaluate the current temperature value.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t91" href="#t91">91</a></span><span class="t"><span class="str">            If provided, the current value is included in the returned dictionary.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t92" href="#t92">92</a></span><span class="t"><span class="str">        prefix : str, optional</span>&nbsp;</span><span class="r"></span></p>
@@ -188,8 +188,8 @@
     <p class="pln"><span class="n"><a id="t106" href="#t106">106</a></span><span class="t">            <span class="fst">f"</span><span class="op">{</span><span class="nam">info_prefix</span><span class="op">}</span><span class="fst">min_temp</span><span class="fst">"</span><span class="op">:</span> <span class="nam">self</span><span class="op">.</span><span class="nam">min_temp</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t107" href="#t107">107</a></span><span class="t">        <span class="op">}</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t108" href="#t108">108</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t109" href="#t109">109</a></span><span class="t">        <span class="key">if</span> <span class="nam">time</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="mis show_mis"><span class="n"><a id="t110" href="#t110">110</a></span><span class="t">            <span class="nam">info</span><span class="op">[</span><span class="fst">f"</span><span class="op">{</span><span class="nam">info_prefix</span><span class="op">}</span><span class="fst">current_value</span><span class="fst">"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">evaluate</span><span class="op">(</span><span class="nam">time</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t109" href="#t109">109</a></span><span class="t">        <span class="key">if</span> <span class="nam">t</span> <span class="key">is</span> <span class="key">not</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t110" href="#t110">110</a></span><span class="t">            <span class="nam">info</span><span class="op">[</span><span class="fst">f"</span><span class="op">{</span><span class="nam">info_prefix</span><span class="op">}</span><span class="fst">current_value</span><span class="fst">"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">evaluate</span><span class="op">(</span><span class="nam">t</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t111" href="#t111">111</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t112" href="#t112">112</a></span><span class="t">        <span class="key">return</span> <span class="nam">info</span>&nbsp;</span><span class="r"></span></p>
 </main>
@@ -198,10 +198,10 @@
         <p>
             <a class="nav" href="z_daa33fd8ac4bd6fb___init___py.html">&#xab; prev</a> &nbsp; &nbsp;
             <a class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
-            <a class="nav" href="z_daa33fd8ac4bd6fb_custom_decay_py.html">&#xbb; next</a>
+            <a class="nav" href="z_daa33fd8ac4bd6fb_custom_schedule_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.1">coverage.py v7.6.1</a>,
-            created at 2024-09-10 06:24 +0000
+            created at 2024-09-14 13:49 +0000
         </p>
     </div>
 </footer>
