@@ -56,18 +56,5 @@ class _CrossOverBase(ABC):
 
         This method must be implemented by subclasses to define specific crossover
         behavior based on the genetics of the parents.
-
-        Parameters
-        ----------
-        p1 : Sequence[int | float]
-            The first parent participating in the crossover.
-        p2 : Sequence[int | float]
-            The second parent participating in the crossover.
-
-        Returns
-        -------
-        np.ndarray
-            The offspring resulting from the crossover. The type of this result
-            can vary depending on the specific GA implementation.
         """
-        pass
+        raise NotImplementedError("Subclasses must implement this method")
