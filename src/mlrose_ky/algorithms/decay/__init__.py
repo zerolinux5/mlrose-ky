@@ -5,5 +5,5 @@
 
 from .arith_decay import ArithDecay
 from .custom_schedule import CustomSchedule
-from .expl_decay import ExpDecay
+from .exp_decay import ExpDecay
 from .geom_decay import GeomDecay
