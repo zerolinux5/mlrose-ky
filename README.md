@@ -92,7 +92,7 @@
 | src/mlrose\_ky/runners/skmlp\_runner.py                          |      107 |       36 |     66% |133-140, 156, 176-188, 237-244, 249-263, 341, 407-412 |
 | src/mlrose\_ky/runners/utils.py                                  |       14 |        2 |     86% |     37-38 |
 | src/mlrose\_ky/samples/\_\_init\_\_.py                           |        1 |        0 |    100% |           |
-| src/mlrose\_ky/samples/synthetic\_data.py                        |      123 |       28 |     77% |80-87, 171-190, 246, 260, 265-267, 276 |
+| src/mlrose\_ky/samples/synthetic\_data.py                        |      123 |        0 |    100% |           |
 | tests/\_\_init\_\_.py                                            |        0 |        0 |    100% |           |
 | tests/globals.py                                                 |       10 |        0 |    100% |           |
 | tests/test\_algorithms.py                                        |      108 |        0 |    100% |           |
@@ -138,8 +138,8 @@
 | tests/test\_runners/test\_runner\_utils.py                       |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_sa\_runner.py                          |       47 |        0 |    100% |           |
 | tests/test\_runners/test\_skmlp\_runner.py                       |       53 |        0 |    100% |           |
-| tests/test\_samples.py                                           |       40 |        0 |    100% |           |
-|                                                        **TOTAL** | **5516** |  **497** | **91%** |           |
+| tests/test\_samples.py                                           |      107 |        0 |    100% |           |
+|                                                        **TOTAL** | **5583** |  **469** | **92%** |           |
 
 
 ## Setup coverage badge
