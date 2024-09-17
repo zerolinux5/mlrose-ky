@@ -3,13 +3,15 @@
 # Author: Kyle Nakamura
 # License: BSD 3-clause
 
+from unittest.mock import patch
+
 import numpy as np
 import pytest
-from unittest.mock import patch
+
+from mlrose_ky.algorithms.crossovers import OnePointCrossOver, TSPCrossOver, UniformCrossOver
 
 # noinspection PyProtectedMember
 from mlrose_ky.algorithms.crossovers._crossover_base import _CrossOverBase
-from mlrose_ky.algorithms.crossovers import OnePointCrossOver, TSPCrossOver, UniformCrossOver
 
 
 class MockOptProb:

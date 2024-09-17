@@ -3,13 +3,15 @@
 # Author: Kyle Nakamura
 # License: BSD 3-clause
 
+from unittest.mock import patch
+
 import numpy as np
 import pytest
-from unittest.mock import patch
+
+from mlrose_ky.algorithms.mutators import ChangeOneMutator, DiscreteMutator, ShiftOneMutator, SwapMutator
 
 # noinspection PyProtectedMember
 from mlrose_ky.algorithms.mutators._mutator_base import _MutatorBase
-from mlrose_ky.algorithms.mutators import ChangeOneMutator, DiscreteMutator, ShiftOneMutator, SwapMutator
 
 
 class MockOptProb:
