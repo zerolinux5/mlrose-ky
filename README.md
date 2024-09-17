@@ -114,8 +114,7 @@ You can cite `mlrose-ky` in research publications and reports as follows:
 
 Please also keep the original authors' citations:
 
-* Rollings, A. (2020). ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix
-  ***. https://github.com/hiive/mlrose. Accessed: *day month year*.
+* Rollings, A. (2020). ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix***. https://github.com/hiive/mlrose. Accessed: *day month year*.
 * Hayes, G. (2019).
   ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python***. https://github.com/gkhayes/mlrose. Accessed: *day
   month year*.
