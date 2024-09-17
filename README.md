@@ -101,12 +101,12 @@ available [here](https://github.com/gkhayes/mlrose/blob/master/tutorial_examples
 
 ## Licensing, Authors, Acknowledgements
 
-mlrose-ky was forked from the `mlrose-hiive` repository, which was a fork of the original `mlrose` repository.
+`mlrose-ky` was forked from the `mlrose-hiive` repository, which was a fork of the original `mlrose` repository.
 
 The original `mlrose` was written by Genevieve Hayes and is distributed under
 the [3-Clause BSD license](https://github.com/gkhayes/mlrose/blob/master/LICENSE).
 
-You can cite mlrose-ky in research publications and reports as follows:
+You can cite `mlrose-ky` in research publications and reports as follows:
 
 * Nakamura, K. (2024).
   ***mlrose-ky: Machine Learning, Randomized Optimization, and SEarch package for Python***. https://github.com/knakamura13/mlrose-ky/.
@@ -114,7 +114,7 @@ You can cite mlrose-ky in research publications and reports as follows:
 
 Please also keep the original authors' citations:
 
-* Rollings, A. (2020).***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix
+* Rollings, A. (2020). ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix
   ***. https://github.com/hiive/mlrose. Accessed: *day month year*.
 * Hayes, G. (2019).
   ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python***. https://github.com/gkhayes/mlrose. Accessed: *day
