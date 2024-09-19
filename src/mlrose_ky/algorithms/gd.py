@@ -87,7 +87,8 @@ def gradient_descent(
             user_data=callback_user_info,
         )
 
-    best_fitness = problem.get_maximize() * problem.get_fitness()
+    # Initialize best state and best fitness
+    best_fitness = problem.get_fitness()
     best_state = problem.get_state()
 
     attempts = 0
@@ -102,7 +103,8 @@ def gradient_descent(
         next_fitness = problem.eval_fitness(next_state)
 
         current_fitness = problem.get_fitness()
-        if next_fitness > current_fitness:
+        # Adjust comparison for maximization or minimization
+        if problem.get_maximize() * next_fitness > problem.get_maximize() * current_fitness:
             attempts = 0
         else:
             attempts += 1
@@ -110,15 +112,15 @@ def gradient_descent(
         if curve:
             fitness_curve.append((problem.get_adjusted_fitness(), problem.fitness_evaluations))
 
-        # invoke callback
+        # Invoke callback
         if state_fitness_callback is not None:
             max_attempts_reached = attempts == max_attempts or iters == max_iters or problem.can_stop()
             continue_iterating = state_fitness_callback(
                 iteration=iters,
-                attempt=attempts + 1,
-                done=max_attempts_reached,
                 state=problem.get_state(),
                 fitness=problem.get_adjusted_fitness(),
+                attempt=attempts,
+                max_attempts_reached=max_attempts_reached,
                 curve=np.asarray(fitness_curve) if curve else None,
                 user_data=callback_user_info,
             )
@@ -126,8 +128,9 @@ def gradient_descent(
         if not continue_iterating:
             break
 
-        if next_fitness > problem.get_maximize() * best_fitness:
-            best_fitness = problem.get_maximize() * next_fitness
+        # Update best state and best fitness
+        if problem.get_maximize() * next_fitness > problem.get_maximize() * best_fitness:
+            best_fitness = next_fitness
             best_state = next_state
 
         problem.set_state(next_state)
