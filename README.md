@@ -8,15 +8,25 @@ optimization problems, over both discrete- and continuous-valued parameter space
 
 ## Project Background
 
-mlrose-ky is a fork of the `mlrose-hiive` repository, which itself was a fork of the original `mlrose` repository. The original mlrose
-package was developed to support students of Georgia Tech's OMSCS/OMSA offering of CS 7641: Machine Learning.
+`mlrose-ky` is a fork of the [`mlrose-hiive`](https://github.com/hiive/mlrose) repository, which itself was a fork of the original [`mlrose`](https://github.com/gkhayes/mlrose) repository. 
 
-This repository includes implementations of all randomized optimization algorithms taught in the course, as well as functionality to apply
-these algorithms to integer-string optimization problems, such as N-Queens and the Knapsack problem; continuous-valued optimization
-problems, such as the neural network weight problem; and tour optimization problems, such as the Travelling Salesperson problem. It also has
-the flexibility to solve user-defined optimization problems.
+The original `mlrose` was developed to support students of Georgia Tech's OMSCS/OMSA offering of CS 7641: Machine Learning. 
+
+Later, `mlrose-hiive` introduced a number of improvements (for example, the `Runners` submodule) and bug fixes on top of `mlrose`, though it lacked documentation, contained some mysterious bugs and inefficiencies, and was unmaintained as of around 2022. 
+
+Today, `mlrose-ky` introduces additional improvements and bug fixes on top of `mlrose-hiive`. Somee of these improvements include:
+- Added documentation to every class, method, and function (i.e., descriptive docstrings, strong type-hints, and comments)
+- New documentation available here: https://nkapila6.github.io/mlrose-ky/
+- Increased test coverage from ~5% to ~90% (and still aiming for 100% coverage)
+- Actively being maintained
+- Fully backwards compatible with `mlrose-hiive`
+- Optimized Python code with NumPy vectorization
+- Optimized algorithm implementations, including a bug fix for Random Hill Climb (TODO: *rhc.py:126*)
 
 ## Main Features
+
+This repository includes implementations of all randomized optimization algorithms taught in the course, as well as functionality to apply these algorithms to integer-string optimization problems, such as N-Queens and the Knapsack problem; continuous-valued optimization problems, such as the neural network weight problem; and tour optimization problems, such as the Travelling Salesperson problem. It also has
+the flexibility to solve user-defined optimization problems.
 
 #### *Randomized Optimization Algorithms*
 
@@ -48,13 +58,13 @@ that have been completed or are in progress:
    code." ✅
 
 2. **Add Python 3.10 Type Hints**: Type hints are being added to all function and method definitions, as well as method properties (
-   e.g., `self.foo: str = 'bar'`), to improve code clarity and maintainability.
+   e.g., `self.foo: str = 'bar'`), to improve code clarity and maintainability. ✅
 
 3. **Enhance Documentation**: NumPy-style docstrings are being added to all functions and methods, with at least a one-line docstring at the
-   top of every file summarizing its contents. This will make the codebase more understandable and easier to use for others.
+   top of every file summarizing its contents. This will make the codebase more understandable and easier to use for others. ✅
 
 4. **Increase Test Coverage**: Tests are being added using Pytest, with a goal of achieving 100% code coverage to ensure the robustness of
-   the codebase.
+   the codebase. 
 
 5. **Resolve TODO/FIXME Comments**: A thorough search is being conducted for any TODO, FIXME, or similar comments, and their respective
    issues are being resolved.
@@ -64,7 +74,7 @@ that have been completed or are in progress:
 7. **Improve Code Quality**: Any other sub-optimal code, bugs, or code quality issues are being addressed to ensure a high standard of
    coding practices.
 
-8. **Clean Up Codebase**: All commented-out code is being removed to keep the codebase clean and maintainable.
+8. **Clean Up Codebase**: All commented-out code is being removed to keep the codebase clean and maintainable. ✅
 
 ## Installation
 
@@ -91,12 +101,12 @@ available [here](https://github.com/gkhayes/mlrose/blob/master/tutorial_examples
 
 ## Licensing, Authors, Acknowledgements
 
-mlrose-ky was forked from the `mlrose-hiive` repository, which was a fork of the original `mlrose` repository.
+`mlrose-ky` was forked from the `mlrose-hiive` repository, which was a fork of the original `mlrose` repository.
 
 The original `mlrose` was written by Genevieve Hayes and is distributed under
 the [3-Clause BSD license](https://github.com/gkhayes/mlrose/blob/master/LICENSE).
 
-You can cite mlrose-ky in research publications and reports as follows:
+You can cite `mlrose-ky` in research publications and reports as follows:
 
 * Nakamura, K. (2024).
   ***mlrose-ky: Machine Learning, Randomized Optimization, and SEarch package for Python***. https://github.com/knakamura13/mlrose-ky/.
@@ -104,8 +114,7 @@ You can cite mlrose-ky in research publications and reports as follows:
 
 Please also keep the original authors' citations:
 
-* Rollings, A. (2020).***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix
-  ***. https://github.com/hiive/mlrose. Accessed: *day month year*.
+* Rollings, A. (2020). ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix***. https://github.com/hiive/mlrose. Accessed: *day month year*.
 * Hayes, G. (2019).
   ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python***. https://github.com/gkhayes/mlrose. Accessed: *day
   month year*.
