@@ -3,18 +3,21 @@
 [![PyPI version](https://badge.fury.io/py/mlrose-ky.svg)](https://pypi.org/project/mlrose-ky/)
 [![Coverage badge](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=coverage&query=%24.message&url=https%3A%2F%2Fraw.githubusercontent.com%2Fnkapila6%2Fmlrose-ky%2Fpython-coverage-comment-action-data%2Fendpoint.json)](https://htmlpreview.github.io/?https://github.com/nkapila6/mlrose-ky/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-mlrose-ky is a Python package for applying some of the most common randomized optimization and search algorithms to a range of different
+`mlrose-ky` is a Python package for applying some of the most common randomized optimization and search algorithms to a range of different
 optimization problems, over both discrete- and continuous-valued parameter spaces.
 
 ## Project Background
 
-`mlrose-ky` is a fork of the [`mlrose-hiive`](https://github.com/hiive/mlrose) repository, which itself was a fork of the original [`mlrose`](https://github.com/gkhayes/mlrose) repository. 
+`mlrose-ky` is a fork of the [`mlrose-hiive`](https://github.com/hiive/mlrose) repository, which itself was a fork of the
+original [`mlrose`](https://github.com/gkhayes/mlrose) repository.
 
-The original `mlrose` was developed to support students of Georgia Tech's OMSCS/OMSA offering of CS 7641: Machine Learning. 
+The original `mlrose` was developed to support students of Georgia Tech's OMSCS/OMSA offering of CS 7641: Machine Learning.
 
-Later, `mlrose-hiive` introduced a number of improvements (for example, the `Runners` submodule) and bug fixes on top of `mlrose`, though it lacked documentation, contained some mysterious bugs and inefficiencies, and was unmaintained as of around 2022. 
+Later, `mlrose-hiive` introduced a number of improvements (for example, the `Runners` submodule) and bug fixes on top of `mlrose`, though it
+lacked documentation, contained some mysterious bugs and inefficiencies, and was unmaintained as of around 2022.
 
-Today, `mlrose-ky` introduces additional improvements and bug fixes on top of `mlrose-hiive`. Somee of these improvements include:
+Today, `mlrose-ky` introduces additional improvements and bug fixes on top of `mlrose-hiive`. Some of these improvements include:
+
 - Added documentation to every class, method, and function (i.e., descriptive docstrings, strong type-hints, and comments)
 - New documentation available here: https://nkapila6.github.io/mlrose-ky/
 - Increased test coverage from ~5% to ~90% (and still aiming for 100% coverage)
@@ -25,7 +28,9 @@ Today, `mlrose-ky` introduces additional improvements and bug fixes on top of `m
 
 ## Main Features
 
-This repository includes implementations of all randomized optimization algorithms taught in the course, as well as functionality to apply these algorithms to integer-string optimization problems, such as N-Queens and the Knapsack problem; continuous-valued optimization problems, such as the neural network weight problem; and tour optimization problems, such as the Travelling Salesperson problem. It also has
+This repository includes implementations of all randomized optimization algorithms taught in the course, as well as functionality to apply
+these algorithms to integer-string optimization problems, such as N-Queens and the Knapsack problem; continuous-valued optimization
+problems, such as the neural network weight problem; and tour optimization problems, such as the Travelling Salesperson problem. It also has
 the flexibility to solve user-defined optimization problems.
 
 #### *Randomized Optimization Algorithms*
@@ -64,7 +69,7 @@ that have been completed or are in progress:
    top of every file summarizing its contents. This will make the codebase more understandable and easier to use for others. ✅
 
 4. **Increase Test Coverage**: Tests are being added using Pytest, with a goal of achieving 100% code coverage to ensure the robustness of
-   the codebase. 
+   the codebase.
 
 5. **Resolve TODO/FIXME Comments**: A thorough search is being conducted for any TODO, FIXME, or similar comments, and their respective
    issues are being resolved.
@@ -78,7 +83,7 @@ that have been completed or are in progress:
 
 ## Installation
 
-mlrose-ky was written in Python 3 and requires NumPy, SciPy, and Scikit-Learn (sklearn).
+`mlrose-ky` was written in Python 3 and requires NumPy, SciPy, and Scikit-Learn (sklearn).
 
 The latest version can be installed using `pip`:
 
@@ -89,12 +94,12 @@ pip install mlrose-ky
 Once it is installed, simply import it like so:
 
 ```python
-import mlrose_ky
+import mlrose_ky as mlrose
 ```
 
 ## Documentation
 
-The official mlrose-ky documentation can be found [here](https://nkapila6.github.io/mlrose-ky/).
+The official `mlrose-ky` documentation can be found [here](https://nkapila6.github.io/mlrose-ky/).
 
 A Jupyter notebook containing the examples used in the documentation is also
 available [here](https://github.com/gkhayes/mlrose/blob/master/tutorial_examples.ipynb).
@@ -114,14 +119,15 @@ You can cite `mlrose-ky` in research publications and reports as follows:
 
 Please also keep the original authors' citations:
 
-* Rollings, A. (2020). ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix***. https://github.com/hiive/mlrose. Accessed: *day month year*.
+* Rollings, A. (2020).
+  ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python, hiive extended remix***. https://github.com/hiive/mlrose. Accessed: *day month year*.
 * Hayes, G. (2019).
   ***mlrose: Machine Learning, Randomized Optimization and SEarch package for Python***. https://github.com/gkhayes/mlrose. Accessed: *day
   month year*.
 
 Thanks to David S. Park for the MIMIC enhancements (from https://github.com/parkds/mlrose).
 
-BibTeX entry:
+BibTeX entries:
 
 ```bibtex
 @misc{Nakamura24,
