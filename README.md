@@ -17,7 +17,7 @@
 | src/mlrose\_ky/algorithms/decay/exp\_decay.py                 |       28 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/decay/geom\_decay.py                |       27 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/ga.py                               |       87 |       22 |     75% |29, 48, 79-91, 209-213, 221-222, 253-254, 288-289 |
-| src/mlrose\_ky/algorithms/gd.py                               |       40 |       34 |     15% |    72-135 |
+| src/mlrose\_ky/algorithms/gd.py                               |       40 |        0 |    100% |           |
 | src/mlrose\_ky/algorithms/hc.py                               |       47 |       10 |     79% |98-100, 113, 117-129, 143-144, 148 |
 | src/mlrose\_ky/algorithms/mimic.py                            |       42 |        1 |     98% |        92 |
 | src/mlrose\_ky/algorithms/mutators/\_\_init\_\_.py            |        4 |        0 |    100% |           |
@@ -93,7 +93,7 @@
 | src/mlrose\_ky/runners/utils.py                               |       14 |        2 |     86% |     37-38 |
 | src/mlrose\_ky/samples/\_\_init\_\_.py                        |        1 |        0 |    100% |           |
 | src/mlrose\_ky/samples/synthetic\_data.py                     |      123 |        0 |    100% |           |
-|                                                     **TOTAL** | **2884** |  **314** | **89%** |           |
+|                                                     **TOTAL** | **2884** |  **280** | **90%** |           |
 
 
 ## Setup coverage badge
