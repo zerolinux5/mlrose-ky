@@ -47,7 +47,8 @@ class TestRHCRunner:
 
     def test_run_with_restart_list(self, runner_kwargs):
         """Test run with restart list."""
-        with patch("mlrose_ky.random_hill_climb") as mock_rhc:
+        module_path = RHCRunner.__module__
+        with patch(f"{module_path}.random_hill_climb") as mock_rhc:
             runner = RHCRunner(**runner_kwargs)
             runner.run()
             mock_rhc.assert_called()

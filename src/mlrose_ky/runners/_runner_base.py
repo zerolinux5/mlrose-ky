@@ -619,8 +619,6 @@ class _RunnerBase(ABC):
         current_iteration_stats = {str(get_description(k)): self._sanitize_value(v) for k, v in self._current_logged_algorithm_args.items()}
         current_iteration_stats.update({str(get_description(k)): self._sanitize_value(v) for k, v in user_data})
 
-        print(current_iteration_stats)
-
         additional_info = {
             k: self._sanitize_value(v)
             for info_dict in (get_info(v) for v in current_iteration_stats.values())

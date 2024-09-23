@@ -278,7 +278,7 @@ class SKMLPRunner(_NNRunnerBase):
         y_test: np.ndarray,
         experiment_name: str,
         seed: int,
-        iteration_list: list[int],
+        iteration_list: np.ndarray | list[int],
         grid_search_parameters: dict[str, Any],
         grid_search_scorer_method: callable = skmt.balanced_accuracy_score,
         early_stopping: bool = True,
@@ -308,7 +308,7 @@ class SKMLPRunner(_NNRunnerBase):
             Name of the experiment.
         seed : int
             Random seed for reproducibility.
-        iteration_list : list of int
+        iteration_list : np.ndarray | list of int
             List of iterations for the experiment.
         grid_search_parameters : dict
             Parameters for grid search.

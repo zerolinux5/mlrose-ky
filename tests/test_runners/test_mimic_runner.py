@@ -49,7 +49,8 @@ class TestMIMICRunner:
 
     def test_run_with_population_sizes_and_keep_percent_list(self, runner_kwargs):
         """Test run with population sizes and keep percent list."""
-        with patch("mlrose_ky.mimic") as mock_mimic:
+        module_path = MIMICRunner.__module__
+        with patch(f"{module_path}.mimic") as mock_mimic:
             runner = MIMICRunner(**runner_kwargs)
             runner.run()
             mock_mimic.assert_called()

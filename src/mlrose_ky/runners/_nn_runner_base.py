@@ -40,7 +40,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         Name of the experiment.
     seed : int
         Random seed to ensure reproducibility.
-    iteration_list : list[int]
+    iteration_list : np.ndarray | list[int]
         List of iteration counts to perform.
     grid_search_parameters : dict
         Hyperparameters for grid search.
@@ -72,7 +72,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
         y_test: np.ndarray,
         experiment_name: str,
         seed: int,
-        iteration_list: list[int],
+        iteration_list: np.ndarray | list[int],
         grid_search_parameters: dict,
         grid_search_scorer_method: Callable,
         cv: int = 5,
@@ -101,7 +101,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             Name of the experiment.
         seed : int
             Random seed to ensure reproducibility.
-        iteration_list : list[int]
+        iteration_list : np.ndarray | list[int]
             List of iteration counts to perform.
         grid_search_parameters : dict
             Hyperparameters for grid search.

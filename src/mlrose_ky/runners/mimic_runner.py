@@ -22,9 +22,10 @@ Example usage:
 
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
-import mlrose_ky
+from mlrose_ky.algorithms import mimic
 from mlrose_ky.decorators import short_name
 from mlrose_ky.runners._runner_base import _RunnerBase
 
@@ -53,12 +54,13 @@ class MIMICRunner(_RunnerBase):
         problem: Any,
         experiment_name: str,
         seed: int,
-        iteration_list: list[int],
+        iteration_list: np.ndarray | list[int],
         population_sizes: list[int],
         keep_percent_list: list[float],
         max_attempts: int = 5,
         generate_curves: bool = True,
         use_fast_mimic: bool = True,
+        output_directory: str = None,
         **kwargs: Any,
     ):
         """
@@ -72,7 +74,7 @@ class MIMICRunner(_RunnerBase):
             Name of the experiment.
         seed : int
             Random seed for reproducibility.
-        iteration_list : list of int
+        iteration_list : np.ndarray | list of int
             List of iterations for the experiment.
         population_sizes : list of int
             List of population sizes to test in the grid search.
@@ -84,6 +86,8 @@ class MIMICRunner(_RunnerBase):
             Whether to generate learning curves.
         use_fast_mimic : bool, optional
             Whether to use the fast MIMIC mode, if available.
+        output_directory : str, optional
+            Directory to save experiment result, default=None.
         """
         super().__init__(
             problem=problem,
@@ -92,6 +96,7 @@ class MIMICRunner(_RunnerBase):
             iteration_list=iteration_list,
             max_attempts=max_attempts,
             generate_curves=generate_curves,
+            output_directory=output_directory,
             **kwargs,
         )
         self.keep_percent_list: list[float] = keep_percent_list
@@ -127,7 +132,5 @@ class MIMICRunner(_RunnerBase):
             A tuple containing two DataFrames: run statistics and run curves
         """
         return super().run_experiment_(
-            algorithm=mlrose_ky.mimic,
-            pop_size=("Population Size", self.population_sizes),
-            keep_pct=("Keep Percent", self.keep_percent_list),
+            algorithm=mimic, pop_size=("Population Size", self.population_sizes), keep_pct=("Keep Percent", self.keep_percent_list)
         )

@@ -49,7 +49,8 @@ class TestSARunner:
 
     def test_run_with_temperature_and_decay_list(self, runner_kwargs):
         """Test run with temperature and decay list."""
-        with patch("mlrose_ky.simulated_annealing") as mock_sa:
+        module_path = SARunner.__module__
+        with patch(f"{module_path}.simulated_annealing") as mock_sa:
             runner = SARunner(**runner_kwargs)
             runner.run()
             mock_sa.assert_called()

@@ -38,9 +38,8 @@ class TestAlgorithmsDecay:
     def test_geom_decay_str_repr(self):
         """Test GeomDecay __str__ and __repr__ methods."""
         schedule = GeomDecay(init_temp=10, decay=0.95, min_temp=1)
-        expected_str = "GeomDecay(init_temp=10, decay=0.95, min_temp=1)"
-        assert str(schedule) == expected_str
-        assert repr(schedule) == expected_str
+        assert str(schedule) == "10"
+        assert repr(schedule) == "GeomDecay(init_temp=10, decay=0.95, min_temp=1)"
 
     def test_geom_decay_eq(self):
         """Test GeomDecay __eq__ method."""
@@ -54,13 +53,13 @@ class TestAlgorithmsDecay:
     def test_geom_decay_get_info(self):
         """Test GeomDecay get_info__ method."""
         schedule = GeomDecay(init_temp=10, decay=0.95, min_temp=1)
-        info = schedule.get_info__(t=5, prefix="test_")
+        info = schedule.get_info__(t=5, prefix="test")
         expected_info = {
-            "test_schedule_type": "geometric",
-            "test_schedule_init_temp": 10,
-            "test_schedule_decay": 0.95,
-            "test_schedule_min_temp": 1,
-            "test_schedule_current_value": 7.737809374999998,
+            "test__schedule_current_value": 7.737809374999998,
+            "test__schedule_decay": 0.95,
+            "test__schedule_init_temp": 10,
+            "test__schedule_min_temp": 1,
+            "test__schedule_type": "geometric",
         }
         assert info == expected_info
 

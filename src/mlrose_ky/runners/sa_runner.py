@@ -30,7 +30,8 @@ from typing import Any, Callable
 import numpy as np
 import pandas as pd
 
-import mlrose_ky
+from mlrose_ky.algorithms import simulated_annealing
+from mlrose_ky.algorithms.decay import GeomDecay
 from mlrose_ky.decorators import short_name
 from mlrose_ky.runners._runner_base import _RunnerBase
 
@@ -59,11 +60,12 @@ class SARunner(_RunnerBase):
         problem: Any,
         experiment_name: str,
         seed: int,
-        iteration_list: list[int],
+        iteration_list: np.ndarray | list[int],
         temperature_list: list[float],
         decay_list: list[Callable] | None = None,
         max_attempts: int = 500,
         generate_curves: bool = True,
+        output_directory: str = None,
         **kwargs: dict,
     ):
         """
@@ -77,7 +79,7 @@ class SARunner(_RunnerBase):
             Name of the experiment.
         seed : int
             Random seed for reproducibility.
-        iteration_list : list of int
+        iteration_list : np.ndarray | list of int
             List of iterations for the experiment.
         temperature_list : list of float
             List of temperature values to test in the grid search.
@@ -87,6 +89,8 @@ class SARunner(_RunnerBase):
             Maximum number of attempts without improvement before stopping.
         generate_curves : bool, optional
             Whether to generate learning curves.
+        output_directory : str, optional
+            Directory to save experiment result, default=None.
         """
         super().__init__(
             problem=problem,
@@ -95,6 +99,7 @@ class SARunner(_RunnerBase):
             iteration_list=iteration_list,
             max_attempts=max_attempts,
             generate_curves=generate_curves,
+            output_directory=output_directory,
             **kwargs,
         )
         self.use_raw_temp = True
@@ -103,7 +108,7 @@ class SARunner(_RunnerBase):
         # Use decay schedules if provided
         if all([np.isscalar(x) for x in temperature_list]):
             if decay_list is None:
-                decay_list = [mlrose_ky.GeomDecay]
+                decay_list = [GeomDecay]
 
             self.decay_list: list[Callable] = decay_list
             self.use_raw_temp = False
@@ -123,4 +128,4 @@ class SARunner(_RunnerBase):
         temperatures = (
             self.temperature_list if self.use_raw_temp else [d(init_temp=t) for t in self.temperature_list for d in self.decay_list]
         )
-        return super().run_experiment_(algorithm=mlrose_ky.simulated_annealing, schedule=("Temperature", temperatures))
+        return super().run_experiment_(algorithm=simulated_annealing, schedule=("Temperature", temperatures))

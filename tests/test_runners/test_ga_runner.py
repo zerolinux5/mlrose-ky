@@ -52,7 +52,8 @@ class TestGARunner:
 
     def test_run_with_population_sizes(self, runner_kwargs):
         """Test run with population sizes."""
-        with patch("mlrose_ky.genetic_alg") as mock_genetic_alg:
+        module_path = GARunner.__module__
+        with patch(f"{module_path}.genetic_alg") as mock_genetic_alg:
             runner = GARunner(**runner_kwargs)
             runner.run()
             mock_genetic_alg.assert_called()
@@ -60,7 +61,8 @@ class TestGARunner:
 
     def test_run_with_mutation_rates(self, runner_kwargs):
         """Test run with mutation rates."""
-        with patch("mlrose_ky.genetic_alg") as mock_genetic_alg:
+        module_path = GARunner.__module__
+        with patch(f"{module_path}.genetic_alg") as mock_genetic_alg:
             runner = GARunner(**runner_kwargs)
             runner.run()
             mock_genetic_alg.assert_called()

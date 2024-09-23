@@ -53,11 +53,11 @@ class GeomDecay:
         if not (0 < self.min_temp < self.init_temp):
             raise ValueError("Minimum temperature must be greater than 0 and less than initial temperature.")
 
-    def __str__(self) -> str:
-        return f"GeomDecay(init_temp={self.init_temp}, decay={self.decay}, min_temp={self.min_temp})"
+    def __str__(self):
+        return str(self.init_temp)
 
-    def __repr__(self) -> str:
-        return self.__str__()
+    def __repr__(self):
+        return f"{self.__class__.__name__}(init_temp={self.init_temp}, decay={self.decay}, min_temp={self.min_temp})"
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, GeomDecay):
@@ -96,16 +96,16 @@ class GeomDecay:
         dict
             A dictionary detailing the decay schedule settings and optionally the current temperature.
         """
-        info_prefix = f"{prefix}schedule_" if prefix else "schedule_"
+        full_prefix = f"{prefix}__schedule_" if len(prefix) else "schedule_"
 
         info = {
-            f"{info_prefix}type": "geometric",
-            f"{info_prefix}init_temp": self.init_temp,
-            f"{info_prefix}decay": self.decay,
-            f"{info_prefix}min_temp": self.min_temp,
+            f"{full_prefix}type": "geometric",
+            f"{full_prefix}init_temp": self.init_temp,
+            f"{full_prefix}decay": self.decay,
+            f"{full_prefix}min_temp": self.min_temp,
         }
 
         if t is not None:
-            info[f"{info_prefix}current_value"] = self.evaluate(t)
+            info[f"{full_prefix}current_value"] = self.evaluate(t)
 
         return info

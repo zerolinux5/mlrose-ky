@@ -64,7 +64,7 @@ class NNGSRunner(_NNRunnerBase):
         y_test: np.ndarray,
         experiment_name: str,
         seed: int,
-        iteration_list: list[int],
+        iteration_list: np.ndarray | list[int],
         algorithm: str,
         grid_search_parameters: dict,
         grid_search_scorer_method: Optional[Callable] = skmt.balanced_accuracy_score,
@@ -95,7 +95,7 @@ class NNGSRunner(_NNRunnerBase):
             Name of the experiment.
         seed : int
             Random seed for reproducibility.
-        iteration_list : list of int
+        iteration_list : np.ndarray | list of int
             List of iterations for the experiment.
         algorithm: str
             The optimization algorithm to be used (e.g., simulated_annealing).

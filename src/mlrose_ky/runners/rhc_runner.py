@@ -22,9 +22,10 @@ Example usage:
 
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
-import mlrose_ky
+from mlrose_ky.algorithms import random_hill_climb
 from mlrose_ky.decorators import short_name
 from mlrose_ky.runners._runner_base import _RunnerBase
 
@@ -48,10 +49,11 @@ class RHCRunner(_RunnerBase):
         problem: Any,
         experiment_name: str,
         seed: int,
-        iteration_list: list[int],
+        iteration_list: np.ndarray | list[int],
         restart_list: list[int],
         max_attempts: int = 500,
         generate_curves: bool = True,
+        output_directory: str = None,
         **kwargs: Any,
     ):
         """
@@ -65,7 +67,7 @@ class RHCRunner(_RunnerBase):
             Name of the experiment.
         seed : int
             Random seed for reproducibility.
-        iteration_list : list of int
+        iteration_list : np.ndarray | list of int
             List of iterations for the experiment.
         restart_list : list of int
             List of restart values to test in the grid search.
@@ -73,6 +75,8 @@ class RHCRunner(_RunnerBase):
             Maximum number of attempts without improvement before stopping.
         generate_curves : bool, optional
             Whether to generate learning curves.
+        output_directory : str, optional
+            Directory to save experiment result, default=None.
         """
         super().__init__(
             problem=problem,
@@ -81,6 +85,7 @@ class RHCRunner(_RunnerBase):
             iteration_list=iteration_list,
             max_attempts=max_attempts,
             generate_curves=generate_curves,
+            output_directory=output_directory,
             **kwargs,
         )
         self.restart_list: list[int] = restart_list
@@ -97,4 +102,4 @@ class RHCRunner(_RunnerBase):
         tuple
             A tuple containing two DataFrames: run statistics and run curves.
         """
-        return super().run_experiment_(algorithm=mlrose_ky.random_hill_climb, restarts=("Restarts", self.restart_list))
+        return super().run_experiment_(algorithm=random_hill_climb, restarts=("Restarts", self.restart_list))
