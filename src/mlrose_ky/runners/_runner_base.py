@@ -57,7 +57,7 @@ class _RunnerBase(ABC):
         problem: Any,
         experiment_name: str,
         seed: int,
-        iteration_list: list[int],
+        iteration_list: np.ndarray | list[int],
         max_attempts: int = 500,
         generate_curves: bool = True,
         output_directory: str = None,
@@ -78,7 +78,7 @@ class _RunnerBase(ABC):
             The name of the experiment.
         seed : int
             Seed for random number generation.
-        iteration_list : list[int]
+        iteration_list : np.ndarray | list[int]
             List of iterations to log results.
         max_attempts : int, optional
             Maximum number of attempts for optimization, default=500.
@@ -97,7 +97,7 @@ class _RunnerBase(ABC):
         """
         self.problem: Any = problem
         self.seed: int = seed
-        self.iteration_list: list[int] = iteration_list
+        self.iteration_list: np.ndarray | list[int] = iteration_list
         self.max_attempts: int = max_attempts
         self.generate_curves: bool = generate_curves
         self.parameter_description_dict: dict[str, str] = {}
@@ -151,16 +151,14 @@ class _RunnerBase(ABC):
         logging.info("*" * len(text))
 
     @staticmethod
-    def _sanitize_value(value: Any) -> str:
+    def _sanitize_value(value):
         """Sanitize a value for logging, handling different types appropriately."""
         if isinstance(value, (tuple, list)):
             sanitized_value = str(value)
         elif isinstance(value, np.ndarray):
             sanitized_value = str(list(value))
-        elif callable(value):
-            sanitized_value = get_short_name(value)
         else:
-            sanitized_value = str(value)  # Handle non-callable types like floats, ints, etc.
+            sanitized_value = get_short_name(value)
 
         return sanitized_value
 
@@ -620,6 +618,8 @@ class _RunnerBase(ABC):
 
         current_iteration_stats = {str(get_description(k)): self._sanitize_value(v) for k, v in self._current_logged_algorithm_args.items()}
         current_iteration_stats.update({str(get_description(k)): self._sanitize_value(v) for k, v in user_data})
+
+        print(current_iteration_stats)
 
         additional_info = {
             k: self._sanitize_value(v)
