@@ -3,19 +3,9 @@
 import pytest
 import warnings
 from unittest.mock import patch
-
 import sklearn.metrics as skmt
 
 from tests.globals import SEED
-
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 from mlrose_ky import SKMLPRunner
 from mlrose_ky.neural import activation
 
@@ -93,11 +83,11 @@ class TestSKMLPRunner:
         """Test that the runner name is set dynamically based on the algorithm."""
         runner = SKMLPRunner(**runner_kwargs)
         expected_name = "skmlp"
-        assert runner.get_runner_name() == expected_name
+        assert runner.runner_name() == expected_name
 
     def test_grid_search_scorer_method(self, runner):
         """Test that the grid search scorer method is set correctly."""
-        assert runner.scorer_method == skmt.balanced_accuracy_score
+        assert runner._scorer_method == skmt.balanced_accuracy_score
 
     def test_max_attempts_respected_during_initialization(self, runner):
         """Test max attempts respected during initialization."""
@@ -112,6 +102,6 @@ class TestSKMLPRunner:
         additional_kwargs = {"custom_arg": "custom_value"}
         runner = SKMLPRunner(**runner_kwargs, **additional_kwargs)
 
-        assert runner.get_runner_name() == "skmlp"
+        assert runner.runner_name() == "skmlp"
         assert runner.classifier.mlp.early_stopping == runner_kwargs["early_stopping"]
         assert runner.classifier.mlp.random_state == SEED

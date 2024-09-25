@@ -7,13 +7,14 @@ where a single crossover point is chosen randomly to combine two parent solution
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-import numpy as np
 from typing import Any, Sequence
 
-from mlrose_ky.algorithms.crossovers._crossover_base import _CrossoverBase
+import numpy as np
+
+from mlrose_ky.algorithms.crossovers._crossover_base import _CrossOverBase
 
 
-class OnePointCrossover(_CrossoverBase):
+class OnePointCrossOver(_CrossOverBase):
     """
     One-point crossover for genetic algorithms.
 
@@ -22,21 +23,21 @@ class OnePointCrossover(_CrossoverBase):
     is exchanged to create a new offspring.
 
     Inherits from:
-    _CrossoverBase : Abstract base class for crossover operations.
+    _CrossOverBase : Abstract base class for crossover operations.
     """
 
-    def __init__(self, optimization_problem: Any) -> None:
+    def __init__(self, opt_prob: Any):
         """
-        Initialize the OnePointCrossover with the given optimization problem.
+        Initialize the OnePointCrossOver with the given optimization problem.
 
         Parameters
         ----------
-        optimization_problem : Any
+        opt_prob : Any
             An instance of the optimization problem related to the genetic algorithm.
         """
-        super().__init__(optimization_problem)
+        super().__init__(opt_prob)
 
-    def mate(self, parent1: Sequence[float], parent2: Sequence[float]) -> np.ndarray:
+    def mate(self, p1: Sequence[float], p2: Sequence[float]) -> np.ndarray:
         """
         Perform the one-point crossover between two parent sequences to produce offspring.
 
@@ -45,9 +46,9 @@ class OnePointCrossover(_CrossoverBase):
 
         Parameters
         ----------
-        parent1 : Sequence[float]
+        p1 : Sequence[float]
             The first parent chromosome sequence.
-        parent2 : Sequence[float]
+        p2 : Sequence[float]
             The second parent chromosome sequence.
 
         Returns
@@ -55,6 +56,5 @@ class OnePointCrossover(_CrossoverBase):
         np.ndarray
             The offspring chromosome resulting from the crossover.
         """
-        crossover_point = 1 + np.random.randint(self.chromosome_length - 1)
-        offspring = np.array([*parent1[:crossover_point], *parent2[crossover_point:]])
-        return offspring
+        crossover_point = 1 + np.random.randint(self._length - 1)
+        return np.array([*p1[:crossover_point], *p2[crossover_point:]])

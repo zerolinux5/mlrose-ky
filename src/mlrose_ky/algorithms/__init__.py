@@ -4,14 +4,14 @@
 # License: BSD 3-clause
 
 from .ga import genetic_alg
-from .sa import simulated_annealing
-from .hc import hill_climb
-from .rhc import random_hill_climb
 from .gd import gradient_descent
+from .hc import hill_climb
 from .mimic import mimic
+from .rhc import random_hill_climb
+from .sa import simulated_annealing
 
-from .crossovers import UniformCrossover, TSPCrossover, OnePointCrossover
+from .crossovers import UniformCrossOver, TSPCrossOver, OnePointCrossOver
 
-from .decay import ArithmeticDecay, CustomDecay, ExponentialDecay, GeometricDecay
+from .decay import ArithDecay, CustomSchedule, ExpDecay, GeomDecay
 
-from .mutators import SingleGeneMutator, DiscreteGeneMutator, SingleShiftMutator, GeneSwapMutator
+from .mutators import ChangeOneMutator, DiscreteMutator, ShiftOneMutator, SwapMutator

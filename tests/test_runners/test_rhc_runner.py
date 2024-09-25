@@ -5,14 +5,6 @@ from unittest.mock import patch
 
 from tests.globals import SEED
 
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 from mlrose_ky import RHCRunner, FlipFlopGenerator
 
 
@@ -55,7 +47,8 @@ class TestRHCRunner:
 
     def test_run_with_restart_list(self, runner_kwargs):
         """Test run with restart list."""
-        with patch("mlrose_ky.random_hill_climb") as mock_rhc:
+        module_path = RHCRunner.__module__
+        with patch(f"{module_path}.random_hill_climb") as mock_rhc:
             runner = RHCRunner(**runner_kwargs)
             runner.run()
             mock_rhc.assert_called()
@@ -77,7 +70,7 @@ class TestRHCRunner:
         runner = RHCRunner(**runner_kwargs, **additional_kwargs)
 
         assert runner.problem == problem
-        assert runner.get_runner_name() == "rhc"
+        assert runner.runner_name() == "rhc"
         assert runner._experiment_name == runner_kwargs["experiment_name"]
         assert runner.seed == runner_kwargs["seed"]
         assert runner.iteration_list == runner_kwargs["iteration_list"]

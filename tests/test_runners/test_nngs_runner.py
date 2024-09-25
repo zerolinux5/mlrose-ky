@@ -5,15 +5,7 @@ from unittest.mock import patch
 
 import sklearn.metrics as skmt
 
-
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
+import mlrose_ky
 from mlrose_ky import NNGSRunner
 from mlrose_ky.decorators import get_short_name
 
@@ -92,7 +84,7 @@ class TestNNGSRunner:
 
     def test_grid_search_scorer_method(self, runner):
         """Test that the grid search scorer method is set correctly."""
-        assert runner.scorer_method == skmt.balanced_accuracy_score
+        assert runner._scorer_method == skmt.balanced_accuracy_score
 
     def test_max_attempts_respected_during_initialization(self, runner):
         """Test max attempts respected during initialization."""

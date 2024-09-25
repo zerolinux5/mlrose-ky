@@ -14,14 +14,6 @@ from sklearn.model_selection import train_test_split
 
 from tests.globals import SEED
 
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 from mlrose_ky.gridsearch import GridSearchMixin
 
 
@@ -59,11 +51,11 @@ class TestGridSearchMixin:
         def custom_scorer(y_true, y_pred):
             return np.mean(y_true == y_pred)
 
-        grid_search_mixin.scorer_method = custom_scorer
-        grid_search_mixin.params = inspect.signature(custom_scorer)  # Force update to match custom scorer
+        grid_search_mixin._scorer_method = custom_scorer
+        grid_search_mixin._params = inspect.signature(custom_scorer)  # Force update to match custom scorer
 
-        assert grid_search_mixin.scorer_method == custom_scorer
-        assert grid_search_mixin.params == inspect.signature(custom_scorer)
+        assert grid_search_mixin._scorer_method == custom_scorer
+        assert grid_search_mixin._params == inspect.signature(custom_scorer)
 
     @pytest.mark.filterwarnings("ignore::UserWarning")
     @pytest.mark.parametrize(
@@ -74,7 +66,7 @@ class TestGridSearchMixin:
         """Should perform grid search with a classifier and return GridSearchCV object"""
         X_train, X_test, y_train, y_test = sample_data
 
-        search_results = grid_search_mixin.perform_grid_search(
+        search_results = grid_search_mixin._perform_grid_search(
             classifier=dummy_classifier, x_train=X_train, y_train=y_train, cv=3, parameters=param_grid
         )
 
@@ -87,7 +79,7 @@ class TestGridSearchMixin:
     def test_handle_empty_input(self, grid_search_mixin):
         """Should handle empty input data gracefully"""
         with pytest.raises(ValueError):
-            grid_search_mixin.perform_grid_search(
+            grid_search_mixin._perform_grid_search(
                 classifier=DummyClassifier(), x_train=np.array([]), y_train=np.array([]), cv=3, parameters={"strategy": ["most_frequent"]}
             )
 
@@ -98,7 +90,7 @@ class TestGridSearchMixin:
         def faulty_scorer(_, __):
             raise TypeError("Intentional TypeError for testing")
 
-        grid_search_mixin.scorer_method = faulty_scorer
+        grid_search_mixin._scorer_method = faulty_scorer
         y_true = np.array([0, 1, 1, 0])
         y_pred = np.array([0, 0, 1, 1])
 
@@ -114,21 +106,21 @@ class TestGridSearchMixin:
         def custom_scorer(y_true, y_pred):
             return np.mean(np.argmax(y_true, axis=1) == np.argmax(y_pred, axis=1))
 
-        grid_search_mixin.scorer_method = custom_scorer
-        grid_search_mixin.params = inspect.signature(custom_scorer)
+        grid_search_mixin._scorer_method = custom_scorer
+        grid_search_mixin._params = inspect.signature(custom_scorer)
         score = grid_search_mixin._grid_search_score_intercept(y_pred=y_pred, y_true=y_true)
 
         assert score == 1.0
 
     def test_apply_argmax_to_multiclass_predictions(self, grid_search_mixin):
         """Should apply argmax to multi-class predictions when get_y_argmax is True"""
-        grid_search_mixin.get_y_argmax = True
+        grid_search_mixin._get_y_argmax = True
 
         y_true = np.array([[0, 1, 0], [1, 0, 0], [0, 0, 1]])
         y_pred = np.array([[0.1, 0.7, 0.2], [0.8, 0.1, 0.1], [0.2, 0.3, 0.5]])
 
         score = grid_search_mixin._grid_search_score_intercept(y_pred=y_pred, y_true=y_true)
-        expected_score = grid_search_mixin.scorer_method(y_pred=y_pred.argmax(axis=1), y_true=y_true.argmax(axis=1))
+        expected_score = grid_search_mixin._scorer_method(y_pred=y_pred.argmax(axis=1), y_true=y_true.argmax(axis=1))
 
         assert score == expected_score
 
@@ -148,8 +140,8 @@ class TestGridSearchMixin:
         def custom_scorer(y_true, y_pred, weight=1.0):
             return np.mean(y_true == y_pred) * weight
 
-        grid_search_mixin.scorer_method = custom_scorer
-        grid_search_mixin.params = inspect.signature(custom_scorer)
+        grid_search_mixin._scorer_method = custom_scorer
+        grid_search_mixin._params = inspect.signature(custom_scorer)
 
         score = grid_search_mixin.score(y_pred=y_pred, y_true=y_true, weight=2.0)
 
@@ -164,7 +156,7 @@ class TestGridSearchMixin:
                 return np.average(y_true == y_pred, weights=sample_weight)
             return np.mean(y_true == y_pred)
 
-        grid_search_mixin.scorer_method = custom_scorer
+        grid_search_mixin._scorer_method = custom_scorer
         y_true = np.array([0, 1, 1, 0])
         y_pred = np.array([0, 0, 1, 1])
         sample_weight = np.array([0.5, 0.5, 1.0, 1.0])
@@ -180,7 +172,7 @@ class TestGridSearchMixin:
         X_train, X_test, y_train, y_test = sample_data
 
         # Perform grid search with verbose output enabled
-        search_results = grid_search_mixin.perform_grid_search(
+        search_results = grid_search_mixin._perform_grid_search(
             dummy_classifier, X_train, y_train, cv=3, parameters=grid_search_parameters, verbose=True
         )
 
@@ -195,7 +187,7 @@ class TestGridSearchMixin:
         X_train, X_test, y_train, y_test = sample_data
 
         # Perform grid search with n_jobs set to 2
-        search_results = grid_search_mixin.perform_grid_search(
+        search_results = grid_search_mixin._perform_grid_search(
             dummy_classifier, X_train, y_train, cv=3, parameters=grid_search_parameters, n_jobs=2
         )
 

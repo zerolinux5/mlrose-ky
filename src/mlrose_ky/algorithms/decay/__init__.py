@@ -3,7 +3,7 @@
 # Author: Genevieve Hayes
 # License: BSD 3-clause
 
-from .arithmetic_decay import ArithmeticDecay
-from .custom_decay import CustomDecay
-from .exponential_decay import ExponentialDecay
-from .geometric_decay import GeometricDecay, GeomDecay
+from .arith_decay import ArithDecay
+from .custom_schedule import CustomSchedule
+from .exp_decay import ExpDecay
+from .geom_decay import GeomDecay

@@ -5,14 +5,6 @@ from unittest.mock import patch
 
 from tests.globals import SEED
 
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 from mlrose_ky import MIMICRunner, FlipFlopGenerator
 
 
@@ -57,7 +49,8 @@ class TestMIMICRunner:
 
     def test_run_with_population_sizes_and_keep_percent_list(self, runner_kwargs):
         """Test run with population sizes and keep percent list."""
-        with patch("mlrose_ky.mimic") as mock_mimic:
+        module_path = MIMICRunner.__module__
+        with patch(f"{module_path}.mimic") as mock_mimic:
             runner = MIMICRunner(**runner_kwargs)
             runner.run()
             mock_mimic.assert_called()
@@ -105,7 +98,7 @@ class TestMIMICRunner:
         runner = MIMICRunner(**runner_kwargs, **additional_kwargs)
 
         assert runner.problem == problem
-        assert runner.get_runner_name() == "mimic"
+        assert runner.runner_name() == "mimic"
         assert runner._experiment_name == runner_kwargs["experiment_name"]
         assert runner.seed == runner_kwargs["seed"]
         assert runner.iteration_list == runner_kwargs["iteration_list"]

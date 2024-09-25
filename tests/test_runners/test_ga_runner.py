@@ -5,14 +5,6 @@ from unittest.mock import patch
 
 from tests.globals import SEED
 
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 from mlrose_ky import GARunner, FlipFlopGenerator
 
 
@@ -60,7 +52,8 @@ class TestGARunner:
 
     def test_run_with_population_sizes(self, runner_kwargs):
         """Test run with population sizes."""
-        with patch("mlrose_ky.genetic_alg") as mock_genetic_alg:
+        module_path = GARunner.__module__
+        with patch(f"{module_path}.genetic_alg") as mock_genetic_alg:
             runner = GARunner(**runner_kwargs)
             runner.run()
             mock_genetic_alg.assert_called()
@@ -68,7 +61,8 @@ class TestGARunner:
 
     def test_run_with_mutation_rates(self, runner_kwargs):
         """Test run with mutation rates."""
-        with patch("mlrose_ky.genetic_alg") as mock_genetic_alg:
+        module_path = GARunner.__module__
+        with patch(f"{module_path}.genetic_alg") as mock_genetic_alg:
             runner = GARunner(**runner_kwargs)
             runner.run()
             mock_genetic_alg.assert_called()
@@ -110,7 +104,7 @@ class TestGARunner:
         runner = GARunner(**runner_kwargs, **additional_kwargs)
 
         assert runner.problem == problem
-        assert runner.get_runner_name() == "ga"
+        assert runner.runner_name() == "ga"
         assert runner._experiment_name == runner_kwargs["experiment_name"]
         assert runner.seed == runner_kwargs["seed"]
         assert runner.iteration_list == runner_kwargs["iteration_list"]

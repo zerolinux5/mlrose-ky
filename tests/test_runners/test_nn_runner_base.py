@@ -10,14 +10,6 @@ from unittest.mock import patch, MagicMock, mock_open
 
 from tests.globals import SEED
 
-try:
-    import mlrose_ky
-except ImportError:
-    import sys
-
-    sys.path.append("..")
-    import mlrose_ky
-
 # noinspection PyProtectedMember
 from mlrose_ky.runners._nn_runner_base import _NNRunnerBase
 
@@ -56,14 +48,14 @@ class TestNNRunnerBase:
         assert runner.seed == SEED
         assert runner.iteration_list == iteration_list
         assert runner.grid_search_parameters == runner.build_grid_search_parameters(grid_search_parameters)
-        assert runner.scorer_method == grid_search_scorer_method
+        assert runner._scorer_method == grid_search_scorer_method
         assert runner.cv == 5
         assert runner.generate_curves is True
         assert runner._output_directory is None
         assert runner.verbose_grid_search is True
         assert runner.override_ctrl_c_handler is True
         assert runner.n_jobs == 1
-        assert runner._replay_mode.value is False
+        assert runner.replay_mode() is False
         assert runner.cv_results_df is None
         assert runner.best_params is None
 
@@ -104,7 +96,7 @@ class TestNNRunnerBase:
 
         with (
             patch.object(runner, "_setup", return_value=None) as mock_setup,
-            patch.object(runner, "perform_grid_search", return_value=mock_grid_search_result) as mock_grid_search,
+            patch.object(runner, "_perform_grid_search", return_value=mock_grid_search_result) as mock_grid_search,
             patch.object(runner, "_tear_down", return_value=None) as mock_tear_down,
             patch.object(runner, "_print_banner", return_value=None) as mock_print_banner,
         ):
@@ -135,7 +127,7 @@ class TestNNRunnerBase:
                 output_directory="test_output",
             )
 
-            runner.get_runner_name = MagicMock(return_value="TestRunner")
+            runner.runner_name = MagicMock(return_value="TestRunner")
             runner.best_params = {"param1": 0.1, "param2": 1}
             runner._output_directory = "test_output"
             runner.replay_mode = MagicMock(return_value=False)
