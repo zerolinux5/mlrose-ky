@@ -3,7 +3,6 @@
 # Authors: Genevieve Hayes (modified by Andrew Rollings, Kyle Nakamura)
 # License: BSD 3-clause
 
-from abc import abstractmethod
 from typing import Callable, Optional
 
 import numpy as np

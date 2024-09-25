@@ -46,7 +46,7 @@ class NNClassifier(_NNBase):
     def __init__(
         self,
         runner: Any,
-        algorithm: str = None,
+        algorithm: Any = None,
         activation: Optional[Callable] = tanh,
         hidden_layer_sizes: list[int] = None,
         max_iters: int = 100,
@@ -74,7 +74,7 @@ class NNClassifier(_NNBase):
         self.bias: bool = bias
         self.early_stopping: bool = early_stopping
         self.clip_max: float = clip_max
-        self.algorithm: str | None = algorithm
+        self.algorithm: Any | None = algorithm
 
         # Result properties
         self.fitness_fn: Any = None
