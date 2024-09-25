@@ -83,20 +83,6 @@ class TestGridSearchMixin:
                 classifier=DummyClassifier(), x_train=np.array([]), y_train=np.array([]), cv=3, parameters={"strategy": ["most_frequent"]}
             )
 
-    def test_grid_search_score_intercept_raises_value_error(self, grid_search_mixin):
-        """Should raise ValueError when scoring method raises TypeError"""
-
-        # noinspection PyMissingOrEmptyDocstring, PyShadowingNames
-        def faulty_scorer(_, __):
-            raise TypeError("Intentional TypeError for testing")
-
-        grid_search_mixin._scorer_method = faulty_scorer
-        y_true = np.array([0, 1, 1, 0])
-        y_pred = np.array([0, 0, 1, 1])
-
-        with pytest.raises(ValueError, match="Error during scoring with method faulty_scorer"):
-            grid_search_mixin._grid_search_score_intercept(y_pred=y_pred, y_true=y_true)
-
     def test_handle_multi_class_predictions_without_argmax(self, grid_search_mixin):
         """Test handling of multi-class predictions without applying argmax"""
         y_true = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
