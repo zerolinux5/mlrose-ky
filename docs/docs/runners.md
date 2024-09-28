@@ -1,7 +1,7 @@
 ## Tutorial - How to use Runners?
 
 >[!INFO] Recommendation
->It is highly recommended that you use the [`Runners class`](https://github.com/knakamura13/mlrose-ky/tree/main/mlrose_ky/runners) for the second assignment on randomized optimizations.
+>It is highly recommended that you use the [`Runners class`](https://github.com/knakamura13/mlrose-ky/tree/main/src/mlrose_ky/runners) for the second assignment on randomized optimizations.
 ### An example with RHC Runner
 The below example illustrates how to initialize an RHCRunner object.
 
