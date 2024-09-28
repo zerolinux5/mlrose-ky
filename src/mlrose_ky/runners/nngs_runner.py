@@ -65,7 +65,7 @@ class NNGSRunner(_NNRunnerBase):
         experiment_name: str,
         seed: int,
         iteration_list: np.ndarray | list[int],
-        algorithm: str,
+        algorithm: Any,
         grid_search_parameters: dict,
         grid_search_scorer_method: Optional[Callable] = skmt.balanced_accuracy_score,
         bias: bool = True,
@@ -97,7 +97,7 @@ class NNGSRunner(_NNRunnerBase):
             Random seed for reproducibility.
         iteration_list : np.ndarray | list of int
             List of iterations for the experiment.
-        algorithm: str
+        algorithm: Any
             The optimization algorithm to be used (e.g., simulated_annealing).
         grid_search_parameters : dict
             Parameters for grid search.

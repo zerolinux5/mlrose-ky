@@ -195,7 +195,7 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
             # Save grid search results to disk
             try:
                 self._dump_pickle_to_disk(search_results, "grid_search_results", final_save=True)
-            except (OSError, IOError, pk.PickleError):
+            except:
                 pass
 
             # Perform predictions and score using the best estimator found in the search
@@ -203,8 +203,8 @@ class _NNRunnerBase(_RunnerBase, GridSearchMixin, ABC):
                 y_pred = search_results.best_estimator_.predict(self.x_test)
                 score = self.score(y_pred=y_pred, y_true=self.y_train)
                 self._print_banner(f"Score: {score}")
-            except Exception as e:
-                logging.error(f"An error occurred while predicting: {e}")
+            except:
+                pass
 
             return self.run_stats_df, self.curves_df, self.cv_results_df, search_results
         except KeyboardInterrupt:
