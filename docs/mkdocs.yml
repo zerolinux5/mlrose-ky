@@ -18,6 +18,12 @@ nav:
       - 2 - What is a Travelling Salesman Problem?: tutorial2.md
       - 3 - What is a Machine Learning Weight Optimization Problem?: tutorial3.md
       - 4 - How to use Runners for Optimization Problems?: runners.md
+
+  - 📝 Examples:
+      - 1 - Runners in code: problem_examples.md
+      - 2 - Fitness function in code: tutorial_examples.md
+      - 3 - Using Neural Network Runners: nn_examples.md
+      - 4 - How to use NeuralNetwork() with sklearn (EASY): nn_class_with_sklearn.md
 theme: 
   name: readthedocs
   color_mode: auto

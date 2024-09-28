@@ -10,7 +10,7 @@ TSP is an NP-hard problem, meaning that, for larger values of n, it is not feasi
 
 Consider the following map containing 8 cities, numbered 0 to 7.
 
-![[images/tutorial2/tsp1.png]]
+![tsp example 1](images/tutorial2/tsp1.png)
 
 A salesperson would like to travel to each of these cities, starting and ending in the same city and visiting each of the other cities exactly once.
 

@@ -1,7 +1,7 @@
 ## Tutorial - How to use Runners?
 
 >[!INFO] Recommendation
->It is highly recommended that you use the [`Runners class`](https://github.com/knakamura13/mlrose-ky/tree/main/mlrose_ky/runners) for the second assignment on randomized optimizations.
+>It is highly recommended that you use the [`Runners class`](https://github.com/knakamura13/mlrose-ky/tree/main/src/mlrose_ky/runners) for the second assignment on randomized optimizations.
 ### An example with RHC Runner
 The below example illustrates how to initialize an RHCRunner object.
 
@@ -53,7 +53,7 @@ The output has the following items:
 The best way to use runners would be to wrap and call the runners in your own function. One example workflow is below.
 
 1. Pass the following input to the function.
-	1. Generate a problem using one of the [problem generators](https://github.com/knakamura13/mlrose-ky/tree/main/mlrose_ky/generators).
+	1. Generate a problem using one of the [problem generators](https://github.com/knakamura13/mlrose-ky/tree/main/src/mlrose_ky/generators).
 	2. Pass in the `seed`, `iteration_list`, `max_attempts`, and `restart_list`
 	3. Other parameters based on algorithm used, e.g. `temperature` and `decay` for Simulated Annealing, etc.
 	4. Number of for loops to run the experiment on, i.e. to plot mean and average.

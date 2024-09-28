@@ -60,7 +60,7 @@ The original `mlrose` was written by Genevieve Hayes and is distributed under th
 
 You can cite mlrose-ky in research publications and reports as follows:
 
-- Nakamura, K. (2024). _**mlrose-ky: Machine Learning, Randomized Optimization, and SEarch package for Python**_. [https://github.com/your-repo-url](https://github.com/your-repo-url). Accessed: _day month year_.
+- Nakamura, K. (2024). _**mlrose-ky: Machine Learning, Randomized Optimization, and SEarch package for Python**_. [https://github.com/knakamura13/mlrose-ky](https://github.com/knakamura13/mlrose-ky). Accessed: _day month year_.
 
 Please also keep the original authors' citations:
 
@@ -75,7 +75,7 @@ BibTeX entry:
  author = {Nakamura, K.},
  title  = {{mlrose-ky: Machine Learning, Randomized Optimization and SEarch package for Python}},
  year   = 2024,
- howpublished = {\url{https://github.com/your-repo-url}},
+ howpublished = {\url{https://github.com/knakamura13/mlrose-ky}},
  note   = {Accessed: day month year}
 }
 
