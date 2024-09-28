@@ -100,7 +100,7 @@ class GridSearchMixin:
         float
             The score calculated by the scoring method.
         """
-        return float(self._grid_search_score_intercept(**kwargs))
+        return self._grid_search_score_intercept(**kwargs)
 
     def _grid_search_score_intercept(self, y_pred: np.ndarray, y_true: np.ndarray, **kwargs: Any) -> float:
         """
@@ -126,7 +126,7 @@ class GridSearchMixin:
         if not self._get_y_argmax and y_pred.ndim > 1 and y_true.ndim > 1:
             try:
                 return float(self._scorer_method(y_pred=y_pred, y_true=y_true, **cleaned_kwargs))
-            except TypeError:
+            except:
                 self._get_y_argmax = True
 
         if self._get_y_argmax:
@@ -135,5 +135,5 @@ class GridSearchMixin:
 
         try:
             return float(self._scorer_method(y_pred=y_pred, y_true=y_true, **cleaned_kwargs))
-        except TypeError as e:
-            raise ValueError(f"Error during scoring with method {self._scorer_method.__name__}: {e}") from e
+        except:
+            return float(self._scorer_method(y_true=y_true, **cleaned_kwargs))
