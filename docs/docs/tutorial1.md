@@ -168,7 +168,7 @@ print(best_fitness)
 
 Running this code gives us a good solution to the 8-Queens problem, but not the optimal solution. The solution found by the algorithm, is pictured below:
 
-![[images/tutorial1/chess2.png]]
+![](images/tutorial1/chess2.png)
 
 The solution state has a fitness value of 2, indicating there are still two pairs of attacking queens on the chessboard (the queens in columns 0 and 3; and the two queens in row 6). Ideally, we would like our solution to have a fitness value of 0.
 
@@ -189,7 +189,8 @@ print(best_fitness)
 
 This time when we run our code, we get a solution with a fitness value of 0, indicating that none of the queens on the chessboard are attacking each other. This can be verified below:
 
-![[images/chess3.png]]
+![](images/tutorial1/chess3.png)
+
 ### Summary
 
 In this tutorial we defined what is meant by an optimization problem and went through a simple example of how mlrose-ky can be used to solve them. This is all you need to solve the majority of optimization problems. However, there is one type of problem we have only briefly touched upon so far: the travelling salesperson optimization problem. In the next tutorial we will go through an example of how mlrose-ky can be used to solve this problem type.
